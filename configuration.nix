@@ -7,7 +7,6 @@
   imports =
     [
       ./hardware-configuration.nix
-      ./nixos-hardware/lenovo/thinkpad/x1/7th-gen
     ];
 
   # enable automatic garbage collection
