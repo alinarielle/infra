@@ -58,7 +58,15 @@
   services.printing.enable = true;
 
   # audio
-  sound.enable = true;
+  sound.enable = false;
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    audio.enable = true;
+    pulse.enable = true;
+  };
 
   programs.zsh.enable = true;
   programs.sway.enable = true;
