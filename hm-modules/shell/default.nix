@@ -34,6 +34,7 @@
 		la = "lsd -a";
 		laa = "lsd -all";
 		share = "curl -F 'f:1=<-' -s -o - ix.io";
+		ip = "ip -c";
 	    };
 	};
 	starship = {

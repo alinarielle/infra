@@ -73,6 +73,7 @@
      ];
      packages = with pkgs; [
        mpv
+       pavucontrol
        proxychains
        alsa-ucm-conf
        sof-firmware
