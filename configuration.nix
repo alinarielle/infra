@@ -78,7 +78,8 @@
      ];
      packages = with pkgs; [
        mpv
-       pavucontrol
+       brightnessctl
+       playerctl
        proxychains
        alsa-ucm-conf
        sof-firmware

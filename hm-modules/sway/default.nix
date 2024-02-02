@@ -15,9 +15,20 @@
 	    bars = []; # set to empty list to disable bar entirely
 	    menu = "kitty sway-launcher-desktop";
 	    keybindings = lib.mkOptionDefault {
+	    	"XF86AudioPlay" = "exec playerctl play-pause";
+		"XF86AudioNext" = "exec playerctl next";
+		"XF86AudioPrev" = "exec playerctl previous";
+
+		"XF86AudioRaiseVolume" = "exec wpctl set-volume @DEFAULT_SINK@ 5%+";
+		"XF86AudioLowerVolume" = " exec wpctl set-volume @DEFAULT_SINK@ 5%-";
+		"XF86AudioMute" = "exec wpctl set-mute @DEFAULT_SINK@ toggle";
+
+		"XF86MonBrightnessUp" = "exec brightnessctl set +5%";
+		"XF86MonBrightnessDown" = "exec brightnessctl set 5%-";
+
 		"${modifier}+P" = "exec grimshot copy area";
-		"${modifier}+shift+x" = "poweroff";
-		"${modifier}+shift+y" = "reboot";
+		"${modifier}+shift+x" = "exec poweroff";
+		"${modifier}+shift+y" = "exec reboot";
 	    };
 	};
 	extraConfigEarly = ''
