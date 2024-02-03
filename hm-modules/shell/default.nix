@@ -28,7 +28,6 @@
 		con = "ping 1.1 && ping archlinux.org";
 		speed = "wget https://hel1-speed.hetzner.com/1GB.bin > /dev/zero";
 		nv = "nvim";
-		cat = "bat -pp";
 		ls = "lsd";
 		ll = "lsd -l";
 		la = "lsd -a";

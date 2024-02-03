@@ -78,6 +78,10 @@
      ];
      packages = with pkgs; [
        mpv
+       p7zip
+       zstd
+       unzip
+       unrar
        brightnessctl
        playerctl
        proxychains
