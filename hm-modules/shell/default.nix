@@ -32,6 +32,7 @@
 		ll = "lsd -l";
 		la = "lsd -a";
 		laa = "lsd -all";
+		cat = "bat";
 		share = "curl -F 'f:1=<-' -s -o - ix.io";
 		ip = "ip -c";
 	    };
