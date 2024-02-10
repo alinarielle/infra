@@ -78,6 +78,13 @@
      ];
      packages = with pkgs; [
        mpv
+       citra-nightly
+       du-dust
+       libnotify
+       wlprop
+       godot_4
+       jdk8
+       blender
        p7zip
        zstd
        unzip

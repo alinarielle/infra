@@ -47,6 +47,8 @@
 	    for_window [class=".*"] border pixel 2
 	    exec --no-startup-id kitty --hold sh -c "hyfetch; zsh"
 	    for_window [title="sway-launcher-desktop"] floating enable, resize set 500 650
+	    for_window [title="Please Confirm..." class="Godot"] floating enable
+	    for_window [title="Create New Project" class="Godot"] floating enable
 	'';
     };
 }
