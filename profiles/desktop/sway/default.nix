@@ -1,5 +1,12 @@
 { lib, ...}:
+
 {
+home-manager.users.alina = {
+    imports = [
+	./waybar.nix
+	./swaylock.nix
+	../librewolf.nix
+    ];
     wayland.windowManager.sway = {
 	enable = true;
 	config = rec {
@@ -51,4 +58,5 @@
 	    for_window [title="Create New Project" class="Godot"] floating enable
 	'';
     };
+};
 }

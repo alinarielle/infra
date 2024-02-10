@@ -1,6 +1,6 @@
 { lib, ...}:
-
 {
+home-manager.users.alina = {
     programs = {
         autojump.enable = true;
 	carapace.enable = true;
@@ -59,4 +59,5 @@
 	    };
 	};
     };
+};
 }

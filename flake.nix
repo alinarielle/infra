@@ -1,5 +1,5 @@
 {
-  description = "alina's NixOS flake for lilium";
+  description = "alina's NixOS flake";
 
   inputs = {
     nixos-hardware.url = "github:NixOS/nixos-hardware/master"; 
@@ -19,7 +19,7 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.alina = import ./hm-modules;
+            home-manager.users.alina = import ./home.nix;
 
             # Optionally, use home-manager.extraSpecialArgs to pass
             # arguments to home.nix

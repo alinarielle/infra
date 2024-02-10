@@ -7,6 +7,9 @@
   imports =
     [
       ./hardware-configuration.nix
+      ../../profiles/desktop/sway
+      ../../profiles/base
+      ../../profiles/devel.nix
     ];
 
   # enable automatic garbage collection
@@ -79,7 +82,6 @@
      packages = with pkgs; [
        mpv
        citra-nightly
-       du-dust
        libnotify
        wlprop
        godot_4
@@ -234,13 +236,6 @@
 	nerdfonts
    ];
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    neovim
-    wget
-    swaylock
-  ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

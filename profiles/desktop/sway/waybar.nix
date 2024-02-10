@@ -1,7 +1,12 @@
+{pkgs, ...}:
 {
+    wayland.windowManager.sway.config.startup = [{
+      command = "${pkgs.waybar}/bin/waybar";
+      always = false;
+    }];
     programs.waybar = {
 	enable = true;
-	systemd.enable = true;
+	systemd.enable = false;
 	settings = {
 	    mainBar = {
 		layer = "top";
@@ -31,7 +36,6 @@
 		battery = {
 			format = "{icon} {capacity}%";
 			format-time = "{H}h {M}min";
-			format-icons = '' ["", "", "", "", ""] '';
 			max-length = "25";
 			states = ''
 			    "warning": 30,

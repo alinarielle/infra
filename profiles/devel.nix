@@ -1,0 +1,29 @@
+{pkgs, ...}:
+{
+    users.users.alina.packages = with pkgs; [
+	gcc
+	git
+	checksec
+	binwalk
+	colmena
+	apktool
+	cargo
+	rustup
+	chntpw
+	thc-hydra
+	john
+	ffmpeg
+	fnm
+	metasploit
+    	languagetool
+    	sherlock
+    	rustup
+    	sccache
+    	radare2
+    	sslsplit
+   	subfinder
+    	ventoy
+    	woeusb
+    	android-tools
+    ];
+}
