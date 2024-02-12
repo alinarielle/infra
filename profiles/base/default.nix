@@ -17,6 +17,7 @@ users.users.alina.packages = with pkgs; [
     lsof
     ranger
     rsync
+    rclone
     
     # archive tools
     p7zip
@@ -47,6 +48,7 @@ users.users.alina.packages = with pkgs; [
 
     # utils
     usbutils
+    appimage-run
     tmate
     tmux
     zellij

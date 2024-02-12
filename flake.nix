@@ -14,7 +14,7 @@
         system = "x86_64-linux";
         modules = [
 	  nixos-hardware.nixosModules.lenovo-thinkpad-x1-7th-gen
-          ./hosts
+          ./hosts/lilium
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
