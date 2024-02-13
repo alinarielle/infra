@@ -81,6 +81,7 @@
      ];
      packages = with pkgs; [
        mpv
+       colmena
        citra-nightly
        libnotify
        wlprop
