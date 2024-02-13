@@ -6,6 +6,7 @@ home-manager.users.alina = {
 	./waybar.nix
 	./swaylock.nix
 	../librewolf.nix
+	../cursor.nix
     ];
     wayland.windowManager.sway = {
 	enable = true;
@@ -39,10 +40,6 @@ home-manager.users.alina = {
 	    };
 	};
 	extraConfigEarly = ''
-	    blur on
-	    blur_xray on
-	    blur_passes 2
-	    blur_radius 5
 	    gaps inner 0
 	    smart_gaps on
 	    input * {

@@ -104,7 +104,6 @@
        gnupg
        pinentry
        pinentry-qt
-       swayfx
        tor-browser
        krita
        librewolf
