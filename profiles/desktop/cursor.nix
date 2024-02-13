@@ -1,5 +1,6 @@
+{ pkgs, lib, ... }:
 {
-home-manager.users.alina.home.pointerCursor = 
+home.pointerCursor = 
     let 
       getFrom = url: hash: name: {
           gtk.enable = true;
@@ -17,7 +18,7 @@ home-manager.users.alina.home.pointerCursor =
         };
     in
       getFrom 
-        "https://github.com/ful1e5/Bibata_Cursor/releases/download/v2.0.6/Bibata-Original-Ice.tar.xz"
-        "${lib.fakeSha256}"
-        "Bibita-Original-Ice";
+        "https://github.com/ful1e5/Bibata_Cursor/releases/download/v2.0.6/Bibata-Modern-Ice.tar.xz"
+        "sha256-wCrIjQo7eKO+piIz88TZDpMnc51iCWDYBR7HBV8/CPI="
+        "Bibita-Modern-Ice";
 }

@@ -47,7 +47,7 @@ home-manager.users.alina = {
 		xkb_layout us
 		}
 	    output eDP-1 scale 1.5
-	    output * bg #201622 solid_color
+	    output * bg wallpaper.png fill
 	    for_window [class=".*"] border pixel 2
 	    exec --no-startup-id kitty --hold sh -c "hyfetch; zsh"
 	    for_window [title="sway-launcher-desktop"] floating enable, resize set 500 650
