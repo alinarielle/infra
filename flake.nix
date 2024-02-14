@@ -9,7 +9,13 @@
     colmena.url = "github:zhaofengli/colmena";
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, nixos-hardware, colmena, ... }: {
+  outputs = inputs@{ self, nixpkgs, home-manager, nixos-hardware, colmena, ... }: 
+  let
+	hostsDir = "${./.}/hosts";
+	hostNames = with nixpkgs.lib; attrNames
+      	    (filterAttrs (name: type: type == "directory") (builtins.readDir hostsDir));
+  in
+  {
     colmena = { 
       meta = {
         nixpkgs = import nixpkgs {
@@ -24,8 +30,7 @@
 	  home-manager.nixosModules.home-manager
 	];
       };
-      lilium = {};
-    };
+    } // nixpkgs.lib.listToAttrs (map (name: nixpkgs.lib.nameValuePair name {}) hostNames);
     nixosConfigurations = ( colmena.lib.makeHive self.colmena ).nodes;
   };
 }
