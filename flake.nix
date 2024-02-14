@@ -9,24 +9,23 @@
     colmena.url = "github:zhaofengli/colmena";
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, nixos-hardware, colmena, ... }: {
-    nixosConfigurations = {
-      lilium = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-	  nixos-hardware.nixosModules.lenovo-thinkpad-x1-7th-gen
-          ./hosts/lilium
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.alina = import ./home.nix;
-
-            # Optionally, use home-manager.extraSpecialArgs to pass
-            # arguments to home.nix
-          }
-        ];
+  outputs = inputs@{ self, nixpkgs, home-manager, nixos-hardware, colmena, ... }: {
+    colmena = { 
+      meta = {
+        nixpkgs = import nixpkgs {
+	  system = "x86_64-linux";
+	  overlays = [];
+	};
+	specialArgs = { inherit inputs; };
       };
+      defaults = { config, name, ... }: {
+	imports = [
+	  (./. + "/hosts/${name}")
+	  home-manager.nixosModules.home-manager
+	];
+      };
+      lilium = {};
     };
+    nixosConfigurations = ( colmena.lib.makeHive self.colmena ).nodes;
   };
 }
