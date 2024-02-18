@@ -21,9 +21,6 @@
   # activate exerimental features
   nix.settings.experimental-features = [ "nix-command" "flakes"];
 
-  # zsh completion
-  environment.pathsToLink = [ "/share/zsh" ];
-
   # define a systemd service for ly
   systemd.services.ly = {
     description = "TUI display manager";
@@ -66,7 +63,6 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
    users.users.alina = {
      isNormalUser = true;
-     shell = pkgs.zsh;
      extraGroups = [ 
      "wheel"
      "networkmanager"

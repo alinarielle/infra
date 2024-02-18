@@ -17,12 +17,10 @@ users.users.alina.packages = with pkgs; [
     wev
     wf-recorder
     slurp
+    sway-launcher-desktop
 ];
 
 hardware.opengl.enable = true;
-
-xdg.portal.enable = true;
-xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-wlr ];
 
 environment.sessionVariables = {
     SDL_VIDEODRIVER = "wayland";
@@ -46,7 +44,7 @@ home-manager.users.alina = {
 	    };
 	    modifier = "Mod4"; # set mod to meta
 	    bars = []; # set to empty list to disable bar entirely
-	    menu = "kitty ${pkgs.sway-launcher-desktop}";
+	    menu = "kitty sway-launcher-desktop";
 	    keybindings = lib.mkOptionDefault {
 	    	"XF86AudioPlay" = "exec playerctl play-pause";
 		"XF86AudioNext" = "exec playerctl next";
