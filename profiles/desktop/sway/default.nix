@@ -1,9 +1,28 @@
-{ lib, ...}:
+{ lib, pkgs, ...}:
 
 {
+users.users.alina.packages = with pkgs; [
+    qt5.wayland
+    waypipe
+    wl-clipboard
+    wlprop
+    wev
+];
+
+hardware.opengl.enable = true;
+
+environment.sessionVariables = {
+    SDL_VIDEODRIVER = "wayland";
+    QT_QPA_PLATFORM = "wayland";
+    QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
+    _JAVA_AWT_WM_NONREPARENTING = "1";
+    NIXOS_OZONE_WL = "1";
+};
+
 home-manager.users.alina = {
     imports = [
 	./waybar.nix
+	../swaylock
 	../librewolf.nix
 	../cursor.nix
     ];
