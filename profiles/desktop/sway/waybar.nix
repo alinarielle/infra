@@ -1,51 +1,19 @@
-{pkgs, ...}:
-{
+{ config, lib, pkgs, ... }:
+
+let
+  cfg = config.services.waybar;
+  styles = ./waybar-style.css;
+  configFile = pkgs.writeText "waybar-config.json" (builtins.toJSON cfg.config);
+in {
+  users.users.alina.packages = with pkgs; [ waybar ];
+  home-manager.users.alina = {
+    xdg.configFile."waybar/config".source = ./waybar-config.json;
+    xdg.configFile."waybar/style.css".source = ./waybar-style.css;
     wayland.windowManager.sway.config.startup = [{
       command = "${pkgs.waybar}/bin/waybar";
       always = false;
     }];
-    programs.waybar = {
-	enable = true;
-	systemd.enable = false;
-	settings = {
-	    mainBar = {
-		layer = "top";
-		position = "top";
-		height = 25;
-		output = "eDP-1";
-		modules-left = [ "sway/workspaces" "sway/mode" "sway/scratchpad"];
-		modules-center = ["sway/window"];
-		modules-right = ["tray" "disk" "pulseaudio" "network" "cpu"
-		"memory" "temperature" "backlight" "battery" "clock"];
-	
-		"sway/scratchpad" = {
-		    format  = "{icon} {count}";
-		    show-empty = "false";
-		    format-icons = '' ["", ""] '';
-		    tooltip = "true";
-		    tooltip-format = ''"{app}: {title}"'';
-		};
-		tray = {
-		    #icon-size = "21";
-		    spacing = "0";
-		};
-		"sway/workspaces" = {
-		    disable-scroll = true;
-		    all-outputs = true;
-		};
-		battery = {
-			format = "{icon} {capacity}%";
-			format-time = "{H}h {M}min";
-			max-length = "25";
-			states = ''
-			    "warning": 30,
-			    "critical": 15
-			'';
-		};
-		clock = {
-		    format = "{:%Y/%m/%d %H:%M}";
-		};
-	    };
-	};
-    };
+  };
 }
+
+# stolen from leona because her approach is just way better and i gave up on writing everything myself from scratch :3c
