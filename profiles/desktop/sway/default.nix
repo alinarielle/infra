@@ -1,6 +1,14 @@
 { lib, pkgs, ...}:
 
 {
+
+    imports = [
+	./waybar.nix
+	./swaylock.nix
+	../librewolf.nix
+	../cursor.nix
+    ];
+
 users.users.alina.packages = with pkgs; [
     qt5.qtwayland
     waypipe
@@ -25,12 +33,6 @@ environment.sessionVariables = {
 };
 
 home-manager.users.alina = {
-    imports = [
-	./waybar.nix
-	./swaylock.nix
-	../librewolf.nix
-	../cursor.nix
-    ];
     wayland.windowManager.sway = {
 	enable = true;
 	config = rec {

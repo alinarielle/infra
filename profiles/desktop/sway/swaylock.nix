@@ -1,5 +1,6 @@
 { pkgs, ... }:
 {
+home-manager.users.alina = {
     programs.swaylock = {
 	enable = true;
 	settings = {
@@ -21,4 +22,5 @@
             	{ timeout = 300; command = lockCommand; }
             ];	
     };
+};
 }

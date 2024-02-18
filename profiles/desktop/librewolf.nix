@@ -1,4 +1,5 @@
 {
+home-manager.users.alina = {
     programs.librewolf = {
 	enable = true;
 	settings = {
@@ -8,4 +9,5 @@
 	    "browser.search.suggest.enabled" = true;
 	};
     };
+};
 }
