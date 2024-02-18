@@ -7,6 +7,8 @@ users.users.alina.packages = with pkgs; [
     wl-clipboard
     wlprop
     wev
+    wf-recorder
+    slurp
 ];
 
 hardware.opengl.enable = true;
