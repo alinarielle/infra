@@ -7,6 +7,7 @@ home-manager.users.alina = {
 	    "browser.tabs.insertAfterCurrent" = true;
 	    "browser.bookmarks.editDialog.showForNewBookmarks" = false;
 	    "browser.search.suggest.enabled" = true;
+	    "pdfjs.viewerCssTheme" = 2;
 	};
     };
 };

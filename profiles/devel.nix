@@ -19,6 +19,7 @@
     	sherlock
     	rustup
     	sccache
+	crate2nix
     	radare2
     	sslsplit
    	subfinder
