@@ -25,9 +25,6 @@
   # activate exerimental features
   nix.settings.experimental-features = [ "nix-command" "flakes"];
 
-  # enable native wayyland support for chrome and electron
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
-
   # zsh completion
   environment.pathsToLink = [ "/share/zsh" ];
 
@@ -85,7 +82,6 @@
        colmena
        citra-nightly
        libnotify
-       wlprop
        godot_4
        jdk8
        blender
@@ -112,12 +108,10 @@
        ly
        exif
        alsa-utils
-       sway-launcher-desktop
        git
        element-desktop
        colmena
        nerdfonts
-       wl-clipboard
        pango
        fontconfig
        bluez

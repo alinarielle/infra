@@ -2,7 +2,7 @@
 
 {
 users.users.alina.packages = with pkgs; [
-    qt5.wayland
+    qt5.qtwayland
     waypipe
     wl-clipboard
     wlprop
@@ -22,7 +22,7 @@ environment.sessionVariables = {
 home-manager.users.alina = {
     imports = [
 	./waybar.nix
-	../swaylock
+	./swaylock.nix
 	../librewolf.nix
 	../cursor.nix
     ];
@@ -39,7 +39,7 @@ home-manager.users.alina = {
 	    };
 	    modifier = "Mod4"; # set mod to meta
 	    bars = []; # set to empty list to disable bar entirely
-	    menu = "kitty sway-launcher-desktop";
+	    menu = "kitty ${pkgs.sway-launcher-desktop}";
 	    keybindings = lib.mkOptionDefault {
 	    	"XF86AudioPlay" = "exec playerctl play-pause";
 		"XF86AudioNext" = "exec playerctl next";
