@@ -62,6 +62,8 @@ home-manager.users.alina = {
 		"${modifier}+P" = "exec grimshot copy area";
 		"${modifier}+shift+x" = "exec poweroff";
 		"${modifier}+shift+y" = "exec reboot";
+
+		"${modifier}+l" = "exec loginctl lock-session";
 	    };
 	};
 	extraConfigEarly = ''

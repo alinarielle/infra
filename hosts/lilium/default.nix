@@ -1,7 +1,3 @@
-# Edit this configuration file to define what should be installed on
-# your system. Help is available in the configuration.nix(5) man page, on
-# https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
-
 { config, lib, pkgs, inputs, ... }:
 {
   imports =
@@ -66,8 +62,6 @@
     audio.enable = true;
   };
 
-  programs.zsh.enable = true;
-  programs.sway.enable = true;
   programs.steam.enable = true;
   # Define a user account. Don't forget to set a password with ‘passwd’.
    users.users.alina = {
