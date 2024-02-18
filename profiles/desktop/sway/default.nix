@@ -4,7 +4,6 @@
 home-manager.users.alina = {
     imports = [
 	./waybar.nix
-	./swaylock.nix
 	../librewolf.nix
 	../cursor.nix
     ];
