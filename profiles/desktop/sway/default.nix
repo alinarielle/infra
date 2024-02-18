@@ -11,6 +11,9 @@ users.users.alina.packages = with pkgs; [
 
 hardware.opengl.enable = true;
 
+xdg.portal.enable = true;
+xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-wlr ];
+
 environment.sessionVariables = {
     SDL_VIDEODRIVER = "wayland";
     QT_QPA_PLATFORM = "wayland";
