@@ -21,6 +21,7 @@ users.users.alina.packages = with pkgs; [
 ];
 
 hardware.opengl.enable = true;
+programs.sway.enable = true;
 
 environment.sessionVariables = {
     SDL_VIDEODRIVER = "wayland";
