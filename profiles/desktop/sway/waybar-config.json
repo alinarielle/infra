@@ -15,6 +15,10 @@
     "battery",
     "clock"
   ],
+  "sway/window": {
+	"format": "{title}",
+	"max-length": 330
+  },
   "cpu": {
     "format": "  {usage}%"
   },
@@ -64,6 +68,6 @@
     "critical-threshold": 70,
     "format": " {temperatureC}°C",
     "interval": 1,
-    "hwmon-path": "/sys/devices/platform/coretemp.0/hwmon/hwmon5"
+    "hwmon-path": "/sys/devices/platform/coretemp.0/hwmon/hwmon6/temp1_input"
   }
 }

@@ -7,7 +7,6 @@
 	binwalk
 	colmena
 	apktool
-	cargo
 	rustup
 	chntpw
 	thc-hydra
