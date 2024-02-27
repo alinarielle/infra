@@ -45,7 +45,7 @@ home-manager.users.alina = {
 	    };
 	    modifier = "Mod4"; # set mod to meta
 	    bars = []; # set to empty list to disable bar entirely
-	    menu = "kitty sway-launcher-desktop";
+	    menu = "${terminal} sway-launcher-desktop";
 	    keybindings = lib.mkOptionDefault {
 	    	"XF86AudioPlay" = "exec playerctl play-pause";
 		"XF86AudioNext" = "exec playerctl next";
@@ -71,7 +71,11 @@ home-manager.users.alina = {
 	    input * {
 	    	xkb_options compose:ralt
 		xkb_layout us
-		}
+		dwt disabled
+		dwtp disabled
+		tap enabled
+		events enabled
+	    }
 	    output eDP-1 scale 1.5
 	    output * bg wallpaper.png fill
 	    for_window [class=".*"] border pixel 2

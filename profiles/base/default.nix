@@ -23,6 +23,7 @@ users.users.alina.packages = with pkgs; [
     du-dust
     lsd
     bat
+    mdcat
     hexyl
     lsof
     ranger

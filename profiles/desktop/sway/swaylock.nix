@@ -15,7 +15,7 @@ home-manager.users.alina = {
 	in {
     	   enable = true;
       	   events = [
-                { event = "before-sleep"; command = lockCommand; }
+                #{ event = "before-sleep"; command = lockCommand; }
         	{ event = "lock"; command = lockCommand; }
             ];
             timeouts = [
