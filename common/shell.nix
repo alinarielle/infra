@@ -3,6 +3,9 @@
 users.users.alina.shell = pkgs.zsh;
 programs.zsh.enable = true;
 environment.pathsToLink = ["/share/zsh" ];
+
+environment.systemPackages = with pkgs; [ nix-your-shell ];
+
 home-manager.users.alina = {
     programs = {
         autojump.enable = true;
@@ -27,6 +30,11 @@ home-manager.users.alina = {
 		extended = true;
 		ignoreSpace = true;
 	    };
+	    initExtra = ''
+		if command -v nix-your-shell > /dev/null; then
+  		  nix-your-shell zsh | source /dev/stdin
+		fi	
+	    '';
 	    shellGlobalAliases = {
 		con = "ping 1.1 && ping archlinux.org";
 		speed = "wget https://hel1-speed.hetzner.com/1GB.bin > /dev/zero";
@@ -36,7 +44,7 @@ home-manager.users.alina = {
 		la = "lsd -a";
 		laa = "lsd -all";
 		cat = "bat";
-		share = "curl -F 'f:1=<-' -s -o - ix.io";
+		#share = "curl -F 'f:1=<-' -s -o - ix.io"; ix.io went out of business, replace with own pastebin later TODO
 		ip = "ip -c";
 	    };
 	};
@@ -46,19 +54,21 @@ home-manager.users.alina = {
 		add_newline = false;
 		format = lib.concatStrings [
 		    "$username"
-		    "$hostname"
-		    "$directory"
-		    "$git_branch"
-		    "$git_status" 
-		    "$\{custom.direnv\}"
-		    "$fill"
-		    "$status"
-		    "$cmd_duration"
-		    "$line_break"
-		    "$character"
+		    "$os"
+		    "$all"
 		];
 		username = {
+		    show_always = true;
+		    format = "[$user]($style)::";
+		    style_root = "bold red";
+		    style_user = "bold cyan";
 		};
+		os = {
+		    disabled = false;
+		    style = "bold cyan";
+		    format = " ($style)";
+		};
+		sudo.disabled = false;
 	    };
 	};
     };

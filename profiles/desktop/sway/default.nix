@@ -1,4 +1,4 @@
-{ lib, pkgs, ...}:
+{ lib, pkgs, config, ...}:
 
 {
 
@@ -7,6 +7,7 @@
 	./swaylock.nix
 	../librewolf.nix
 	../cursor.nix
+	../theme.nix
     ];
 
 users.users.alina.packages = with pkgs; [
@@ -36,12 +37,14 @@ home-manager.users.alina = {
 	enable = true;
 	config = rec {
 	    terminal = "kitty";
-            colors.focused = {
-		background = "#285577";
-		border = "#00b3ff";
-		childBorder = "#00b3ff";
-		indicator = "#2e9ef4";
-		text = "#ffffff";
+            colors = { 
+	    	focused = {
+		    background = "#${config.colorScheme.palette.base06}"; # ++++
+		    border = "#${config.colorScheme.palette.base0D}"; # blue
+		    childBorder = "#${config.colorScheme.palette.base0D}"; # blue
+		    indicator = "#${config.colorScheme.palette.base0D}"; # blue
+		    text = "#${config.colorScheme.palette.base06}"; # ++++
+	        };
 	    };
 	    modifier = "Mod4"; # set mod to meta
 	    bars = []; # set to empty list to disable bar entirely

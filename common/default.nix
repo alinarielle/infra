@@ -80,6 +80,7 @@ users.users.alina.packages = with pkgs; [
     btrfs-progs
     hdparm
     strace
+    nix-output-monitor
 
     # monitoring
     btop

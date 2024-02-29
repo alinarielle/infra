@@ -7,9 +7,10 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     colmena.url = "github:zhaofengli/colmena";
+    nix-colors.url = "github:misterio77/nix-colors";
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, nixos-hardware, colmena, ... }: 
+  outputs = inputs@{ self, nixpkgs, home-manager, nixos-hardware, colmena, nix-colors, ... }: 
   let
 	hostsDir = "${./.}/hosts";
 	hostNames = with nixpkgs.lib; attrNames
