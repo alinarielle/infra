@@ -8,6 +8,7 @@
 	../librewolf.nix
 	../cursor.nix
 	../theme.nix
+	../mako.nix
     ];
 
 users.users.alina.packages = with pkgs; [
@@ -37,13 +38,17 @@ home-manager.users.alina = {
 	enable = true;
 	config = rec {
 	    terminal = "kitty";
-            colors = { 
+            colors = 
+	    let 
+	        color = config.colorScheme.palette;
+	    in
+	    { 
 	    	focused = {
-		    background = "#${config.colorScheme.palette.base06}"; # ++++
-		    border = "#${config.colorScheme.palette.base0D}"; # blue
-		    childBorder = "#${config.colorScheme.palette.base0D}"; # blue
-		    indicator = "#${config.colorScheme.palette.base0D}"; # blue
-		    text = "#${config.colorScheme.palette.base06}"; # ++++
+		    background = "#${color.white}";
+		    border = "#${color.blue}";
+		    childBorder = "#${color.blue}";
+		    indicator = "#${color.blue}";
+		    text = "#${color.white}";
 	        };
 	    };
 	    modifier = "Mod4"; # set mod to meta

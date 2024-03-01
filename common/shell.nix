@@ -33,7 +33,8 @@ home-manager.users.alina = {
 	    initExtra = ''
 		if command -v nix-your-shell > /dev/null; then
   		  nix-your-shell zsh | source /dev/stdin
-		fi	
+		fi
+		[ "$(tty)" = "/dev/tty1" ] && exec "sway"
 	    '';
 	    shellGlobalAliases = {
 		con = "ping 1.1 && ping archlinux.org";
