@@ -42,4 +42,7 @@
     
     hardware.bluetooth.enable = true;
     hardware.bluetooth.powerOnBoot = true;
+
+    nix.daemonCPUSchedPolicy = mkDefault "idle";
+    nix.daemonIOSchedClass = mkDefault "idle";
 }
