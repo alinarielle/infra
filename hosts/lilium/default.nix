@@ -13,7 +13,6 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.initrd.luks.devices.main.device = "/dev/disk/by-uuid/e1743e69-f6f7-4497-895f-7b5bc2fa5ef0";
-  boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelParams = [ "snd-intel-dspcfg.dsp_driver=1"];
   boot.extraModprobeConfig = ''
   options snd-intel-dspcfg dsp_driver=1
