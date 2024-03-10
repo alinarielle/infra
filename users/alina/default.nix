@@ -2,6 +2,7 @@
     imports = [
 	./shell.nix
 	./pkgs.nix
+	./nvim.nix
     ];
     users.users.alina = {
 	isNormalUser = true;

@@ -9,9 +9,11 @@
     colmena.url = "github:zhaofengli/colmena";
     nix-colors.url = "github:misterio77/nix-colors";
     hyprland.url = "github:spikespaz/hyprland-nix";
+    nixvim.url = "github:nix-community/nixvim";
+    nixvim.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, nixos-hardware, colmena, nix-colors, hyprland, ... }: 
+  outputs = inputs@{ self, nixpkgs, home-manager, nixos-hardware, colmena, nix-colors, hyprland, nixvim, ... }: 
   let
 	hostsDir = "${./.}/hosts";
 	hostNames = with nixpkgs.lib; attrNames
