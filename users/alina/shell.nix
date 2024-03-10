@@ -6,6 +6,7 @@ environment.pathsToLink = ["/share/zsh" ];
 
 environment.systemPackages = with pkgs; [ nix-your-shell ];
 
+users.users.alina.packages = with pkgs; [ zsh nushell ];
 home-manager.users.alina = {
     programs = {
         autojump.enable = true;

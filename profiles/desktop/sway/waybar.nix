@@ -14,6 +14,9 @@ in {
       always = false;
     }];
   };
+  programs.sway.extraPackages = with pkgs; [
+    waybar
+  ];
 }
 
 # stolen from leona because her approach is just way better and i gave up on writing everything myself from scratch :3c

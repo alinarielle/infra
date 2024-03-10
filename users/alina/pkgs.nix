@@ -1,5 +1,9 @@
 {pkgs, ...}:
-let
+let 
+    chat = with pkgs; [
+	gomuks
+	irssi
+    ];
     editors = with pkgs; [
 	neovim
 	helix
@@ -24,7 +28,10 @@ let
     ];
     networking = with pkgs; [
     	proxychains
+	tcpdump
+	termshark
     	tor
+	wireshark
     	wireguard-tools
     	mullvad
     	mtr
@@ -47,6 +54,9 @@ let
     ];
     miscutils = with pkgs; [
 	usbutils
+	imagemagick
+	pferd
+	hyfetch
     	appimage-run
     	tmate
 	tmux
@@ -72,10 +82,14 @@ let
 	languagetool
 	woeusb
 	ffmpeg
+	exif
+	pango
+	fontconfig
     ];
     monitoring = with pkgs; [
 	btop
 	htop
+	powertop
     ];
     crypto = with pkgs; [
 	pinentry
@@ -85,6 +99,7 @@ let
 	gcc
 	git
 	checksec
+	wfuzz
 	binwalk
 	colmena
 	apktool
@@ -96,6 +111,12 @@ let
     	radare2
     	android-tools
 	gdb
+	libnotify
+	godot_4
+	jdk8
+	jdk21
+	jdk17
+	blender
     ];
     security = with pkgs; [
 	checksec
@@ -112,5 +133,5 @@ let
     ];
 in
 {
-    users.users.alina.packages = fstools ++ archivetools ++ networking ++ miscutils ++ monitoring ++ crypto ++ devel ++ security;
+    users.users.alina.packages = chat ++ editors ++ fstools ++ archivetools ++ networking ++ miscutils ++ monitoring ++ crypto ++ devel ++ security;
 }

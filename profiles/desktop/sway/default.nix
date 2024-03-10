@@ -1,7 +1,4 @@
-{ lib, pkgs, config, ...}:
-
-{
-
+{ lib, pkgs, config, ...}: {
     imports = [
 	./waybar.nix
 	./swaylock.nix
@@ -9,29 +6,16 @@
 	../cursor.nix
 	../theme.nix
 	../mako.nix
+	../wayland.nix
     ];
 
-users.users.alina.packages = with pkgs; [
-    qt5.qtwayland
-    waypipe
-    wl-clipboard
-    wlprop
-    wev
-    wf-recorder
-    slurp
-    sway-launcher-desktop
-];
+    hardware.opengl.enable = true;
+    programs.sway.enable = true;
 
-hardware.opengl.enable = true;
-programs.sway.enable = true;
-
-environment.sessionVariables = {
-    SDL_VIDEODRIVER = "wayland";
-    QT_QPA_PLATFORM = "wayland";
-    QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
-    _JAVA_AWT_WM_NONREPARENTING = "1";
-    NIXOS_OZONE_WL = "1";
-};
+    programs.sway.extraPackages = with pkgs; [
+        swaybg
+	kitty
+    ];
 
 home-manager.users.alina = {
     wayland.windowManager.sway = {
@@ -54,19 +38,24 @@ home-manager.users.alina = {
 	    modifier = "Mod4"; # set mod to meta
 	    bars = []; # set to empty list to disable bar entirely
 	    menu = "${terminal} sway-launcher-desktop";
-	    keybindings = lib.mkOptionDefault {
-	    	"XF86AudioPlay" = "exec playerctl play-pause";
-		"XF86AudioNext" = "exec playerctl next";
-		"XF86AudioPrev" = "exec playerctl previous";
+	    keybindings =
+	    let
+	        brightnessctl = lib.getExe pkgs.brightnessctl;
+		playerctl = lib.getExe pkgs.playerctl;
+	    in
+	    lib.mkOptionDefault {
+	    	"XF86AudioPlay" = "exec ${playerctl} play-pause";
+		"XF86AudioNext" = "exec ${playerctl} next";
+		"XF86AudioPrev" = "exec ${playerctl} previous";
 
 		"XF86AudioRaiseVolume" = "exec wpctl set-volume @DEFAULT_SINK@ 5%+";
 		"XF86AudioLowerVolume" = " exec wpctl set-volume @DEFAULT_SINK@ 5%-";
 		"XF86AudioMute" = "exec wpctl set-mute @DEFAULT_SINK@ toggle";
 
-		"XF86MonBrightnessUp" = "exec brightnessctl set +5%";
-		"XF86MonBrightnessDown" = "exec brightnessctl set 5%-";
+		"XF86MonBrightnessUp" = "exec ${brightnessctl} set +5%";
+		"XF86MonBrightnessDown" = "exec ${brightnessctl} set 5%-";
 
-		"${modifier}+P" = "exec grimshot copy area";
+		"${modifier}+P" = "exec grimblast copy area";
 		"${modifier}+shift+x" = "exec poweroff";
 		"${modifier}+shift+y" = "exec reboot";
 
