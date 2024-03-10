@@ -5,8 +5,7 @@
       inputs.nixos-hardware.nixosModules.lenovo-thinkpad-x1-7th-gen
       ./hardware-configuration.nix
       ../../profiles/desktop
-      ../../common
-      ../../profiles/devel.nix
+      ../../users/alina
     ];
 
   # enable automatic garbage collection

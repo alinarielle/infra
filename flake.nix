@@ -35,4 +35,16 @@
     } // nixpkgs.lib.listToAttrs (map (name: nixpkgs.lib.nameValuePair name {}) hostNames);
     nixosConfigurations = ( colmena.lib.makeHive self.colmena ).nodes;
   };
+
+#  system: let pkgs = nixpkgs.legacyPackages.${system}; in {
+#    devShells.default = pkgs.mkShell {
+#      name = "nixpkgs shell";
+#      buildInputs = with pkgs; [
+#        sops
+#        nixfmt
+#        colmena
+#        ssh-to-age
+#      ];
+#    };
+#  };
 }
