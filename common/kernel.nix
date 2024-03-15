@@ -122,11 +122,13 @@
     sha256 = pkgs.kernelPatches.hardened.${kernel.meta.branch}.sha256;
     modDirVer = replaceStrings [ kernel.version ] [ version ] kernel.modDirVersion;
   in mkDefault (pkgs.linuxPackagesFor (kernel.override {
-    stdenv = llvm.stdenv;
+    # stdenv = llvm.stdenv;
     extraMakeFlags = [ "LLVM=${llvm.bintools-unwrapped}/bin/" ];
     kernelPatches = kernel.kernelPatches ++ [ pkgs.kernelPatches.hardened.${kernel.meta.branch} ];
-    modDirVersionArg = modDirVer + (pkgs.kernelPatches.hardened.${kernel.meta.branch}).extra;
+    modDirVersionArg = modDirVer + (pkgs.kernelPatches.hardened.${kernel.meta.branch}).extra + "-hardened1";
     isHardened = true;
+    hardeningDisable = [ "strictoverflow" ];
+    #kernel.modDirVersion = pkgs.kernelPatches.hardened.${kernel.meta.branch}.version + "-hardened1";
 
     argsOverride = {
       inherit version;
@@ -138,7 +140,7 @@
 
     structuredExtraConfig = with lib.kernel; {
       # Enable link‐time optimisation
-      LTO_CLANG_THIN = yes;
+      #LTO_CLANG_THIN = yes;
 
       # General memory hardening
       RESET_ATTACK_MITIGATION = yes;  # Request firmware to clear memory on reboot

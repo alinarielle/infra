@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{pkgs, lib, ...}: {
     imports = [ ./sway ];
 
     users.users.alina.packages = with pkgs; [
@@ -43,6 +43,6 @@
     hardware.bluetooth.enable = true;
     hardware.bluetooth.powerOnBoot = true;
 
-    nix.daemonCPUSchedPolicy = mkDefault "idle";
-    nix.daemonIOSchedClass = mkDefault "idle";
+    nix.daemonCPUSchedPolicy = lib.mkDefault "idle";
+    nix.daemonIOSchedClass = lib.mkDefault "idle";
 }

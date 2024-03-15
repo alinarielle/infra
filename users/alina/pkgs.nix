@@ -54,6 +54,7 @@ let
     ];
     miscutils = with pkgs; [
 	usbutils
+	file
 	imagemagick
 	pferd
 	hyfetch

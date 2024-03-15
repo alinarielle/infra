@@ -1,6 +1,8 @@
-{ ... }: {
+{ inputs, nixvim, ... }: {
+    
+home-manager.users.alina = {
     imports = [ inputs.nixvim.homeManagerModules.nixvim ];
-    home-manager.users.alina.programs.nixvim = {
+    programs.nixvim = {
 	enable = true;
 	options = {
 	    number = true;
@@ -10,8 +12,7 @@
 	};
 	plugins = {
 	    lsp.enable = true;
-	    telescope.enable = true;
-	    treesitter.enable = true;
 	};
     };    
+};
 }
