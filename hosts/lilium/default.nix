@@ -1,9 +1,9 @@
 { config, lib, pkgs, inputs, ... }: {
     imports = [
       inputs.nixos-hardware.nixosModules.lenovo-thinkpad-x1-7th-gen
+      inputs.nixos-hardware.nixosModules.common-pc-ssd
       ./hardware-configuration.nix
       ../../profiles/desktop
-      ../../users/alina
       ../../common
     ];
 
@@ -30,4 +30,11 @@
 	alsa-utils
     ];
    system.stateVersion = "23.11";
+   deployment = {
+	targetHost = "null";
+	targetUser = "alina";
+	allowLocalDeployment = true;
+   };
+
+   #l.hidpi = true;
 }

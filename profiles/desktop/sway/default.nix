@@ -2,8 +2,6 @@
     imports = [
 	./waybar.nix
 	./swaylock.nix
-	../librewolf.nix
-	../cursor.nix
 	../theme.nix
 	../mako.nix
 	../wayland.nix
@@ -68,10 +66,10 @@ home-manager.users.alina = {
 	    input * {
 	    	xkb_options compose:ralt
 		xkb_layout us
-		dwt disabled
-		dwtp disabled
+		#dwt disabled
+		#dwtp disabled
 		tap enabled
-		events enabled
+		#events enabled
 	    }
 	    output eDP-1 scale 1.5
 	    output * bg wallpaper.png fill

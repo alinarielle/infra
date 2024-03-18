@@ -1,5 +1,12 @@
 {pkgs, lib, ...}: {
-    imports = [ ./sway ];
+    imports = [
+	./sway
+	./librewolf.nix
+	./cursor.nix
+	./kitty.nix
+	./mako.nix
+	./zathura.nix
+    ];
 
     users.users.alina.packages = with pkgs; [
 	monero-gui

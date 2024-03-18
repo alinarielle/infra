@@ -11,9 +11,11 @@
     hyprland.url = "github:spikespaz/hyprland-nix";
     nixvim.url = "github:nix-community/nixvim";
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
+    sops-nix.url = "github:Mic92/sops-nix";
+    impermanence.url = "github:nix-community/impermanence";
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, nixos-hardware, colmena, nix-colors, hyprland, nixvim, ... }: 
+  outputs = inputs@{ self, nixpkgs, home-manager, nixos-hardware, colmena, nix-colors, hyprland, nixvim, sops-nix, impermanence, ... }: 
   let
 	hostsDir = "${./.}/hosts";
 	hostNames = with nixpkgs.lib; attrNames
@@ -32,6 +34,8 @@
 	imports = [
 	  (./. + "/hosts/${name}")
 	  home-manager.nixosModules.home-manager
+	  inputs.sops-nix.nixosModules.sops
+	  inputs.impermanence.nixosModules.impermanence
 	];
       };
     } // nixpkgs.lib.listToAttrs (map (name: nixpkgs.lib.nameValuePair name {}) hostNames);

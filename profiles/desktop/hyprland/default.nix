@@ -1,12 +1,12 @@
-{ pkgs, config, inputs, ... }: {
+{ pkgs, config, inputs, lib, ... }: {
 
     imports = [
-	../librewolf.nix
-	../cursor.nix
-	../mako.nix
 	../theme.nix
 	../wayland.nix
-	inputs.hyprland.homeManagerModules.default
+	./keybinds.nix
+	../sway/swaylock.nix
+	../sway/waybar.nix # TODO replace bar with something prettier
+	../mako.nix
     ];
 
     users.users.alina.packages = with pkgs; [
@@ -20,12 +20,28 @@
     hardware.opengl.enable = true;
     programs.hyprland.enable = true;
 
-    home-manager.users.alina.wayland.windowManager.hyprland = {
-	enable = true;
-	reloadConfig = true;
-	systemdIntegration = true;
-	keyBinds = {
-	    
+    home-manager.users.alina = {
+	imports = [ inputs.hyprland.homeManagerModules.default ];
+	wayland.windowManager.hyprland = {
+	    enable = true;
+	    reloadConfig = true;
+	    systemdIntegration = true;
+	    recommendedEnvironment = true;
+	    #xwayland.enable = if config.l.hidpi then false else true;
+	    config.exec_once = [
+	        "${lib.getExe pkgs.waybar}"
+	    ];
 	};
+	#xdg.desktopPortals = {
+	#    xdgOpenUsePortal = true;
+	#    enable = true;
+	#    portals = let useIn = [ "Hyprland" ]; in {
+	#	hyprland = {
+	#	    package = pkgs.xdg-desktop-portal-hyprland;
+	#	    inherit useIn;
+	#	};
+	#    };
+	#};
     };
 }
+

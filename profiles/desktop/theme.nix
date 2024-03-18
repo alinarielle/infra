@@ -12,12 +12,12 @@
 	    base03 = "6f7579"; # -
 	    base04 = "d5d5d5"; # ++
 	    base05 = "dddddd"; # +++
-	    white = "e5e5e5"; # ++++
+	    white = "ffffff"; # ++++
 	    pink = "fc83f4"; # pink
 	    red = "ff15b0"; # red
 	    orange = "f49f0c"; # orange
 	    yellow = "ede438"; # yellow
-	    green = "09f921"; # green
+	    green = "b3f361"; # green
 	    cyan = "09f9f9"; # cyan
 	    blue = "2D9EF4"; # blue
 	    purple = "8d09f9"; # purple

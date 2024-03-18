@@ -24,7 +24,6 @@ let
     	p7zip
     	zstd
      	unzip
-    	unrar
     ];
     networking = with pkgs; [
     	proxychains
@@ -118,6 +117,7 @@ let
 	jdk21
 	jdk17
 	blender
+	openscad
     ];
     security = with pkgs; [
 	checksec
