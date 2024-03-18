@@ -1,4 +1,4 @@
-{config, ...}: {
+{config, lib, ...}: {
     users.mutableUsers = false;
     services.openssh.hostKeys = [
 	{
@@ -20,10 +20,10 @@
 	hideMounts = true;
 	directories = let
 	    homeIfDesktop = if builtins.elem "desktop" config.deployment.tags 
-		then [ "home" ] else [];
+		then [ "/home" ] else [];
 	    in [
 	    "/var/log"
-	    "var/lib/nixos"
+	    "/var/lib/nixos"
 	    "/var/lib/btrfs"
 	    "/etc/NetworkManager/system-connections"
 	    "/var/lib/bluetooth"
@@ -35,7 +35,9 @@
 	];
     };
 
-    fileSystems."/".options = if (fileSystems.fsType == "tmpfs") 
-	&& ( builtins.hasAttr persistence environment ) 
-	then [ "default" "size=2G" "mode=755"] else {};
+    fileSystems."/".options = if ( builtins.hasAttr "persistence" config.environment ) 
+	then lib.mkForce { device = "none"; fsType = "tmpfs"; options = [ "default" "size=2G" "mode=755"]; } else {};
+
+    fileSystems."/persist".neededForBoot = if ( builtins.hasAttr "persistence" config.environment )
+	then true else false;
 }
