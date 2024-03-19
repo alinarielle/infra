@@ -1,4 +1,7 @@
 {config, lib, ...}: {
+
+    # DO NOT activate on machines which don't have backups, this might cause critical data loss!!
+    # mount --bind /persist/nix to /nix first, else the build will fail because the tmpfs runs out of space TODO do this automatically
     users.mutableUsers = false;
     services.openssh.hostKeys = [
 	{
