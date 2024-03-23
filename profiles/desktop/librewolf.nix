@@ -8,6 +8,11 @@ home-manager.users.alina = {
 	    "browser.bookmarks.editDialog.showForNewBookmarks" = false;
 	    "browser.search.suggest.enabled" = true;
 	    "pdfjs.viewerCssTheme" = 2;
+	    "network.http.referer.XOriginPolicy" = 2;
+	    "privacy.clearOnShutdown.history" = false;
+	    "privacy.clearOnShutdown.downloads" = false;
+	    "security.OCSP.require" = false;
+	    "privacy.clearOnShutdown.cookies" = true;
 	};
     };
 };

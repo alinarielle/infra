@@ -66,6 +66,9 @@
 		ssh-to-age
 		just
 	    ] ++ [ inputs.colmena.packages.${system}.colmena ];
+	    shellhook = ''
+		just -l
+	    '';
 	};
     });
 }

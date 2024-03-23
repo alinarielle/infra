@@ -53,6 +53,7 @@ let
     ];
     miscutils = with pkgs; [
 	usbutils
+	jq
 	file
 	imagemagick
 	pferd
@@ -118,7 +119,10 @@ let
 	jdk17
 	blender
 	openscad
+	waydroid
     ];
+    # android emu for devel
+    virtualisation.waydroid.enable = true;
     security = with pkgs; [
 	checksec
 	apktool
