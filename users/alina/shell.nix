@@ -46,6 +46,7 @@ home-manager.users.alina = {
 		la = "lsd -a";
 		laa = "lsd -all";
 		cat = "bat";
+		g = "git status";
 		#share = "curl -F 'f:1=<-' -s -o - ix.io"; ix.io went out of business, replace with own pastebin later TODO
 		ip = "ip -c";
 	    };
