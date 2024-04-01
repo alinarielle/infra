@@ -120,6 +120,8 @@ let
 	blender
 	openscad
 	waydroid
+	nginx
+	ansible
     ];
     # android emu for devel
     virtualisation.waydroid.enable = true;

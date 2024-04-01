@@ -39,7 +39,7 @@
     };
 
     fileSystems."/".options = if ( builtins.hasAttr "persistence" config.environment ) 
-	then lib.mkForce { device = "none"; fsType = "tmpfs"; options = [ "default" "size=2G" "mode=755"]; } else {};
+	then lib.mkForce { device = "none"; fsType = "tmpfs"; options = [ "defaults" "size=2G" "mode=755"]; } else {};
 
     fileSystems."/persist".neededForBoot = if ( builtins.hasAttr "persistence" config.environment )
 	then true else false;
