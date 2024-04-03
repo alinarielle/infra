@@ -39,6 +39,7 @@ home-manager.users.alina = {
 	    '';
 	    shellGlobalAliases = {
 		con = "ping 1.1 && ping archlinux.org";
+		find = "find 2>/dev/null";
 		speed = "wget https://hel1-speed.hetzner.com/1GB.bin > /dev/zero";
 		nv = "nvim";
 		ls = "lsd";
