@@ -11,6 +11,7 @@ let
     ];
     fstools = with pkgs; [
     	du-dust
+	tree
     	lsd
     	bat
     	mdcat
@@ -27,10 +28,11 @@ let
     ];
     networking = with pkgs; [
     	proxychains
+	magic-wormhole-rs
+	inetutils
 	tcpdump
 	termshark
     	tor
-	wireshark
     	wireguard-tools
     	mullvad
     	mtr
@@ -117,11 +119,9 @@ let
 	jdk8
 	jdk21
 	jdk17
-	blender
-	openscad
-	waydroid
 	nginx
 	ansible
+	python3
     ];
     # android emu for devel
     virtualisation.waydroid.enable = true;

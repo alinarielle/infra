@@ -1,7 +1,7 @@
 keys:
-  - &admin_alina 2323A23A5326C368D2EA25E851D817D1174AFD62
+  - &alina 2323A23A5326C368D2EA25E851D817D1174AFD62
 creation_rules:
-  - path_regex: secrets/[^/]+\.(yaml|json|env|ini)$
+  - path_regex: secrets/secrets.yaml&
     key_groups:
     - pgp:
-      - *admin_alina
+      - *alina

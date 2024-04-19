@@ -4,7 +4,6 @@
       inputs.nixos-hardware.nixosModules.common-pc-ssd
       ./hardware-configuration.nix
       ../../profiles/desktop
-      ../../common
     ];
 
   nixpkgs.config.allowUnfree = true;

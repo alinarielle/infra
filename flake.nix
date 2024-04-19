@@ -13,6 +13,8 @@
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
     sops-nix.url = "github:Mic92/sops-nix";
     impermanence.url = "github:nix-community/impermanence";
+    microvm.url = "github:astro/microvm.nix";
+    microvm.inputs.nixpkgs.follows = "nixpkgs";
     hyprland-git.url = "github:hyprwm/hyprland/main";
     hyprland-xdph-git.url = "github:hyprwm/xdg-desktop-portal-hyprland";
     hyprland-protocols-git.url = "github:hyprwm/xdg-desktop-portal-hyprland";
@@ -26,7 +28,7 @@
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, nixos-hardware, colmena, nix-colors, hyprland, nixvim, sops-nix, impermanence, flake-utils, ... }: 
+  outputs = inputs@{ self, nixpkgs, home-manager, nixos-hardware, colmena, nix-colors, hyprland, nixvim, sops-nix, impermanence, flake-utils, microvm, ... }: 
   let
 	hostsDir = "${./.}/hosts";
 	hostNames = with nixpkgs.lib; attrNames
@@ -46,7 +48,8 @@
 	  (./. + "/hosts/${name}")
 	  home-manager.nixosModules.home-manager
 	  inputs.sops-nix.nixosModules.sops
-	  inputs.impermanence.nixosModules.impermanence
+	  ./modules
+	  ./common
 	];
       };
     } // nixpkgs.lib.listToAttrs (map (name: nixpkgs.lib.nameValuePair name {}) hostNames);
@@ -61,10 +64,10 @@
 	devShells.default = pkgs.mkShell {
 	    name = "flake";
 	    buildInputs = with pkgs; [
-		sops
 		nixfmt
 		ssh-to-age
 		just
+		sops
 	    ] ++ [ inputs.colmena.packages.${system}.colmena ];
 	    shellhook = ''
 		just -l

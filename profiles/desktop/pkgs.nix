@@ -1,0 +1,35 @@
+{
+    users.users.alina.packages = with pkgs; [
+	monero-gui
+	blender
+	openscad
+	waydroid
+	wireshark
+	spotify
+	mpv
+	mpvpaper
+	pinentry-qt
+	tor-browser
+	krita
+	librewolf
+	element-desktop
+	android-file-transfer
+	kitty
+	bluez
+	keepassxc
+	noisetorch
+	prismlauncher
+	qbittorrent
+	signal-desktop
+	standardnotes
+	telegram-desktop
+	thunderbird
+	ungoogled-chromium
+	virt-manager
+	wireplumber
+	zathura
+	dolphin-emu
+	dolphin
+	inkscape
+    ];
+}

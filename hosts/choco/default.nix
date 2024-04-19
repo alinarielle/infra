@@ -2,7 +2,6 @@
     imports = [
 	./hardware-configuration.nix
 	../../profiles/impermanence.nix
-	../../common
 	../../profiles/desktop
 	inputs.nixos-hardware.nixosModules.common-pc-ssd
     ];

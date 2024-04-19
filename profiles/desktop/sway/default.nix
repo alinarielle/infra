@@ -19,6 +19,7 @@ home-manager.users.alina = {
     wayland.windowManager.sway = {
 	enable = true;
 	config = rec {
+	    startup = [{command = "${lib.getExe pkgs.kitty} --hold sh -c 'hyfetch; ${lib.getExe config.users.users.alina.shell}' && swaymsg move workspace 10 && ${lib.getExe pkgs.element-desktop} && swaymsg move workspace 2 && ${lib.getExe pkgs.spotify} && swaymsg move workspace 3 && ${lib.getExe pkgs.librewolf} && swaymsg move workspace 1 && swaymsg workspace 1";}];
 	    terminal = "kitty";
             colors = 
 	    let 
@@ -68,13 +69,12 @@ home-manager.users.alina = {
 		xkb_layout us
 		#dwt disabled
 		#dwtp disabled
-		tap enabled
+		tap disabled
 		#events enabled
 	    }
 	    output eDP-1 scale 1.5
 	    output * bg wallpaper.png fill
 	    for_window [class=".*"] border pixel 2
-	    exec --no-startup-id kitty --hold sh -c "hyfetch; zsh"
 	    for_window [title="sway-launcher-desktop"] floating enable, resize set 500 650
 	    for_window [title="Please Confirm..." class="Godot"] floating enable
 	    for_window [title="Create New Project" class="Godot"] floating enable

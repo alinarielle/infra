@@ -1,7 +1,10 @@
-{config, lib, ...}: {
+{config, lib, inputs, ...}: {
 
     # DO NOT activate on machines which don't have backups, this might cause critical data loss!!
     # mount --bind /persist/nix to /nix first, else the build will fail because the tmpfs runs out of space TODO do this automatically
+    imports = [
+	inputs.impermanence.nixosModules.impermanence
+    ];
     users.mutableUsers = false;
     services.openssh.hostKeys = [
 	{
@@ -29,7 +32,6 @@
 	    "/var/lib/nixos"
 	    "/var/lib/btrfs"
 	    "/etc/NetworkManager/system-connections"
-	    "/var/lib/bluetooth"
 	    "/nix"
 	    "/etc/nixos"
 	] ++ homeIfDesktop;
@@ -38,7 +40,7 @@
 	];
     };
 
-    fileSystems."/".options = if ( builtins.hasAttr "persistence" config.environment ) 
+    fileSystems."/" = if ( builtins.hasAttr "persistence" config.environment ) 
 	then lib.mkForce { device = "none"; fsType = "tmpfs"; options = [ "defaults" "size=2G" "mode=755"]; } else {};
 
     fileSystems."/persist".neededForBoot = if ( builtins.hasAttr "persistence" config.environment )

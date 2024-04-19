@@ -37,7 +37,7 @@
 	    tab_powerline_style = "angled";
 	    tab_activity_symbol = "⦿";
 	    
-	    background_opacity = "0.2";
+	    background_opacity = "0.8";
 
 	    foreground = "#${color.white}";
 	    background = "#${color.dark}";

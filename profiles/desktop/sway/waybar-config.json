@@ -8,7 +8,6 @@
   ],
   "modules-right": [
     "network",
-    "pulseaudio",
     "temperature",
     "cpu",
     "memory",
