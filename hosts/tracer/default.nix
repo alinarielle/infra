@@ -2,7 +2,6 @@
     imports = [
 	../../profiles/impermanence.nix
 	./hardware-configuration.nix
-	../../modules/vm.nix
     ];
     networking.hostName = "tracer";
     system.stateVersion = "23.11";
