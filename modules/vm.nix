@@ -1,14 +1,5 @@
-{pkgs, lib, config, microvm, vm, ...}:
-let
-    cfg = config.options.vm;
-    activated-vms = lib.mapAttrsToList (name: name) cfg; # put the names of all submodules in config.options.vm in a list
-    #prefxdVMs = map (service: "vm-" + service) activated-vms;
-    vm-attrs = lib.genAttrs
-		    (lib.mapAttrsToList (name: name) (builtins.readDir ../services)) 
-		    (x: import ../services/${x}); # generate an attrs for each service inside vm-attrs to avoid infinite recursion because imports cant depend on config.vm
-in
-{
-    imports = [ microvm.nixosModules.host ];
+{pkgs, lib, config, inputs, ...}: {
+    imports = [ inputs.microvm.nixosModules.host ];
     options.vm = lib.mkOption {
 	    type = lib.types.attrsOf (lib.types.submodule {
 		options = {
@@ -20,10 +11,16 @@ in
 		Enables the VM wrapper for `vm.<service>`.
 	    '';
     };
-    config = lib.mkIf (cfg != {}) {
+    config = let 
+	cfg = config.vm;
+	activated-vms = lib.mapAttrsToList (name: _value: name) cfg; # put the names of all submodules in config.options.vm in a list
+	#prefxdVMs = map (service: "vm-" + service) activated-vms;
+	vm-attrs = lib.genAttrs
+			(lib.mapAttrsToList (name: _value: name) (builtins.readDir ../services)) 
+			(x: import ../services/${x}); # generate an attrs for each service inside vm-attrs to avoid infinite recursion because imports cant depend on config.vm
+    in lib.mkIf (cfg != {}) {
 	microvm.vms = lib.genAttrs activated-vms (service: {
 	    inherit pkgs;
-	    system = "x86_64-linux";
 	    config = {
 		networking.hostName = "vm-" + service;
 		microvm = {
@@ -35,8 +32,8 @@ in
 			proto = "virtiofs";
 		    }];
 		};
-	    } // vm-attrs.${service};
+	    } // vm-attrs.${service + ".nix"};
 	});
-	# additional goals: host/guest-networking, announcing host names via dns, ssh auto-complete, VNC, networking unit tests, guest application unit tests, autostart handling
+	# additional goals: host/guest-networking, announcing host names via dns, ssh auto-complete, VNC, networking unit tests, guest application unit tests, autostart handling, device passthrough
     };
 }

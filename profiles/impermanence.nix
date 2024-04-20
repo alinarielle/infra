@@ -26,7 +26,7 @@
 	hideMounts = true;
 	directories = let
 	    homeIfDesktop = if builtins.elem "desktop" config.deployment.tags 
-		then [ "/home" ] else [];
+		then [ "/home" "/var/lib/bluetooth" ] else [];
 	    in [
 	    "/var/log"
 	    "/var/lib/nixos"

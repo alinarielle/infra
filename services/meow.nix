@@ -1,3 +1,3 @@
 {
-    foo = { bar = 1; };
+    users.users.test.isNormalUser = true;
 }

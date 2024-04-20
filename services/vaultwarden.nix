@@ -64,4 +64,4 @@ in
 	]; else [];
 }
 
-TODO: mail server, secret mgmt, web server, restic backups, database con, VM
+#TODO: mail server, secret mgmt, web server, restic backups, database con, VM
