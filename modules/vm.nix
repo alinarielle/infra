@@ -34,6 +34,6 @@
 		};
 	    } // vm-attrs.${service + ".nix"};
 	});
-	# additional goals: host/guest-networking, announcing host names via dns, ssh auto-complete, VNC, networking unit tests, guest application unit tests, autostart handling, device passthrough
+	# additional goals: host/guest-networking, announcing host names via dns, ssh auto-complete, VNC, networking unit tests, guest application unit tests, autostart handling, device passthrough, VM secret management
     };
 }
