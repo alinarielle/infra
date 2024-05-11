@@ -1,5 +1,8 @@
 {lib, pkgs, ...}: {
-    imports = [ ./auth.nix ];
+    imports = [ 
+	./auth.nix
+	./dns.nix
+    ];
     networking.networkmanager.enable = true;
     networking.wireless.enable = lib.mkForce false;
     #networking.useNetworkd = true;

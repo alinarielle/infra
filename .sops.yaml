@@ -1,7 +1,10 @@
 keys:
   - &alina 2323A23A5326C368D2EA25E851D817D1174AFD62
+  - &tracer age1kuep9jl0mdr2k46m5y4n4azc33a8l0lztsflyzt6ste7vmxxgvmqsm7clw
 creation_rules:
-  - path_regex: secrets/secrets.yaml&
+  - path_regex: secrets/services/
     key_groups:
     - pgp:
       - *alina
+      age:
+      - *tracer

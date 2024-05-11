@@ -6,7 +6,6 @@
 	inputs.nixos-hardware.nixosModules.common-pc-ssd
     ];
     nixpkgs.config.allowUnfree = true;
-    networking.hostName = "choco";
     system.stateVersion = "23.11";
     deployment = {
 	targetHost = "choco.infra.alina.cx";

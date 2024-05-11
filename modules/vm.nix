@@ -4,6 +4,18 @@
 	    type = lib.types.attrsOf (lib.types.submodule {
 		options = {
 		    enable = lib.mkEnableOption "a VM";
+		    memory = lib.mkOption {
+			type = lib.types.str;
+			default = "1G";
+			example = "512M";
+			description = "The amount of RAM allocated to the VM in <size>(M|G)";
+		    };
+		    vcpu = lib.mkOption {
+			type = lib.types.int;
+			default = 2;
+			example = 1;
+			description = "The amount of virtual CPU cores allocated to the VM."
+		    };
 		};
 	    });
 	    default = {};
@@ -22,6 +34,7 @@
 	microvm.vms = lib.genAttrs activated-vms (service: {
 	    inherit pkgs;
 	    config = {
+		networking.domain = "alina.cx";
 		networking.hostName = "vm-" + service;
 		microvm = {
 		    hypervisor = "cloud-hypervisor";
@@ -32,7 +45,8 @@
 			proto = "virtiofs";
 		    }];
 		};
-	    } // vm-attrs.${service + ".nix"};
+		sops.defaultSopsFile = (../. + "/secrets/services/${service}.yaml");
+	    } // vm-attrs.${service + ".nix"} // import ../common;
 	});
 	# additional goals: host/guest-networking, announcing host names via dns, ssh auto-complete, VNC, networking unit tests, guest application unit tests, autostart handling, device passthrough, VM secret management
     };

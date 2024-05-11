@@ -5,7 +5,6 @@
 	../../network/initrd-unlock.nix
 	inputs.nixos-hardware.nixosModules.common-pc-ssd
     ];
-    networking.hostName = "terra";
     system.stateVersion = "24.05";
     deployment = {
 	targetHost = "terra.alina.cx";

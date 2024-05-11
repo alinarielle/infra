@@ -4,7 +4,7 @@ let
     sub = "vault";
 in
 {
-    sops.secrets."vaultwarden_env" = {
+    sops.secrets."vaultwarden" = {
 	owner = "vaultwarden";
 	restartUnits = [ "vaultwarden.service" ];
     };
@@ -14,7 +14,7 @@ in
 	dbBackend = "postgresql";
 	backupDir = "/var/backup/vaultwarden";
 	config = {
-	    DOMAIN = "https://" + domain;
+	    DOMAIN = "https://" + sub + "." domain;
 	    WEBSOCKET_ENABLED = "true";
 	    WESOCKET_PORT  = "3012";
 	    DATA_FOLDER = "/var/vaultwarden";
@@ -28,7 +28,7 @@ in
 	    SMTP_USERNAME = "no-reply@" + domain;
 	    ROCKET_PORT = "8001";
 	};
-	environmentFile = config.sops.secrets."vaultwarden_env".path;
+	environmentFile = config.sops.secrets."vaultwarden".path;
     };
 
     services.postgresql = {

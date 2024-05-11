@@ -3,7 +3,6 @@
 	../../profiles/impermanence.nix
 	./hardware-configuration.nix
     ];
-    networking.hostName = "tracer";
     system.stateVersion = "23.11";
     networking.tempAddresses = "enabled";
     vm.meow.enable = true;

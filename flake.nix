@@ -2,6 +2,7 @@
   description = "alina's NixOS flake";
 
   inputs = {
+    nix-dns.url = "github:kirelagin/dns.nix";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master"; 
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
@@ -28,7 +29,7 @@
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, nixos-hardware, colmena, nix-colors, hyprland, nixvim, sops-nix, impermanence, flake-utils, microvm, ... }: 
+  outputs = inputs@{ self, nixpkgs, home-manager, nixos-hardware, colmena, nix-colors, hyprland, nixvim, sops-nix, impermanence, flake-utils, microvm, nix-dns, ... }: 
   let
 	hostsDir = "${./.}/hosts";
 	hostNames = with nixpkgs.lib; attrNames
@@ -43,7 +44,7 @@
 	};
 	specialArgs = { inherit inputs; };
       };
-      defaults = { config, name, ... }: {
+      defaults = { config, name, nodes, ... }: {
 	imports = [
 	  (./. + "/hosts/${name}")
 	  home-manager.nixosModules.home-manager
@@ -51,6 +52,7 @@
 	  ./modules
 	  ./common
 	];
+	networking.hostName = with nixpkgs.lib; mkDefault name;
       };
     } // nixpkgs.lib.listToAttrs (map (name: nixpkgs.lib.nameValuePair name {}) hostNames);
     nixosConfigurations = ( colmena.lib.makeHive self.colmena ).nodes;

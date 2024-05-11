@@ -17,7 +17,6 @@
 	alsa-ucm-conf
 	alsa-utils
     ];
-    networking.hostName = "lilium";
     programs.steam.enable = true;
     system.stateVersion = "23.11";
     deployment = {
