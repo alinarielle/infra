@@ -31,10 +31,9 @@
 			(lib.mapAttrsToList (name: _value: name) (builtins.readDir ../services)) 
 			(x: import ../services/${x}); # generate an attrs for each service inside vm-attrs to avoid infinite recursion because imports cant depend on config.vm
     in lib.mkIf (cfg != {}) {
-	microvm.vms = lib.genAttrs activated-vms (service: {
+	microvm.vms = lib.genAttrs activated-vms (service: import ../common // {
 	    inherit pkgs;
 	    config = {
-		networking.domain = "alina.cx";
 		networking.hostName = "vm-" + service;
 		microvm = {
 		    hypervisor = "cloud-hypervisor";
@@ -46,8 +45,14 @@
 		    }];
 		};
 		sops.defaultSopsFile = (../. + "/secrets/services/${service}.yaml");
-	    } // vm-attrs.${service + ".nix"} // import ../common;
-	});
-	# additional goals: host/guest-networking, announcing host names via dns, ssh auto-complete, VNC, networking unit tests, guest application unit tests, autostart handling, device passthrough, VM secret management
+	    } // vm-attrs.${service + ".nix"};
+	}); # the // operator prioritizes the latter argument when option definitions
+	    # definitions exist in both, so common stuff is imported first and then
+	    # eventually overridden by the generated vm attrs and then the respective
+	    # service files
+	    # when specifiying further configuration outside this module, it will be
+	    # merged with module imports
+
+	# additional goals: host/guest-networking, announcing host names via dns, ssh auto-complete, VNC, networking unit tests, guest application unit tests, autostart handling, device passthrough, VM secret management, handling of files and folders outside of /services
     };
 }
