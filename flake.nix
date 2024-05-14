@@ -63,17 +63,17 @@
 	overlays = [];
     };
     in {
-	devShells.default = pkgs.mkShell {
-	    name = "flake";
-	    buildInputs = with pkgs; [
-		nixfmt
-		ssh-to-age
-		just
-		sops
-	    ] ++ [ inputs.colmena.packages.${system}.colmena ];
-	    shellhook = ''
-		just -l
-	    '';
-	};
+	#devShells.default = pkgs.mkShell {
+	    #name = "flake";
+	    #buildInputs = with pkgs; [
+		#nixfmt
+		#ssh-to-age
+		#just
+		#sops
+	    #] ++ [ inputs.colmena.packages.${system}.colmena ];
+	    #shellhook = ''
+		#just -l
+	    #'';
+	#};
     });
 }

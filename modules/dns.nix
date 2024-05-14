@@ -25,13 +25,8 @@ in {
 	    default = [];
 	};
 	zones = lib.mkOption {
-	    type = lib.types.attrsOf inputs.nix-dns.lib.types.subzone;
-	    description = "DNS zones to propagate";
-	    default = {};
-	};
-	allZones = lib.mkOption {
 	    type = lib.types.attrsOf inputs.nix-dns.lib.types.zone;
-	    description = "all zones merged from all hosts which provide any";
+	    description = "DNS zones to propagate";
 	    default = {};
 	};
 	extraACL = lib.mkOption {
@@ -66,7 +61,7 @@ in {
 	group = lib.mkOption {
 	    type = lib.types.str;
 	    default = "root";
-	    description = "the group under which the server is running, optional";
+	    description = "the group under which the server is running";
 	};
 	dataDir = {
 	    type = lib.types.str;
@@ -79,20 +74,10 @@ in {
 	networking.firewall.allowedUDPPorts = lib.mapAttrsToList (name: value: value) cfg.listen;
 	networking.firewall.allowedTCPPorts = lib.mapAttrsToList (name: value: value) cfg.listen;
 
-	net.dns.allZones = #let new_nodes = nodes // lib.mkIf (config.vm != {}) config.microvm.vms; in
-	    lib.mkIf cfg.primary (lib.mkMerge 
-	    (lib.mapAttrsToList (value: host: host.config.net.dns.zones)
-	    nodes));
-	    # merges all DNS zones specified with nix-dns syntax in the
-	    # host which acts as the primary server as if it defined all
-	    # of them
-	    # expects no nixosConfiguration to carry the same name as a vm,
-	    # such as "vm-vaultwarden"
-
 	environment.etc = lib.mkIf cfg.primary (lib.mapAttrs' (name: zone: {
 	    name = "${cfg.zonesDir}";
 	    value = { source = pkgs.writeText "${name}.zone" (lib.toString zone);};
-	}) cfg.allZones);
+	}) cfg.zones);
 
 	services.knot = {
 	    enable = true;
@@ -101,7 +86,7 @@ in {
 	    ];
 	    settings = {
 		server = {
-		    listen = lib.mapAttrsToList (ip: port: ip + "@" + port) cfg.listen;
+		    listen = lib.mapAttrsToList (ip: port: "${ip}@${port}") cfg.listen;
 		    automatic-acl = true;
 		};
 		log.syslog.any = "info";
@@ -113,13 +98,12 @@ in {
 		};
 		user = "${cfg.user}:${cfg.group}";
 
-		zone = lib.mapAttrs (key: val: {}) cfg.allZones;
+		zone = lib.mapAttrs (key: val: {}) cfg.zones;
 	    };
 	};
 	
 	users.users.${cfg.user} = {
-	    group = lib.mkIf cfg.user != "root";
-	    extraGroups = ["${cfg.group}"];
+	    group = lib.mkIf (cfg.user != "root") cfg.group;
 	    isSystemUser = true;
 	};
 	systemd.tmpfiles.settings = {
@@ -147,7 +131,7 @@ in {
 	    '');
 	systemd.services.knot.reloadTriggers =
 	    lib.mapAttrsToList (name: zone: pkgs.writeText "${name}.zone" (toString zone))
-	    cfg.allZones;
+	    cfg.zones;
 	
 	assertions = 
 	(lib.mapAttrsToList (ip: port: {
@@ -161,10 +145,6 @@ in {
 	}) cfg.user)
 	++ 
 	[{
-	    assertion = cfg.user == "root" && cfg.userPassword != "";
-	    message = "DNS: refusing to overwrite root password for knot, choose another user or leave the password blank";
-	}
-	{
 	    assertion = cfg.user != "root" && cfg.userPassword == "";
 	    message = "DNS: password for user cannot be empty";
 	}];
