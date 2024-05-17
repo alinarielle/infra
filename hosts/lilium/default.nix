@@ -25,6 +25,5 @@
 	allowLocalDeployment = true;
 	tags = [ "infra" "desktop" ];
     };
-
-   #l.hidpi = true;
+    net.env.nat = true;
 }

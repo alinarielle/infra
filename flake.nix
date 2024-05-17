@@ -53,6 +53,7 @@
 	  ./common
 	];
 	networking.hostName = with nixpkgs.lib; mkDefault name;
+	networking.domain = "infra.alina.cx";
       };
     } // nixpkgs.lib.listToAttrs (map (name: nixpkgs.lib.nameValuePair name {}) hostNames);
     nixosConfigurations = ( colmena.lib.makeHive self.colmena ).nodes;

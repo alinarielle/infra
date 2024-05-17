@@ -7,6 +7,7 @@
     ];
     nixpkgs.config.allowUnfree = true;
     system.stateVersion = "23.11";
+    net.env.nat = true;
     deployment = {
 	targetHost = "choco.infra.alina.cx";
 	targetUser = "alina";
