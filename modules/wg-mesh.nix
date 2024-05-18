@@ -1,42 +1,27 @@
 {config, nodes, lib, pkgs, name, ...}:
-let 
-    cfg = config.net.wg-mesh;
-in 
-with lib; {
-    options.net.wg-mesh = mkOption {
+with lib; 
+let opt = lib.mkOption; in {
+    options.net.wg-mesh = with types; opt{
 	default = {};
-	type = types.attrsOf (types.submodule {
+	type = attrsOf (submodule {
 	    options = {
-	    	port = mkOption {
-    		    type = lib.types.port;
-		    default = 10000;
-	    	    example = 1337;
-    		};
-	    	private = mkOption {
-    		    type = types.nullOr types.str;
-		    default = null;
+		rosenpass = opt {
+		    type = types.bool;
+		    default = true;
 		};
-	    	public = mkOption {
-    		    type = types.nullOr types.str;
-	    	};
-		peers = mkOption {
+		self = opt { type = str; default = name;};
+	    	port = opt { type = port; };
+	    	private = opt { type = str; };
+	    	public = opt { type = str; };
+		peers = opt {
 		    default = {};
-		    type = types.attrsOf (types.submodule {
-			options = {
-			    port = mkOption {
-				type = types.port;
-			    };
-			    public = mkOption {
-				type = types.str;
-			    };
-			    fqdn = mkOption {
-				type = types.nullOr types.str;
-			    };
-			    psk = lib.mkOption {
-				type = types.str;
-			    };
-			    keepAlive = mkOption {
-		    		type = types.nullOr types.int;
+		    type = attrsOf (submodule { options = {
+			    port = opt { type = port; };
+			    public = opt { type = str; };
+			    fqdn = opt { type = nullOr str; };
+			    psk = opt { type = str; };
+			    keepAlive = opt { 
+				type = nullOr int;
 	    			default = null;
     			    };
 			};
@@ -45,71 +30,144 @@ with lib; {
 	    };
 	})
     };
-    config =
-    let
+    imports = [
+	./env.nix
+	./port.nix
+    ];
+    config = let
+	## private vars
+	cfg = config.net.wg-mesh;
+	meshes = attrNames cfg;
+	wg-meshes = filter (mesh: cfg.${mesh}.rosenpass == false) meshes;
+	rp-meshes = filter (mesh: cfg.${mesh}.rosenpass == true) meshes;
+	## global functions
 	net.lib.getAddress = peers: peer:
 	let 
 	    ips = imap (i: v: "10.0.0.${builtins.toString i}") peers;
-	    host-ips = map (x: { ${x.fst} = x.snd; } ) (lib.zipLists peers ips);
-	    peer-ip = head (filter (x: lib.hasAttr ${peer} x) host-ips);
+	    host-ips = map (x: { ${x.fst} = x.snd; } ) (zipLists peers ips);
+	    peer-ip = head (filter (x: hasAttr ${peer} x) host-ips);
 	in peer-ip.${peer};
-	net.lib.mkTunnel = args@{peerA, peerB}:
+	net.lib.mkTunnel = args@{...}: # dumb function, connects two peers
 	let 
-	    peer = head attrNames filterAttrs (key: val: ${key} != name) args;
+	    argsl = attrNames args;
+	    peer = head (attrNames (filterAttrs (key: val: key != name) args));
 	    peer-conf = args.${peer};
 	in
-	if !(hasAttr ${name} args) then {} else
-	if ${args.peerA} == ${args.peerB} then {} else {
+	if !(hasAttr name args) then {} else
+	if  (head argsl) == (tail argsl) then {}
+	if  length argsl != 2 then {} else {
 	    private = "secrets.${name}.private";
-	    public = "secrets.${name}.public";
-	    #port = 10000;
+	    public = "/secrets/wg/";
 	    peers.${peer} = {
 		fqdn = if nodes.${peer}.config.env.nat then null
 		    else nodes.${peer}.config.networking.fqdn;
 		keepAlive = if config.env.nat then 25 else null;
-		psk = "secrets.${name}.psk.${peer}";
-		#port = 10000; #TODO port abstraction
-		public = "secrets.${peer}.public";
+		psk = "/secrets/p2p-wg/${name}/psk/${peer}.psk.key";
+		public = "/secrets/p2p-wg/${peer}/public.key";
+		port = net.lib.getPort "p2p-wg-${name}-${peer}";
 	    } // peer-conf;
 	};
-	net.lib.mkMesh = args@{peerA, peerB, ...}: 
+	net.lib.mkMesh = args@{mesh,...}: # calls mkTunnel for every peer combination and
+					  # updates peer config for a mesh scenario
 	let 
-	    peers = attrNames args;
+	    peers = filterAttrs (key: val: key != "mesh") args;
+	    peersl = attrNames peers;
+	    args-ports = mapAttrs (peer: conf: { 
+		port = net.lib.getPort  
+			(if nodes.${peer}.config.net.wg-mesh.${mesh}.rosenpass == true
+			then "rp-mesh-${mesh}" else "wg-mesh-${mesh}");
+		public = "/secrets/mesh/${mesh}/${peer}/public.key";
+		private = "/secrets/mesh/${mesh}/${peer}/private.key";
+	    } // conf) args;
 	    eval = filter (x: x != {}) (unique (concatMap 
 		(peer: map 
 		    (peer2: if peer == peer2 then {} 
 		    else {${peer} = args.${peer}; ${peer2} = args.${peer2};}) 
-		peers) 
-	    peers)); # returns a list with an attrs for every peer combination
-	in mergeAttrsList (map (x: net.lib.mkTunnel x) eval); # returns the result of mkTunnel for every peer combination as an attrs in a list and merges them together to return a single attrs, later results take dominance
-    in mkIf (cfg != {}) {
-	inherit
-	    net.lib.getAddress
-	    net.lib.mkTunnel
-	    net.lib.mkMesh; # public lib interface of the module
-	
-	environment.systemPackages = with pkgs; [
-	    rosenpass
-	    rosenpass-tools
-	];
-	
-	systemd.network.netdevs = mapAttrs' (mesh: device: 
-	    mesh = "wg-${mesh}"; 
-	    device = {
-	    wireguardConfig = {
-		ListenPort = cfg.${mesh}.port
-	    };
-	    wireguardPeers = map (peer: with cfg.${mesh}.peers.${peer}; {
-		PublicKey = ${public};
-		Endpoint = "${fqdn}:${port}";
-		AllowedIPs = [
-		    "${net.lib.getAddress cfg.${mesh}.peers peer}/32"
+		peersl) 
+	    peersl));
+	    fcall = map (x: net.lib.mkTunnel x) eval;
+	    res = zipAttrs (filter (x: x != {}) fcall);
+	in  {
+		${mesh} = {
+		    peers = mapAttrs (key: val: head val) (zipAttrs res.peers);
+		    private = head res.private;
+		    public = head res.public;
+		};
+	    };# lets you override peer specific settings like this:
+	      # net.wg-mesh = net.lib.mkMesh 
+	      # let tracer = {port = 51280;} in
+	      #		{mesh = "infra"; inherit tracer; }
+
+    in mkIf (cfg != {}) mkMerge [{
+	inherit (net.lib) # public functions
+	    getAddress
+	    mkTunnel
+	    mkMesh;
+	}
+	++ map (mesh: (mkIf (config.vm != {}) 
+	let
+	    vms = filterAttrs (key: val: substring 0 3 ${key} == "vm-") cfg.${mesh}.peers;
+	in {
+	    microvm.vms = genAttrs vms (name: {
+		config.net.wg-mesh.${mesh} = mkMesh 
+		let
+		    conf = {
+			keepAlive = 25;
+			fqdn = null;
+			port = net.lib.getPort (if config.net.wg-mesh.${mesh}.rosenpass
+			    then "rp-${mesh}" else "wg-${mesh}");
+		    }; 
+		in
+		{inherit name mesh; ${name} = conf;} 
+		// cfg.${mesh}.peers
+		// ${cfg.${mesh}.self};
+	    }) # handles mesh for VMs
+	})) meshes
+	++ # activates either rosenpass or plain wireguard for each mesh
+	map (mesh: 
+	    (mkIf cfg.${mesh}.rosenpass == false {
+		systemd.network.netdevs = mapAttrs' (mesh: device: 
+		    mesh = "wg-${mesh}"; 
+		    device = {
+			wireguardConfig = {
+			    ListenPort = cfg.${mesh}.port
+			};
+			wireguardPeers = map (peer: with cfg.${mesh}.peers.${peer}; {
+			    wireguardPeerConfig = {
+				PersistentKeepAlive = keepAlive;
+				PresharedKeyFile = ${psk};
+				PublicKey = ${public};
+				Endpoint = "${fqdn}:${port}";
+				AllowedIPs = [
+				    "${net.lib.getAddress cfg.${mesh}.peers peer}/32"
+				];
+			    };
+			}) attrNames cfg.${mesh}.peers;
+		    }) cfg;
+	    })
+	    //
+	    (mkIf cfg.${mesh}.rosenpass == true {
+		services.rosenpass = {
+		    enable = true;
+		    settings = {
+			secret_key = cfg.${mesh}.public;
+			public_key = cfg.${mesh}.public;
+			listen = map (mesh: ${net.lib.getPort "rp-${mesh}"}) rp-meshes;
+			peers = map (mesh: mapAttrs (peer: conf: 
+			    with cfg.${mesh}.peers.${peer}; {
+				device = "rp-${mesh}";
+				public_key = ${public};
+				endpoint = ${fqdn}:${port}
+			    }) cfg.${mesh}.peers) meshes;
+		    };
+		};
+		environment.systemPackages = with pkgs; [
+		    rosenpass
+		    rosenpass-tools
 		];
-	    }) attrNames cfg.${mesh}.peers;
-	}) cfg;
-    };
+	    })
+	) meshes;
 }
-#TODO: include VMS, their configs aren't passed as `nodes` but instead as 
-# config.microvm.vms.*
 # shellhook to generate public, private, and PSKs in sops for every host
 # do BGP so two hosts behind two different NATs can connect
+# sops
