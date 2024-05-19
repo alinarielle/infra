@@ -1,4 +1,5 @@
+{lib, config, ...}:
+with import ./getport.nix { inherit config lib; };
 {
-    imports = [
-    ];
+     inherit getPort;  
 }

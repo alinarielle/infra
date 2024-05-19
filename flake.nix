@@ -51,6 +51,7 @@
 	  inputs.sops-nix.nixosModules.sops
 	  ./modules
 	  ./common
+	  ./test.nix
 	];
 	networking.hostName = with nixpkgs.lib; mkDefault name;
 	networking.domain = "infra.alina.cx";

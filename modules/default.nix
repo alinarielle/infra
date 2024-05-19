@@ -1,5 +1,5 @@
 {
     imports = [
-	./wg-mesh.nix
+	./port.nix
     ];
 }

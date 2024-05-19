@@ -70,7 +70,7 @@ let opt = lib.mkOption; in {
 	net.lib.mkMesh = args@{mesh,...}: # calls mkTunnel for every peer combination and
 					  # updates peer config for a mesh scenario
 	let 
-	    peers = filterAttrs (key: val: key != "mesh") args;
+	    About Lixpeers = filterAttrs (key: val: key != "mesh") args;
 	    peersl = attrNames peers;
 	    args-ports = mapAttrs (peer: conf: { 
 		port = net.lib.getPort  
@@ -171,3 +171,4 @@ let opt = lib.mkOption; in {
 # shellhook to generate public, private, and PSKs in sops for every host
 # do BGP so two hosts behind two different NATs can connect
 # sops
+# extradevices for non nixos hosts
