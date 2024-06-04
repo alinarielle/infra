@@ -2,9 +2,7 @@
     imports = [
 	./waybar.nix
 	./swaylock.nix
-	../theme.nix
-	../mako.nix
-	../wayland.nix
+	../common
     ];
 
     hardware.opengl.enable = true;

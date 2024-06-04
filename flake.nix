@@ -19,6 +19,13 @@
     hyprland-git.url = "github:hyprwm/hyprland/main";
     hyprland-xdph-git.url = "github:hyprwm/xdg-desktop-portal-hyprland";
     hyprland-protocols-git.url = "github:hyprwm/xdg-desktop-portal-hyprland";
+    lix.url = "git+https://git@git.lix.systems/lix-project/lix?ref=refs/tags/2.90-beta.1";
+    lix.flake = false;
+    lix-module = {
+	url = "git+https://git.lix.systems/lix-project/nixos-module";
+	inputs.lix.follows = "lix";
+	inputs.nixpkgs.follows = "nixpkgs";
+    };
     hyprland = {
 	url = "github:spikespaz/hyprland-nix";
 	inputs = {
@@ -27,9 +34,13 @@
 	    hyprland-protocols.follows = "hyprland-protocols-git";
 	};
     };
+    niri = {
+	url = "github:YaLTeR/niri";
+	inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, nixos-hardware, colmena, nix-colors, hyprland, nixvim, sops-nix, impermanence, flake-utils, microvm, nix-dns, ... }: 
+  outputs = inputs@{ self, nixpkgs, home-manager, nixos-hardware, colmena, nix-colors, hyprland, nixvim, sops-nix, impermanence, flake-utils, microvm, nix-dns, lix-module, niri, ... }: 
   let
 	hostsDir = "${./.}/hosts";
 	hostNames = with nixpkgs.lib; attrNames
@@ -49,9 +60,10 @@
 	  (./. + "/hosts/${name}")
 	  home-manager.nixosModules.home-manager
 	  inputs.sops-nix.nixosModules.sops
+	  inputs.impermanence.nixosModules.impermanence
+	  lix-module.nixosModules.default
 	  ./modules
 	  ./common
-	  ./test.nix
 	];
 	networking.hostName = with nixpkgs.lib; mkDefault name;
 	networking.domain = "infra.alina.cx";

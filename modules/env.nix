@@ -1,16 +1,34 @@
-{lib, ...}: {
-    options.net.env = {
-	primaryIP = {
-	    v4 = lib.mkOption {
-		type = lib.types.str;
+{lib, ...}: 
+with lib; 
+let opt = mkOption; in {
+    options.env = with types; {
+	net = {
+	    ip = {
+		v4 = opt {
+		    type = str;
+		};
+		v6 = opt {
+		    type = str;
+		};
 	    };
-	    v6 = lib.mkOption {
-		type = lib.types.str;
+	    nat = opt {
+		type = bool;
+		default = false;
 	    };
 	};
-	nat = lib.mkOption {
-	    type = lib.types.bool;
-	    default = false;
+	ram = {
+	    size = opt {
+		type = str;
+	    };
+	    alloc = opt {
+		type = attrsOf (submodule {
+		    options = {
+			reserved = opt {
+			    type = attrs;
+			};
+		    };
+		});
+	    };
 	};
     };
 }

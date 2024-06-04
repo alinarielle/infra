@@ -3,11 +3,10 @@
       inputs.nixos-hardware.nixosModules.lenovo-thinkpad-x1-7th-gen
       inputs.nixos-hardware.nixosModules.common-pc-ssd
       ./hardware-configuration.nix
-      ../../profiles/desktop
     ];
-
+  desktop.sway.enable = true;
   nixpkgs.config.allowUnfree = true;
-  boot.kernelParams = [ "snd-intel-dspcfg.dsp_driver=1"];
+  boot.kernelParams = [ "snd-intel-dspcfg.dsp_driver=1" "i8042.debug" "i8042.nopnp"];
   boot.extraModprobeConfig = ''
   options snd-intel-dspcfg dsp_driver=1
 '';

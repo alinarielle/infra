@@ -1,8 +1,8 @@
 {
     imports = [
-	../../profiles/impermanence.nix
 	./hardware-configuration.nix
     ];
+    impermanence.enable = true;
     system.stateVersion = "23.11";
     networking.tempAddresses = "enabled";
     deployment = {

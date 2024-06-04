@@ -122,8 +122,10 @@ let
 	nginx
 	ansible
 	python3
+	nurl
+	nix-init
+	bubblewrap
     ];
-    # android emu for devel
     virtualisation.waydroid.enable = true;
     security = with pkgs; [
 	checksec

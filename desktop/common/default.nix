@@ -1,6 +1,5 @@
 {pkgs, lib, ...}: {
     imports = [
-	./sway
 	./librewolf.nix
 	./cursor.nix
 	./kitty.nix

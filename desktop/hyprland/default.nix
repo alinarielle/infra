@@ -1,12 +1,10 @@
 { pkgs, config, inputs, lib, ... }: {
 
     imports = [
-	../theme.nix
-	../wayland.nix
 	./keybinds.nix
 	../sway/swaylock.nix
 	../sway/waybar.nix # TODO replace bar with something prettier
-	../mako.nix
+	../common
     ];
 
     users.users.alina.packages = with pkgs; [

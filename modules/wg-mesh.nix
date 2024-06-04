@@ -1,5 +1,5 @@
 {config, nodes, lib, pkgs, name, ...}:
-with lib; 
+with lib; with builtins;
 let opt = lib.mkOption; in {
     options.net.wg-mesh = with types; opt{
 	default = {};
@@ -34,7 +34,7 @@ let opt = lib.mkOption; in {
 	./env.nix
 	./port.nix
     ];
-    config = let
+    config = with import ./lib {inherit config lib;}; let
 	## private vars
 	cfg = config.net.wg-mesh;
 	meshes = attrNames cfg;
@@ -56,24 +56,24 @@ let opt = lib.mkOption; in {
 	if !(hasAttr name args) then {} else
 	if  (head argsl) == (tail argsl) then {}
 	if  length argsl != 2 then {} else {
-	    private = "secrets.${name}.private";
-	    public = "/secrets/wg/";
+	    private = "/secrets/p2p-wg/${name}/private.key";
+	    public = "/secrets/p2p-wg/${name}/public.key";
 	    peers.${peer} = {
 		fqdn = if nodes.${peer}.config.env.nat then null
 		    else nodes.${peer}.config.networking.fqdn;
 		keepAlive = if config.env.nat then 25 else null;
 		psk = "/secrets/p2p-wg/${name}/psk/${peer}.psk.key";
 		public = "/secrets/p2p-wg/${peer}/public.key";
-		port = net.lib.getPort "p2p-wg-${name}-${peer}";
+		port = getPort "p2p-wg-${name}-${peer}";
 	    } // peer-conf;
 	};
 	net.lib.mkMesh = args@{mesh,...}: # calls mkTunnel for every peer combination and
 					  # updates peer config for a mesh scenario
 	let 
-	    About Lixpeers = filterAttrs (key: val: key != "mesh") args;
+	    peers = filterAttrs (key: val: key != "mesh") args;
 	    peersl = attrNames peers;
 	    args-ports = mapAttrs (peer: conf: { 
-		port = net.lib.getPort  
+		port = getPort  
 			(if nodes.${peer}.config.net.wg-mesh.${mesh}.rosenpass == true
 			then "rp-mesh-${mesh}" else "wg-mesh-${mesh}");
 		public = "/secrets/mesh/${mesh}/${peer}/public.key";
@@ -103,6 +103,20 @@ let opt = lib.mkOption; in {
 	    getAddress
 	    mkTunnel
 	    mkMesh;
+
+	    services.bird2 = {
+		config = ''
+		    log syslog all;
+		    protocol device {}
+		    router id ${env.prim.v4};
+		    protocol direct {
+			interface ${concatMapStringsSep ", " (mesh: 
+			    if mesh elem rp-meshes then "rp-${mesh}"
+			    else "wg-${mesh}") meshes}
+			    
+		    }
+		'';
+	    };
 	}
 	++ map (mesh: (mkIf (config.vm != {}) 
 	let
@@ -137,7 +151,7 @@ let opt = lib.mkOption; in {
 				PersistentKeepAlive = keepAlive;
 				PresharedKeyFile = ${psk};
 				PublicKey = ${public};
-				Endpoint = "${fqdn}:${port}";
+				Endpoint = "${fqdn}:${toString port}";
 				AllowedIPs = [
 				    "${net.lib.getAddress cfg.${mesh}.peers peer}/32"
 				];
@@ -152,12 +166,12 @@ let opt = lib.mkOption; in {
 		    settings = {
 			secret_key = cfg.${mesh}.public;
 			public_key = cfg.${mesh}.public;
-			listen = map (mesh: ${net.lib.getPort "rp-${mesh}"}) rp-meshes;
+			listen = map (mesh: ${toString getPort "rp-${mesh}"}) rp-meshes;
 			peers = map (mesh: mapAttrs (peer: conf: 
 			    with cfg.${mesh}.peers.${peer}; {
 				device = "rp-${mesh}";
 				public_key = ${public};
-				endpoint = ${fqdn}:${port}
+				endpoint = ${fqdn}:${toString port}
 			    }) cfg.${mesh}.peers) meshes;
 		    };
 		};
