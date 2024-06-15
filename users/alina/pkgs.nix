@@ -100,6 +100,7 @@ let
     ];
     devel = with pkgs; [
 	gcc
+	cachix
 	git
 	checksec
 	wfuzz

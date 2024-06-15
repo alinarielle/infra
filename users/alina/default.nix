@@ -1,4 +1,4 @@
-{ ... }: {
+{ pkgs,... }: {
     imports = [
 	./shell.nix
 	./pkgs.nix
@@ -7,6 +7,7 @@
 	./ssh.nix
     ];
     users.users.alina = {
+	shell = pkgs.zsh;
 	isNormalUser = true;
 	extraGroups = [ "wheel" "networkmanager" "adb" ];
     };

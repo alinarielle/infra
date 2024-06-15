@@ -1,6 +1,7 @@
 {pkgs, lib, ...}: {
     imports = [
 	./librewolf.nix
+	./stylix.nix
 	./cursor.nix
 	./kitty.nix
 	./mako.nix
@@ -8,10 +9,7 @@
 	./audio.nix
 	./pkgs.nix
 	./bluetooth.nix
-    ];
-
-    fonts.packages = with pkgs; [
-	nerdfonts
+	./fonts.nix
     ];
 
     services.printing.enable = true;

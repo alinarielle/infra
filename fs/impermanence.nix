@@ -1,4 +1,4 @@
-{config, lib, inputs, ...}: 
+{config, lib, inputs, name,...}: 
 with lib; with builtins;
 let 
     cfg = config.impermanence;
@@ -47,12 +47,12 @@ in {
 	};
 
 	fileSystems = {
-	    "/" = mkIf cfg.impermanence.enable mkForce { 
+	    "/" = mkForce { 
 		device = "none"; 
 		fsType = "tmpfs"; 
 		options = [ "defaults" "size=2G" "mode=755"]; 
 	    };
-	    "/persist".neededForBoot = mkIf cfg.impermanence.enable true;
+	    "/persist".neededForBoot = true;
 	};
     };
 }

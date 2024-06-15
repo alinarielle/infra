@@ -38,9 +38,10 @@
 	url = "github:YaLTeR/niri";
 	inputs.nixpkgs.follows = "nixpkgs";
     };
+    stylix.url = "github:danth/stylix";
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, nixos-hardware, colmena, nix-colors, hyprland, nixvim, sops-nix, impermanence, flake-utils, microvm, nix-dns, lix-module, niri, ... }: 
+  outputs = inputs@{ self, nixpkgs, home-manager, nixos-hardware, colmena, nix-colors, hyprland, nixvim, sops-nix, impermanence, flake-utils, microvm, nix-dns, lix-module, niri, stylix, ... }: 
   let
 	hostsDir = "${./.}/hosts";
 	hostNames = with nixpkgs.lib; attrNames
@@ -51,22 +52,24 @@
       meta = {
         nixpkgs = import nixpkgs {
 	  system = "x86_64-linux";
-	  overlays = [];
+	  overlays = [ niri.overlays.niri ];
 	};
 	specialArgs = { inherit inputs; };
       };
       defaults = { config, name, nodes, ... }: {
 	imports = [
 	  (./. + "/hosts/${name}")
-	  home-manager.nixosModules.home-manager
+	  inputs.home-manager.nixosModules.home-manager
 	  inputs.sops-nix.nixosModules.sops
 	  inputs.impermanence.nixosModules.impermanence
-	  lix-module.nixosModules.default
+	  inputs.lix-module.nixosModules.default
+	  inputs.niri.nixosModules.niri
+	  inputs.stylix.nixosModules.stylix
 	  ./modules
 	  ./common
 	];
 	networking.hostName = with nixpkgs.lib; mkDefault name;
-	networking.domain = "infra.alina.cx";
+	networking.domain = with nixpkgs.lib; mkDefault "infra.alina.cx";
       };
     } // nixpkgs.lib.listToAttrs (map (name: nixpkgs.lib.nameValuePair name {}) hostNames);
     nixosConfigurations = ( colmena.lib.makeHive self.colmena ).nodes;
