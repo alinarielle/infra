@@ -1,9 +1,7 @@
-# by yuka
-{ lib ? import <nixpkgs/lib> }:
-
-with lib;
-
-rec {
+{ lib, config, ... }:
+with lib; with builtins;
+{
+config.lib.network.ip-utils = rec {
   # FIXME: add case for negative numbers
   pow = base: exponent: if exponent == 0 then 1 else
   fold
@@ -292,4 +290,5 @@ rec {
 
   };
 
+};
 }

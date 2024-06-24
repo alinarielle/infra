@@ -5,7 +5,8 @@ with lib; with builtins; {
 	./swaylock.nix
 	../common
     ];
-    config = mkIf config.profiles.desktop.sway.enable {
+    options.l.desktop.sway.enable = mkEnableOption "sway";
+    config = mkIf config.l.desktop.sway.enable {
 	hardware.opengl.enable = true;
 	programs.sway.enable = true;
 	programs.sway.extraPackages = with pkgs; [

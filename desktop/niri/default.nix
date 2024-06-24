@@ -1,6 +1,9 @@
 {lib, config,...}:
 with lib; with builtins;
 {
+    imports = [
+	../common
+    ];
     options.profiles.desktop.niri = mkEnableOption "niri";
     config = {
 	programs.niri = {

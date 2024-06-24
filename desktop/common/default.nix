@@ -1,6 +1,8 @@
 {pkgs, lib, ...}: {
     imports = [
 	./librewolf.nix
+	./home-manager.nix
+	./security.nix
 	./stylix.nix
 	./cursor.nix
 	./kitty.nix
@@ -10,10 +12,10 @@
 	./pkgs.nix
 	./bluetooth.nix
 	./fonts.nix
+	./audio
+	./layout.nix
+	./fonts.nix
+	./theme.nix
+	./printing.nix
     ];
-
-    services.printing.enable = true;
-
-    nix.daemonCPUSchedPolicy = lib.mkDefault "idle";
-    nix.daemonIOSchedClass = lib.mkDefault "idle";
 }

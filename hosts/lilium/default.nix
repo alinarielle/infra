@@ -4,7 +4,7 @@
       inputs.nixos-hardware.nixosModules.common-pc-ssd
       ./hardware-configuration.nix
     ];
-  profiles.desktop.sway.enable = true;
+  l.desktop.alina.sway.enable = true;
   nixpkgs.config.allowUnfree = true;
   boot.kernelParams = [ "snd-intel-dspcfg.dsp_driver=1" "i8042.debug" "i8042.nopnp"];
   boot.extraModprobeConfig = ''
@@ -24,5 +24,4 @@
 	allowLocalDeployment = true;
 	tags = [ "infra" "desktop" ];
     };
-    #net.env.nat = true;
 }

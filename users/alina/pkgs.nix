@@ -127,7 +127,6 @@ let
 	nix-init
 	bubblewrap
     ];
-    virtualisation.waydroid.enable = true;
     security = with pkgs; [
 	checksec
 	apktool

@@ -1,7 +1,7 @@
 {lib, config, ...}:
 with lib; with builtins;
 {
-    lib.types.tree = {
+    lib.types.struct.tree = {
 	name = "Tree Data Structure";
 	description = ''recursive struct used to store nested data'';
 	descriptionClass = "nonRestrictiveClause";
@@ -24,7 +24,7 @@ with lib; with builtins;
 	    };
 	};
     };
-    lib.struct.mkTree = args@{
+    lib.types.struct.mkTree = args@{
 	public ? false, 
 	meta ? false,
 	symmetric ? false,

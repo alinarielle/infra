@@ -39,6 +39,8 @@
 	inputs.nixpkgs.follows = "nixpkgs";
     };
     stylix.url = "github:danth/stylix";
+    disko.url = "github:nix-community/disko";
+    disko.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, nixos-hardware, colmena, nix-colors, hyprland, nixvim, sops-nix, impermanence, flake-utils, microvm, nix-dns, lix-module, niri, stylix, ... }: 
@@ -65,9 +67,35 @@
 	  inputs.lix-module.nixosModules.default
 	  inputs.niri.nixosModules.niri
 	  inputs.stylix.nixosModules.stylix
-	  ./modules
-	  ./common
+	  ./boot
+	  ./deployment
+	  ./desktop
+	  ./environment
+	  ./filesystem
+	  ./kernel
+	  ./lib
+	  ./network
+	  ./packages
+	  ./profiles
+	  ./services
+	  ./tasks
+	  ./users
 	];
+	nix = {
+	    settings = {
+		experimental-features = [ "nix-command" "flakes" ];
+		trusted-users = [ "@wheel" "root" ];
+	    };
+	    config = {
+		auto-optimise-store = true;
+	    };
+	    gc = {
+		automatic = true;
+		options = "--delete-older-than 7d";
+	    };
+	    package = inputs.nixpkgs.lix;
+	};
+	time.timeZone = inputs.nixpkgs.lib.mkDefault "Europe/Berlin";
 	networking.hostName = with nixpkgs.lib; mkDefault name;
 	networking.domain = with nixpkgs.lib; mkDefault "infra.alina.cx";
       };

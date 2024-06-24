@@ -30,8 +30,6 @@ flake
 ├── services		# config for specific services
 ├── users		    # config for specific users
 ├── lib             # helper functions
-├── modules         # pre written modules for conditional imports
-├── infra.excalidraw	# a network plan of my infrastructure
 ├── .justfile 		# shortcuts for flake related commands
 ├── .sops.yaml		# configu for sops-nix
 └── .envrc		# direnv configuration to enter the flake devshell
