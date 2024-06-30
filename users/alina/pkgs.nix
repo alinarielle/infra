@@ -129,6 +129,7 @@ let
     ];
     security = with pkgs; [
 	checksec
+	frida-tools
 	apktool
 	binwalk
 	thc-hydra

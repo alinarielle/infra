@@ -13,7 +13,7 @@ in
 		options = {
 		    address = opt { default = ""; type = str; };
 		    port = opt { 
-			default = config.lib.network.getPort "ssh"; 
+			default = config.lib.net.getPort "ssh"; 
 			type = port; 
 		    };
 		};

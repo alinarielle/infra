@@ -6,22 +6,26 @@ let
 in
 {
     options.l.network.getAddress = with types; {
-	registry = opt {
-	    default = {};
-	    type = attrsOf (submodule {
-		options = {
-		    alloc = opt {
-			default = [];
-			type = listOf with ipAddresses; oneOf [ v4 v6 ];
-		    };
+	default = {};
+	type = attrsOf (submodule {
+	    options = with ipAddresses; rec {
+		addressType = opt { type = attrs; default = ipv6; };
+		networkSize = opt { 
+		    type = cidrPrefix; 
+		    default = if addressType == ipv6 then "/64" else "/32";
 		};
-	    });
-	};
+		routingPrefix = opt { 
+		    type = oneOf [ ipv4 ipv6 ]; 
+		    default = if addressType == ipv6 then "10.0.0.0"; 
+		};
+	    };
+	});
     };
     config = {
 	lib.network.getAddress = args@{
-	    type ? types.ipAddresses.v6, 
-	    size ? (if type = types.ipAddresses.v4 then "/32" else "/64"),
+	    addressType ? types.ipAddresses.ipv6, 
+	    size ? "/32",
+	    id,
 	    ...}:
 	let
 	    argsl = attrNames args;

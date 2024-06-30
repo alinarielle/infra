@@ -14,6 +14,7 @@ with lib; with builtins; {
 		"privacy.clearOnShutdown.downloads" = false;
 		"security.OCSP.require" = false;
 		"privacy.clearOnShutdown.cookies" = true;
+		"svg.context-properties.content.enabled" = true;
 	    };
 	};
 	environment.etc."librewolf/policies.json" = {
@@ -34,7 +35,14 @@ with lib; with builtins; {
 		    
 		};
 		policies = {
+		# To add additional extensions, find it on addons.mozilla.org, find
+		# the short ID in the url 
+		# (like https://addons.mozilla.org/en-US/firefox/addon/!SHORT_ID!/)
+    		# then to find the extension UUID, go to 
+		# about:debugging#/runtime/this-firefox in your browser and grab the
+		# extension ID, not the Internal UUID
 		    policies.ExtensionSettings = listToAttrs [
+		    (extension "simple-tab-groups" "simple-tab-groups@drive4ik")
 		    (extension "ublock-origin" "uBlock0@raymondhill.net")
 		    (extension "umatrix" "uMatrix@raymondhill.net")
 		    (extension "clearurls" "{74145f27-f039-47ce-a470-a662b129930a}")

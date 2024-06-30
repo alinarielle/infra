@@ -36,7 +36,7 @@ in {
 	lib.network.mkTunnel = args@{...}:
 	let
 	    argsl = attrNames args;
-	    peer = head (filter (uwu: ${uwu} == name) argsl);
+	    peer = head (filter (uwu: ${uwu} != name) argsl);
 	    peerOverride = args.${peer};
 	    selfOverride = args.${name};
 	in

@@ -3,6 +3,8 @@
 
   inputs = {
     nix-dns.url = "github:kirelagin/dns.nix";
+    lanzaboote.url = "github:nix-community/lanzaboote/v0.4.1";
+    lanzaboote.inputs.nixpkgs.follows = "nixpkgs";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master"; 
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
@@ -43,7 +45,7 @@
     disko.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, nixos-hardware, colmena, nix-colors, hyprland, nixvim, sops-nix, impermanence, flake-utils, microvm, nix-dns, lix-module, niri, stylix, ... }: 
+  outputs = inputs@{ self, nixpkgs, home-manager, nixos-hardware, colmena, nix-colors, hyprland, nixvim, sops-nix, impermanence, flake-utils, microvm, nix-dns, lix-module, niri, stylix, lanzaboote, ... }: 
   let
 	hostsDir = "${./.}/hosts";
 	hostNames = with nixpkgs.lib; attrNames
@@ -67,16 +69,16 @@
 	  inputs.lix-module.nixosModules.default
 	  inputs.niri.nixosModules.niri
 	  inputs.stylix.nixosModules.stylix
+	  inputs.lanzaboote.nixosModules.lanzaboote
 	  ./boot
 	  ./deployment
 	  ./desktop
-	  ./environment
 	  ./filesystem
 	  ./kernel
 	  ./lib
+	  ./meta
 	  ./network
 	  ./packages
-	  ./profiles
 	  ./services
 	  ./tasks
 	  ./users
