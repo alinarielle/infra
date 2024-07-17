@@ -6,5 +6,9 @@
     ];
     imports = [
 	./games
+	./archivetools.nix
+	./fstools.nix
+	./chat.nix
+	./hardening
     ];
 }

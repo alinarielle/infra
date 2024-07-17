@@ -30,17 +30,30 @@ in
 		path = "/secrets/${name}/sshd/ssh_host_rsa.key";
 	    }];
 	    settings = {
+		allowSFTP = false;
 		UseDns = true;
+		X11Forwarding = false;
 		PrintMotd = true;
 		PermitRootLogin = "prohibit-password";
 		AllowUsers = ["root" "alina"];
 		PasswordAuthentication = false;
+		challengeResponseAuthentication = false;
 		listenAddresses = map (x: {
 		    addr = x.address; 
 		    port = x.port
 		;}) cfg.listenAddresses;
 		#fail2ban
 	    };
+	    extraConfig = ''
+		AllowTcpForwarding yes
+		AllowAgentForwarding no
+		AllowStreamLocalForwarding no
+		AuthenticationMethods publickey
+	    '';
+	};
+	services.endlessh = {
+	    enable = true;
+	    port = 22;
 	};
     };
 }

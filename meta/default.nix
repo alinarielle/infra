@@ -8,7 +8,7 @@
 	./blockSizeType.nix
 	./network.nix
 	./ram.nix
-	./services.nix
+	./services
 	./hostType.nix
 	./hidpi.nix
     ];

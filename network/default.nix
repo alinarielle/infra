@@ -1,6 +1,7 @@
 {lib, pkgs, ...}: {
     imports = [ 
 	./auth.nix
+	./hardening
 	./getPort.nix
 	./initrdUnlock.nix
     ];
