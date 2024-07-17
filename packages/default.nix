@@ -4,4 +4,7 @@
 	acpid
 	kitty.terminfo
     ];
+    imports = [
+	./games
+    ];
 }

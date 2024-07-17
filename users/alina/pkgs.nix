@@ -55,6 +55,7 @@ let
     ];
     miscutils = with pkgs; [
 	usbutils
+	blahaj
 	jq
 	file
 	imagemagick

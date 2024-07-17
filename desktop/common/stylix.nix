@@ -1,4 +1,4 @@
-{lib, config, pkgs,...}: {
+{lib, config, pkgs,...}: lib.mkIf config.l.desktop.any.enable {
     stylix = {
 	enable = true;
 	image = ../wallpaper.png; # extend by a collection of unsplash images and select

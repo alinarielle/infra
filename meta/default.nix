@@ -10,5 +10,6 @@
 	./ram.nix
 	./services.nix
 	./hostType.nix
+	./hidpi.nix
     ];
 }

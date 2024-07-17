@@ -10,6 +10,7 @@
   boot.extraModprobeConfig = ''
   options snd-intel-dspcfg dsp_driver=1
 '';
+    l.meta.hidpi.enable = true;
 
     environment.systemPackages = with pkgs; [
 	sof-firmware

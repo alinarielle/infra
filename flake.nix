@@ -2,6 +2,8 @@
   description = "alina's NixOS flake";
 
   inputs = {
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    rnat.url = "gitlab:yuka/rnat?host=cyberchaos.dev";
     nix-dns.url = "github:kirelagin/dns.nix";
     lanzaboote.url = "github:nix-community/lanzaboote/v0.4.1";
     lanzaboote.inputs.nixpkgs.follows = "nixpkgs";
@@ -45,20 +47,24 @@
     disko.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, nixos-hardware, colmena, nix-colors, hyprland, nixvim, sops-nix, impermanence, flake-utils, microvm, nix-dns, lix-module, niri, stylix, lanzaboote, ... }: 
+  outputs = inputs@{ self, nixpkgs, home-manager, flake-utils, flake-parts,...}: 
   let
 	hostsDir = "${./.}/hosts";
 	hostNames = with nixpkgs.lib; attrNames
       	    (filterAttrs (name: type: type == "directory") (builtins.readDir hostsDir));
   in
-  {
+  flake-parts.lib.mkFlake {inherit inputs;} {
     colmena = { 
       meta = {
         nixpkgs = import nixpkgs {
 	  system = "x86_64-linux";
-	  overlays = [ niri.overlays.niri ];
+	  overlays = [ inputs.niri.overlays.niri ];
 	};
-	specialArgs = { inherit inputs; };
+	specialArgs = let
+	  mkLib = nixpkgs: nixpkgs.lib.extend 
+	    (final: prev: (import ./lib final) // home-manager.lib);
+	  lib = (mkLib nixpkgs);
+	in { inherit inputs; inherit lib; };
       };
       defaults = { config, name, nodes, ... }: {
 	imports = [
@@ -70,12 +76,12 @@
 	  inputs.niri.nixosModules.niri
 	  inputs.stylix.nixosModules.stylix
 	  inputs.lanzaboote.nixosModules.lanzaboote
+	  inputs.nixvim.homeManagerModules.nixvim
 	  ./boot
 	  ./deployment
 	  ./desktop
 	  ./filesystem
 	  ./kernel
-	  ./lib
 	  ./meta
 	  ./network
 	  ./packages

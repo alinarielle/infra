@@ -1,37 +1,34 @@
 {lib, config, ...}:
 with lib; with builtins;
 let
-    cfg = config.l.desktop;
-    opt = mkOption;
+    cfg = config.l.desktop.impermanence;
 in {
-    options.l.desktop = with types; opt {
-	default = {};
-	type = attrsOf (submodule {
-	    options.newLayout = mkEnableOption "new fs layout for /home";
-	};
+    options.l.desktop.impermanence.enable = mkEnableOption "impermanent /home layout";
+    config = mkIf (cfg.enable && config.l.desktop.any.enable) {
+	systemd.tmpfiles.settings.snowy = genAttrs 
+	    (map (uwu: "/home/alina/" + uwu )[
+		"src"
+		"docs"
+		"media"
+		"media/pics"
+		"media/videos"
+		"media/audio"
+		"media/books"
+		"downloads"
+	    ])
+	    {
+		group = alina;
+		user = alina;
+		mode = "770";
+		age = "-";
+		type = "d";
+	    };
+	l.impermanence.keep = filter 
+	    (x: !(any (y: x == y) (map (uwu: "/home/alina/" + uwu) [ 
+		"downloads" "media"
+	    ]))) 
+	    (attrNames config.systemd.tmpfiles.settings.snowy)
+	++ map (x: "/home/alina/" + x) [".zsh_history"];
+
     };
-    config = mkMerge [
-	(attrValues
-	    mapAttrs (user: conf:
-		(mkIf cfg.${user}.newLayout {
-		    systemd.tmpfiles.settings.snowy = genAttrs 
-			(map (uwu: "/home/${user}/" + uwu )[
-			    "stash/src/flake"
-			    "stash/docs"
-			    "blob/pictures"
-			    "blob/videos"
-			])
-			{
-			    group = ${user};
-			    user = ${user};
-			    mode = "770";
-			    age = "-";
-			    type = "d";
-			};
-		    l.impermanence.keep = (attrNames 
-			config.systemd.tmpfiles.settings.snowy);
-		})
-	    ) cfg;
-	)
-    ];
 }

@@ -1,10 +1,9 @@
-{ config, ... }: {
+{config, lib, ...}: {
     imports = [ ./theme.nix ];
     home-manager.users.alina.services.mako = 
     let
 	color = config.colorScheme.palette;
-    in
-    {
+    in lib.mkIf config.l.desktop.any.enable {
 	enable = true;
 	backgroundColor = "#${color.grey}";
 	borderColor = "#${color.blue}";

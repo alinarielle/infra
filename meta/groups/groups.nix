@@ -1,10 +1,10 @@
 {lib, config, nodes, name, ...}:
 with lib; with builtins;
 let
-    cfg = config.l.environment.cuddlepiles;
+    cfg = config.l.meta.cuddlepiles;
     opt = mkOption;
 in {
-    options.l.environment.cuddlepiles = with types; opt {
+    options.l.meta.cuddlepiles = with types; opt {
 	default = {};
 	type = attrsOf (submodule {
 	    options = {

@@ -3,7 +3,6 @@ with lib; with builtins; {
     imports = [
 	./waybar.nix
 	./swaylock.nix
-	../common
     ];
     options.l.desktop.sway.enable = mkEnableOption "sway";
     config = mkIf config.l.desktop.sway.enable {
@@ -68,7 +67,7 @@ with lib; with builtins; {
 		for_window [title="sway-launcher-desktop"] floating enable, resize set 500 650
 		for_window [title="Please Confirm..." class="Godot"] floating enable
 		for_window [title="Create New Project" class="Godot"] floating enable
-	    '';
+	    ''; #TODO translate more into nix and handle wallpapers correctly
 	};
     };
 }

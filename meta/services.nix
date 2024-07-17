@@ -1,23 +1,32 @@
 {lib, config, ...}:
-with lib; with builtins;
 let
-    cfg = config.l.environment.services;
-    opt = mkOption;
+    cfg = config.l.meta.services;
 in {
-    options.l.environment.services = with types; opt {
-	default = {};
-	type = attrsOf (submodule {
+    options.l.meta.services = with lib.types; {
+	wrap = lib.mkOption { type = listOf (submodule {
 	    options = {
-		priority = opt {
-		    default = "";
-		    type = str // {
-			check = (uwu: 
-			    any (owo: uwu == owo)
-			    ["critical" "moderate" "low"]
-			);
-		    };
-		};
+		name = lib.mkOption { type = str; };
+		priority = lib.mkOption { type = enum [ "critical" "moderate" "low" ]; };
 	    };
-	});
+	});};
     };
+    config = mkMerge (map (x: {
+	l.dns.services = [{
+	    A = {
+		enable = true;
+		ip = lib.net.getAddress { name = x.name; };
+	    };
+	    AAAA = {
+		enable = true;
+		ip = lib.net.getAddress { name = x.name; };
+	    };
+	    name = x.name;
+	}];
+	l.network #TODO add firewall rules, add nginx entry, route traffic from localhost
+	# with port of getPort <name> to public
+	l.vm.${x}.failoverMigration = mkIf (x.priority == "critical") {
+	    enable = true;
+	};
+	l.impermanence.keep = [ "/srv/${x}" ];
+    }) cfg.wrap);
 }

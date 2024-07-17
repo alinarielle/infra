@@ -3,7 +3,5 @@
 {
  #    inherit getPort;  
     imports = [
-	./getPort.nix
-	./tree.nix
     ];
 }

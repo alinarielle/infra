@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, lib, config, ... }: lib.mkIf config.l.desktop.any.enable {
     users.users.alina.packages = with pkgs; [
 	qt5.qtwayland
 	waypipe

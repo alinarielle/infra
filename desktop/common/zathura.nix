@@ -1,4 +1,4 @@
-{
+{lib, config, ...}: lib.mkIf config.l.desktop.any.enable {
     home-manager.users.alina.programs.zathura = {
 	enable = true;
 	extraConfig = ''

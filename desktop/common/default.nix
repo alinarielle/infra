@@ -12,10 +12,10 @@
 	./pkgs.nix
 	./bluetooth.nix
 	./fonts.nix
-	./audio
 	./layout.nix
 	./fonts.nix
 	./theme.nix
 	./printing.nix
+	./hyfetch
     ];
 }

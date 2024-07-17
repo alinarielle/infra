@@ -14,7 +14,7 @@
     };#timer for scans which curl their json into influxdb via monitoring task group
     systemd.timers.vulnix = {
 	enable = true;
-	wanteBy [ "multi-user.target" ];
+	wanteBy = [ "multi-user.target" ];
 	timerConfig = {
 	    Unit = "vulnix.service";
 	    OnBootSec="15min";

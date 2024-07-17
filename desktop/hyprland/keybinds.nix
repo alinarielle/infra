@@ -4,7 +4,8 @@
 
 { config, pkgs, lib, ... }: {
   # <https://wiki.hyprland.org/Configuring/Dispatchers/>
-  home-manager.users.alina.wayland.windowManager.hyprland.keyBinds = let
+  home-manager.users.alina.wayland.windowManager.hyprland.keyBinds = 
+    lib.mkIf config.l.desktop.hyprland.enable let
     #MOUSE_LMB = "mouse:272";
     #MOUSE_RMB = "mouse:273";
     # MOUSE_MMB = "mouse:274";

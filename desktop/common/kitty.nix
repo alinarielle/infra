@@ -1,6 +1,5 @@
-{config, ...}: {
-    imports = [ ./theme.nix ];
-    home-manager.users.alina.programs.kitty = {
+{config, lib, ...}: {
+    home-manager.users.alina.programs.kitty = lib.mkIf config.l.desktop.any.enable {
 	enable = true;
 	shellIntegration.enableZshIntegration = if config.programs.zsh.enable then true else false;
 	settings =

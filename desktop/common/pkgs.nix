@@ -1,7 +1,9 @@
-{pkgs, ...}: {
-    users.users.alina.packages = with pkgs; [
+{pkgs, lib, config, ...}: {
+    users.users.alina.packages = with pkgs; lib.mkIf config.l.desktop.any.enable [
 	monero-gui
+	freecad
 	blender
+	zed-editor
 	openscad
 	waydroid
 	wireshark

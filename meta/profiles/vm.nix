@@ -1,58 +1,107 @@
-{pkgs, lib, config, inputs, ...}: {
-    imports = [ inputs.microvm.nixosModules.host ];
-    options.vm = lib.mkOption {
-	    type = lib.types.attrsOf (lib.types.submodule {
-		options = {
-		    enable = lib.mkEnableOption "a VM";
-		    memory = lib.mkOption {
-			type = lib.types.str;
-			default = "1G";
-			example = "512M";
-			description = "The amount of RAM allocated to the VM in <size>(M|G)";
-		    };
-		    vcpu = lib.mkOption {
-			type = lib.types.int;
-			default = 2;
-			example = 1;
-			description = "The amount of virtual CPU cores allocated to the VM."
+{lib, config, name, pkgs, nodes, ...}:
+let
+    cfg = config.l.vm;
+    opt = lib.mkOption;
+in {
+    options.l.vm = with lib.types; opt {
+	default = {};
+	type = attrsOf (submodule {
+	    options = {
+		enable = lib.mkEnableOption "VM for service x";
+		method = opt { 
+		    type = enum [ "cloud-hypervisor" "qemu" ];
+		    #TODO: enter further methods
+		    default = "cloud-hypervisor";
+		};
+		autostart = opt { type = bool; default = true; };
+		extraConfig = opt { type = attrs; default = {}; };
+		priority = opt { 
+		    type = enum [ "critical" "moderate" "low"]; 
+		    default = "moderate"; 
+		};
+		failoverMigration = {
+		    enable = mkEnableOpton "VM migration in case of host failure";
+		    failoverHost = opt { 
+			type = enum (attrNames nodes);
+			default = "snow";
 		    };
 		};
-	    });
-	    default = {};
-	    description = lib.mdDoc ''
-		Enables the VM wrapper for `vm.<service>`.
-	    '';
+	    };
+	});
     };
-    config = let 
-	cfg = config.vm;
-	activated-vms = lib.mapAttrsToList (name: _value: name) cfg; # put the names of all submodules in config.options.vm in a list
-	#prefxdVMs = map (service: "vm-" + service) activated-vms;
-	vm-attrs = lib.genAttrs
-			(lib.mapAttrsToList (name: _value: name) (builtins.readDir ../services)) 
-			(x: import ../services/${x}); # generate an attrs for each service inside vm-attrs to avoid infinite recursion because imports cant depend on config.vm
-    in lib.mkIf (cfg != {}) {
-	microvm.vms = lib.genAttrs activated-vms (service: import ../common // {
-	    inherit pkgs;
-	    config = {
-		networking.hostName = "vm-" + service;
-		microvm = {
-		    hypervisor = "cloud-hypervisor";
-		    shares = [{
-			source = "/nix/store";
-			mountPoint = "/nix/.ro-store";
-			tag = "ro-store";
-			proto = "virtiofs";
-		    }];
+    config = lib.mkMerge [{
+	}
+	(lib.mkIf (cfg != {}) lib.attrValues (lib.mapAttrs (vm-name: val: {
+	    microvm.vms.${vm-name} = {
+		inherit pkgs;
+		config = {
+		    imports = [ val.extraConfig ];
+		    networking.hostName = "vm-" + vm-name;
+		    networking.domain = "infra.alina.cx";
+		    microvm = {
+			hypervisor = val.method;
+			shares = [{
+			    source = "/nix/store";
+			    mountPoint = "/nix/.ro-store";
+			    tag = "ro-store";
+			    proto = "virtiofs";
+			}]; #TODO: ceph compatability
+		    };
 		};
-		sops.defaultSopsFile = (../. + "/secrets/services/${service}.yaml");
-	    } // vm-attrs.${service + ".nix"};
-	}); # the // operator prioritizes the latter argument when option definitions
-	    # definitions exist in both, so common stuff is imported first and then
-	    # eventually overridden by the generated vm attrs and then the respective
-	    # service files
-	    # when specifiying further configuration outside this module, it will be
-	    # merged with module imports
-
-	# additional goals: host/guest-networking, announcing host names via dns, ssh auto-complete, VNC, networking unit tests, guest application unit tests, autostart handling, device passthrough, VM secret management, handling of files and folders outside of /services
-    };
+	    };
+	    microvm.autostart = [ (lib.mkIf val.autostart ${vm-name}) ];
+	    networking.useNetworkd = true;
+	    systemd.network.networks.${"vm-" + vm-name + "-net"} = {
+		
+	    };
+	}) cfg))
+	(lib.mkIf (
+	    (any (x: x == name) 
+	    (lib.mapAttrsToList (host: conf: lib.attrValues (
+		lib.mapAttrs 
+		    (key: val: conf.l.vm.${key}.failoverMigration.backupHost)
+		cfg)) 
+	    nodes)
+	) (lib.mapAttrs (vm-name: val: l.vm.${vm-name} = {
+	    enable = true;
+	    extraConfig = {
+		systemd.services.failoverMigrationPoll = {
+		    enable = true;
+		    serviceConfig = {
+			DynamicUser = "yes";
+			AmbientCapabilities = [ "CAP_NET_RAW" "CAP_NET_ADMIN" ];
+		    };
+		    confinement.enable = true;
+		    wants = [ "networking.target" ];
+		    wantedBy = [ "multi-user.target" "timers.target" ];
+		    script = let
+			ping = "${pkgs.inetutils}/bin/ping";
+			hostName = config.microvm.vms.${vm-name}.networking.hostName;
+			domain = config.microvms.vms.${vm-name}.networking.domain;
+			fqdn = config.microvm.vms.${vm-name}.networking.fqdn;
+		    in ''
+			${ping} -c5 ${fqdn};
+			if [[ $(printf '%d\n' $?) == 1 ]]
+			then if [[ $(${ping} -c5 1.1.1.1; printf '%d\n' $? == 1) ]]
+			    then #TODO activate networking of VM in hot standby
+			    else
+			    fi
+			else
+			fi
+		    '';
+		};
+		systemd.timers.failoverMigrationPoll = {
+		    enable = true;
+		    wantedBy = [ "multi-user.target" ];
+		    startLimitBurst = 1;
+		    timerConfig = {
+			Unit = "failoverMigrationPoll.service";
+			OnStartupSec = "2min";
+			OnUnitActiveSec = "2min";
+		    };
+		};
+	    };
+	};) cfg))
+    ];
 }
+#TODO host/guest networking, VNC, cockpit, autostart, device passthrough, live migration

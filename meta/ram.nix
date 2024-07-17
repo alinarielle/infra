@@ -1,10 +1,10 @@
 {lib, config, ...}:
 with lib; with builtins;
 let
-    cfg = config.l.environment.ram;
+    cfg = config.l.meta.ram;
     opt = mkOption;
 in {
-    options.l.environment.ram = with types; {
+    options.l.meta.ram = with types; {
 	allocation = opt {
 	    default = {};
 	    type = attrsOf (submodule {

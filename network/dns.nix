@@ -4,6 +4,21 @@ let
 in {
     options.net.dns = {
 	enable = lib.mkEnableOption "DNS";
+	services = lib.mkOption {
+	    type = lib.types.listOf (lib.types.submodule {
+		options = {
+		    name = lib.mkOption { type = lib.types.str; };
+		    A = {
+			enable = lib.mkEnableOption "A record";
+			ip = lib.mkOption { type = lib.types.str; };
+		    };
+		    AAAA = {
+			enable = lib.mkEnableOption "AAAA record";
+			ip = lib.mkOption { type = lib.types.str; };
+		    };
+		};
+	    });
+	};
 	primary = lib.mkOption {
 	    type = lib.types.bool;
 	    description = "enables this host to be a primary DNS server";
@@ -153,5 +168,5 @@ in {
 	    ["DNS: user was changed but group not, are you sure this is what you want"];
     };
 }
-#TODO: secret mgmnt, impermanence, vm networking, look up what the settings actually do
+#TODO: secret mgmnt, impermanence, look up what the settings actually do
 # dns for *.infra.alina.cx and alina.cx
