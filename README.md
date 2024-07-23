@@ -29,4 +29,6 @@ flake
 ├── .justfile 		# shortcuts for flake related commands
 ├── .sops.yaml		# sops-nix layout
 └── .envrc		    # direnv entry point for the flake devshell
+```
 
+## A lot here is still WIP!
