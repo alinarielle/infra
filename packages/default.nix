@@ -1,14 +1,15 @@
 {
-    environment.systemPackages = with pkgs; [
-	tlp
-	acpid
-	kitty.terminfo
-    ];
     imports = [
 	./games
 	./archivetools.nix
 	./fstools.nix
 	./chat.nix
 	./hardening
+	./networking.nix
+	./misc.nix
+	./crypto.nix
+	./devel.nix
+	./security.nix
+	./base.nix
     ];
 }

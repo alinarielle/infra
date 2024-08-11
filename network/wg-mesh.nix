@@ -13,10 +13,12 @@ let opt = lib.mkOption; in {
 	    	port = opt { type = port; };
 	    	private = opt { type = str; };
 	    	public = opt { type = str; };
+		ip = opt { type = enum [ ip.v4 ip.v6 ];};
 		peers = opt {
 		    default = {};
 		    type = attrsOf (submodule { options = {
 			    port = opt { type = port; };
+			    ip = opt { type = enum [ ip.v4 ip.v6 ];};
 			    public = opt { type = str; };
 			    fqdn = opt { type = nullOr str; };
 			    psk = opt { type = str; };

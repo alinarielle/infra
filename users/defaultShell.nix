@@ -1,6 +1,6 @@
 { lib, pkgs, config,...}:
 with lib; with builtins;
-let cfg = config.users.users; in {
+let cfg = config.users.users; in lib.mkLocalModule ./. "default user shell" {
     config = mkMerge 
 	(attrValues (mapAttrs (user: shell: {
 	    programs = {
@@ -43,6 +43,7 @@ let cfg = config.users.users; in {
 	    programs.zsh.enable = true;
 	    environment.pathsToLink = ["/share/zsh" ];
 	    users.users.${user}.packages = with pkgs; [ zsh nix-your-shell ];
+	    user.users.${user}.shell = pkgs.zsh;
 	    home-manager.users.${user} = {
 		zsh = {
 		    enable = true;

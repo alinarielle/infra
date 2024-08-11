@@ -1,6 +1,24 @@
-{lib, config, pkgs, ...}:
-with lib; with builtins;
-{
-    l.sshd.enable = true;
-    l.kernel.hardened.enable = true;
+{lib, config, pkgs, ...}: with lib.meta; lib.mkLocalModule ./. "base profile" {
+    l.filesystem = enable ["zram"];
+    l.boot = enable ["systemd-boot"];
+    l.deployment = enable ["colmena"];
+    l.users = enable ["root" "alina"];
+    l.packages = enable [
+	"base" 
+	"archivetools" 
+	"fstools" 
+	"chat" 
+	"networking" 
+	"misc"
+	"crypto" 
+	"devel" 
+	"security"
+    ];
+    l.network = enable [
+	"speed" 
+	"bbr" 
+	"networkmanager"
+	"congestion"
+	#"ssh-net"
+    ];
 }

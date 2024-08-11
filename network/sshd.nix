@@ -1,4 +1,4 @@
-{lib, config, name,...}:
+{lib, config, name, pkgs, ,...}:
 with lib; with builtins;
 let
     cfg = config.l.network.sshd;
@@ -21,6 +21,9 @@ in
 	};
     };
     config = mkIf cfg.enable {
+	environment.systemPackages = with pkgs; [
+	    kitty.terminfo
+	];
 	services.logind.killUserProcesses = true;
 	services.openssh = {
 	    enable = true;

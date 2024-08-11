@@ -1,7 +1,7 @@
 { pkgs, config, inputs, lib, config, ... }: {
     imports = [ inputs.nix-colors.homeManagerModules.default ];
     
-    config.colorScheme = lib.mkIf config.l.desktop.any.enable {
+    config.colorScheme = {
 	slug = "strelizia";
 	name = "strelizia";
 	author = "alina (https://alina.cx)";

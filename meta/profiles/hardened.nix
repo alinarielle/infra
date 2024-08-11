@@ -5,6 +5,7 @@
 	l.kernel.lsm.apparmor.enable = true;
 	l.filesystem.hardened.enable = true;
 	l.network.hardened.enable = true;
+	l.packages.hardened.enable = true;
 	
 	environment.memoryAllocator.provider = "scudo";
 	environment.variables.SCUDO_OPTIONS = "ZeroContents=1";

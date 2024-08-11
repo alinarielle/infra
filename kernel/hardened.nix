@@ -259,6 +259,9 @@
 
 	    # disable debugfs
 	    "debugfs=off"
+
+	    # clear mlocked memory in case the program crashes
+	    "init_mlocked_on_free=1"
 	];
 	boot.kernel.sysctl = {
 	    # disable automatic loading of TTY line disciplines

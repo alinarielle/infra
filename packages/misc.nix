@@ -1,0 +1,42 @@
+{lib, config, ...}: lib.mkLocalModule ./. "misc pkgs" {
+    users.users.alina.packages = with pkgs; [
+	usbutils
+	btop
+	htop
+	powertop
+	blahaj
+	jq
+	file
+	imagemagick
+	pferd
+	hyfetch
+        appimage-run
+        tmate
+	tmux
+        zellij
+        which
+        upower
+        ventoy
+        viu
+        doas
+        sdparm
+        nvme-cli
+        less
+        man-db
+        man-pages
+        lshw
+        pciutils
+        acpid
+        tlp
+        btrfs-progs
+        hdparm
+        strace
+        nix-output-monitor
+	languagetool
+	woeusb
+	ffmpeg
+	exif
+	pango
+	fontconfig
+    ];
+}

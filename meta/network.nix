@@ -9,6 +9,7 @@ in {
 	domain = opt { default = config.networking.domain; type = str; };
 	fqdn = opt { default = config.networking.fqdn; type = str; };
 	isBehindNAT = opt { type = bool; default = true; };
+	speed = opt { type = enum ["1G" "2.5G" "10G"]; default = "1G"};
 	ipAddresses = {
 	    v4 = opt { default = {}; type = attrsOf (submodule {
 		options = {

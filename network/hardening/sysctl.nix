@@ -30,10 +30,7 @@
 	    "net.core.default_qdisc" = "cake";
 
 	    # Increase minimum PMTU
-	    "net.ipv4.min_pmtu" = 1280;
-
-	    # Set default TCP congestion control algorithm
-	    "net.ipv4.tcp_congestion_control" = "bbr";
+	    #"net.ipv4.min_pmtu" = 1280;
 
 	    # Enable ECN
 	    "net.ipv4.tcp_ecn" = 1;
@@ -51,20 +48,6 @@
 	    "net.ipv4.tcp_mtu_probing" = 1;
 	    "net.ipv4.tcp_mtu_probe_floor" = 1220;
 
-	    # Increase socket buffer space
-	    #  default of 16 MiB should be sufficient to saturate 1GE
-	    #  maximum for 54 MiB sufficient for 10GE
-	    "net.core.rmem_default" = 16777216;
-	    "net.core.rmem_max" = 56623104;
-	    "net.core.wmem_default" = 16777216;
-	    "net.core.wmem_max" = 56623104;
-	    "net.core.optmem_max" = 65536;
-	    "net.ipv4.tcp_rmem" = "4096 1048576 56623104";
-	    "net.ipv4.tcp_wmem" = "4096 65536 56623104";
-	    "net.ipv4.tcp_notsent_lowat" = 16384;
-	    "net.ipv4.udp_rmem_min" = 9216;
-	    "net.ipv4.udp_wmem_min" = 9216;
-
 	    # Reduce TCP keep‐alive time‐out to 2 minutes
 	    "net.ipv4.tcp_keepalive_time" = 60;
 	    "net.ipv4.tcp_keepalive_probes" = 6;
@@ -74,8 +57,8 @@
 	    "net.ipv4.ip_local_port_range" = "16384 65535";
 
 	    # Increase default MTU
-	    "net.ipv6.conf.default.mtu" = 1452;
-	    "net.ipv6.conf.all.mtu" = 1452;
+	    #"net.ipv6.conf.default.mtu" = 1452;
+	    #"net.ipv6.conf.all.mtu" = 1452;
 
 	    # Set traffic class for NDP to CS6 (network control)
 	    "net.ipv6.conf.default.ndisc_tclass" = 192;

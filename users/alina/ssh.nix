@@ -1,4 +1,4 @@
-{
+{lib, config, ...}: lib.mkLocalModule ./. "ssh user config" {
     home-manager.users.alina.programs.ssh = {
 	enable = true;
     };

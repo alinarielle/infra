@@ -1,6 +1,6 @@
 {
     imports = [
-	./bootloader.nix
+	./systemd-boot.nix
 	./lanzaboote.nix
     ];
 }

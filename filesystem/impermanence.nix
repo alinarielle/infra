@@ -1,10 +1,10 @@
 {config, lib, inputs, name,...}: 
 with lib; with builtins;
 let 
-    cfg = config.impermanence;
+    cfg = config.l.filesystems.impermanence;
     opt = mkOption;
 in {
-    options.l.impermanence = with types; {
+    options.l.filesystems.impermanence = with types; {
 	enable = mkEnableOption "impermanence";
 	keep = opt { type = listOf str; default = []; };
     };

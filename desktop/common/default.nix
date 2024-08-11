@@ -18,4 +18,7 @@
 	./printing.nix
 	./hyfetch
     ];
+    config = {
+	l.desktop.common.documents.enable = true;
+    };
 }

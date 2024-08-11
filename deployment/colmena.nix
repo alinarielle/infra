@@ -1,10 +1,9 @@
 {lib, config, ...}:
-with lib; with builtins;
-{
+with lib; with builtins; lib.mkLocalModule "colmena configuration" {
     deployment = mkDefault {
 	targetUser = "alina";
 	allowLocalDeployment = mkIf (elem "desktop" config.deployment.tags) true;
-	tags = [ "infra" ];
-	targetPort = head config.openssh.ports;
+	tags = [ "infra" (mkIf (elem "desktop" config.deployment.tags) "desktop") ];
+	targetPort = lib.net.getPort "ssh-net";
     };
 }
