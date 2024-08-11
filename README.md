@@ -40,13 +40,18 @@ interpolation of the current path), a description of the module which is passed 
 lib.mkEnableOption call, and finally the configuration of the following module.
 The function then parses the string interpolation of the position of the file in the
 source path, splits it up and turns it into an attribute set for the enable option and
-the lib.mkIf condition.
+the lib.mkIf condition. It looks like this:
+```
+{lib, config, ...}: lib.mkLocalModule ./. "some configuration" {
+    foo.bar.enable = true;
+}
+```
 To add some syntactic sugar, I wrote a small function that is referenced by 
 ```lib.meta.enable``` that is defined in meta/enable.nix. It allows you to write less
 boilerplate code, specifically the ubiquitous ```file.enable = true;``` definitions that
 result from my model of turning everything into a module. It is used as follows:
 ```
-{lib, config, ...}: with lib.meta; {
+{lib, ...}: with lib.meta; {
     l.network = enable ["speed" "bbr"];
 }
 ```
