@@ -1,5 +1,5 @@
 # alina's NixOS flake
-this is the NixOS configuration for my entire infrastructure
+This is the NixOS configuration for my entire infrastructure.
 
 ## Structure
 ```
