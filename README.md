@@ -107,7 +107,7 @@ collisions) and then takes an identifier (for example wg-${meshname}) which hash
 are replaced with numbers from 1-26 and modulo'd down to the desired port range.
 
 ### VMs
-I wrote a module for quickly and deterministically configuring VMs, aiming to be able to 
+I wrote a module for quickly and declaratively configuring VMs, aiming to be able to 
 re-use code as much as possible. In a nutshell you just type ```l.vm.${servicename}```, 
 where the service name is the name of an attribute set containing an enable option in 
 l.services, and thus the name of the .nix file in services/. It is possible to pass
