@@ -61,78 +61,44 @@
 	hostNames = with nixpkgs.lib; attrNames
       	    (filterAttrs (name: type: type == "directory") (builtins.readDir hostsDir));
     in flake-parts.lib.mkFlake {inherit inputs;} {
-	colmena = { 
-	    meta = {
-		nixpkgs = import nixpkgs {
-		    system = "x86_64-linux";
-		    overlays = [ inputs.niri.overlays.niri ];
+	flake = {
+	    colmena = { 
+		meta = {
+		    nixpkgs = import nixpkgs {
+			system = "x86_64-linux";
+			overlays = [ inputs.niri.overlays.niri ];
+		    };
+		    specialArgs = { inherit inputs;};
 		};
-		specialArgs = { inherit inputs;};
-	    };
-	    defaults = { config, name, nodes, ... }: {
-		imports = [
-		    (./. + "/hosts/${name}")
-		    inputs.home-manager.nixosModules.home-manager
-		    inputs.sops-nix.nixosModules.sops
-		    inputs.impermanence.nixosModules.impermanence
-		    inputs.lix-module.nixosModules.default
-		    inputs.niri.nixosModules.niri
-		    inputs.stylix.nixosModules.stylix
-		    inputs.lanzaboote.nixosModules.lanzaboote
-		    inputs.nixvim.homeManagerModules.nixvim
-		    ./boot
-		    ./deployment
-		    ./desktop
-		    ./filesystem
-		    ./kernel
-		    ./meta
-		    ./network
-		    ./packages
-		    ./services
-		    ./tasks
-		    ./users
-		];
-		nix = {
-		    allowedUsers = [ "@wheel" "root" ];
-		    settings = {
-			experimental-features = [ "nix-command" "flakes" ];
-			trusted-users = [ "@wheel" "root" ];
-		    };
-		    config = {
-			auto-optimise-store = true;
-		    };
-		    gc = {
-			automatic = true;
-			options = "--delete-older-than 7d";
-		    };
-		    package = inputs.nixpkgs.lix;
+		defaults = { config, name, nodes, ... }: {
+		    imports = [
+			(./. + "/hosts/${name}")
+			inputs.home-manager.nixosModules.home-manager
+			inputs.sops-nix.nixosModules.sops
+			inputs.impermanence.nixosModules.impermanence
+			inputs.lix-module.nixosModules.default
+			inputs.niri.nixosModules.niri
+			inputs.stylix.nixosModules.stylix
+			inputs.lanzaboote.nixosModules.lanzaboote
+			inputs.nixvim.homeManagerModules.nixvim
+			./boot
+			./deployment
+			./desktop
+			./filesystem
+			./kernel
+			./meta
+			./network
+			./packages
+			./services
+			./tasks
+			./users
+		    ];
 		};
-		time.timeZone = inputs.nixpkgs.lib.mkDefault "Europe/Berlin";
-		networking.hostName = with nixpkgs.lib; mkDefault name;
-		networking.domain = with nixpkgs.lib; mkDefault "infra.alina.cx";
-	    };
-	} // nixpkgs.lib.listToAttrs (map 
-	    (name: nixpkgs.lib.nameValuePair name {}) 
-	    hostNames
-	);
-	nixosConfigurations = ( colmena.lib.makeHive self.colmena ).nodes;
-    } // flake-utils.lib.eachDefaultSystem (system: let
-	pkgs = import nixpkgs {
-	    inherit system;
-	    overlays = [];
+	    } // nixpkgs.lib.listToAttrs (map 
+		(name: nixpkgs.lib.nameValuePair name {}) 
+		hostNames
+	    );
+	    nixosConfigurations = ( colmena.lib.makeHive self.colmena ).nodes;
 	};
-    in {
-	#devShells.default = pkgs.mkShell {
-	    #name = "flake";
-	    #buildInputs = with pkgs; [
-		#nixfmt
-		#ssh-to-age
-		#just
-		#sops
-	    #] ++ [ inputs.colmena.packages.${system}.colmena ];
-	    #shellhook = ''
-		#just -l
-	    #'';
-	#};
-    });
+    };
 }

@@ -19,6 +19,9 @@
 	"bbr" 
 	"networkmanager"
 	"congestion"
+	"time"
+	"hostName"
+	"domain"
 	#"ssh-net"
     ];
 }

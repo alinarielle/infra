@@ -1,6 +1,7 @@
 {
     imports = [
 	./blockDevices.nix
+	./nix.nix
 	./ip-util.nix
 	./tree.nix
 	./groups

@@ -79,6 +79,8 @@ let cfg = config.users.users; in lib.mkLocalModule ./. "default user shell" {
 			ip = "ip -c";
 			md = "mdkir -p $1; cd $1";
 			mv = "mv --interactive";
+			hex = "hexyl";
+			dns = "( nmcli dev list || nmcli dev show ) 2>/dev/null | grep DNS";
 		    };
 		};
 	    };

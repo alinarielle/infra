@@ -1,6 +1,7 @@
 {lib, config, pkgs, ...}: lib.mkLocalModule ./. "security related packages" {
     users.users.alina.packages = with pkgs; [
 	checksec
+	jd-cli
 	frida-tools
 	apktool
 	binwalk
