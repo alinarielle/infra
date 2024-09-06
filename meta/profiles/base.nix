@@ -1,4 +1,4 @@
-{lib, config, pkgs, ...}: with lib.meta; lib.mkLocalModule ./. "base profile" {
+{lib, config, pkgs, ...}: with config.l.lib; mkLocalModule ./base.nix "base profile" {
     l.filesystem = enable ["zram"];
     l.boot = enable ["systemd-boot"];
     l.deployment = enable ["colmena"];
@@ -13,6 +13,7 @@
 	"crypto" 
 	"devel" 
 	"security"
+	"desktop"
     ];
     l.network = enable [
 	"speed" 

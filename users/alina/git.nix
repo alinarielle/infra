@@ -1,4 +1,4 @@
-{lib, config, ...}: lib.mkLocalModule ./. "git config for alina" {
+{config, lib, ...}: config.l.lib.mkLocalModule ./git.nix "git settings for alina" {
     home-manager.users.alina.programs.git = {
 	enable = true;
 	userName = "alina";

@@ -1,4 +1,4 @@
-{lib, ...}: lib.mkLocalModule ./. "systemd-boot" {
+{lib, config, ...}: config.l.lib.mkLocalModule ./systemd-boot.nix "systemd-boot" {
     boot.loader = lib.mkDefault {
 	systemd-boot.enable = true;
 	efi.canTouchEfiVariables = true;

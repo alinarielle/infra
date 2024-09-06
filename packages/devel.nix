@@ -1,4 +1,4 @@
-{lib, config, pkgs, ...}: lib.mkLocalModule ./. "developement pkgs" {
+{lib, config, pkgs, ...}: config.l.lib.mkLocalModule ./devel.nix "developement pkgs" {
     users.users.alina.packages = with pkgs; [
 	gcc
 	cachix

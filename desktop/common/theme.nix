@@ -1,7 +1,7 @@
 { pkgs, config, inputs, lib, config, ... }: {
     imports = [ inputs.nix-colors.homeManagerModules.default ];
-    
-    config.colorScheme = {
+} // config.l.lib.mkLocalModule ./theme.nix "uniform color palette" { 
+    colorScheme = {
 	slug = "strelizia";
 	name = "strelizia";
 	author = "alina (https://alina.cx)";

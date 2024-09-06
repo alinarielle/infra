@@ -1,4 +1,4 @@
-{lib, config, ...}: lib.mkLocalModule ./. "ssh intranet" {
+{lib, config, ...}: config.l.lib.mkLocalModule ./ssh-net.nix "ssh intranet" {
     l.network.sshd.enable = true;
     l.network.sshd.listen = [];
     l.network.wg-mesh.ssh.enable = true;

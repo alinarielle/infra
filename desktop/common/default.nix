@@ -1,24 +1,22 @@
 {pkgs, lib, ...}: {
     imports = [
-	./librewolf.nix
-	./home-manager.nix
-	./security.nix
-	./stylix.nix
-	./cursor.nix
-	./kitty.nix
-	./mako.nix
-	./zathura.nix
+	#./audio
 	./audio.nix
-	./pkgs.nix
 	./bluetooth.nix
+	./cursor.nix
+	#./documents.nix
 	./fonts.nix
-	./layout.nix
-	./fonts.nix
-	./theme.nix
+	./home-manager.nix
+	./hyfetch.nix
+	./kitty.nix
+	#./layout.nix
+	./librewolf.nix
+	./mako.nix
 	./printing.nix
-	./hyfetch
+	./security.nix
+	#./stylix.nix
+	./theme.nix
+	./wayland.nix
+	./zathura.nix
     ];
-    config = {
-	l.desktop.common.documents.enable = true;
-    };
 }

@@ -1,4 +1,7 @@
-{pkgs, lib, config, ... }: lib.mkIf config.l.desktop.any.enable {
+{pkgs, lib, config, ... }: config.l.lib.mkLocalModule 
+    ./wayland.nix 
+    "common wayland related fixes and settings"  
+    {
     users.users.alina.packages = with pkgs; [
 	qt5.qtwayland
 	waypipe

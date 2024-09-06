@@ -1,4 +1,4 @@
-{lib, config, ...}: lib.mkLocalModule ./. "when the uplink goes brr" {
+{lib, config, ...}: config.l.lib.mkLocalModule ./speed.nix "when the uplink goes brr" {
     boot.kernel.sysctl = lib.mkDefault {
 	# Increase socket buffer space
 	#  default of 16 MiB should be sufficient to saturate 1GE

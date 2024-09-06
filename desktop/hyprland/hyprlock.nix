@@ -1,4 +1,4 @@
-{lib, config, ...}: lib.mkIf config.l.desktop.hyprland.enable {
+{lib, config, ...}: config.l.lib.mkLocalModule ./hyprlock.nix "lock screen" {
     security.pam.services.hyprlock = {};
     home-manager.users.alina.programs.hyprlock = {
 	enable = true;

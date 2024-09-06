@@ -1,4 +1,6 @@
-{lib, config, pkgs,...}: lib.mkIf config.l.desktop.any.enable {
+{inputs, lib, config, pkgs,...}: {
+    imports = [ inputs.stylix.nixosModules.stylix ];
+} // config.l.lib.mkLocalModule ./stylix.nix "auto desktop themeing" {
     stylix = {
 	enable = true;
 	image = ../wallpaper.png; # extend by a collection of unsplash images and select
@@ -15,6 +17,5 @@
 		name = "JetBrainsMono Nerd Font Mono";
 	    };
 	};
-
     };
 }

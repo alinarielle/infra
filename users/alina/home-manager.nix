@@ -1,4 +1,4 @@
-{lib, config, ...}: lib.mkLocalModule ./. "home manager config " {
+{lib, config, ...}: config.l.lib.mkLocalModule ./home-manager.nix "home manager config" {
     home-manager = {
 	users.alina.programs.home-manager.enable = true;
 	users.alina.home = { 

@@ -1,4 +1,4 @@
-{lib, config, ...}: lib.mkIf config.l.desktop.any.enable {
+{lib, config, ...}: config.l.lib.mkLocalModule ./audio.nix "audio settings" {
     sound.enable = false;
     security.rtkit.enable = true;
     services.pipewire = {

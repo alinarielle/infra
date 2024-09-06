@@ -1,4 +1,4 @@
-{pkgs, lib, config, ...}: lib.mkIf config.l.desktop.any.enable {
+{pkgs, lib, config, ...}: config.l.lib.mkLocalModule ./cursor.nix "desktop cursor" {
     home-manager.users.alina.home.pointerCursor = let 
 	getFrom = url: hash: name: {
 	    gtk.enable = true;

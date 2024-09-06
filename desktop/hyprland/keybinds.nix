@@ -2,10 +2,9 @@
 # search: ^(\s*)(bind[rwelm]*) = (|\w+), (|\$?\w+), (.+)$ /gm
 # replace: $1$2."$3, $4" = "$5";
 
-{ config, pkgs, lib, ... }: {
+{config, pkgs, lib, ...}: config.l.lib.mkLocalModule ./keybinds.nix "hyprland keybinds" {
   # <https://wiki.hyprland.org/Configuring/Dispatchers/>
-  home-manager.users.alina.wayland.windowManager.hyprland.keyBinds = 
-    lib.mkIf config.l.desktop.hyprland.enable let
+  home-manager.users.alina.wayland.windowManager.hyprland.keyBinds = let
     #MOUSE_LMB = "mouse:272";
     #MOUSE_RMB = "mouse:273";
     # MOUSE_MMB = "mouse:274";

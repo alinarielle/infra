@@ -1,6 +1,5 @@
 {lib, config, name, ...}: 
-with lib; with builtins; {
-    config = mkIf config.l.desktop.any.enable {
+with lib; with builtins; config.l.lib.mkLocalModule ./librewolf.nix "hardened browser" {
     home-manager.users.alina = {
 	programs.librewolf = {
 	    enable = true;

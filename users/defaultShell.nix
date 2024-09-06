@@ -1,6 +1,9 @@
 { lib, pkgs, config,...}:
 with lib; with builtins;
-let cfg = config.users.users; in lib.mkLocalModule ./. "default user shell" {
+let cfg = config.users.users; in config.l.lib.mkLocalModule 
+    ./defaultShell.nix 
+    "default user shell" 
+{
     config = mkMerge 
 	(attrValues (mapAttrs (user: shell: {
 	    programs = {

@@ -1,4 +1,4 @@
-{lib, config, ...}: lib.mkIf config.l.desktop.hyprland.enable {
+{lib, config, ...}: config.l.lib.mkLocalModule ./hypridle.nix "auto suspend" {
     home-manager.users.alina.programs.hypridle = {
 	enable = true;
 	settings = {

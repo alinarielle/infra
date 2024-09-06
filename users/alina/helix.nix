@@ -1,4 +1,4 @@
-{lib, config, ...}: lib.mkLocalModule ./. "helix editor" {
+{lib, config, ...}: config.l.lib.mkLocalModule ./helix.nix "helix config for alina" {
     home-manager.users.alina.programs.helix = {
 	defaultEditor = true;
 	enable = true;

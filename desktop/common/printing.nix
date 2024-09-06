@@ -1,3 +1,3 @@
-{lib, config, ...}: lib.mkIf config.l.desktop.any.enable {
+{lib, config, ...}: config.l.lib.mkLocalModule ./printing.nix "cupsd" {
     services.printing.enable = mkDefault true;
 }

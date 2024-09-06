@@ -1,4 +1,4 @@
-{ pkgs, lib, config, ... }: lib.mkIf config.l.desktop.sway.enable {
+{ pkgs, lib, config, ... }: config.l.lib.mkLocalModule ./swaylock.nix "lock screen" {
     home-manager.users.alina = {
 	programs.swaylock = {
 	    enable = true;

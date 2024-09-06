@@ -1,13 +1,23 @@
 {lib, pkgs, ...}: {
     imports = [ 
 	./congestion
-	./time.nix
+	#./dns
+	#./dns.nix
 	./domain.nix
-	./hostName.nix
-	./hardening
+	#./getAddress.nix
 	./getPort.nix
+	./hardening
+	./hostName
+	#./initrdUnlock.nix
+	#./mesh-wip.nix
 	./networkmanager.nix
 	./rnat.nix
-	./ssh-net.nix
+	./speed.nix
+	#./ssh-forward.nix
+	#./ssh-net.nix
+	./sshd.nix
+	./time.nix
+	#./web
+	#wg-mesh.nix
     ];
 }

@@ -1,4 +1,5 @@
-{
+{inputs, pkgs, ...}: {
+    imports = [ inputs.lix-module.nixosModules.default ];
     nix = {
 	allowedUsers = [ "@wheel" "root" ];
 	settings = {
@@ -12,6 +13,6 @@
 	   automatic = true;
 	   options = "--delete-older-than 7d";
 	};
-	package = inputs.nixpkgs.lix;
+	package = pkgs.lix;
    };
 }

@@ -1,4 +1,4 @@
-{lib, config, ...}: lib.mkIf config.l.desktop.any.enable {
+{lib, config, ...}: config.l.lib.mkLocalModule ./home-manager.nix "hm config" {
     home-manager = {
 	useGlobalPkgs = true;
 	useUserPackages = true;

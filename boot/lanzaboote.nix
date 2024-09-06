@@ -1,13 +1,10 @@
-{pkgs, config, lib, ...}: 
-with lib; with builtins;
-{
-    options.l.boot.lanzaboote.enable = mkEnableOption "secure boot";
-    config = mkIf config.l.boot.lanzaboote.enable {
-	environment.systemPackages = [pkgs.sbctl];
-	boot.loader.systemd-boot.enable = mkForce false;
-	boot.lanzaboote = {
-	    enable = true;
-	    pkiBundle = "/etc/secureboot";
-	};
+{inputs, pkgs, config, lib, ...}: {
+    imports = [ inputs.lanzaboote.nixosModules.lanzaboote ];
+} // config.l.lib.mkLocalModule ./lanzaboote.nix "lanzaboote config" {
+    environment.systemPackages = [pkgs.sbctl];
+    boot.loader.systemd-boot.enable = lib.mkForce false;
+    boot.lanzaboote = {
+	enable = true;
+	pkiBundle = "/etc/secureboot";
     };
 }

@@ -1,4 +1,4 @@
-{lib, config, pkgs, ...}: lib.mkLocalModule ./. "security related packages" {
+{lib, config, pkgs, ...}: config.l.lib.mkLocalModule ./security "security pkgs" {
     users.users.alina.packages = with pkgs; [
 	checksec
 	jd-cli

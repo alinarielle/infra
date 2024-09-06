@@ -1,4 +1,4 @@
-{lib, config, ...}: lib.mkLocalModule ./. "zram swap config" {
+{lib, config, ...}: config.l.lib.mkLocalModule ./zram.nix "zram swap config" {
     zramSwap = {
 	enable = true;
 	algorithm = "zstd";

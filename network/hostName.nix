@@ -1,3 +1,6 @@
-{lib, config, name, ...}: lib.mkLocalModule ./. "default networking host name" {
+{lib, config, name, ...}: config.l.lib.mkLocalModule 
+    ./hostName.nix 
+    "default networking host name" 
+{
     networking.hostName = lib.mkDefault name;
 }

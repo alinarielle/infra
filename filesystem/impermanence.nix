@@ -4,6 +4,7 @@ let
     cfg = config.l.filesystems.impermanence;
     opt = mkOption;
 in {
+    imports = [ inputs.impermanence.nixosModules.impermanence ];
     options.l.filesystems.impermanence = with types; {
 	enable = mkEnableOption "impermanence";
 	keep = opt { type = listOf str; default = []; };

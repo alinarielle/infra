@@ -1,6 +1,3 @@
-{lib, config, pkgs, ...}: {
-    options.l.kernel.latest.enable = lib.mkEnableOption "install the latest kernel";
-    config = lib.mkIf config.l.kernel.latest.enable {
+{lib, config, pkgs, ...}: config.l.lib.mkLocalModule ./latest.nix "latest linux kernel" {
 	boot.kernelPackages = pkgs.linuxPackages_latest;
-    };
 }

@@ -1,4 +1,4 @@
-{lib, config, pkgs, ...}: lib.mkLocalModule ./. "networking related packages" {
+{lib, config, pkgs, ...}: config.l.lib.mkLocalModule ./networking.nix "networking pkgs" {
     users.users.alina.packages = with pkgs; [
 	proxychains
 	magic-wormhole-rs

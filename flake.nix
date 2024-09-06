@@ -40,7 +40,7 @@
 	   };
 	};
 	niri = {
-	    url = "github:YaLTeR/niri";
+	    url = "github:sodiboo/niri-flake";
 	    inputs.nixpkgs.follows = "nixpkgs";
 	};
 	stylix.url = "github:danth/stylix";
@@ -48,57 +48,10 @@
 	disko.inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    outputs = inputs@{ 
-	self, 
-	nixpkgs, 
-	home-manager, 
-	flake-utils, 
-	flake-parts, 
-	colmena,
-	...
-    }: let
-	hostsDir = "${./.}/hosts";
-	hostNames = with nixpkgs.lib; attrNames
-      	    (filterAttrs (name: type: type == "directory") (builtins.readDir hostsDir));
-    in flake-parts.lib.mkFlake {inherit inputs;} {
-	flake = {
-	    colmena = { 
-		meta = {
-		    nixpkgs = import nixpkgs {
-			system = "x86_64-linux";
-			overlays = [ inputs.niri.overlays.niri ];
-		    };
-		    specialArgs = { inherit inputs;};
-		};
-		defaults = { config, name, nodes, ... }: {
-		    imports = [
-			(./. + "/hosts/${name}")
-			inputs.home-manager.nixosModules.home-manager
-			inputs.sops-nix.nixosModules.sops
-			inputs.impermanence.nixosModules.impermanence
-			inputs.lix-module.nixosModules.default
-			inputs.niri.nixosModules.niri
-			inputs.stylix.nixosModules.stylix
-			inputs.lanzaboote.nixosModules.lanzaboote
-			inputs.nixvim.homeManagerModules.nixvim
-			./boot
-			./deployment
-			./desktop
-			./filesystem
-			./kernel
-			./meta
-			./network
-			./packages
-			./services
-			./tasks
-			./users
-		    ];
-		};
-	    } // nixpkgs.lib.listToAttrs (map 
-		(name: nixpkgs.lib.nameValuePair name {}) 
-		hostNames
-	    );
-	    nixosConfigurations = ( colmena.lib.makeHive self.colmena ).nodes;
-	};
+    outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } {
+	imports = [
+	    ./colmena.nix
+	];
+	systems = ["x86_64-linux"];
     };
 }

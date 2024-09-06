@@ -1,5 +1,5 @@
-{pkgs, lib, config, ...}: {
-    users.users.alina.packages = with pkgs; lib.mkIf config.l.desktop.any.enable [
+{pkgs, lib, config, ...}: config.l.lib.mkLocalModule ./desktop.nix "desktop packages" {
+    users.users.alina.packages = with pkgs; [
 	monero-gui
 	freecad
 	blender

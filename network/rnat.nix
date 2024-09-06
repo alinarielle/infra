@@ -1,10 +1,3 @@
-{lib, config, ...}:
-{
-    options.l.network.rnat = {
-	enable = lib.mkEnableOption "rnat";
-    };
-    config = {
-	system.environmentPackages = [ inputs.rnat.packages.default ];
-	
-    };
+{lib,config,inputs,...}: config.l.lib.mkLocalModule ./rnat.nix "module for yuyu's rnat" {
+    system.environmentPackages = [ inputs.rnat.packages.default ];
 }

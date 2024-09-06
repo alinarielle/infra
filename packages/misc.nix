@@ -1,4 +1,4 @@
-{lib, config, ...}: lib.mkLocalModule ./. "misc pkgs" {
+{lib, config, ...}: config.l.lib.mkLocalModule ./misc.nix "misc pkgs" {
     users.users.alina.packages = with pkgs; [
 	usbutils
 	btop

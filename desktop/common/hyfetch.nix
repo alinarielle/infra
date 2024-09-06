@@ -1,4 +1,4 @@
-{lib, config, ...}: lib.mkIf config.l.desktop.any.enable {
+{lib, config, ...}: config.l.lib.mkLocalModule ./hyfetch.nix "flexing specs" {
     home-manager.users.alina.programs.hyfetch = {
 	enable = true;
 	settings = {

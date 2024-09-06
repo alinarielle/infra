@@ -1,10 +1,5 @@
 {lib, config, ...}:
-with lib; with builtins;
-let
-    cfg = config.l.desktop.impermanence;
-in {
-    options.l.desktop.impermanence.enable = mkEnableOption "impermanent /home layout";
-    config = mkIf (cfg.enable && config.l.desktop.any.enable) {
+with lib; with builtins; config.l.lib.mkLocalModule ./layout.nix "impermanent /home" { 
 	systemd.tmpfiles.settings.snowy = genAttrs 
 	    (map (uwu: "/home/alina/" + uwu )[
 		"src"
@@ -29,6 +24,4 @@ in {
 	    ]))) 
 	    (attrNames config.systemd.tmpfiles.settings.snowy)
 	++ map (x: "/home/alina/" + x) [".zsh_history"];
-
-    };
 }

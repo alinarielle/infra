@@ -1,7 +1,6 @@
-{lib, config, pkgs, name, ...}:
-{
-    options.l.desktop.niri.enable = lib.mkEnableOption "niri";
-    config = lib.mkIf config.l.desktop.niri.enable {
+{lib, config, pkgs, name, inputs, ...}: {
+    imports = [ inputs.niri.nixosModules.niri ]; 
+} // config.l.lib.mkLocalModule ./niri.nix "niri window manager general config" {
 	programs.niri = {
 	    enable = true;
 	    niri-flake.cache.enable = true;

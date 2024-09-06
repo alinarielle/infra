@@ -1,4 +1,4 @@
-{config, lib, ...}: lib.mkIf config.l.desktop.any.enable {
+{config, lib, ...}: config.l.lib.mkLocalModule ./bluetooth.nix "bluetooth"  {
     hardware.bluetooth.enable = true;
     hardware.bluetooth.powerOnBoot = true;
 }

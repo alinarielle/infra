@@ -1,4 +1,6 @@
-{lib, config, pkgs, ...}: lib.mkIf config.l.desktop.niri.enable {
+{lib, config, pkgs, ...}: {
+    imports = [ inputs.niri.nixosModules.niri ];
+} // config.l.lib.mkLocalModule ./keybinds.nix "niri window manager keybindings" {
     programs.niri.settings.binds = let
 	playerctl = ${lib.getExe pkgs.playerctl};
 	kitty = ${lib.getExe pkgs.kitty};

@@ -1,5 +1,5 @@
 {lib, config, ...}:
-with lib; with builtins; lib.mkLocalModule "colmena configuration" {
+with lib; with builtins; {
     deployment = mkDefault {
 	targetUser = "alina";
 	allowLocalDeployment = mkIf (elem "desktop" config.deployment.tags) true;

@@ -1,4 +1,4 @@
-{ config, lib, pkgs, inputs, ... }: with lib.meta; {
+{ config, lib, pkgs, inputs, ... }: with config.l.lib; {
     imports = [
       inputs.nixos-hardware.nixosModules.lenovo-thinkpad-x1-7th-gen
       inputs.nixos-hardware.nixosModules.common-pc-ssd
@@ -21,5 +21,4 @@
 	alsa-ucm-conf
 	alsa-utils
     ];
-
 }

@@ -1,4 +1,4 @@
-{lib, config, ...}: lib.mkLocalModule ./. "user system config" {
+{lib, config, ...}: config.l.lib.mkLocalModule ./user.nix "alina user system config" {
     users.users.alina = {
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" "adb" ];
