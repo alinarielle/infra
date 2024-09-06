@@ -51,6 +51,7 @@
     outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } {
 	imports = [
 	    ./colmena.nix
+	    ./lib.nix
 	];
 	systems = ["x86_64-linux"];
     };

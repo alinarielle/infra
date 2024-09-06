@@ -1,4 +1,4 @@
-{lib, ...}: { config.l.lib = rec {
+{lib, ...}: rec {
     /**
 	Split a string, and return all elements after a marker.
 
@@ -46,12 +46,12 @@
     findFolderWithFile = file: arg:
 	if builtins.pathExists (arg + "/" + file) then arg
         else if arg == /. then throw "could not find folder containing ${file}"
-	else findRoot file (arg + "/..");
+	else findFolderWithFile file (arg + "/..");
     /**
 	Shorthand for mkLocalModuleMarker, setting marker to your flake and prefix to l.
     */
     mkLocalModule = path: mkLocalModuleMarker (findFolderWithFile "flake.nix" path) ["l"] path;
-};}
+}
 
 # foldl' op nul [x0 x1 x2 ...] = op (op (op nul x0) x1) x2) .... For example, foldl' (x: y: x + y) 0 [1 2 3]
 
