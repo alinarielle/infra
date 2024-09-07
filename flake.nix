@@ -48,7 +48,11 @@
 	disko.inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } {
+    outputs = inputs@{ 
+	flake-parts, 
+	self, 
+	... 
+    }: inputs.flake-parts.lib.mkFlake { inherit inputs; } {
 	imports = [
 	    ./colmena.nix
 	    ./lib.nix
