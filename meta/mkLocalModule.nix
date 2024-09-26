@@ -1,4 +1,4 @@
-{lib, ...}: { config.l.lib = rec {
+{lib, config, ...}: { config.l.lib = rec {
     /**
 	Split a string, and return all elements after a marker.
 
@@ -26,11 +26,11 @@
 	```
     */
     mkLocalModuleMarker = marker: prefix: currentPath: optDesc: moduleConfig: let
-	normalizedPath = removeSuffix ".nix" (builtins.toString currentPath);
-	attrPath = prefix ++ (splitAfterMarker "/" marker normalizedPath);
-	mod = {config, ...}: {
+	normalizedPath = lib.removeSuffix ".nix" (builtins.toString currentPath);
+	attrPath = prefix ++ (splitAfterMarker "/" marker normalizedPath) ++ "enable";
+	mod = {
 	    options = lib.setAttrsByPath attrPath (lib.mkEnableOption optDesc);
-	    config = lib.mkIf (lib.getAttrByPath attrPath config) moduleConfig;
+	    config = lib.mkIf (lib.getAttrFromPath attrPath config) moduleConfig;
 	};
     in mod;
     /**
@@ -46,11 +46,11 @@
     findFolderWithFile = file: arg:
 	if builtins.pathExists (arg + "/" + file) then arg
         else if arg == /. then throw "could not find folder containing ${file}"
-	else findRoot file (arg + "/..");
+	else findFolderWithFile file (arg + "/..");
     /**
 	Shorthand for mkLocalModuleMarker, setting marker to your flake and prefix to l.
     */
-    mkLocalModule = path: mkLocalModuleMarker (findFolderWithFile "flake.nix" path) ["l"] path;
+    mkLocalModule = currentPath: optDesc: moduleConfig: mkLocalModuleMarker (findFolderWithFile "flake.nix" currentPath) ["l"] currentPath optDesc moduleConfig;
 };}
 
 # foldl' op nul [x0 x1 x2 ...] = op (op (op nul x0) x1) x2) .... For example, foldl' (x: y: x + y) 0 [1 2 3]

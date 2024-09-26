@@ -17,15 +17,15 @@ in {
 	defaults = { config, name, nodes, ... }: {
 	    imports = [
 		inputs.home-manager.nixosModules.home-manager
-		(./. + "/hosts/${name}")
-		./boot
-		./deployment
-		./desktop
-		./filesystem
+#		(./. + "/hosts/${name}")
+#		./boot
+###		./deployment
+#		./desktop
+#		./filesystem
 		./meta
-		./network
-		./packages
-		./users
+#		./network
+#		./packages
+#		./users
 	    ];
 	};
     } // lib.listToAttrs (map

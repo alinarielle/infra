@@ -4,7 +4,7 @@
 	    type = lib.types.attrs;
 	    default = {};
 	};
-	prelude = {
+	prelude = lib.mkOption {
 	    type = lib.types.attrs;
 	    default = {};
 	};
