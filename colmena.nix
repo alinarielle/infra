@@ -12,7 +12,7 @@ in {
 		    inputs.niri.overlays.niri
 		];
 	    };
-	    specialArgs = { inherit inputs self; };
+	    specialArgs = { inherit inputs; };
 	};
 	defaults = { config, name, nodes, ... }: {
 	    imports = [

@@ -1,4 +1,4 @@
-{lib, config, ...}: let
+{inputs, lib, ...}: let
     /*load = base: default: builtins.readDir base
 	|> lib.filterAttrs (name: type: builtins.match "(regular|directory)" type != null)
 	|> lib.mapAttrs' (name: type: {
@@ -11,6 +11,6 @@ in {
     flake.lib = /* load ./lib "lib" // {
 	inherit load;
     }; */ {
-	modules = import ./lib/mkLocalModule.nix {inherit lib config;};
+	modules = import ./lib/mkLocalModule.nix inputs;
     };
 }
