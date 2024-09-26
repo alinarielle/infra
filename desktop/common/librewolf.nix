@@ -1,5 +1,5 @@
-{lib, config, name, ...}: 
-with lib; with builtins; config.l.lib.mkLocalModule ./librewolf.nix "hardened browser" {
+{lib, config, name, self, ...}: 
+with lib; with builtins; self.lib.modules.mkLocalModule ./librewolf.nix "hardened browser" {
     home-manager.users.alina = {
 	programs.librewolf = {
 	    enable = true;

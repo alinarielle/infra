@@ -1,5 +1,5 @@
-{lib, config, ...}: config.l.lib.mkLocalModule ./fonts.nix "font config" {
-    fonts.packages = with pkgs; lib.mkIf config.l.desktop.any.enable [
+{self, pkgs, ...}: self.lib.modules.mkLocalModule ./fonts.nix "font config" {
+    fonts.packages = with pkgs; [
 	nerdfonts
     ]; #todo exorcist fonts
 }

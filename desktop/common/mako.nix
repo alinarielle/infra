@@ -1,4 +1,4 @@
-{config, lib, ...}: config.l.lib.mkLocalModule ./mako.nix "notification daemon" {
+{config, lib, self,...}: self.lib.modules.mkLocalModule ./mako.nix "notification daemon" {
     home-manager.users.alina.services.mako = let
 	color = config.colorScheme.palette;
     in {

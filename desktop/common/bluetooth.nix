@@ -1,4 +1,4 @@
-{config, lib, ...}: config.l.lib.mkLocalModule ./bluetooth.nix "bluetooth"  {
+{self,...}: self.lib.modules.mkLocalModule ./bluetooth.nix "bluetooth"  {
     hardware.bluetooth.enable = true;
     hardware.bluetooth.powerOnBoot = true;
 }

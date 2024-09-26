@@ -15,6 +15,11 @@ in {
 	    specialArgs = { inherit inputs self; };
 	};
 	defaults = { config, name, nodes, ... }: {
+	    deployment = lib.mkDefault {
+		    targetUser = "alina";
+		    allowLocalDeployment = true;
+		    #targetPort = lib.net.getPort "ssh-net";
+	    };
 	    imports = [
 		inputs.home-manager.nixosModules.home-manager
 		(./. + "/hosts/${name}")

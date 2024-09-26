@@ -1,6 +1,6 @@
-{ pkgs, config, inputs, lib, config, ... }: {
+{ pkgs, inputs, self, ... }: {
     imports = [ inputs.nix-colors.homeManagerModules.default ];
-} // config.l.lib.mkLocalModule ./theme.nix "uniform color palette" { 
+} // self.lib.modules.mkLocalModule ./theme.nix "uniform color palette" { 
     colorScheme = {
 	slug = "strelizia";
 	name = "strelizia";

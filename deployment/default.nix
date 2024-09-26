@@ -1,5 +1,5 @@
 {
     imports = [
-	./colmena.nix
+	./nh.nix
     ];
 }

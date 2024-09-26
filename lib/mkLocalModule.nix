@@ -50,7 +50,7 @@
     /**
 	Shorthand for mkLocalModuleMarker, setting marker to your flake and prefix to l.
     */
-    mkLocalModule = currentPath: optDesc: moduleConfig: mkLocalModuleMarker (findFolderWithFile "flake.nix" currentPath) ["l"] currentPath;
+    mkLocalModule = currentPath: mkLocalModuleMarker (findFolderWithFile "flake.nix" currentPath) ["l"] currentPath;
 }
 
 # foldl' op nul [x0 x1 x2 ...] = op (op (op nul x0) x1) x2) .... For example, foldl' (x: y: x + y) 0 [1 2 3]

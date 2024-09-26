@@ -1,5 +1,5 @@
-{lib, config, ...}:
-with lib; with builtins; config.l.lib.mkLocalModule ./layout.nix "impermanent /home" { 
+{lib, self, ...}:
+with lib; with builtins; self.lib.modules.mkLocalModule ./layout.nix "impermanent /home" { 
 	systemd.tmpfiles.settings.snowy = genAttrs 
 	    (map (uwu: "/home/alina/" + uwu )[
 		"src"

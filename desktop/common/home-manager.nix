@@ -1,4 +1,4 @@
-{lib, config, ...}: config.l.lib.mkLocalModule ./home-manager.nix "hm config" {
+{self, ...}: self.lib.modules.mkLocalModule ./home-manager.nix "hm config" {
     home-manager = {
 	useGlobalPkgs = true;
 	useUserPackages = true;
