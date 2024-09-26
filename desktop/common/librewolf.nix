@@ -41,33 +41,13 @@ with lib; with builtins; config.l.lib.mkLocalModule ./librewolf.nix "hardened br
 		    };
 		}; in
 		toJSON policies = {
-		    #enable post quantum secure algorithms for TLS
-		    PostQuantumKeyAgreementEnabled = true;
-		    
-		    #disable dns pre-fetching because of fingerpinting
-		    NetworkPrediction = false; 
-		    
-		    #disable annoying "would you like to save this password" pop-up
-		    OfferToSaveLogins = false;
-		    PasswordManagerEnabled = false;
-
-		    #prevent automatic updates because they are managed with nixos
-		    ManualAppUpdateOnly = true;
-		    AppAutoUpdate = false;
-
-		    #set the minimum TLS version to 1.3
-		    SSLVersionMin = "tls1.3";
-
-		    #enable captive portals
-		    CaptivePortal = true;
-
-		    # To add additional extensions, find it on addons.mozilla.org, find
-		    # the short ID in the url 
-		    # (like https://addons.mozilla.org/en-US/firefox/addon/!SHORT_ID!/)
-		    # then to find the extension UUID, go to 
-		    # about:debugging#/runtime/this-firefox in your browser and grab the
-		    # extension ID, not the Internal UUID
-		    ExtensionSettings = listToAttrs [
+		# To add additional extensions, find it on addons.mozilla.org, find
+		# the short ID in the url 
+		# (like https://addons.mozilla.org/en-US/firefox/addon/!SHORT_ID!/)
+    		# then to find the extension UUID, go to 
+		# about:debugging#/runtime/this-firefox in your browser and grab the
+		# extension ID, not the Internal UUID
+		    policies.ExtensionSettings = listToAttrs [
 		    (extension "simple-tab-groups" "simple-tab-groups@drive4ik")
 		    (extension "ublock-origin" "uBlock0@raymondhill.net")
 		    (extension "umatrix" "uMatrix@raymondhill.net")
@@ -117,7 +97,7 @@ with lib; with builtins; config.l.lib.mkLocalModule ./librewolf.nix "hardened br
 		    Default = "DuckDuckGo";
 		    Add = [{
 			Name = "PsychonautWiki";
-			Description = "search for anything psychoactive";
+			Description = "search anything for anything psychoactive";
 			Alias = "psy";
 			Method = "GET";
 			URLTemplate = "https://psychonautwiki.org/w/index.php?title=Special:Search&search={searchTerms}";
