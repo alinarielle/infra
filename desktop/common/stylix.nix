@@ -1,6 +1,6 @@
-{inputs, config, pkgs, self, ...}: {
+{inputs, lib, config, pkgs,...}: {
     imports = [ inputs.stylix.nixosModules.stylix ];
-} // self.lib.modules.mkLocalModule ./stylix.nix "auto desktop themeing" {
+} // config.l.lib.mkLocalModule ./stylix.nix "auto desktop themeing" {
     stylix = {
 	enable = true;
 	image = ../wallpaper.png; # extend by a collection of unsplash images and select

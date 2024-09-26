@@ -1,4 +1,4 @@
-{config, self, ...}: self.lib.modules.mkLocalModule ./kitty.nix "terminal config" {
+{config, lib, ...}: config.l.lib.mkLocalModule ./kitty.nix "terminal config" {
     home-manager.users.alina.programs.kitty = {
 	enable = true;
 	shellIntegration.enableZshIntegration = if config.programs.zsh.enable then true else false;

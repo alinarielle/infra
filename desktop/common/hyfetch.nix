@@ -1,4 +1,4 @@
-{self, ...}: self.lib.modules.mkLocalModule ./hyfetch.nix "flexing specs" {
+{lib, config, ...}: config.l.lib.mkLocalModule ./hyfetch.nix "flexing specs" {
     home-manager.users.alina.programs.hyfetch = {
 	enable = true;
 	settings = {

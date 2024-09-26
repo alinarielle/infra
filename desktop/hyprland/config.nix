@@ -1,6 +1,6 @@
-{lib, config, pkgs, self, ...}: let
+{lib, config, pkgs, ...}: let
     color = config.colorScheme.palette;
-in self.lib.modules.mkLocalModule ./config.nix "hyprland general config" {
+in config.l.lib.mkLocalModule ./config.nix "hyprland general config" {
     users.users.alina.packages = with pkgs; [
 	xdg-desktop-portal-hyprland
 	hyprland-autoname-workspaces

@@ -1,4 +1,4 @@
-{self, ...}: self.lib.modules.mkLocalModule ./zathura.nix "pdf reader" {
+{lib, config, ...}: config.l.lib.mkLocalModule ./zathura.nix "pdf reader" {
     home-manager.users.alina.programs.zathura = {
 	enable = true;
 	extraConfig = ''

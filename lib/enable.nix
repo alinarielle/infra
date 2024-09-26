@@ -1,4 +1,4 @@
-{lib, ...}: list: lib.genAttrs 
+{lib, config, ...}: list: lib.genAttrs 
     list 
     (name: 
 	${name}.enable = true;

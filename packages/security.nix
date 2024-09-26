@@ -2,7 +2,6 @@
     users.users.alina.packages = with pkgs; [
 	checksec
 	mitmproxy
-	imhex
 	mitmproxy2swagger
 	websploit
 	bettercap

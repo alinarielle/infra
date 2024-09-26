@@ -8,9 +8,9 @@
 	    in import "${base}/${path}" inputs;
 	}); my nix doesnt have the pipe operator yet qwq*/
 in {
-    flake.lib = builtins.trace (builtins.attrNames config) /* load ./lib "lib" // {
+    flake.lib = /* load ./lib "lib" // {
 	inherit load;
     }; */ {
-	modules = import ./lib/mkLocalModule.nix {inherit lib;};
+	modules = import ./lib/mkLocalModule.nix {inherit lib config;};
     };
 }

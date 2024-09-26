@@ -1,4 +1,4 @@
-{pkgs, self, ... }: self.lib.modules.mkLocalModule 
+{pkgs, lib, config, ... }: config.l.lib.mkLocalModule 
     ./wayland.nix 
     "common wayland related fixes and settings"  
     {

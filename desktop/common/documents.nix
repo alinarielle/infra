@@ -1,4 +1,4 @@
-{lib, pkgs, self, ...}: self.lib.modules.mkLocalModule ./documents.nix "document editing shortcuts" {
+{lib, config, pkgs,...}: config.l.lib.mkLocalModule ./documents.nix "document editing shortcuts" {
     home-manager.users.alina.programs = {
 	kitty.settings.keybindings."shift+ctrl+d" = let
 	swaymsg = "${pkgs.sway}/bin/swaymsg";
