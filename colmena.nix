@@ -19,7 +19,12 @@ in {
 		inputs.home-manager.nixosModules.home-manager
 		(./. + "/hosts/${name}")
 		./meta
+		./boot
 	    ];
+	    deployment = lib.mkDefault {
+		targetUser = "alina";
+		allowLocalDeployment = lib.mkIf (elem "desktop" config.deployment.tags) true;
+	    };
 	};
     } // lib.listToAttrs (map
 	(name: lib.nameValuePair name {})

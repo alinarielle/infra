@@ -1,5 +1,5 @@
 {
   imports = [
-    #./mkLocalMods.nix
+    ./systemd-boot.nix
   ];
 }

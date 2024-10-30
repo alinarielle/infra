@@ -20,9 +20,6 @@
 	impermanence.url = "github:nix-community/impermanence";
 	microvm.url = "github:astro/microvm.nix";
 	microvm.inputs.nixpkgs.follows = "nixpkgs";
-	hyprland-git.url = "github:hyprwm/hyprland/main";
-	hyprland-xdph-git.url = "github:hyprwm/xdg-desktop-portal-hyprland";
-	hyprland-protocols-git.url = "github:hyprwm/xdg-desktop-portal-hyprland";
 	lix.url = 
 	    "git+https://git@git.lix.systems/lix-project/lix?ref=refs/tags/2.90-beta.1";
 	lix.flake = false;
@@ -30,14 +27,6 @@
 	    url = "git+https://git.lix.systems/lix-project/nixos-module";
 	    inputs.lix.follows = "lix";
 	    inputs.nixpkgs.follows = "nixpkgs";
-	};
-	hyprland = {
-	    url = "github:spikespaz/hyprland-nix";
-	    inputs = {
-		hyprland.follows = "hyprland-git";
-		hyprland-xdph.follows = "hyprland-xdph-git";
-		hyprland-protocols.follows = "hyprland-protocols-git";
-	   };
 	};
 	niri = {
 	    url = "github:sodiboo/niri-flake";

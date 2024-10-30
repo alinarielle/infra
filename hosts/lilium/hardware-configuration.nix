@@ -8,7 +8,6 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
   
-  l.meta.hidpi.enable = true;
   boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" ];
   boot.initrd.kernelModules = [ "dm-snapshot" ];
   boot.initrd.luks.devices.main.device = "/dev/disk/by-uuid/e1743e69-f6f7-4497-895f-7b5bc2fa5ef0";

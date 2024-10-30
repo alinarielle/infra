@@ -1,4 +1,4 @@
-{ config, lib, pkgs, inputs, ... }: with config.l.lib; {
+{ config, lib, pkgs, inputs, ... }: {
     imports = [
       inputs.nixos-hardware.nixosModules.lenovo-thinkpad-x1-7th-gen
       inputs.nixos-hardware.nixosModules.common-pc-ssd
@@ -6,8 +6,7 @@
     ];
 
     system.stateVersion = "23.11";
-    l.profiles = enable ["base"];
-    l.desktop = enable ["sway"];
+    programs.sway.enable = true;
 
     # broken keyboard fix
     boot.kernelParams = [ "snd-intel-dspcfg.dsp_driver=1" "i8042.debug" "i8042.nopnp"];
@@ -21,4 +20,6 @@
 	alsa-ucm-conf
 	alsa-utils
     ];
+
+    deployment.tags = ["hidpi" "desktop"];
 }
