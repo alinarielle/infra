@@ -7,6 +7,7 @@
 
     system.stateVersion = "23.11";
     programs.sway.enable = true;
+    l.profiles.base.enable = true;
 
     # broken keyboard fix
     boot.kernelParams = [ "snd-intel-dspcfg.dsp_driver=1" "i8042.debug" "i8042.nopnp"];

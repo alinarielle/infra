@@ -3,6 +3,7 @@
     hostNames = with lib; attrNames
 	(filterAttrs (name: type: type == "directory") (builtins.readDir hostsDir));
     colmena = inputs.colmena;
+    mkLocalMods = import ./lib/mkLocalMods.nix {inherit lib;};
 in {
     flake.colmena = {
 	meta = rec {
@@ -18,12 +19,16 @@ in {
 	    imports = [
 		inputs.home-manager.nixosModules.home-manager
 		(./. + "/hosts/${name}")
-		./meta
-		./boot
+		./lib
+		(mkLocalMods {prefix = ["l"]; dir = ./modules;})
 	    ];
 	    deployment = lib.mkDefault {
 		targetUser = "alina";
-		allowLocalDeployment = lib.mkIf (elem "desktop" config.deployment.tags) true;
+		allowLocalDeployment = lib.mkIf 
+		    (lib.elem 
+			"desktop" 
+			config.deployment.tags)
+		    true;
 	    };
 	};
     } // lib.listToAttrs (map
