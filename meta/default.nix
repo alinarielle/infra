@@ -1,5 +1,5 @@
 {
-    imports = [
-	./mkLocalMods.nix
-    ];
+  imports = [
+    ./mkLocalMods.nix
+  ];
 }

@@ -1,5 +1,0 @@
-{
-    imports = [
-	./games-module.nix
-    ];
-}
