@@ -1,10 +1,10 @@
 {inputs, pkgs, ...}: {
     imports = [ inputs.lix-module.nixosModules.default ];
     nix = {
-	allowedUsers = [ "@wheel" "root" ];
 	settings = {
 	   experimental-features = [ "nix-command" "flakes" ];
 	   trusted-users = [ "@wheel" "root" ];
+	   allowed-users = [ "@wheel" "root" ];
 	};
 	optimise = {
 	    automatic = true;
@@ -19,6 +19,5 @@
     permittedInsecurePackages = [
       "olm-3.2.16"
     ];
-    allowUnfree = true;
   };
 }

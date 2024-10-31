@@ -7,7 +7,18 @@
   imports =
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
-  
+
+  # broken keyboard fix
+  boot.kernelParams = [ "snd-intel-dspcfg.dsp_driver=1" "i8042.debug" "i8042.nopnp"];
+  boot.extraModprobeConfig = ''
+    options snd-intel-dspcfg dsp_driver=1
+  '';
+  # broken audio fix
+  environment.systemPackages = with pkgs; [
+    sof-firmware
+    alsa-ucm-conf
+    alsa-utils
+  ];
   boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" ];
   boot.initrd.kernelModules = [ "dm-snapshot" ];
   boot.initrd.luks.devices.main.device = "/dev/disk/by-uuid/e1743e69-f6f7-4497-895f-7b5bc2fa5ef0";

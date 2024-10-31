@@ -7,7 +7,7 @@
 	openscad
 	waydroid
 	wireshark
-	spotify
+	#spotify
 	mpv
 	mpvpaper
 	pinentry-qt
