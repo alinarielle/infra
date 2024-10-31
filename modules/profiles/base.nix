@@ -14,7 +14,6 @@
   l.users.alina = enable [
     "git"
     "home-manager"
-    "nvim"
     "ssh"
     "user"
     "zsh"
@@ -30,5 +29,7 @@
     "time"
     "hostName"
     "domain"
+    "congestion"
+    "speed"
   ];
 }
