@@ -15,6 +15,7 @@
     "git"
     "home-manager"
     "ssh"
+    "nvim"
     "user"
     "zsh"
   ];
