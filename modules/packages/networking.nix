@@ -1,0 +1,29 @@
+{pkgs, ...}: {
+    users.users.alina.packages = with pkgs; [
+	proxychains
+	magic-wormhole-rs
+	inetutils
+	tcpdump
+	termshark
+	tor
+	wireguard-tools
+	mullvad
+	mtr
+	nmap
+	netcat
+	sshfs
+	subfinder
+	tshark
+	dnsutils
+	ldns
+	dog
+	yt-dlp
+	yggdrasil
+	traceroute
+	lynx
+	elinks
+	w3m
+	wget
+	curl
+    ];
+}

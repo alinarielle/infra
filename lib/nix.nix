@@ -6,13 +6,19 @@
 	   experimental-features = [ "nix-command" "flakes" ];
 	   trusted-users = [ "@wheel" "root" ];
 	};
-	config = {
-	   auto-optimise-store = true;
+	optimise = {
+	    automatic = true;
+	    dates = ["03:45"];
 	};
 	gc = {
 	   automatic = true;
 	   options = "--delete-older-than 7d";
 	};
-	package = pkgs.lix;
-   };
+  };
+  nixpkgs.config = {
+    permittedInsecurePackages = [
+      "olm-3.2.16"
+    ];
+    allowUnfree = true;
+  };
 }

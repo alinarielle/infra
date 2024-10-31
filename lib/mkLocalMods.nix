@@ -1,53 +1,107 @@
-{lib, ...}:
-let
-	mapAttrKVs = mapFn: attrs: builtins.foldl' (acc: cur: acc // {${cur.key} = cur.value;}) {} (builtins.attrValues (builtins.mapAttrs mapFn attrs));
-	#kv = key: value: {inherit key value;};
-	recurseNaive = curPath: fn: mapAttrKVs (k: v: let 
-		match = builtins.match "(.*)[.]nix" k;
-	in if v == "regular" && match != null then {key = builtins.elemAt match 0; value = fn (curPath + ("/" + k));}
-		else if v == "directory" then {key = k; value = recurseNaive (curPath + ("/" + k)) fn;}
-		else {key = null; value = null;}
-	) (builtins.readDir curPath);
+{lib, ...}: let
+  inherit (import ./packagesFromDirectoryRecursive.nix {inherit lib;}) packagesFromDirectoryRecursive;
+  mapAttrKVs = mapFn: attrs: builtins.foldl' (acc: cur: acc // {${cur.key} = cur.value;}) {} (builtins.attrValues (builtins.mapAttrs mapFn attrs));
+  #kv = key: value: {inherit key value;};
+  recurseNaive = curPath: fn:
+    mapAttrKVs (
+      k: v: let
+        match = builtins.match "(.*)[.]nix" k;
+      in
+        if v == "regular" && match != null
+        then {
+          key = builtins.elemAt match 0;
+          value = fn (curPath + ("/" + k));
+        }
+        else if v == "directory"
+        then {
+          key = k;
+          value = recurseNaive (curPath + ("/" + k)) fn;
+        }
+        else {
+          key = null;
+          value = null;
+        }
+    ) (builtins.readDir curPath);
 
-	getAttrKVsRec = prefix: as: lib.flatten (lib.mapAttrsToList (k: v:
-		if lib.isAttrs v then getAttrKVsRec (prefix ++ [k]) v
-		else [{path = prefix ++ [k]; value = v;}]
-	) as);
+  getAttrKVsRec = prefix: as:
+    lib.flatten (lib.mapAttrsToList (
+        k: v:
+          if lib.isAttrs v
+          then getAttrKVsRec (prefix ++ [k]) v
+          else [
+            {
+              path = prefix ++ [k];
+              value = v;
+            }
+          ]
+      )
+      as);
 
-	getPathKVsRec = prefix: dir: getAttrKVsRec prefix (lib.packagesFromDirectoryRecursive { callPackage = path: x: path; directory = dir; });
+  getPathKVsRec = prefix: dir:
+    getAttrKVsRec prefix (packagesFromDirectoryRecursive {
+      callPackage = path: x: path;
+      directory = dir;
+    });
 
-	unifyMod = (import ./modules-extracted.nix {lib = lib;}).unifyModuleSyntax;
-	transformLocalMod = {path, value}: let 
-	modFn = if lib.isFunction (import value) then import value else (p: import value);
-	newMod = p: let
-		paramNew = p // {
-			cfg = lib.getAttrFromPath path p.config;
-		};
+  unifyMod = (import ./modules-extracted.nix {lib = lib;}).unifyModuleSyntax;
+  transformLocalMod = {
+    path,
+    value,
+  }: let
+    modFn =
+      if lib.isFunction (import value)
+      then import value
+      else (p: import value);
+    newMod = p: let
+      paramNew =
+        p
+        // {
+          cfg = lib.getAttrFromPath path p.config;
+        };
 
-		pathStr = builtins.concatStringsSep "." path;
-		modRaw = modFn paramNew;
-		modUni = unifyMod pathStr pathStr (builtins.removeAttrs modRaw ["opt" "mod"]);
+      pathStr = builtins.concatStringsSep "." path;
+      modRaw = modFn paramNew;
+      modUni = unifyMod pathStr pathStr (builtins.removeAttrs modRaw ["opt" "mod"]);
 
-		mod = modRaw.mod or {};
-		fileCtx = str: "${modUni._file} (mkLocalMods ${str})";
-		enablePath = path ++ ["enable"];
+      mod = modRaw.mod or {};
+      fileCtx = str: "${modUni._file} (mkLocalMods ${str})";
+      enablePath = path ++ ["enable"];
 
-		imports = [ {
-			_file = fileCtx "`opt` processor";
-			key = fileCtx "`opt` processor";
-			options = lib.setAttrByPath path (modRaw.opt or {});
-		} {
-			_file = fileCtx "`enable` definition";
-			key = fileCtx "`enable` definition";
-			options = lib.setAttrByPath enablePath (lib.mkEnableOption (mod.desc or mod.description or mod.name or pathStr));
-		} ({config, ...}: {
-			_file = fileCtx "config wrapper";
-			key = fileCtx "config wrapper";
-			config = lib.mkIf (lib.getAttrFromPath enablePath config) modUni.config; 
-		})];
+      imports = [
+        {
+          _file = fileCtx "`opt` processor";
+          key = fileCtx "`opt` processor";
+          options = lib.setAttrByPath path (modRaw.opt or {});
+        }
+        {
+          _file = fileCtx "`enable` definition";
+          key = fileCtx "`enable` definition";
+          options = lib.setAttrByPath enablePath (lib.mkEnableOption (mod.desc or mod.description or mod.name or pathStr));
+        }
+        ({config, ...}: {
+          _file = fileCtx "config wrapper";
+          key = fileCtx "config wrapper";
+          config = lib.mkIf (lib.getAttrFromPath enablePath config) modUni.config;
+        })
+      ];
 
-		newMod = modUni // { imports = modUni.imports ++ imports; config = {}; };
-	in newMod; in lib.mirrorFunctionArgs modFn newMod;
+      newMod =
+        modUni
+        // {
+          imports = modUni.imports ++ imports;
+          config = {};
+        };
+    in
+      newMod;
+  in
+    lib.mirrorFunctionArgs modFn newMod;
 
-	mkLocalMods = {prefix ? [], dir}: { _file = "mkLocalMods collector"; imports = builtins.map transformLocalMod (getPathKVsRec prefix dir); };
-in mkLocalMods
+  mkLocalMods = {
+    prefix ? [],
+    dir,
+  }: {
+    _file = "mkLocalMods collector";
+    imports = builtins.map transformLocalMod (getPathKVsRec prefix dir);
+  };
+in
+  mkLocalMods

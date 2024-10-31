@@ -1,0 +1,31 @@
+{pkgs, ...}: {
+    users.users.alina.packages = with pkgs; [
+	gcc
+	cachix
+	git
+	checksec
+	wfuzz
+	binwalk
+	colmena
+	apktool
+	rustup
+	chntpw
+	fnm
+        rustup
+        sccache
+        radare2
+        android-tools
+	gdb
+	libnotify
+	godot_4
+	jdk8
+	jdk21
+	jdk17
+	nginx
+	ansible
+	python3
+	nurl
+	nix-init
+	bubblewrap
+    ];
+}

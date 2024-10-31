@@ -13,19 +13,14 @@
 	home-manager.url = "github:nix-community/home-manager";
 	home-manager.inputs.nixpkgs.follows = "nixpkgs";
 	colmena.url = "github:zhaofengli/colmena";
-	nix-colors.url = "github:misterio77/nix-colors";
 	nixvim.url = "github:nix-community/nixvim";
 	nixvim.inputs.nixpkgs.follows = "nixpkgs";
 	sops-nix.url = "github:Mic92/sops-nix";
 	impermanence.url = "github:nix-community/impermanence";
 	microvm.url = "github:astro/microvm.nix";
 	microvm.inputs.nixpkgs.follows = "nixpkgs";
-	lix.url = 
-	    "git+https://git@git.lix.systems/lix-project/lix?ref=refs/tags/2.90-beta.1";
-	lix.flake = false;
 	lix-module = {
-	    url = "git+https://git.lix.systems/lix-project/nixos-module";
-	    inputs.lix.follows = "lix";
+	    url = "https://git.lix.systems/lix-project/nixos-module/archive/2.91.1-1.tar.gz";
 	    inputs.nixpkgs.follows = "nixpkgs";
 	};
 	niri = {
