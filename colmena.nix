@@ -1,5 +1,5 @@
 { inputs, lib, self, ... }: let
-    hostsDir = "${./.}/hosts";
+    hostsDir = "${./.}/modules/hosts";
     hostNames = with lib; attrNames
 	(filterAttrs (name: type: type == "directory") (builtins.readDir hostsDir));
     colmena = inputs.colmena;
@@ -18,7 +18,7 @@ in {
 	defaults = { config, name, nodes, ... }: {
 	    imports = [
 		inputs.home-manager.nixosModules.home-manager
-		(./. + "/hosts/${name}")
+		(./. + "/modules/hosts/${name}")
 		./lib
 		(mkLocalMods {prefix = ["l"]; dir = ./modules;})
 	    ];
