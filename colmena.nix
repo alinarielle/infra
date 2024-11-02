@@ -24,11 +24,7 @@ in {
 	    ];
 	    deployment = lib.mkDefault {
 		targetUser = "alina";
-		allowLocalDeployment = lib.mkIf 
-		    (lib.elem 
-			"desktop" 
-			config.deployment.tags)
-		    true;
+		allowLocalDeployment = true;
 	    };
 	};
     } // lib.listToAttrs (map
