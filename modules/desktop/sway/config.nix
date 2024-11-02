@@ -25,7 +25,7 @@
 	};
         modifier = "Mod4"; # set mod to meta
 	bars = []; # set to empty list to disable bar entirely
-	menu = "${terminal} ${pkgs.sway-launcher-desktop}";
+	menu = "${terminal} ${lib.getExe pkgs.sway-launcher-desktop}";
 	keybindings = let
 	  brightnessctl = lib.getExe pkgs.brightnessctl;
 	  playerctl = lib.getExe pkgs.playerctl;
