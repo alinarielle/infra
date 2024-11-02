@@ -1,4 +1,4 @@
-{ inputs, opt, lib, ... }: {
+{ inputs, opt, lib, cfg,... }: {
     opt.colors = lib.mkOption {type = lib.types.attrs;};
      l.desktop.common.theme.colors = rec {
 	dark = "141414"; # ----
@@ -8,15 +8,18 @@
 	base04 = "d5d5d5"; # ++
 	base05 = "dddddd"; # +++
 	white = "ffffff"; # ++++
-	pink = "fc83f4"; # pink
-	red = "ff143b"; # red
-	orange = "f49f0c"; # orange
-	yellow = "ede438"; # yellow
-	green = "b3f361"; # green
-	cyan = "09f9f9"; # cyan
-	blue = "2D9EF4"; # blue
-	purple = "8d09f9"; # purple
-	magenta = "f909ad"; # magenta
+	pink = "fc83f4";
+	red = "f91b02";
+	orange = "f49f0c";
+	yellow = "ede438";
+	green = "b3f361";
+	cyan = "09f9f9";
+	blue = "2D9EF4";
+	purple = "8d09f9";
+	magenta = "f909ad"; 
+	dark-red = "a50000";
+	dark-yellow = "dce002";
+	dark-green = "2ba805";
 	primary = blue;
 	secondary = dark;
 	tertiary = pink;

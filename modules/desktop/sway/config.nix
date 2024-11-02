@@ -10,11 +10,11 @@
   ];
   l.packages = config.l.lib.enable ["desktop"];
   home-manager.users.alina = {
-    wayland.windowManager.sway = {
+    wayland.windowManager.sway = with config.l.desktop.common.theme.colors; {
       enable = true;
       config = rec {
 	terminal = "kitty";
-	colors = with config.l.desktop.common.theme.colors; { 
+	colors = { 
 	  focused = {
 	    background = "#${white}";
 	    border = "#${primary}";
@@ -60,7 +60,7 @@
 	  #events enabled
 	}
 	output eDP-1 scale 1.5
-	output * bg ${./wallpaper.png} fill
+	output * bg #${dark} solid_color
 	for_window [class=".*"] border pixel 2
 	for_window [title="sway-launcher-desktop"] floating enable, resize set 500 650
 	for_window [title="Please Confirm..." class="Godot"] floating enable

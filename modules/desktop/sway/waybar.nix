@@ -108,7 +108,7 @@ window {
 window>*>*>*>label {
     margin: 0 7px;
     padding: 5px;
-    background-color: rgba(255, 255, 255, .2);
+    background-color: #${dark};
     color: #${white};
 }
 
@@ -117,24 +117,22 @@ window>*>*>*>label {
 }
 
 #pulseaudio.muted {
-    color: #${red}
+    color: #${dark-red}
 }
-#network.disconnected,
-#battery:not(.charging).warning,
 #temperature.critical {
-    background: #${red};
-    color: #${dark};
+    background: #${dark-red};
+    color: #${white};
 }
 #battery.critical {
-    background: #${dark};
+    background: #${dark-red};
     color: #${white};
 }
 #battery.warning {
-    background: #${yellow};
+    background: #${orange};
     color: #${dark};
 }
 #battery.charging {
-    background: #${green};
+    background: #${dark-green};
 }
 	'';
     };
