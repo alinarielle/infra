@@ -1,4 +1,4 @@
-{ inputs, cfg, opt, lib, ... }: {
+{ inputs, opt, lib, ... }: {
     opt.colors = lib.mkOption {type = lib.types.attrs;};
      l.desktop.common.theme.colors = rec {
 	dark = "141414"; # ----
