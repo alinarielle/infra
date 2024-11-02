@@ -9,7 +9,7 @@
 	base05 = "dddddd"; # +++
 	white = "ffffff"; # ++++
 	pink = "fc83f4"; # pink
-	red = "ff15b0"; # red
+	red = "ff143b"; # red
 	orange = "f49f0c"; # orange
 	yellow = "ede438"; # yellow
 	green = "b3f361"; # green

@@ -72,7 +72,7 @@
 	    };
 	  };
 	};
-	style = ''
+	style = with config.l.desktop.common.theme.colors;''
 * {
 border: none;
 border-radius: 0;
@@ -81,8 +81,8 @@ font-size: 9pt;
 }
 
 window {
-    background: linear-gradient(rgba(0, 0, 0, .6), rgba(0, 0, 0, 0.4));
-    color: #fff;
+    background: #${dark};
+    color: #${white};
 }
 #workspaces {
     padding-right: 15px;
@@ -92,7 +92,7 @@ window {
     transition: none;
     padding: 0 5px;
     background: rgba(255, 255, 255, .2);
-    color: #fff;
+    color: #${white};
 }
 
 #workspaces button.icon label {
@@ -100,8 +100,8 @@ window {
 }
 
 #workspaces button.focused {
-    color: #333;
-    background: #fff;
+    color: #${dark};
+    background: #${white};
 }
 
 /* :sparkles: maybe needs to be changed to button, when waybar breaks */
@@ -109,7 +109,7 @@ window>*>*>*>label {
     margin: 0 7px;
     padding: 5px;
     background-color: rgba(255, 255, 255, .2);
-    color: #fff;
+    color: #${white};
 }
 
 #tray {
@@ -117,21 +117,24 @@ window>*>*>*>label {
 }
 
 #pulseaudio.muted {
-    color: #ffbb00
+    color: #${red}
 }
 #network.disconnected,
 #battery:not(.charging).warning,
 #temperature.critical {
-    background: #ffbb00;
-    color: black;
+    background: #${red};
+    color: #${dark};
 }
-#battery:not(.charging).critical {
-    background: #c50014;
-    color: white;
+#battery.critical {
+    background: #${dark};
+    color: #${white};
 }
-
+#battery.warning {
+    background: #${yellow};
+    color: #${dark};
+}
 #battery.charging {
-    background: #2a7230;
+    background: #${green};
 }
 	'';
     };
