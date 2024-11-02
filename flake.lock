@@ -702,6 +702,18 @@
         "type": "github"
       }
     },
+    "linuxStable": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-jGstwDLIjS6zUmLfaD6Z0HmSZbJOH1nv11So9M37Smg=",
+        "type": "file",
+        "url": "https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git"
+      }
+    },
     "lix": {
       "flake": false,
       "locked": {
@@ -1165,6 +1177,7 @@
         "home-manager": "home-manager",
         "impermanence": "impermanence",
         "lanzaboote": "lanzaboote",
+        "linuxStable": "linuxStable",
         "lix-module": "lix-module",
         "microvm": "microvm",
         "niri": "niri",

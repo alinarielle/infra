@@ -1,8 +1,8 @@
-{lib, pkgs, config, linuxStable, ...}: let 
+{lib, pkgs, config, ...}: let 
   ifApparmor = config.l.kernel.lsm.apparmor.enable; 
 in {
   boot.kernelPackages = let
-    kernel = pkgs.linux_latest;
+    kernel = pkgs.linux-libre;
     llvm = pkgs.llvmPackages_latest;
 
     version = pkgs.kernelPatches.hardened.${kernel.meta.branch}.version;
@@ -13,7 +13,7 @@ in {
       [ kernel.version ] 
       [ version ] 
       kernel.modDirVersion;
-  in (pkgs.linuxPackagesFor (kernel.override {
+  in lib.mkDefault (pkgs.linuxPackagesFor (kernel.override {
 	    stdenv = llvm.stdenv;
 	    extraMakeFlags = [ "LLVM=${llvm.bintools-unwrapped}/bin/" ];
 	    kernelPatches = kernel.kernelPatches 
@@ -30,7 +30,7 @@ in {
 		    inherit sha256;
 		};
 	    };
-	    structuredExtraConfig = with lib.kernel; lib.mkForce {
+	    structuredExtraConfig = with lib.kernel; {
 		# report BUG() conditions and kill the offending process
 		BUG = yes;
 		

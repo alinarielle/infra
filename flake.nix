@@ -1,6 +1,10 @@
 {
     description = "alina's NixOS flake";
     inputs = {
+	linuxStable = {
+	    flake = false;
+	    url = "https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git";
+	};
 	flake-parts.url = "github:hercules-ci/flake-parts";
 	rnat.url = "gitlab:yuka/rnat?host=cyberchaos.dev";
 	nix-dns.url = "github:kirelagin/dns.nix";
