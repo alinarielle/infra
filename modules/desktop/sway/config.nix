@@ -60,7 +60,7 @@
 	  #events enabled
 	}
 	output eDP-1 scale 1.5
-	output * bg #${dark} solid_color
+	output * bg ${./voyager.png} fill
 	for_window [class=".*"] border pixel 2
 	for_window [title="sway-launcher-desktop"] floating enable, resize set 500 650
 	for_window [title="Please Confirm..." class="Godot"] floating enable
