@@ -1,5 +1,5 @@
 {lib, config, opt, cfg, ...}: {
-  opt.index = with lib.types; lib.mkOption { default = {}; type = listOf (submodule {
+  opt.index = with lib.types; lib.mkOption { default = {}; type = attrsOf (submodule {
     options = {
       script = lib.mkOption { type = lines; };
       net = lib.mkEnableOption "networking permission CAP_NET for systemd service";
@@ -46,7 +46,8 @@
 	PrivateMounts = "yes";
 	PrivateNetwork = lib.mkIf !(cfg.net || cfg.netAdmin)  "yes";
 	AmbientCapabilities = [
-	    (lib.mkIf cfg.networkingAdmin "CAP_NET_ADMIN")
+	    (lib.mkIf cfg.netAdmin "CAP_NET_ADMIN")
+	    (lib.mkIf cfg.net "CAP_NET")
 	];
       };
       script = cfg.script;
