@@ -4,7 +4,7 @@
       path = lib.mkOption { type = path; };
       user = lib.mkOption { type = str; default = "root"; };
       group = lib.mkOption { type = str; default = "root"; };
-      mode = lib.mkOption { type = str; default = "770"; };
+      perms = lib.mkOption { type = str; default = "750"; };
       persist = lib.mkOption { type = bool; default = true; };
     };
   });};
