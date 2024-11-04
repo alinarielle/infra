@@ -1,6 +1,7 @@
 {lib, config, opt, cfg, ...}: {
   opt = with lib.types; lib.mkOption { default = {}; type = attrsOf (submodule {
     options = {
+      enable = lib.mkEnableOption "task"; #TODO fix mkLocalMods submodule enableOpts
       script = lib.mkOption { type = nullOr lines; default = null; };
       bins = lib.mkOption { type = listOf path; default = []; };
       net = lib.mkEnableOption "networking permission CAP_NET for systemd service";
@@ -11,8 +12,8 @@
       group = lib.mkOption { type = nullOr str; default = null; };
       dataDir = lib.mkOption { type = nullOr path; default = null; };
       volatile = lib.mkEnableOption "wipe everything once the process is closed";
-      readWritePaths = lib.mkOption { type = listOf path; default = []; };
-      readOnlyPaths = lib.mkOption { type = listOf path; default = []; };
+      #readWritePaths = lib.mkOption { type = listOf path; default = []; };
+      #readOnlyPaths = lib.mkOption { type = listOf path; default = []; };
     };
   });};
   config = lib.mkMerge [

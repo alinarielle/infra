@@ -32,5 +32,6 @@
     "domain"
     "congestion"
     "speed"
+    "resolved"
   ];
 }

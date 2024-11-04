@@ -6,6 +6,7 @@
   ];
     
   l.profiles = enable ["base" "hardened"];
+  l.kernel.hardened.enable = lib.mkForce false; # laptop depends on proprietary wifi firmware
   l.desktop.sway = enable ["config" "swaylock" "waybar"];
   programs.steam.enable = true;
   nixpkgs.config.allowUnfree = true;
