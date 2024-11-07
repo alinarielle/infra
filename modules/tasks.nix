@@ -1,9 +1,13 @@
 {lib, config, opt, cfg, ...}: {
   opt = with lib.types; lib.mkOption { default = {}; type = attrsOf (submodule {
     options = {
-      enable = lib.mkEnableOption "task"; #TODO fix mkLocalMods submodule enableOpts
+      enable = lib.mkEnableOption "task";
       script = lib.mkOption { type = nullOr lines; default = null; };
-      bins = lib.mkOption { type = listOf path; default = []; };
+      paths = {
+        exec = lib.mkOption { type = listOf path; default = []; };
+        ro = lib.mkOption { type = listOf path; default = []; };
+        rw = lib.mkOption { type = listOf path; default = []; };
+      };
       net = lib.mkEnableOption "networking permission CAP_NET for systemd service";
       netAdmin = lib.mkEnableOption "networking permission CAP_NET_ADMIN for systemd service";
       execInterval = lib.mkOption { type = nullOr str; default = null; };
@@ -11,14 +15,11 @@
       user = lib.mkOption { type = nullOr str; default = null; };
       group = lib.mkOption { type = nullOr str; default = null; };
       dataDir = lib.mkOption { type = nullOr path; default = null; };
-      volatile = lib.mkEnableOption "wipe everything once the process is closed";
-      #readWritePaths = lib.mkOption { type = listOf path; default = []; };
-      #readOnlyPaths = lib.mkOption { type = listOf path; default = []; };
+      persist = lib.mkOption { type = bool; default = true; };
     };
   });};
   config = lib.mkMerge [
   ] ++ (lib.mapAttrsToList (key: val: let
-    fld = config.l.folders;
     user = val.user or key;
     group = val.group or key;
     net = if val.netAdmin then true else val.net;
@@ -28,7 +29,7 @@
         path = if val.dataDir != null then "${val.dataDir}${type}" else "/jail/${key}${type}";
         inherit user group;
       };};
-    in lib.mkIf !val.volatile ((mkDir "/lib") // (mkDir "/log") // (mkDir "/cache"));
+    in lib.mkIf val.persist ((mkDir "/lib") // (mkDir "/log") // (mkDir "/cache"));
     
     users.users.${user} = {
       inherit group;
@@ -45,16 +46,17 @@
       startLimitBurst = 1;
 
       script = if 
-        (((lib.length val.bins) == 1) && (val.script == null)) 
+        (((lib.length val.paths.exec) == 1) && (val.script == null)) 
       then ''
         #!/bin/bash
-	${lib.head val.bins}
+	${lib.head val.paths.exec}
       ''
       else val.script;
 
       serviceConfig = rec {
         # filesystem setup
 	RootDirectory = val.dataDir or "/jail/${key}";
+	TemporaryFileSystem = ["/:ro"];
 	MountAPIVFS = true;
 	PrivateTmp = true;
 	PrivateDevices = true;
@@ -66,17 +68,19 @@
 	  "/run/systemd/journal/socket"
 	  "/run/systemd/journal/stdout" # necessary for logging
 	  "/nix/store"
-	];
+	] ++ val.paths.ro;
 	BindPaths = [
-	  #"${fld.${key}-cache.path}:${CacheDirectory}"
-	  #"${fld.${key}-log.path}:${LogsDirectory}"
 	  "/var/lib/${key}:/lib"
 	  "/var/log/${key}:/log"
 	  "/var/cache/${key}:/cache"
-	];
-	WorkingDirectory = "/lib";
+	] ++ val.paths.rw ++ [val.dataDir];
+	
+	NoExecPaths = "/";
+	ExecPaths = val.paths.exec;
 
-	StateDirectory = "${key}:/lib";
+	WorkingDirectory = val.dataDir or "/lib";
+
+	StateDirectory = val.dataDir or "${key}:/lib";
 	StateDirectoryMode = "0750";
 
         CacheDirectory = "${key}:/cache";
@@ -84,17 +88,9 @@
         
 	LogsDirectory = "${key}:/log";
         LogsDirectoryMode = "0750";
-	
-	NoExecPaths = "/";
-	ExecPaths = val.bins ++ ["/nix/store"];
-	
-	#TemporaryFileSystem = ["/:ro"];
 
 	# new file permissions
 	UMask = "0027"; # 0640 / 0750
-
-	#TemporaryFileSystem = ":ro";
-
 	User = user;
 	Group = group;
 	
@@ -109,7 +105,7 @@
 	ProtectKernelLogs = true;
 	ProtectControlGroups = true;
 	RestrictAddressFamilies = [ 
-	  (lib.mkIf !val.volatile "AF_UNIX")
+	  (lib.mkIf val.persist "AF_UNIX")
 	  (lib.mkIf net "AF_INET") 
 	  (lib.mkIf net "AF_INET6")
 	];
@@ -148,7 +144,7 @@
 	  (lib.mkIf net "CAP_NET_BIND_SERVICE")
         ];
       };
-    }(lib.mkIf val.volatile {
+    }(lib.mkIf !val.persist {
       serviceConfig = {
         DynamicUser = true;
 	RuntimeDirectory = "woof:/woof";
@@ -172,17 +168,7 @@
 	OnCalendar = val.execDate;
       };
     };
-
-    security.apparmor = lib.mkIf l.kernel.apparmor.enable {
-      enable = true;
-      killUnconfinedConfinables = true;
-      enableCache = true;
-    };
   }) cfg);
 }
-# TODO
-# kill service
-# look into nspawnd
-# look into the implicatons of dynamic users and other systemd.exec options
-# read this https://www.ctrl.blog/entry/systemd-opensmtpd-hardening.html
-
+#TODO systemd credentials, resource control for IP allow ranges, restrict to interfaces,
+#restrict to protocols

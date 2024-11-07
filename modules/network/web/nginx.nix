@@ -1,48 +1,34 @@
-{opt, cfg, lib, ...}: {
-  opt.index = with lib.types; lib.mkOption {type = listOf (submodule {
+{opt, cfg, lib, pkgs, ...}: {
+  opt = with lib.types; lib.mkOption {type = listOf (submodule {
     options = {
-      root = lib.mkOption { type = either [ path str ]; default = ""; };
-      domain = lib.mkOption { type = str; default = ""; };
-      sub = lib.mkOption { type = str; default = ""; };
-      fqdn = lib.mkOption { type = str; default = ""; };
-      override = lib.mkOption { type = attrs; default = {}; };
-      ssl = lib.mkEnableOption "whether to enable Let's Encrypt SSL certificates";
+      root = lib.mkOption { type = nullOr path; };
+      domain = lib.mkOption { type = str; };
+      sub = lib.mkOption { type = str; };
+      fqdn = lib.mkOption { type = str; };
+      ssl = lib.mkOption { type = bool; default = true; };
     };
   }); default = {};};
   config = let
     acmeDir = "/var/lib/acme/acme-challenge/";
-  in lib.mkMerge [{
-    systemd.tmpfiles.settings.acmeDir.${acmeDir}.d = {
-      group = "nginx";
-      user = "nginx";
-      mode = "770";
-      age = "-";
-      type = "d";
-      };
-  }] ++ (lib.mapAttrsToList 
-    (key: val: {
-      domain = lib.mkDefault "alina.cx";
-      fqdn = lib.mkDefault (lib.mkIf (sub != "") (builtins.toString sub + ".")) + domain;
-    
+  in lib.mkMerge (lib.mapAttrsToList (key: val: {
+      services.nginx.package = pkgs.nginxQuic;
+
       services.nginx.virtualHosts.${key} = {
         serverName = val.fqdn;
 	root = val.root;
+	quic = true;
       };
 
-      security.acme.certs.${fqdn} = {
+      security.acme.certs.${fqdn} = lib.mkIf val.ssl {
 	webroot = acmeDir;
 	email = "alina@duck.com";
 	validMinDays = 10;
+	keyType = "ec256";
+	directory = "/var/lib/acme/${key}";
+	credentialFiles = {
+	  "RFC2136_TSIG_SECRET_FILE" = "/secrets/acme/tsig-secret-${fqdn}.org"
+	};
       };
-
-    } // (lib.filterAttrs (k: v: 
-      lib.any 
-        (x: x == k) 
-        ["root" "domain" "sub" "fqdn"]
-      ) 
-    val) 
-    // 
-    val.override)
-    cfg.index
-  );
+    })
+  cfg);
 }
