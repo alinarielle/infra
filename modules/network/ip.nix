@@ -11,8 +11,7 @@
     };
   });};
   config = lib.mkMerge (lib.mapAttrsToList (key: val: let
-    serviceID = key;
-    fun = import ../lib/ip-util.nix { inherit lib; };
+    fun = import ../../lib/ip-util.nix { inherit lib; };
     dividend = let 
       abc = (lib.filter (x: x != "") (lib.splitString "" "abcdefghijklmnopqrstuvwxyz")); 
     in lib.toIntBase10 (builtins.substring 0 19 (builtins.replaceStrings
@@ -39,7 +38,7 @@
       internal =;
       internalCIDR =;
     };
-    any = if cfg.${key}.preferred == "v6" then v6 else v4;
+    any = if cfg.${key}.preferred == "v4" then v4 else v6;
   in {
     assertions = [{
       assertion = name != key;
@@ -47,6 +46,7 @@
     }];
     l.ip.${key} = lib.recursiveUpdate { 
       inherit port any v4 v6; 
+      NATed = lib.mkIf (cfg ? v4.wan || cfg ? v6.wan) false;
     } (lib.mkIf (cfg ? name) {
       protocols = cfg.${name}.protocols;
       preferred = cfg.${name}.preferred;
