@@ -61,12 +61,13 @@
 
       pathStr = builtins.concatStringsSep "." path;
       modRaw = modFn paramNew;
-      modUni = unifyMod pathStr pathStr (builtins.removeAttrs modRaw ["opt" "mod" "srv"]);
+      modUni = unifyMod pathStr pathStr (builtins.removeAttrs modRaw ["opt" "mod" "srv" "ip"]);
 
       mod = modRaw.mod or {};
       fileCtx = str: "${modUni._file} (mkLocalMods ${str})";
       enablePath = path ++ ["enable"];
       servicePath = ["l" "srv"] ++ (builtins.head (lib.reverseList path));
+      ipPath = ["l" "ip"] ++ (builtins.head (lib.reverseList path));
       optionAtLocalRoot = modRaw.opt._type == "option";
       
       imports = [
@@ -95,6 +96,12 @@
 	  _file = fileCtx "`srv` processor";
           key = fileCtx "`srv` processor";
 	  config = lib.setAttrByPath servicePath (modRaw.srv or {});
+	}
+	{
+
+	  _file = fileCtx "`ip` processor";
+          key = fileCtx "`ip` processor";
+	  config = lib.setAttrByPath ipPath (modRaw.ip or {});
 	}
       ];
 
