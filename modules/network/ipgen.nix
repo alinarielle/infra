@@ -1,11 +1,6 @@
 {cfg, opt, lib, nodes, ...}: {
   opt = with lib.types; lib.mkOption { default = {}; type = (submodule {
     options = {
-      protocols = lib.mkOption { type = listOf str; default = ["v4" "v6"]; };
-      preferred = lib.mkOption { type = str; default = "v6"; };
-      port = lib.mkOption { type = nullOr port; };
-      NATed = lib.mkOption { type = bool; default = true; };
-      any = lib.mkOption { type = attrs; };
       v4 = lib.mkOption { type = attrs; };
       v6 = lib.mkOption { type = attrs; };
     };
@@ -18,7 +13,6 @@
       abc
       (lib.imap (int: v: builtins.toString int) abc)
       (builtins.hashString "sha256" key)));
-    port = (lib.mod dividend (65000 - 50000)) + 50000;
     v4 = {
       #wan =; don't have an AS yet qwq (and i will probably never be able to afford ipv4 lmao)
       #wanCIDR =;
@@ -40,6 +34,6 @@
     };
     #any = if cfg.${key}.preferred == "v4" then v4 else v6;
   in {
-    inherit v4 v6 port;
+    inherit v4 v6;
   }) nodes;
 }
