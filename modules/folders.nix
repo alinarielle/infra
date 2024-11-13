@@ -1,4 +1,4 @@
-{opt, cfg, lib, ...}: {
+{opt, cfg, lib, config, ...}: {
   opt = with lib.types; lib.mkOption { default = {}; type = (submodule {
     options = {
       path = lib.mkOption { type = path; };
@@ -8,13 +8,13 @@
       persist = lib.mkOption { type = bool; default = true; };
     };
   });};
-  config = lib.mkMerge [(lib.mkIf l.filesystem.impermanence.enable {
-    l.filesystem.impermanence.keep = lib.mapAttrsToList (key: val: val.path ) cfg;
-  })] ++ (lib.mapAttrsToList (key: val: {
-    systemd.tmpfiles.settings."${val.key}-state".${val.path}.d = {
+  config = {
+    systemd.tmpfiles.settings = lib.mapAttrs (key: val: { ${val.path}.d = {	
       inherit (val) group user mode;
       age = "-";
       type = "d";
-    };
-  }) cfg;
+    };}) cfg;
+  } // (lib.mkIf config.l.filesystem.impermanence.enable {
+    l.filesystem.impermanence.keep = lib.mapAttrsToList (key: val: val.path) cfg;
+  });
 }

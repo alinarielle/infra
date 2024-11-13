@@ -1,4 +1,4 @@
-{cfg, opt, lib, name, ...}: {
+{cfg, opt, lib, nodes, ...}: {
   opt = with lib.types; lib.mkOption { default = {}; type = (submodule {
     options = {
       protocols = lib.mkOption { type = listOf str; default = ["v4" "v6"]; };
@@ -10,7 +10,7 @@
       v6 = lib.mkOption { type = attrs; };
     };
   });};
-  config = lib.mkMerge (lib.mapAttrsToList (key: val: let
+  config.l.ipgen = lib.mapAttrs (key: val: let
     fun = import ../../lib/ip-util.nix { inherit lib; };
     dividend = let 
       abc = (lib.filter (x: x != "") (lib.splitString "" "abcdefghijklmnopqrstuvwxyz")); 
@@ -30,30 +30,16 @@
 	  (fun.ipv4.decode "0.255.255.255")
 	)
       );
-      internalCIDR = "/32";
+      #internalCIDR = "/32";
     };
     v6 = {
       #wan =; don't have an AS yet qwq
       #wanCIDR =;
-      internal =;
-      internalCIDR =;
+      #internal =;
+      #internalCIDR =;
     };
-    any = if cfg.${key}.preferred == "v4" then v4 else v6;
+    #any = if cfg.${key}.preferred == "v4" then v4 else v6;
   in {
-    assertions = [{
-      assertion = name != key;
-      message = "stop breaking my horrible hack":
-    }];
-    l.ip.${key} = lib.recursiveUpdate { 
-      inherit port any v4 v6; 
-      NATed = lib.mkIf (cfg ? v4.wan || cfg ? v6.wan) false;
-    } (lib.mkIf (cfg ? name) {
-      protocols = cfg.${name}.protocols;
-      preferred = cfg.${name}.preferred;
-      NATed = cfg.${name}.NATed;
-      any = cfg.${name}.any or any;
-      v4 = cfg.${name}.v4 or v4;
-      v6 = cfg.${name}.v6 or v6;
-    });
-  }) cfg);
+    inherit v4 v6 port;
+  }) nodes;
 }

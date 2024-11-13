@@ -1,9 +1,8 @@
-{ inputs, lib, self, ... }: let
+{ inputs, lib, self, name,  ... }: let
     hostsDir = "${./.}/modules/hosts";
     hostNames = with lib; attrNames
 	(filterAttrs (name: type: type == "directory") (builtins.readDir hostsDir));
     colmena = inputs.colmena;
-    mkLocalMods = import ./lib/mkLocalMods.nix {inherit lib;};
 in {
     flake.colmena = {
 	meta = rec {
@@ -15,7 +14,9 @@ in {
 	    };
 	    specialArgs = { inherit inputs; };
 	};
-	defaults = { config, name, nodes, ... }: {
+	defaults = { config, name, nodes, ... }: let
+	  mkLocalMods = import ./lib/mkLocalMods.nix {inherit lib name;};
+	in {
 	    imports = [
 		inputs.home-manager.nixosModules.home-manager
 		(./. + "/modules/hosts/${name}")

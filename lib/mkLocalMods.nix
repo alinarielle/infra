@@ -1,4 +1,4 @@
-{lib, ...}: let
+{lib, name, ...}: let
   inherit (import ./packagesFromDirectoryRecursive.nix {inherit lib;}) packagesFromDirectoryRecursive;
   mapAttrKVs = mapFn: attrs: builtins.foldl' (acc: cur: acc // {${cur.key} = cur.value;}) {} (builtins.attrValues (builtins.mapAttrs mapFn attrs));
   #kv = key: value: {inherit key value;};
@@ -57,19 +57,20 @@
         p
         // {
           cfg = lib.getAttrFromPath path p.config;
+	  ip = lib.getAttrFromPath ["l" "network" "ipgen" name] p.config;
         };
 
       pathStr = builtins.concatStringsSep "." path;
       modRaw = modFn paramNew;
-      modUni = unifyMod pathStr pathStr (builtins.removeAttrs modRaw ["opt" "mod" "srv" "ip"]);
+      modUni = unifyMod pathStr pathStr (builtins.removeAttrs modRaw ["opt" "mod" "srv"]);
 
       mod = modRaw.mod or {};
       fileCtx = str: "${modUni._file} (mkLocalMods ${str})";
       enablePath = path ++ ["enable"];
-      servicePath = ["l" "srv"] ++ (builtins.head (lib.reverseList path));
-      ipPath = ["l" "ip"] ++ (builtins.head (lib.reverseList path));
-      optionAtLocalRoot = modRaw.opt._type == "option";
-      
+      pathHead = builtins.head (lib.reverseList path);
+      servicePath = ["l" "srv"] ++ [pathHead];
+      optionAtLocalRoot = (modRaw.opt._type or "") == "option";
+
       imports = [
         {
           _file = fileCtx "`opt` processor";
@@ -79,29 +80,25 @@
         {
           _file = fileCtx "`enable` definition";
           key = fileCtx "`enable` definition";
-          options = lib.mkIf 
-	    !optionAtLocalRoot 
-	      (lib.setAttrByPath 
-	        enablePath 
-	        (lib.mkEnableOption (mod.desc or mod.description or mod.name or pathStr)));
+          options = if !optionAtLocalRoot then
+	    (lib.setAttrByPath 
+	      enablePath 
+	      (lib.mkEnableOption (mod.desc or mod.description or mod.name or pathStr)))
+	  else {};
         }
         ({config, ...}: {
           _file = fileCtx "config wrapper";
           key = fileCtx "config wrapper";
-          config = lib.mkIf 
-	    ((lib.getAttrFromPath enablePath config) || (optionAtLocalRoot))
-	    modUni.config;
+          config = if !optionAtLocalRoot then 
+	    lib.mkIf 
+	      (lib.getAttrFromPath enablePath config)
+	      modUni.config
+	  else {};
         })
 	{
 	  _file = fileCtx "`srv` processor";
           key = fileCtx "`srv` processor";
 	  config = lib.setAttrByPath servicePath (modRaw.srv or {});
-	}
-	{
-
-	  _file = fileCtx "`ip` processor";
-          key = fileCtx "`ip` processor";
-	  config = lib.setAttrByPath ipPath (modRaw.ip or {});
 	}
       ];
 

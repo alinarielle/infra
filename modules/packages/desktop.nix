@@ -1,13 +1,14 @@
 {pkgs, ...}: {
     users.users.alina.packages = with pkgs; [
 	monero-gui
+	bytecode-viewer
 	freecad
 	blender
 	zed-editor
 	openscad
 	waydroid
 	wireshark
-	#spotify
+	spotify
 	mpv
 	mpvpaper
 	pinentry-qt

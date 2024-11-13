@@ -26,34 +26,39 @@
 	exec = lib.mkOption { type = listOf path; default = []; };
       }; 
     };
-  })};
-  config = lib.mkMerge (lib.mapAttrsToList (key: val: let
+  });};
+  config = {
   # submodule option defaults
-    dns = {
-      sub = val.net.dns.sub or key;
-      domain = val.net.dns.domain or "alina.cx";
-      fqdn = val.net.dns.fqdn or dns.sub + "." dns.domain;
-    };
-  in {
-    assertions = [{
+    #dns = {
+      #sub = val.net.dns.sub or key;
+      #domain = val.net.dns.domain or "alina.cx";
+      #fqdn = val.net.dns.fqdn or dns.sub + "." dns.domain;
+    #};
+
+
+    l.tasks = lib.mapAttrs (key: val: {
+      user = lib.mkIf val.persist key;
+      group = lib.mkIf val.persist key;
+      net = lib.mkIf (lib.any (x: x) lib.attrValues val.serve) true;
+      inherit (val) paths persist dataDir script;
+    }) cfg;
+    
+
+    assertions = lib.mapAttrsToList (key: val: {
       assertion = val.task != null;
       message = "the task of service ${key} cannot be undefined";
-    }{
+    }
+    {
       assertion = val.paths.exec != [];
       message = "define at least one executable path for service ${key}";
-    }(lib.mkIf config.l.filesystem.noexecMount.enable {
+    }
+    (lib.mkIf config.l.filesystem.noexecMount.enable {
       assertion = (builtins.all (x: 
         (builtins.substring 0 11 x) == "/nix/store/") 
 	val.paths.exec
       );
       message = ''all partitions except the nix store are mounted as noexec, executable paths
 	must start with /nix/store'';
-    })];
-    l.tasks.${key} = {
-      user = lib.mkIf val.persist key;
-      group = lib.mkIf val.persist key;
-      net = lib.mkIf (lib.any (x: x) lib.attrValues val.serve) true;
-      inherit (val) paths persist dataDir script;
-    };
-  }) cfg);
+    })) cfg;
+  };
 }

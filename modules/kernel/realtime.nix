@@ -1,3 +1,3 @@
-{pkgs, cfg,...}: {
+{pkgs,...}: {
     boot.kernelPackages = pkgs.linuxPackages-rt;
 }

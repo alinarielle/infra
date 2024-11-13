@@ -183,7 +183,7 @@ in {
 		INET_DIAG = no;
 
 		# Security modules
-		SECURITY_SELINUX = yes;
+		SECURITY_SELINUX = no;
 		SECURITY_APPARMOR = yes;
 		SECURITY_SAFESETID = yes;
 		DEFAULT_SECURITY_APPARMOR = lib.mkIf ifApparmor yes;

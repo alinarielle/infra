@@ -18,25 +18,25 @@
       persist = lib.mkOption { type = bool; default = true; };
     };
   });};
-  config = lib.mkMerge [
-  ] ++ (lib.mapAttrsToList (key: val: let
-    user = val.user or key;
-    group = val.group or key;
-    net = if val.netAdmin then true else val.net;
+  config = let
+    mapVals = fn: attrs: lib.mkMerge (lib.attrValues (lib.mapAttrs fn attrs));
   in {
-    l.folders = let 
-      mkDir = type: { ${key}-${type} = {
+    l.folders = lib.mapAttrs (key: val: let 
+      mkDir = type: { "${key}-${type}" = {
         path = if val.dataDir != null then "${val.dataDir}${type}" else "/jail/${key}${type}";
-        inherit user group;
+	user = val.user or key;
+	group = val.group or key;
       };};
-    in lib.mkIf val.persist ((mkDir "/lib") // (mkDir "/log") // (mkDir "/cache"));
+    in lib.mkIf val.persist ((mkDir "/lib") // (mkDir "/log") // (mkDir "/cache"))) cfg;
     
-    users.users.${user} = {
-      inherit group;
+    users.users = mapVals (key: val: { ${val.user or key} = {
+      group = val.group or key;
       isSystemUser = true;
-    };
+    };}) cfg;
 
-    systemd.services.${key} = (lib.recursiveUpdate {
+    systemd.services = lib.mapVals (key: val: let
+      net = if val.netAdmin then true else val.net;
+    in { "${key}-srv" = {
       unitConfig = lib.mkIf config.l.filesystem.impermanence.enable {
         RequiresMountsFor = "/persist";
       };
@@ -46,14 +46,14 @@
       startLimitBurst = 1;
 
       script = if 
-        (((lib.length val.paths.exec) == 1) && (val.script == null)) 
+        ((lib.length val.paths.exec) == 1) && (val.script == null)
       then ''
         #!/bin/bash
 	${lib.head val.paths.exec}
       ''
       else val.script;
 
-      serviceConfig = rec {
+      serviceConfig = {
         # filesystem setup
 	RootDirectory = val.dataDir or "/jail/${key}";
 	TemporaryFileSystem = ["/:ro"];
@@ -91,8 +91,8 @@
 
 	# new file permissions
 	UMask = "0027"; # 0640 / 0750
-	User = user;
-	Group = group;
+	User = val.user or key;
+	Group = val.group or key;
 	
 	Restart = "on-failure";
 	PrivateUsers = true;
@@ -125,13 +125,12 @@
 	  # and installing further system call filters such as:
 	SystemCallFilter = [ 
 	  ("~@cpu-emulation @memfd_create @debug @keyring @mount"
-	  + " @obsolete @privileged @setuid" 
+	  + " @obsolete @privileged @setuid")
 	];
 
 	RestrictRealtime = true;
 	RestrictSUIDSGID = true;
 	RemoveIPC = true;
-	PrivateMounts = true;
 	DevicePolicy = "closed";
 	PrivateNetwork = !net;
 	KeyringMode = "private";
@@ -143,9 +142,7 @@
 	  (lib.mkIf net "CAP_NET")
 	  (lib.mkIf net "CAP_NET_BIND_SERVICE")
         ];
-      };
-    }(lib.mkIf !val.persist {
-      serviceConfig = {
+      } // (if val.persist then {} else {
         DynamicUser = true;
 	RuntimeDirectory = "woof:/woof";
 	User = null;
@@ -157,18 +154,18 @@
 	CacheDirectoryMode = null;
 	LogsDirectory = null;
         LogsDirectoryMode = null;
-      };
-    }));
+      });
+    };}) cfg;
 
-    systemd.timers.${key} = {
+    systemd.timers = lib.mapAttrs (key: val: {
       startLimitBurst = 1;
       timerConfig = {
 	Unit = key + ".service";
 	OnUnitActiveSec = val.execInterval;
 	OnCalendar = val.execDate;
       };
-    };
-  }) cfg);
+    }) cfg;
+  };
 }
 #TODO systemd credentials, resource control for IP allow ranges, restrict to interfaces,
 #restrict to protocols

@@ -1,6 +1,8 @@
 {pkgs, ...}: {
     users.users.alina.packages = with pkgs; [
 	usbutils
+	typst
+	texliveSmall
 	btop
 	htop
 	powertop
