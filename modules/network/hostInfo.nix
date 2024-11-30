@@ -1,5 +1,5 @@
 {opt, cfg, lib, ...}: {
-  opt = {
+  opt = with lib.types; {
     NATed = lib.mkOption { type = bool; default = true; };
   };
 }
