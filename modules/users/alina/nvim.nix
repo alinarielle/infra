@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... }: {
+{ inputs, pkgs, lib, ... }: {
     imports = [ inputs.nixvim.nixosModules.nixvim ];
     users.users.alina.packages = with pkgs; [
 	ripgrep
@@ -7,9 +7,6 @@
 	python3
 	nodePackages.nodejs
 	tree-sitter
-    ];
-    fonts.packages = with pkgs; [
-	nerdfonts
     ];
     programs.nixvim = {
     	enable = true;
