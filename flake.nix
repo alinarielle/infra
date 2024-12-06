@@ -24,17 +24,7 @@
 	microvm.url = "github:astro/microvm.nix";
 	microvm.inputs.nixpkgs.follows = "nixpkgs";
 	nix-colors.url = "github:misterio77/nix-colors";
-	lix-module = {
-	    url = "https://git.lix.systems/lix-project/nixos-module/archive/2.91.1-1.tar.gz";
-	    inputs.nixpkgs.follows = "nixpkgs";
-	};
-	niri = {
-	    url = "github:sodiboo/niri-flake";
-	    inputs.nixpkgs.follows = "nixpkgs";
-	};
 	stylix.url = "github:danth/stylix";
-	disko.url = "github:nix-community/disko";
-	disko.inputs.nixpkgs.follows = "nixpkgs";
     };
 
     outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } {

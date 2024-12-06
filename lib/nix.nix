@@ -1,6 +1,6 @@
 {inputs, pkgs, ...}: {
-    imports = [ inputs.lix-module.nixosModules.default ];
     nix = {
+	package = pkgs.lix;
 	settings = {
 	   experimental-features = [ "nix-command" "flakes" ];
 	   trusted-users = [ "@wheel" "root" ];

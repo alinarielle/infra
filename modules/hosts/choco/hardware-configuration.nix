@@ -11,13 +11,15 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "tmpfs";
+    { device = "none";
       fsType = "tmpfs";
+      options = [ "defaults" "size=2G" "mode=755" ]
     };
 
   fileSystems."/persist" =
     { device = "/dev/disk/by-uuid/495cb5b0-a119-4810-a60e-2a8a16646eab";
       fsType = "btrfs";
+      neededForBoot = true;
     };
 
   boot.initrd.luks.devices."main".device = "/dev/disk/by-uuid/7cc3572e-582b-4643-a828-59398a97afe1";

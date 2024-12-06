@@ -8,9 +8,7 @@ in {
 	meta = rec {
 	    nixpkgs = import inputs.nixpkgs {
 		system = "x86_64-linux";
-		overlays = [
-		    inputs.niri.overlays.niri
-		];
+		overlays = [];
 	    };
 	    specialArgs = { inherit inputs; };
 	};

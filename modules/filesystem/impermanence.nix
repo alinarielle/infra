@@ -35,26 +35,15 @@
 	"/var/lib/nixos"
 	"/var/lib/btrfs"
 	"/etc/NetworkManager/system-connections"
-	"/nix"
-	"/etc/nixos"
-	"/boot"
+	"/nix/store"
 	"/secrets"
 	"/home"
       ] 
-      ++ lib.mkIf (lib.elem "desktop" config.deployment.tags) ["/var/lib/bluetooth"]
+      ++ lib.optional config.l.desktop.common.bluetooth.enable ["/var/lib/bluetooth"]
       ++ keep-dirs;
       files = [
 	"/etc/machine-id"
       ] ++ keep-files;
-    };
-
-    fileSystems = {
-      "/" = lib.mkForce { 
-	device = "none"; 
-	fsType = "tmpfs"; 
-	options = [ "defaults" "size=2G" "mode=755"]; 
-      };
-      "/persist".neededForBoot = true;
     };
   };
 }
