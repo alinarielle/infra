@@ -7,8 +7,6 @@
     
   l.profiles = enable ["base" "hardened"];
   l.desktop.sway = enable ["config" "swaylock" "waybar"];
-  programs.steam.enable = true;
-  nixpkgs.config.allowUnfree = true;
   system.stateVersion = "23.11";
   deployment.tags = ["hidpi" "desktop"];
 }
