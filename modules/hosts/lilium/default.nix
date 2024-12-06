@@ -7,6 +7,7 @@
     
   l.profiles = enable ["base" "hardened"];
   l.desktop.sway = enable ["config" "swaylock" "waybar"];
+  l.kernel.hardenedLibre.enable = lib.mkForce false;
   system.stateVersion = "23.11";
   deployment.tags = ["hidpi" "desktop"];
 }
