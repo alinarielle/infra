@@ -42,7 +42,7 @@
       };
       wants = lib.optionals net ["networking.target"];
       wantedBy = ["multi-user.target" "timers.target"];
-
+      description = key;
       startLimitBurst = 1;
 
       script = if 
@@ -109,6 +109,7 @@
 	  (lib.mkIf net "AF_INET") 
 	  (lib.mkIf net "AF_INET6")
 	];
+	SystemCallArchitectures = "native";
 	RestrictNamespaces = true;
 	LockPersonality = true; # lock linux process execution domain as in personality(2)
 

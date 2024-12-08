@@ -5,7 +5,7 @@
       v6 = lib.mkOption { type = attrs; };
     };
   });};
-  config.l.ipgen = lib.mapAttrs (key: val: let
+  config.l.network.ipgen = lib.mapAttrs (key: val: let
     fun = import ../../lib/ip-util.nix { inherit lib; };
     dividend = let 
       abc = (lib.filter (x: x != "") (lib.splitString "" "abcdefghijklmnopqrstuvwxyz")); 
