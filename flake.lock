@@ -651,7 +651,7 @@
     "linuxStable": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-+PosE3BH2OG2NpAMTZd3uPOIrHAcw3mUYY/xD8y1aOo=",
+        "narHash": "sha256-B+dBNRbt0uz339NaITTysicO33OSS5dJOgP/1QWE/9o=",
         "type": "file",
         "url": "https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git"
       },
@@ -669,11 +669,11 @@
         "spectrum": "spectrum"
       },
       "locked": {
-        "lastModified": 1733583112,
-        "narHash": "sha256-A270nuR+P3lEY0p10Bt70tq5DCB39+DnaeFkZBec4+s=",
+        "lastModified": 1733608368,
+        "narHash": "sha256-rpCgbvch1VaZBlySMHHDDjRd8n7EyUB25naBhD64za8=",
         "owner": "astro",
         "repo": "microvm.nix",
-        "rev": "0308cc2d134d5e62cdef55ecb4c5e5c3824636f0",
+        "rev": "c9fe9b953fd19ff5e3eb8bdc0ec3a040eead87a4",
         "type": "github"
       },
       "original": {
@@ -870,11 +870,11 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1733392399,
-        "narHash": "sha256-kEsTJTUQfQFIJOcLYFt/RvNxIK653ZkTBIs4DG+cBns=",
+        "lastModified": 1733581040,
+        "narHash": "sha256-Qn3nPMSopRQJgmvHzVqPcE3I03zJyl8cSbgnnltfFDY=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "d0797a04b81caeae77bcff10a9dde78bc17f5661",
+        "rev": "22c3f2cf41a0e70184334a958e6b124fb0ce3e01",
         "type": "github"
       },
       "original": {
@@ -947,11 +947,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1733574898,
-        "narHash": "sha256-8Meoqfk61EsMB3x/HQcttkgJqUm45kjtOyQGrtHP/H4=",
+        "lastModified": 1733682617,
+        "narHash": "sha256-8wGQwnWAfPXN1aiGswfofJK0oGZeI2YBSNe4vdW/rGA=",
         "owner": "nix-community",
         "repo": "nixvim",
-        "rev": "08be20270d62e31f215f4592867d53576af15001",
+        "rev": "4b5364a66bffd22536e358214b37068b34287a7a",
         "type": "github"
       },
       "original": {
