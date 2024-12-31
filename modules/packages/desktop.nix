@@ -5,7 +5,7 @@
 	freecad
 	blender
 	zed-editor
-	openscad
+	#openscad
 	waydroid
 	wireshark
 	#spotify

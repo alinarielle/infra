@@ -16,7 +16,7 @@
 	tshark
 	dnsutils
 	ldns
-	dog
+	#dog
 	yt-dlp
 	yggdrasil
 	traceroute

@@ -21,4 +21,6 @@
     alsa-ucm-conf
     alsa-utils
   ];
+  programs.steam.enable = true;
+  nixpkgs.config.allowUnfree = true;
 }

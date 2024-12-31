@@ -9,7 +9,7 @@
 	colmena
 	apktool
 	rustup
-	chntpw
+	#chntpw
 	fnm
         rustup
         sccache
