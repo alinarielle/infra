@@ -60,7 +60,7 @@
       shellGlobalAliases = {
 	con = "ping 1.1 && ping archlinux.org";
 	find = "find 2>/dev/null";
-	speed = "wget https://hel1-speed.hetzner.com/1GB.bin > /dev/zero";
+	speed = "wget https://hel1-speed.hetzner.com/1GB.bin; rm 1GB.bin";
 	nv = "nvim";
 	ls = "lsd";
 	ll = "lsd -l";
