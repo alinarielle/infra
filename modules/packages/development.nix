@@ -1,6 +1,7 @@
 {pkgs, ...}: {
     users.users.alina.packages = with pkgs; [
 	gcc
+	flyctl
 	cachix
 	git
 	checksec
