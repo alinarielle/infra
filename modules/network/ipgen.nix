@@ -16,7 +16,7 @@
     v4 = {
       #wan =; don't have an AS yet qwq (and i will probably never be able to afford ipv4 lmao)
       #wanCIDR =;
-      internal = fun.ipv4.encode (
+      private = fun.ipv4.encode (
 	(fun.ipv4.decode "10.0.0.0") 
 	+ 
 	(lib.mod
@@ -24,16 +24,17 @@
 	  (fun.ipv4.decode "0.255.255.255")
 	)
       );
-      #internalCIDR = "/32";
+      #privateCIDR = "/32";
     };
     v6 = {
       #wan =; don't have an AS yet qwq
       #wanCIDR =;
-      #internal =;
-      #internalCIDR =;
+      #private =;
+      #privateCIDR =;
     };
     #any = if cfg.${key}.preferred == "v4" then v4 else v6;
   in {
     inherit v4 v6;
   }) nodes;
 }
+#TODO collision detection!!

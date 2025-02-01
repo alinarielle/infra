@@ -1,6 +1,8 @@
 {pkgs, ...}: {
     users.users.alina.packages = with pkgs; [
 	monero-gui
+	bisq2
+	electrum-ltc
 	bytecode-viewer
 	freecad
 	blender
