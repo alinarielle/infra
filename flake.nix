@@ -25,6 +25,8 @@
 	microvm.inputs.nixpkgs.follows = "nixpkgs";
 	nix-colors.url = "github:misterio77/nix-colors";
 	stylix.url = "github:danth/stylix";
+	inputs.disko.url = "github:nix-community/disko/latest";
+	inputs.disko.inputs.nixpkgs.follows = "nixpkgs";
     };
 
     outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } {
