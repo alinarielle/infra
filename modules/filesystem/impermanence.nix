@@ -31,6 +31,7 @@
       bits = 4096;
     })];
     #sops.age.sshKeyPaths = [ "/persist/secrets/ssh/ssh_host_ed25519_key" ];
+    fileSystems."/persist".neededForBoot = true;
     disko.devices.nodev."/" = {
       fsType = "tmpfs";
       mountOptions = [
@@ -39,6 +40,7 @@
 	"mode=755"
       ];
     };
+
     environment.persistence."/persist" = {
       hideMounts = true;
       directories = [

@@ -1,6 +1,7 @@
 {pkgs, ...}: {
     users.users.alina.packages = with pkgs; [
 	monero-gui
+	libreoffice-fresh
 	bisq2
 	electrum-ltc
 	bytecode-viewer

@@ -6,6 +6,6 @@
     ./disko.nix
   ];
   l.profiles = enable ["base" "hardened"];
-  l.filesystem.impermanence.enable = true;
+  #l.filesystem.impermanence.enable = true;
   system.stateVersion = "25.05";
 }

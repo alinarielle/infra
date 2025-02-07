@@ -20,11 +20,11 @@
 	    mountOptions = [ "umask=0077" ];
 	  };
 	};
-	persist = {
+	root = {
 	  size = "100%";
 	  content = {
 	    format = "btrfs";
-	    mountpoint = "/persist";
+	    mountpoint = "/";
 	    type = "filesystem";
 	  };
 	};
