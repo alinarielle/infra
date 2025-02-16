@@ -3,5 +3,6 @@
 	p7zip
 	zstd
 	unzip
+	ouch
     ];
 }

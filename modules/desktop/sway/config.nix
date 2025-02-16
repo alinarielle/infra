@@ -1,8 +1,10 @@
 { lib, pkgs, config, ...}: {
   hardware.graphics.enable = true;
   programs.sway.enable = true;
+  programs.sway.package = pkgs.swayfx;
   programs.sway.extraPackages = with pkgs; [
     swaybg
+    swayfx
   ];
   l.desktop.common = config.l.lib.enable [
     "audio" "bluetooth" "cursor" "fonts" "home-manager" "hyfetch" "kitty"
@@ -12,6 +14,8 @@
   home-manager.users.alina = {
     wayland.windowManager.sway = with config.l.desktop.common.theme.colors; {
       enable = true;
+      package = pkgs.swayfx;
+      checkConfig = false;
       config = rec {
 	terminal = "kitty";
 	colors = { 
@@ -49,7 +53,7 @@
 	};
       };
       extraConfigEarly = ''
-	gaps inner 0
+	gaps inner 10
 	smart_gaps on
 	input * {
 	  xkb_options compose:ralt
@@ -60,12 +64,29 @@
 	  #events enabled
 	}
 	output eDP-1 scale 1.5
+	output HDMI-A-1 pos 1920 0 res 1920x1080 transform 270
 	output * bg ${./voyager.png} fill
 	for_window [class=".*"] border pixel 2
 	for_window [title="sway-launcher-desktop"] floating enable, resize set 500 650
 	for_window [title="Please Confirm..." class="Godot"] floating enable
 	for_window [title="Create New Project" class="Godot"] floating enable
-	''; #TODO translate more into nix and handle wallpapers correctly
+
+	blur enable
+	blur_passes 2
+	blur_radius 1
+	blur_noise 0.15
+	blur_brightness 1.0
+	blur_contrast 1
+	blur_saturation 1
+
+	corner_radius 10
+
+	shadows disable
+
+	layer_effects "waybar" corner_radius 0
+
+	default_dim_inactive 0.0
+      ''; #TODO translate more into nix and handle wallpapers correctly
     };
   };
 }

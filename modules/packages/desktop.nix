@@ -3,7 +3,7 @@
 	monero-gui
 	libreoffice-fresh
 	bisq2
-	electrum-ltc
+	#electrum-ltc
 	bytecode-viewer
 	freecad
 	blender
