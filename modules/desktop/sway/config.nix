@@ -65,7 +65,7 @@
 	}
 	output eDP-1 scale 1.5
 	output HDMI-A-1 pos 1920 0 res 1920x1080 transform 270
-	output * bg ${./voyager.png} fill
+	output * bg ${./actiniaria.png} fill
 	for_window [class=".*"] border pixel 2
 	for_window [title="sway-launcher-desktop"] floating enable, resize set 500 650
 	for_window [title="Please Confirm..." class="Godot"] floating enable

@@ -1,6 +1,7 @@
 {pkgs, ...}: {
     users.users.alina.packages = with pkgs; [
 	du-dust
+	btrfs-progs
 	fd
 	tree
 	lsd

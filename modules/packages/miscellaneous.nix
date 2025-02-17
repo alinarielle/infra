@@ -1,6 +1,7 @@
 {pkgs, ...}: {
     users.users.alina.packages = with pkgs; [
 	usbutils
+	tldr
 	typst
 	texliveSmall
 	btop
@@ -30,7 +31,6 @@
         pciutils
         acpid
         tlp
-        btrfs-progs
         hdparm
         strace
         nix-output-monitor

@@ -84,11 +84,19 @@
 	  Default = "DuckDuckGo";
 	  Add = [{
 	    Name = "PsychonautWiki";
-	    Description = "search anything for anything psychoactive";
+	    Description = "search for anything psychoactive";
 	    Alias = "psy";
 	    Method = "GET";
 	    URLTemplate = "https://psychonautwiki.org/w/index.php?title=Special:Search&search={searchTerms}";
 	    IconURL = "https://psychonautwiki.org/favicon.org";
+	  }
+	  {
+	    Name = "MELPA";
+	    Description = "Milkypostman’s Emacs Lisp Package Archive";
+	    Alias = "melpa";
+	    Method = "GET";
+	    URLTemplate = "https://melpa.org/#/?q={searchTerms}";
+	    IconURL = "https://melpa.org/favicon.ico";
 	  }
 	  {
 	    Name = "NixOS packages";
