@@ -1,8 +1,6 @@
 {config, ...}: {
     home-manager.users.alina.programs.kitty = {
 	enable = true;
-	shellIntegration.enableZshIntegration = if config.l.users.alina.zsh.enable 
-	    then true else false;
 	settings = with config.l.desktop.common.theme.colors; rec {
 	    font_family = "JetBrainsMono Nerd Font Propo";
 	    bold_font = font_family + " Bold";

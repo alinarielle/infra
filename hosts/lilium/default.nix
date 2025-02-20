@@ -21,6 +21,7 @@
     alsa-ucm-conf
     alsa-utils
   ];
+  l.services.test.enable = false;
   programs.steam.enable = true;
   nixpkgs.config.allowUnfree = true;
 }

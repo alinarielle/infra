@@ -47,7 +47,7 @@
 		warning = 25;
 	      };
 	    };
-	    pulseaudio = lib.mkIf config.hardware.pulseaudio.enable {
+	    pulseaudio = lib.mkIf config.services.pulseaudio.enable {
 	      format = "{icon} {volume}%";
 	      format-icons = [ " " " " ];
 	      format-muted = " muted";

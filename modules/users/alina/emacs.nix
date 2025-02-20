@@ -1,90 +1,54 @@
-{config, pkgs, ...}: {
-  home-manager.users.alina.services.emacs = {
+{pkgs, ...}: {
+  services.emacs = {
     enable = true;
-    package = pkgs.emacs-nox;
-    extraOptions = [];
-    defaultEditor = true;
-    client.arguments = [];
-    client.enable = true;
-    socketActivation.enable = true;
   };
-  home-manager.users.alina.programs.emacs = {
-    enable = true;
-    package = pkgs.emacs-nox;
-    extraPackages = epkgs: [
-      org-mode # plain text file life organization
-      org-super-agenda
-      org-sort-tasks
-      org-roam # zettelkasten
-      rust-mode
-      nix-mode
-      markdown-mode
-      w3m # terminal browser
-      magit # git interface
-      magit-delta # git syntax highlighting
-      forge
-      git-messenger
-      git-undo
-      evil # vim keybinds
-      notmuch # mail client
-      devdocs
-      lsp-mode # IDE like features
-      lsp-ui
-      avy # quick jump to text
-      web-mode
-      restclient # api testing
-      projectile
-      pass # password manager
-      docker
-      kubernetes
-      hyperbole
-      dashboard
-      linum-relative
-      centaur-tabs
-      anzu
-      minimap
-      ace-link
-      general
-      try
-      vertico
-      marginalia
-      consult
-      powerline
-      crux
-      highlight-indent-guides
-      rainbow-mode
-      multiple-cursors
-      visual-regexp-steroids
-      rainbow-delimiters
-      highlight-parentheses
-      popup-killring # browse-kill-ring
-      drag-stuff
-      undo-fu
-      yasnippet
-      ivy-yasnippet
-      evil-nerd-commenter
-      auto-complete
-      helm-dash
-      elpy
-      anaconda-mode
-      skewer-mode
-      impatient-mode
-      verb
-      which-key
-      discover
-      deadgrep
-      math-preview
-      latex-preview-pane
-      pdf-tools
-      pdf-view-restore
-      toc-org
+  environment.systemPackages = [(pkgs.emacsWithPackagesFromUsePackage {
+    defaultInitFile = true;
+    alwaysEnsure = true;
+    alwaysTangle = false;
+    extraEmacsPackages = epkgs: with epkgs; [
+      vterm
+      #org-mode consult powerline try ace-link evil git-undo
+      #org-roam crux highlight-ident-guides notmuch
+      #org-sort-tasks rainbow-mode minimap devdocs
+      #org-super-agenda multiple-cursors lsp-mode git-messenger
+      #rust-mode visual-regexp-steroids avy lsp-ui
+      #nix-mode rainbow-delimiters anzu verb web-mode
+      #markdown-mode highlight-parentheses restclient
+      #w3m popup-killring drag-stuff pass projectile
+      #magit marginalia vertico kubernetes docker
+      #magit-delta centaur-tabs hyperbole
+      #forge linum-relative dashboard direnv-mode
     ];
-    extraConfig = ''
-      ;;; Org-mode ;;;
-      (setq org-id-locations-file (concat user-emacs-directory "/org-id-locations"))
-      ;;; Org-roam ;;;
-      (setq org-roam-directory "~/zet")
-      (org-roam-db-autosync-mode)
-    '';
-  };
+    config = pkgs.writeTextFile { 
+      name = "init.el";
+      text = ''
+	(require 'package)
+	(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+	(package-initialize)
+
+	(require 'use-package)
+	(require 'use-package-ensure)
+	(setq use-package-always-ensure t)
+
+	(unless (package-installed-p 'use-package)
+	  (package-refresh-contents)
+	  (package-install 'use-package))
+	(eval-and-compile
+	  (setq use-package-always-ensure t
+		use-package-expand-minimally t))
+	
+	(use-package direnv
+	  :init
+	  (direnv-mode))
+
+	
+	;;; Org-mode ;;;
+	(setq org-id-locations-file (concat user-emacs-directory "/org-id-locations"))
+	;;; Org-roam ;;;
+	(setq org-roam-directory "~/zet")
+	(org-roam-db-autosync-mode)
+      '';
+    };
+  })];
 }

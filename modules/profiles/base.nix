@@ -17,7 +17,8 @@
     "ssh"
     "nvim"
     "user"
-    "zsh"
+    "nushell"
+    "emacs"
   ];
   l.users.root = enable [
     "home-manager"

@@ -27,6 +27,7 @@
 	stylix.url = "github:danth/stylix";
 	disko.url = "github:nix-community/disko/latest";
 	disko.inputs.nixpkgs.follows = "nixpkgs";
+	emacs-overlay.url = "github:nix-community/emacs-overlay";
     };
 
     outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } {
