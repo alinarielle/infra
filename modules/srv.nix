@@ -2,6 +2,7 @@
   opt = with lib.types; lib.mkOption { default = {}; type = (submodule {
     options = {
       script = lib.mkOption { type = nullOr lines; default = null; };
+      exec = lib.mkOption { type = nullOr list; default = null; };
       persist = lib.mkOption { type = bool; default = true; };
       dataDir = lib.mkOption { type = nullOr path; default = null; };
       net = {	
@@ -27,7 +28,7 @@
       user = lib.mkIf val.persist key;
       group = lib.mkIf val.persist key;
       net = lib.mkIf (val.net.intranet || val.net.clearnet) true;
-      inherit (val) paths persist dataDir script;
+      inherit (val) paths persist dataDir script exec;
     }) cfg;
 
     assertions = lib.mapAttrsToList (key: val: {

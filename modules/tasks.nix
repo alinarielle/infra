@@ -1,8 +1,10 @@
-{lib, config, opt, cfg, ...}: {
+{lib, config, opt, cfg, utils, ...}: {
   opt = with lib.types; lib.mkOption { default = {}; type = attrsOf (submodule {
     options = {
       enable = lib.mkEnableOption "task";
       script = lib.mkOption { type = nullOr lines; default = null; };
+      exec = lib.mkOption { type = nullOr list; default = null; };
+      env = lib.mkOption { type = attrs; default = {}; };
       paths = {
         exec = lib.mkOption { type = listOf path; default = []; };
         ro = lib.mkOption { type = listOf path; default = []; };
@@ -44,6 +46,7 @@
       wantedBy = ["multi-user.target" "timers.target"];
       description = key;
       startLimitBurst = 1;
+      environment = val.env;
 
       script = if 
         ((lib.length val.paths.exec) == 1) && (val.script == null)
@@ -54,6 +57,7 @@
       else val.script;
 
       serviceConfig = {
+	ExecStart = lib.mkIf (val.exec != null) (utils.escapeSystemdExecArgs val.exec);
         # filesystem setup
 	RootDirectory = val.dataDir or "/jail/${key}";
 	TemporaryFileSystem = ["/:ro"];
@@ -95,6 +99,9 @@
 	Group = val.group or key;
 	
 	Restart = "on-failure";
+	RestartSec = 10;
+	StartLimitBurst = 1;
+
 	PrivateUsers = true;
 	ProtectSystem = "strict";
 	ProtectHome = true;
