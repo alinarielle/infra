@@ -35,6 +35,34 @@
       url = "https://mullvad.net/en/blog/feed/atom";
       title = "Mullvad";
       tags = [ "networking" "privacy" "FOSS" ];
+    }{
+      url = "https://fasterthanli.me/index.xml";
+      title = "Fasterthanlime";
+      tags = [ "rust" "FOSS" ];
+    }{
+      url = "https://codeberg.org/irdest/irdest.rss";
+      title = "Irdest";
+      tags = [ "FOSS" "rust" "networking" "security" "privacy" ];
+    }{
+      url = "https://codeberg.org/librewolf.rss";
+      title = "Librewolf";
+      tags = [ "FOSS" "privacy" ];
+    }{
+      url = "https://www.exploit-db.com/rss.xml";
+      title = "ExploitDB";
+      tags = [ "FOSS" "security" ];
+    }{
+      url = "https://cvefeed.io/rssfeed/latest.xml";
+      title = "Latest CVE Feed";
+      tags = [ "FOSS" "security"];
+    }{
+      url = "https://cvefeed.io/rssfeed/severity/high.xml";
+      title = "Latest High and Critical Severity CVE Feed";
+      tags = [ "FOSS" "security"];
+    }{
+      url = "https://cvefeed.io/rssfeed/newsroom.xml";
+      title = "Cyber NewsRoom Vulnerability Feed";
+      tags = [ "FOSS" "security"];
     }];
   };
 }
