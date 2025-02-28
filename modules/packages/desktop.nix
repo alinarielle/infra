@@ -35,7 +35,6 @@
 	wireplumber
 	zathura
 	dolphin-emu
-	dolphin
 	inkscape
     ];
 }

@@ -147,7 +147,7 @@ in {
 	  };
 	  global.dns_timeout = lib.mkOption {
 	    type = int;
-	    default 10;
+	    default = 10;
 	    description = ''
 	    The number of seconds to wait for a reply to a DNS query. Please note that 
 	    recursive queries can take up to several seconds for some domains, so this value
@@ -398,9 +398,8 @@ in {
 	    '';
 	  };
 	  global.registration_token = lib.mkOption {
-	    type = str;
+	    type = str; #TODO
 	    example =  "o&^uCtes4HPf0Vu@F20jQeeWE7";
-	    default = ;#TODO
 	    description = ''
 	      A static registration token that new users will have to provide when creating 
 	      an account. If unset and `allow_registration` is true, you must set 
@@ -412,7 +411,6 @@ in {
 	  global.registration_token_file = lib.mkOption {
 	    type = str;
 	    example = "/etc/conduwuit/.reg_token";
-	    default = ; #TODO
 	    description = ''
 	      Path to a file on the system that gets read for additional registration 
 	      tokens. Multiple tokens can be added if you separate them with whitespace 
@@ -875,7 +873,7 @@ in {
 	  };
 	  global.rocksdb_parallelism_threads = lib.mkOption {
 	    type = int;
-	    default 0;
+	    default = 0;
 	    description = ''
 	      Amount of threads that RocksDB will use for parallelism on database 
 	      operations such as cleanup, sync, flush, compaction, etc. Set to 0 to use all
@@ -1802,16 +1800,14 @@ in {
 	    '';
 	  };
 	  global.tls.certs = lib.mkOption {
-	    type = str;
-	    default = ; #TODO
+	    type = str; #TODO
 	    example = "/path/to/my/certificate.crt";
 	    description = ''
 	      Path to a valid TLS certificate file.
 	    '';
 	  };
 	  global.tls.key = lib.mkOption {
-	    type = str;
-	    default = ; #TODO
+	    type = str; #TODO
 	    example = "/path/to/my/certificate.key";
 	    description = ''
 	      Path to a valid TLS certificate private key.
@@ -1945,11 +1941,6 @@ in {
               Whether this server federates with other servers.
             '';
           };
-          global.trusted_servers = lib.mkOption {
-            type = listOf str;
-            default = [ "matrix.org" ];
-            description = "Servers trusted with signing server keys.";
-          };
           global.address = lib.mkOption {
             type = str;
             default = "::1";
@@ -2015,7 +2006,7 @@ in {
       CONDUWUIT_CONFIG = configFile;
     };
     exec = [
-      (${lib.getExe pkgs.conduwuit})
+      "${lib.getExe pkgs.conduwuit}"
     ];
   };
 }

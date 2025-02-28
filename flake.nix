@@ -12,7 +12,6 @@
 	lanzaboote.inputs.nixpkgs.follows = "nixpkgs";
 	nixos-hardware.url = "github:NixOS/nixos-hardware/master"; 
 	nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-	nixpkgs-2405.url = "github:nixos/nixpkgs/nixos-24.05";
 	flake-utils.url = "github:numtide/flake-utils";
 	home-manager.url = "github:nix-community/home-manager";
 	home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -24,7 +23,6 @@
 	microvm.url = "github:astro/microvm.nix";
 	microvm.inputs.nixpkgs.follows = "nixpkgs";
 	nix-colors.url = "github:misterio77/nix-colors";
-	stylix.url = "github:danth/stylix";
 	disko.url = "github:nix-community/disko/latest";
 	disko.inputs.nixpkgs.follows = "nixpkgs";
 	emacs-overlay.url = "github:nix-community/emacs-overlay";

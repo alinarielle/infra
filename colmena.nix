@@ -20,6 +20,7 @@ in {
 		(./. + "/hosts/${name}")
 		./lib
 		(mkLocalMods {prefix = ["l"]; dir = ./modules;})
+		inputs.sops-nix.nixosModules.sops
 	    ];
 	    deployment = lib.mkDefault {
 		targetUser = "alina";

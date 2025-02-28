@@ -11,7 +11,7 @@
     };
   }); default = {};};
   config = {
-    l.services.unbound.enable;
+    l.services.unbound.enable = true;
 
     services.nginx = lib.mapAttrs (key: val: let
       fqdn = if val.fqdn != null then val.fqdn else 
@@ -53,7 +53,7 @@
 	enableACME = val.tls;
 	kTLS = val.tls;
 	http3_hq = val.quic;
-	sslProtocols = "TLSv1.3"
+	sslProtocols = "TLSv1.3";
       };
     }) cfg;
 

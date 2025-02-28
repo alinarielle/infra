@@ -1,6 +1,7 @@
 {
   home-manager.users.alina.programs.git = {
     enable = true;
+    delta.enable = true;
     userName = "alina";
     userEmail = "alina@duck.com";
     signing.signByDefault = true;
