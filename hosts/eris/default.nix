@@ -7,5 +7,6 @@
   ];
   l.profiles = enable ["base" "hardened"];
   #l.filesystem.impermanence.enable = true;
+  l.services.conduwuit.enable = true;
   system.stateVersion = "25.05";
 }

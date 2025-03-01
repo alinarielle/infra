@@ -63,6 +63,72 @@
       url = "https://cvefeed.io/rssfeed/newsroom.xml";
       title = "Cyber NewsRoom Vulnerability Feed";
       tags = [ "FOSS" "security"];
+    }{
+      url = "https://lena.nihil.gay/blog/rss.xml";
+      title = "Lena's blog (@lena@treehouse.systems)";
+    }{
+      url = "https://www.girlonthenet.com/feed/";
+      title = "Girl on the Net";
+    }{
+      url = "https://servo.org/blog/feed.xml";
+      title = "Servo";
+    }{
+      url = "https://www.haskellforall.com/feeds/posts/default";
+      title = "Haskell for all";
+    }{
+      url = "https://env.fail/blog.rss";
+      title = "env.fail";
+    }{
+      url = "https://marcan.st/posts/index.xml";
+      title = "Marcan";
+    }{
+      url = "https://maia.crimew.gay/feed.xml";
+      title = "Maia Crimew";
+    }{
+      url = "https://drewdevault.com/blog/index.xml";
+      title = "Drew Devault";
+    }{
+      url = "https://emersion.fr/blog/atom.xml";
+      title = "Emersion";
+    }{
+      url = "https://bitfehler.srht.site/index.xml";
+      title = "blogfehler!";
+    }{
+      url = "https://rosenzweig.io/feed.xml";
+      title = "On Life and Lisp";
+    }{
+      url = "https://liveoverflow.com/rss/";
+      title = "LiveOverflow";
+    }{
+      url = "https://nonpolynomial.com/feed/";
+      title = "Nonpolynomial";
+    }{
+      url = "https://cadence.moe/blog/rss.xml?limit=30";
+      title = "cadence";
+    }{
+      url = "https://heckscaper.com/rss.xml";
+      title = "heckscaper";
+    }{
+      url = "https://lethalbit.net/atom.xml";
+      title = "Aki LethalBit";
+    }{
+      url = "https://foxgirls.gay/index.xml";
+      title = "Luna Foxgirl's Blog";
+    }{
+      url = "https://www.jeffgeerling.com/blog.xml";
+      title = "Jeff Geerling's Blog";
+    }{
+      url = "https://asahilinux.org/blog/index.xml";
+      title = "Blog on Asahi Linux";
+    }{
+      url = "https://www.tomscott.com/updates.xml";
+      title = "Tom Scott's Weekly Newsletter";
+    }{
+      url = "https://foone.wordpress.com/atom.xml";
+      title = "Fooone Turing's blog":
+    }{
+      url = "https://blog.ihaveahax.net/atom.xml";
+      title = "ihaveahax's thing";
     }];
   };
 }
