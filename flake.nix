@@ -8,8 +8,6 @@
 	flake-parts.url = "github:hercules-ci/flake-parts";
 	rnat.url = "gitlab:yuka/rnat?host=cyberchaos.dev";
 	nix-dns.url = "github:kirelagin/dns.nix";
-	lanzaboote.url = "github:nix-community/lanzaboote/v0.4.1";
-	lanzaboote.inputs.nixpkgs.follows = "nixpkgs";
 	nixos-hardware.url = "github:NixOS/nixos-hardware/master"; 
 	nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 	flake-utils.url = "github:numtide/flake-utils";
@@ -23,8 +21,6 @@
 	microvm.url = "github:astro/microvm.nix";
 	microvm.inputs.nixpkgs.follows = "nixpkgs";
 	nix-colors.url = "github:misterio77/nix-colors";
-	disko.url = "github:nix-community/disko/latest";
-	disko.inputs.nixpkgs.follows = "nixpkgs";
 	emacs-overlay.url = "github:nix-community/emacs-overlay";
     };
 

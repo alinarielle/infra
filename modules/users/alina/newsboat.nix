@@ -125,7 +125,7 @@
       title = "Tom Scott's Weekly Newsletter";
     }{
       url = "https://foone.wordpress.com/atom.xml";
-      title = "Fooone Turing's blog":
+      title = "Fooone Turing's blog";
     }{
       url = "https://blog.ihaveahax.net/atom.xml";
       title = "ihaveahax's thing";
