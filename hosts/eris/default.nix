@@ -5,6 +5,7 @@
     ./hardware-configuration.nix
   ];
   l.profiles = enable ["base" "hardened"];
+  l.disko.hetzner_cloud.enable = true;
   #l.filesystem.impermanence.enable = true;
   l.network.unbound.enable = true;
   system.stateVersion = "25.05";
