@@ -23,7 +23,7 @@ in {
 		inputs.sops-nix.nixosModules.sops
 	    ];
 	    deployment = lib.mkDefault {
-		targetUser = "alina";
+		targetUser = "root";
 		allowLocalDeployment = true;
 	    };
 	};
