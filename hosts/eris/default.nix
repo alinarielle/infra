@@ -4,7 +4,6 @@
     ./networking.nix
     ./hardware-configuration.nix
   ];
-  l.disko.hetzner_cloud.enable = true;
   l.profiles = enable ["base" "hardened"];
   #l.filesystem.impermanence.enable = true;
   l.network.unbound.enable = true;
