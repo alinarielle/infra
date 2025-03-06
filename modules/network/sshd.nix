@@ -1,0 +1,24 @@
+{pkgs, ...}: {
+  environment.systemPackages = [ pkgs.kitty.terminfo ];
+  services.logind.killUserProcesses = true;
+  services.openssh = {
+    enable = true;
+    openFirewall = true;
+    allowSFTP = false;
+    extraConfig = ''
+      AllowTcpForwarding yes
+      AllowAgentForwarding no
+      AllowStreamLocalForwarding no
+      AuthenticationMethods publickey
+    '';
+    settings = {
+      UseDns = true;
+      X11Forwarding = false;
+      PrintMotd = true;
+      PermitRootLogin = "prohibit-password";
+      AllowUsers = ["root" "alina"];
+      PasswordAuthentication = false;
+      challengeResponseAuthentication = false;
+    };
+  };
+}

@@ -1,6 +1,7 @@
 {config, lib, inputs, name, cfg, opt, ...}: {
   imports = [ 
     inputs.impermanence.nixosModules.impermanence
+    inputs.disko.nixosModules.disko
   ];
     
   opt.keep = with lib.types; lib.mkOption { type = listOf str; default = []; };
@@ -31,6 +32,14 @@
     })];
     #sops.age.sshKeyPaths = [ "/persist/secrets/ssh/ssh_host_ed25519_key" ];
     fileSystems."/persist".neededForBoot = true;
+    disko.devices.nodev."/" = {
+      fsType = "tmpfs";
+      mountOptions = [
+	"size=2G"
+	"defaults"
+	"mode=755"
+      ];
+    };
 
     environment.persistence."/persist" = {
       hideMounts = true;

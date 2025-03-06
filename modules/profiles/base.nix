@@ -15,6 +15,7 @@
     "git"
     "home-manager"
     "ssh"
+    "pgp"
     "nvim"
     "user"
     "nushell"
@@ -35,5 +36,6 @@
     "congestion"
     "speed"
     "getPort"
+    "sshd"
   ];
 }

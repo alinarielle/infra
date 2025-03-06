@@ -22,6 +22,10 @@
 	microvm.inputs.nixpkgs.follows = "nixpkgs";
 	nix-colors.url = "github:misterio77/nix-colors";
 	emacs-overlay.url = "github:nix-community/emacs-overlay";
+	lanzaboote.url = "github:nix-community/lanzaboote/v0.4.1";
+	lanzaboote.inputs.nixpkgs.follows = "nixpkgs";
+	disko.url = "github:nix-community/disko/latest";
+	disko.inputs.nixpkgs.follows = "nixpkgs";
     };
 
     outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } {

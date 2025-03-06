@@ -2,7 +2,6 @@
   opt = with lib.types; lib.mkOption { default = {}; type = (subodule {
     options = {
       config = lib.mkOption { type = attrs; default = {}; };
-      priority = lib.mkOption { type = enum ["low" "moderate" "critical"]; };
       autostart = lib.mkOption { type = bool; default = true; };
     };
   });};
