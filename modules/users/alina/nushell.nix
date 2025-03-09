@@ -1,4 +1,4 @@
-{pkgs, lib, config, ...}: {
+{pkgs, lib, config, name, ...}: {
   #users.users.alina.packages = with pkgs; [nix-your-shell];
   #home.file.".config/nushell/nix-your-shell.nu".source = 
     #pkgs.nix-your-shell.generate-config "nu";
@@ -20,6 +20,15 @@
       '';
       shellAliases = {
 	nv = "nvim";
+	cat = "bat -p";
+	ip = "ip -c";
+	g = "git status";
+	mv = "mv --interactive";
+	l = "lsd";
+	ll = "lsd -l";
+	la = "lsd -a";
+	laa = "lsd -all";
+	update = "cd ~/src/flake; nix flake update; zsh -c 'sudo nixos-rebuild switch --flake ~/src/flake#${name} --log-format internal-json -v |& nom --json'";
       };
     };
     autojump.enable = true;

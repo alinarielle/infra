@@ -1,3 +1,3 @@
 {
-  networking.domain = "infra.alina.cx";
+  networking.domain = "nodes.alina.cx";
 }

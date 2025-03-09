@@ -7,7 +7,7 @@
     alwaysEnsure = true;
     alwaysTangle = false;
     extraEmacsPackages = epkgs: with epkgs; [
-      vterm
+      #vterm
       #org-mode consult powerline try ace-link evil git-undo
       #org-roam crux highlight-ident-guides notmuch
       #org-sort-tasks rainbow-mode minimap devdocs

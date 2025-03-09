@@ -14,13 +14,13 @@ in {
   services.unbound = {
     enable = true;
     resolveLocalQueries = true;
-    package = pkgs.unbound-with-systemd;
+    #package = unboundQuic;
     enableRootTrustAnchor = true;
     settings = {
       server = {
         qname-minimisation = true;
-	interface = "::1";
-	access-control = "::1"; #TODO wg-mesh
+	interface = "0.0.0.0";
+	access-control = "127.0.0.1"; #TODO wg-mesh
       };
       forward-zone = lib.mkIf cfg.forwardingOnly [{
 	name = ".";

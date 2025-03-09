@@ -1,5 +1,6 @@
 {
   home-manager = {
+    backupFileExtension = "backup";
     users.alina.programs.home-manager.enable = true;
     users.alina.home = { 
       username = "alina";

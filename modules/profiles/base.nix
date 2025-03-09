@@ -19,7 +19,6 @@
     "nvim"
     "user"
     "nushell"
-    "emacs"
     "newsboat"
   ];
   l.users.root = enable [
