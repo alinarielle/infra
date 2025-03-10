@@ -3,13 +3,10 @@
   l.packages = enable [
     "archive" 
     "base" 
-    "chat" 
     "cryptography"
-    "development"
     "filesystem"
     "miscellaneous"
     "networking"
-    "pentesting"
   ];
   l.users.alina = enable [
     "git"
@@ -28,7 +25,6 @@
   ];
   l.network = enable [
     "networkmanager"
-    "mullvad"
     "time"
     "hostName"
     "domain"

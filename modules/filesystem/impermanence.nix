@@ -21,26 +21,19 @@
     }{
       path = "/persist/secrets/${name}/sshd/ssh_host_ed25519.key";
       type = "ed25519";
-    }(lib.mkIf config.l.network.initrdUnlock.enable {
-      path = "/persist/secrets/${name}/sshd/initrd_ssh_host_ed25519.key";
-      type = "ed25519";
-    })
-    (lib.mkIf config.l.network.initrdUnlock.enable {
-      path = "/persist/secrets/${name}/sshd/initrd_ssh_host_rsa.key";
-      type = "rsa";
-      bits = 4096;
-    })];
+    }
+    #(lib.mkIf config.l.network.initrdUnlock.enable {
+      #path = "/persist/secrets/${name}/sshd/initrd_ssh_host_ed25519.key";
+      #type = "ed25519";
+    #})
+    #(lib.mkIf config.l.network.initrdUnlock.enable {
+      #path = "/persist/secrets/${name}/sshd/initrd_ssh_host_rsa.key";
+      #type = "rsa";
+      #bits = 4096;
+    #})
+    ];
     #sops.age.sshKeyPaths = [ "/persist/secrets/ssh/ssh_host_ed25519_key" ];
     fileSystems."/persist".neededForBoot = true;
-    disko.devices.nodev."/" = {
-      fsType = "tmpfs";
-      mountOptions = [
-	"size=2G"
-	"defaults"
-	"mode=755"
-      ];
-    };
-
     environment.persistence."/persist" = {
       hideMounts = true;
       directories = [
