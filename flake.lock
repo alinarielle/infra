@@ -426,7 +426,7 @@
     "linuxStable": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-zB5eIf4UKw2kq5eXKbZSXRpLhPB/gmHQeSJcOSScQlg=",
+        "narHash": "sha256-cUPQzerZpE4FVGCoSqCEnNl8vacaKOmgVLOBCx2I2DI=",
         "type": "file",
         "url": "https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git"
       },

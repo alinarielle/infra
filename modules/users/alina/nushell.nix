@@ -28,7 +28,7 @@
 	ll = "lsd -l";
 	la = "lsd -a";
 	laa = "lsd -all";
-	update = "cd ~/src/flake; nix flake update; zsh -c 'sudo nixos-rebuild switch --flake ~/src/flake#${name} --log-format internal-json -v |& nom --json'";
+	#update = "cd ~/src/flake; nix flake update; zsh -c 'sudo nixos-rebuild switch --flake ~/src/flake#${name} --log-format internal-json -v |& nom --json'";
       };
     };
     autojump.enable = true;

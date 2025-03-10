@@ -22,23 +22,36 @@
 	  size = "1024M";
 	};
 	ESP = {
+	  priority = 1;
 	  type = "EF00";
 	  size = "1024M";
 	  content = {
-	    type = "filesystem";
 	    format = "vfat";
+	    type = "filesystem";
 	    mountpoint = "/boot";
-	    mountOptions = [ "umask=0077" ];
+            mountOptions = [ "umask=0077" ];
 	  };
 	};
-	"/persist" = {
+	main = {
 	  size = "100%";
 	  content = {
-	    format = "btrfs";
-	    mountpoint = "/persist";
-	    type = "filesystem";
+	    type = "btrfs";
+	    extraArgs = ["-f"]; # override existing partition
+	    subvolumes = {
+	      "/persist" = {
+		mountpoint = "/persist";
+	      };
+	      "/nix" = {
+		mountpoint = "/nix";
+		mountOptions = ["noatime"];
+	      };
+	      "/home" = {
+		mountOptions = ["compress=zstd"];
+		mountpoint = "/home";
+	      };
+	    };
 	  };
-        };
+	};
       };
     };
   };
@@ -47,7 +60,7 @@
   disko.devices.nodev."/" = {
     fsType = "tmpfs";
     mountOptions = [
-      "size=2G"
+      "size=25%"
       "defaults"
       "mode=755"
     ];

@@ -7,7 +7,6 @@
 	termshark
 	tor
 	wireguard-tools
-	mullvad
 	mtr
 	nmap
 	netcat

@@ -1,25 +1,20 @@
-{config, lib, inputs, name, cfg, opt, ...}: {
+{config, lib, inputs, name, ...}: {
   imports = [ 
     inputs.impermanence.nixosModules.impermanence
     inputs.disko.nixosModules.disko
   ];
-    
-  opt.keep = with lib.types; lib.mkOption { type = listOf str; default = []; };
   
-  config = let
-    keep-dirs = lib.filter (x: lib.readFileType x == "directory") cfg.keep;
-    keep-files = lib.filter (x: lib.readFileType x == "regular") cfg.keep;
-  in {
+  config = {
     warnings  = ["WARNING: Impermanence enabled for ${name}."];
 
     users.mutableUsers = false;
-
+    
     services.openssh.hostKeys = [{
-      path = "/persist/secrets/${name}/sshd/ssh_host_rsa.key";
+      path = "/persist/etc/ssh/id_rsa";
       type = "rsa";
       bits = 4096;
     }{
-      path = "/persist/secrets/${name}/sshd/ssh_host_ed25519.key";
+      path = "/persist/etc/ssh/id_ed25519";
       type = "ed25519";
     }
     #(lib.mkIf config.l.network.initrdUnlock.enable {
@@ -33,23 +28,21 @@
     #})
     ];
     #sops.age.sshKeyPaths = [ "/persist/secrets/ssh/ssh_host_ed25519_key" ];
+    l.folders."/build" = {};
+    nix.settings.build-dir = "/build";
     fileSystems."/persist".neededForBoot = true;
     environment.persistence."/persist" = {
-      hideMounts = true;
+      hideMounts = false;
       directories = [
 	"/var/log"
 	"/var/lib/nixos"
 	"/var/lib/btrfs"
-	"/etc/NetworkManager/system-connections"
-	"/nix/store"
-	"/secrets"
-	"/home"
-      ] 
-      ++ lib.optional config.l.desktop.common.bluetooth.enable ["/var/lib/bluetooth"]
-      ++ keep-dirs;
+	#"/etc/NetworkManager/system-connections" only desktop
+      ]
+      ++ lib.optional config.l.desktop.common.bluetooth.enable ["/var/lib/bluetooth"];
       files = [
 	"/etc/machine-id"
-      ] ++ keep-files;
+      ];
     };
   };
 }

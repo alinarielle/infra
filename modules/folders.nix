@@ -10,5 +10,7 @@
   systemd.tmpfiles.settings.folders = lib.mapAttrs (k: v: { d = {
     inherit (v) user group mode;
   }; }) cfg;
-  l.filesystem.impermanence.keep = lib.mapAttrsToList (k: v: lib.mkIf v.persist k) cfg;
+  environment.persistence."/persist".directories = lib.mapAttrsToList (k: v: 
+    lib.mkIf v.persist k
+  ) cfg;
 }
