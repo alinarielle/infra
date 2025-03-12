@@ -1,7 +1,7 @@
 {lib, nodes, pkgs, ...}: {    
   home-manager.users.alina.programs.ssh = {
     enable = true;
-    addKeysToAgent = "no";
+    addKeysToAgent = "yes";
     controlMaster = "no";
     hashKnownHosts = false;
     forwardAgent = false;

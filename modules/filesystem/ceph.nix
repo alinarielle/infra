@@ -3,16 +3,6 @@
     lib.mkIf val.l.filesystem.ceph.enable builtins.toString key
   ) nodes;
 in {
-  assertions = let
-    checkDaemons = num: daemon: ; # check that the minimum requirements are met:
-				  # 1 OSD per copy but at least 3, 3 mon, 2 mgr, 
-				  # 1 mds per host if using CephFS, same with RGW
-  in [{
-  }{
-    assertion = ;
-    message = ;
-    
-  }];
   opt = with lib.types; {
     fsid = lib.mkOption { type = nullOr str; default = null; };
     clusterName = lib.mkOption { type = nullOr str; default = null; };
