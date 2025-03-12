@@ -1,0 +1,32 @@
+package nushell scripts together with systemd services in nix
+set nushell scripts as dependencies for other scripts, i.e. ensure directory <var> is empty,
+as a dependency for a script that works with that directory
+use nushell scripts to manage cluster
+use REST APIs of kubernetes, jenkins, Netbox, Ceph, fly.io
+generate nushell scripts per host dynamically? depending on <name> and <nodes>
+
+nushell script for adding and removing network interfaces
+script for spawning and deleting VMs
+script for graceful shutdowns
+script for remote unlocking LUKS volumes over ssh
+script for dumping hardware and environment facts of a machine into json
+import that json into nixos module, make stuff depend on it
+dump network traffic into pcap file and open analyzer
+add DNS entries
+manage state in general
+provision machines
+blackhole IPs
+change firewall
+ban nodes from network
+"stress test" hosts with lots of network traffic :p
+dead girl's switch
+add SSO accounts
+discover API endpoints and auto document them
+update canary
+open mitm-proxy streams in tmux
+documents typst+tinymist+emacs
+home assistant controls
+
+combine with terraform and git-annex?
+
+wrapper function for generating scripts and services

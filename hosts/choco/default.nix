@@ -2,10 +2,8 @@
   imports = [
     ./hardware-configuration.nix
     inputs.nixos-hardware.nixosModules.common-pc-ssd
+    ./disko.nix
   ];
-  l.desktop.kde = enable ["config"];
-  l.desktop.common.bluetooth.enable = lib.mkForce false;
-  l.profiles = enable ["base" "hardened"];
-  l.filesystem = enable ["impermanence"];
+  l.profiles = enable ["workstation"];
   system.stateVersion = "25.05";
 }
