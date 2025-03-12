@@ -3,16 +3,11 @@
     lib.mkIf val.l.filesystem.ceph.enable builtins.toString key
   ) nodes;
 in {
-  environment.systemPackages = with pkgs; [
-    ceph ceph-client
-  ];
   assertions = let
     checkDaemons = num: daemon: ; # check that the minimum requirements are met:
 				  # 1 OSD per copy but at least 3, 3 mon, 2 mgr, 
 				  # 1 mds per host if using CephFS, same with RGW
   in [{
-    assertion = cfg.fsid != null;
-    message = "${cfg}.fsid must be set!";
   }{
     assertion = ;
     message = ;
@@ -24,6 +19,9 @@ in {
     extraConfig = lib.mkOption { default = null; type = nullOr lines; };
     net = {
       mesh = lib.mkEnableOption "Virtual Private Mesh Network between nodes";
+    };
+    client = {
+      enable = lib.mkEnableOption "Ceph client";
     };
     pools = lib.mkOption { default = {}; type = attrsOf (submodule { options = {
       copies = lib.mkOption { default = 3; type = int; };
@@ -41,7 +39,10 @@ in {
     rgw = lib.mkOption { default = {}; type = attrsOf (submodule { options = {
       enable = lib.mkEnableOption "RADOS S3 Gateway";
       fqdn = lib.mkOption { type = nullOr str; default = null; };
-      mimeTypesFile = lib.mkOption { type = nullOr path; default = "${pkgs.mailcap}/etc/mime.types"; };
+      mimeTypesFile = lib.mkOption { 
+	type = nullOr path; 
+	default = "${pkgs.mailcap}/etc/mime.types"; 
+      };
     }; }); };
     osd = lib.mkOption { default = {}; type = attrsOf (submodule { options = {
       enable = lib.mkEnableOption "Ceph Object Storage Daemon";
@@ -54,4 +55,17 @@ in {
       fqdn = lib.mkOption { type = nullOr str; default = null; };
     }; }); };
   };
+  config = lib.mkMerge [{
+    assertions = [{
+      assertion = cfg.fsid != null;
+      message = "${cfg}.fsid must be set!";
+    }];
+    environment.systemPackages = [ pkgs.ceph ];
+  }
+  (lib.mkIf cfg.client.enable {
+    environment.systemPackages = [ pkgs.ceph-client ];
+  })
+  ({
+    
+  })];
 }
