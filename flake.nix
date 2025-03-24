@@ -5,6 +5,10 @@
 	    flake = false;
 	    url = "https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git";
 	};
+	kubernetes = {
+	    flake = false;
+	    url = "https://github.com/kubernetes/kubernetes";
+	};
 	flake-parts.url = "github:hercules-ci/flake-parts";
 	rnat.url = "gitlab:yuka/rnat?host=cyberchaos.dev";
 	nix-dns.url = "github:kirelagin/dns.nix";

@@ -1,6 +1,14 @@
 {pkgs, ...}: {
     users.users.alina.packages = with pkgs; [
 	gcc
+	kind
+	go
+	docker
+	docker-compose
+	buildah
+	podman
+	nixpacks
+	podman
 	flyctl
 	cachix
 	git

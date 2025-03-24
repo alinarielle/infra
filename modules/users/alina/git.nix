@@ -9,7 +9,40 @@
     extraConfig = {
       init.defaultBranch = "main";
       tag.gpgSign = true;
+      tag.sort = "version:refname";
       feature.manyFiles = true;
+      column.ui = "auto";
+      branch.sort = "-comitterdate";
+      diff = {
+	algorithm = "histogram";
+	colorMoved = "plain";
+	mnemonicPrefix = true;
+	renames = true;
+      };
+      push = {
+	prune = true;
+	pruneTags = true;
+	all = true;
+	autoSetupRemote = true;
+      };
+      #pull.rebase = true;
+      #merge.conflictstyle = "zdiff3";
+      help.autocorrect = "prompt";
+      commit.verbose = true;
+      rerere = {
+	enabled = true;
+	autoupdate = true;
+      };
+      #core = {
+        #excludesfile = "~/.gitignore";
+	#fsmonitor = true;
+	#untrackedCache = true;
+      #};
+      rebase = {
+	autoSquash = true;
+	autoStash = true;
+	updateRefs = true;
+      };
     };
   };
 }

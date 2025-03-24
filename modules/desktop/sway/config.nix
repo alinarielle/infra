@@ -2,9 +2,17 @@
   hardware.graphics.enable = true;
   programs.sway.enable = true;
   programs.sway.package = pkgs.swayfx;
-  programs.sway.extraPackages = with pkgs; [
+  programs.sway.extraPackages = with pkgs; let
+    flameshot = pkgs.flameshot.override { 
+      enableWlrSupport = false;
+      enableMonochromeIcon = false;
+    };
+  in [
     swaybg
     swayfx
+    flameshot
+    grim
+    slurp
   ];
   l.desktop.common = config.l.lib.enable [
     "audio" "bluetooth" "cursor" "fonts" "home-manager" "hyfetch" "kitty"
@@ -45,7 +53,7 @@
 	  "XF86MonBrightnessUp" = "exec ${brightnessctl} set +5%";
 	  "XF86MonBrightnessDown" = "exec ${brightnessctl} set 5%-";
 
-	  "${modifier}+P" = "exec grimblast copy area";
+	  "${modifier}+P" = "exec flameshot gui";
 	  "${modifier}+shift+x" = "exec poweroff";
 	  "${modifier}+shift+y" = "exec reboot";
 

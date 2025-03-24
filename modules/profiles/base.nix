@@ -17,6 +17,7 @@
     "user"
     "nushell"
     "newsboat"
+    "emacs"
   ];
   l.users.root = enable [
     "home-manager"

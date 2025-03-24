@@ -37,9 +37,9 @@
 	"/var/log"
 	"/var/lib/nixos"
 	"/var/lib/btrfs"
-	#"/etc/NetworkManager/system-connections" only desktop
-      ]
-      ++ lib.optional config.l.desktop.common.bluetooth.enable ["/var/lib/bluetooth"];
+	"/var/lib/bluetooth"
+	"/etc/NetworkManager/system-connections"
+      ];
       files = [
 	"/etc/machine-id"
       ];

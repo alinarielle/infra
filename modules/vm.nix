@@ -26,7 +26,7 @@
 	  source = "/nix/store";
 	  mountPoint = "/nix/.ro-store";
 	  tag = "ro-store";
-	  prot = "virtiofs";
+	  proto = "virtiofs";
         }];
       };
     })) cfg;
