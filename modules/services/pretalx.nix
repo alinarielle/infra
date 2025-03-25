@@ -1,5 +1,9 @@
-{srv, pkgs, lib, ...}: {
-  srv.exec = [
-    "${lib.getExe pkgs.radarr}"
-  ];
+{
+  services.pretalx = {
+    enable = true;
+    nginx = {
+      enable = true;
+      domain = "pretalx.alina.cx";
+    };
+  };
 }

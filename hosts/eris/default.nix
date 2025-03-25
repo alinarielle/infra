@@ -6,4 +6,5 @@
   l.profiles = enable ["workstation"];
   system.stateVersion = "25.05";
   deployment.targetHost = "162.55.172.244";
+  l.services.pretalx.enable = true;
 }
