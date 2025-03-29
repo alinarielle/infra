@@ -2,6 +2,6 @@
   imports = [
     ./hardware-configuration.nix
   ];
-  l.profiles = enable ["gaming" "workstation"];
+  l.profiles = enable ["gaming" "desktop"];
   system.stateVersion = "23.11";
 }

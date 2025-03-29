@@ -29,7 +29,7 @@
 	size = "500G";
 	content = {
 	  type = "btrfs";
-	  extraArs = ["-f" "-d raid1" "/dev/mapper/luks1-btrfs1"];
+	  extraArgs = ["-f" "-d raid1" "/dev/mapper/luks1-btrfs1"];
 	  subvolumes = {
 	    "/nix" = {
 	      mountpoint = "/nix";
@@ -54,7 +54,7 @@
   disko.devices.zpool.gaypool = {
     type = "zpool";
     mode = "";
-    mountpoint = "none";
+    mountpoint = null;
     datasets = {
       encrypted_zfs = {
 	type = "zfs_fs";
@@ -106,7 +106,6 @@
 	    };
 	    additionalKeyFiles = [];
 	    content = {
-	      name = "pool1";
 	      type = "lvm_pv";
 	      vg = "pool1";
 	    };
@@ -132,7 +131,6 @@
 	    };
 	    additionalKeyFiles = [];
 	    content = {
-	      name = "pool2";
 	      type = "lvm_pv";
 	      vg = "pool2";
 	    };

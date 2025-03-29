@@ -45,18 +45,48 @@ in {
       fqdn = lib.mkOption { type = nullOr str; default = null; };
     }; }); };
   };
-  config = lib.mkMerge [{
+  config = lib.mkMerge let
+    makeService = daemonType: daemonId: clusterName: ceph: let
+      daemonBin = [
+        "${ceph}/bin/${if daemonId == "rgw" then "radosgw" else "ceph-"+ daemonId}"
+      ];
+      dataDir = "/var/lib/ceph/${daemonType}";
+    in {
+      enable = true;
+      exec = daemonBin;
+      paths.exec = daemonBin;
+      blockDevices = if daemonType == "osd" then true else false;
+      user = "ceph";
+      group = if daemonType == "osd" then "disk" else "ceph";
+      inherit dataDir;
+      env = { CLUSTER = clusterName; };
+      serviceConfig = {
+        ExecStartPre = lib.systemdEscapeExecArgs [
+          "${ceph.lib}/libexec/ceph/ceph-osd-prestart.sh" 
+	  "--id ${daemonId}" 
+	  "--cluster ${clusterName}"
+        ];
+        RestartSec = if 
+          daemonType == "osd" then "20s"
+        else "10s";
+	LimitNOFILE = 1048576;
+        LimitNPROC = 1048576;
+	ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
+      };
+      unitConfig.ConditionPathExists = "${dataDir}/keyring";
+    };
+  in [{
     assertions = [{
       assertion = cfg.fsid != null;
       message = "${cfg}.fsid must be set!";
     }];
-    environment.systemPackages = [ pkgs.ceph ];
+    environment.systemPackages = [ pkgs.ceph pkgs.getopt ];
     l.tasks = 
     lib.recursiveUpdate 
       (lib.mapAttrs (key: val: {
 	enable = true;
-	exec = [];
-	path.exec =;
+	exec = ["${pkgs.ceph}/bin/ceph-mgr"];
+	paths.exec = ["${pkgs.ceph}/bin/ceph-mgr"];
 	user = "ceph";
 	group = "ceph";
 	dataDir = "/var/lib/ceph/mgr";
@@ -64,7 +94,8 @@ in {
       (lib.recursiveUpdate
         (lib.mapAttrs (key: val: {
 	  enable = true;
-	  exec = [];
+	  exec = ["${pkgs.ceph}/bin/ceph-mon"];
+	  paths.exec = ["${pkgs.ceph}/bin/ceph-mon"];
 	  user = "ceph";
 	  group = "ceph";
 	  dataDir = "/var/lib/ceph/mon";
@@ -72,7 +103,8 @@ in {
 	(lib.recursiveUpdate
 	  (lib.mapAttrs (key: val: {
 	    enable = true;
-	    exec = [];
+	    exec = ["${pkgs.ceph}/bin/radosgw"];
+	    paths.exec = ["${pkgs.ceph}/bin/radosgw"];
 	    user = "ceph";
 	    group = "ceph";
 	    dataDir = "/var/lib/ceph/rgw";
@@ -80,14 +112,18 @@ in {
 	  (lib.recursiveUpdate
 	    (lib.mapAttrs (key: val: {
 	      enable = true;
-	      exec = [];
+	      wexec = ["${pkgs.ceph}/bin/ceph-osd"];
+	      paths.exec = ["${pkgs.ceph}/bin/ceph-osd"];
 	      user = "ceph";
 	      group = "ceph";
+	      blockDevices = true;
+	      serviceConfig.ExecStartPre = "${pkgs.ceph.lib}/libexec/ceph/ceph-osd-prestart.sh --id ${daemonId} --cluster ${clusterName}";
 	      dataDir = "/var/lib/ceph/osd";
 	    }) cfg.osd)
 	    (lib.mapAttrs (key: val: {
 	      enable = true;
-	      exec = [];
+	      exec = ["${pkgs.ceph}/bin/ceph-osd"];
+	      paths.exec = ["${pkgs.ceph}/bin/ceph-mds"];
 	      user = "ceph";
 	      group = "ceph";
 	      dataDir = "/var/lib/ceph/mds";

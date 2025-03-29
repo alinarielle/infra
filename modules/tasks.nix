@@ -18,6 +18,9 @@
       group = lib.mkOption { type = nullOr str; default = null; };
       dataDir = lib.mkOption { type = nullOr path; default = null; };
       persist = lib.mkOption { type = bool; default = true; };
+      blockDevices = lib.mkEnableOption "access to raw block devices";
+      serviceConfig = lib.mkOption { type = nullOr attrs; default = null; };
+      unitConfig = lib.mkOption { type = nullOr attrs; default = null; };
     };
   });};
   config = let
@@ -41,7 +44,7 @@
     in { "${key}-srv" = {
       unitConfig = lib.mkIf config.l.filesystem.impermanence.enable {
         RequiresMountsFor = "/persist";
-      };
+      } // lib.optionalAttrs (val.unitConfig != null) val.unitConfig;
       wants = lib.optionals net ["networking.target"];
       wantedBy = ["multi-user.target" "timers.target"];
       description = key;
@@ -63,7 +66,7 @@
 	TemporaryFileSystem = ["/:ro"];
 	MountAPIVFS = true;
 	PrivateTmp = true;
-	PrivateDevices = true;
+	PrivateDevices = !val.blockDevices;
 	PrivateMounts = true;
 	ProcSubset = "pid";
 	ProtectProc = "noaccess";
@@ -99,7 +102,7 @@
 	Group = val.group or key;
 	
 	Restart = "on-failure";
-	RestartSec = 10;
+	RestartSec = "10s";
 	StartLimitBurst = 1;
 
 	PrivateUsers = true;
@@ -162,7 +165,7 @@
 	CacheDirectoryMode = null;
 	LogsDirectory = null;
         LogsDirectoryMode = null;
-      });
+      }) // lib.optionalAttrs (val.serviceConfig != null) val.serviceConfig;
     };}) cfg;
 
     systemd.timers = lib.mapAttrs (key: val: {

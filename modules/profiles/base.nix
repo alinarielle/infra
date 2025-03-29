@@ -18,6 +18,7 @@
     "nushell"
     "newsboat"
     "emacs"
+    "ranger"
   ];
   l.users.root = enable [
     "home-manager"
