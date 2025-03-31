@@ -4,6 +4,6 @@
     ./disko.nix
   ];
   l.profiles = enable ["desktop"];
-  l.filesystem.ceph.enable = true;
+  #l.filesystem.ceph.enable = true;
   system.stateVersion = "25.05";
 }

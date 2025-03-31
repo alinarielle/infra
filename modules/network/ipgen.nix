@@ -27,10 +27,21 @@
       #privateCIDR = "/32";
     };
     v6 = {
-      #wan =; don't have an AS yet qwq
-      #wanCIDR =;
-      #private =;
-      #privateCIDR =;
+      private = fun.ipv6.encode (
+	(fun.ipv6.decode "") #7-bit special ULA range prefix
+	+
+	(fun.ipv6.decode "") #40-bit Globally Unique ID
+	+
+	(lib.mod
+	  dividend #pseudo-random entropy source
+	  (fun.ipv6.decode "") #16-bit Interface ID range
+	)
+	+
+	(lib.mod #48-bit address
+	  dividend #pseudo-random entropy source
+	  (fun.ipv6.decode "") # address
+	)
+      );
     };
     #any = if cfg.${key}.preferred == "v4" then v4 else v6;
   in {

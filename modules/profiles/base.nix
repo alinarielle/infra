@@ -34,5 +34,6 @@
     "speed"
     "getPort"
     "sshd"
+    "wireguard"
   ];
 }
