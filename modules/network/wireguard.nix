@@ -7,6 +7,16 @@
   }@args: {
     
   };
+  privateKeyGenerateScript = let
+    wg = "${pkgs.wireguard-tools}/bin/wg";
+  in pkgs.runCommandLocal "generate-private-key" {} ''
+    set -e
+    mkdir -p --mode 0755 "${builtins.dirOf cfg.privateKeyFile}"
+
+    if [ ! -f "${cfg.privateKeyFile}" ]; then
+    (set -e; umask 077; wg genkey > "${cfg.privateKeyFile}")
+    fi
+  '';
 in {
   assertions = [(lib.mkIf !cfg.tunnel.proxyOthers {
     assertion = !(any (x: name == x.l.wireguard.tunnel.proxyTo) (attrValues peersConfig));
@@ -36,6 +46,15 @@ in {
       };
       rosenpass = lib.mkOption { type = bool; default = true; };
       keepAlive = lib.mkOption { type = nullOr int; default = 25; };
+      privateKeyFile = lib.mkOption {
+        type = path; 
+	default "/secrets/wireguard/${name}/wg.private"; 
+      };
+      publicKeyFile = lib.mkOption { 
+        type = path; 
+	default "/secrets/wireguard/${name}/wg.public"; 
+      };
+      presharedKeyFile = lib.mkOption { type = path; };
       proxyTo = lib.mkOption { 
         type = nullOr enum (attrNames nodes); 
 	default = null;
@@ -43,21 +62,11 @@ in {
 			or leave as null to disable'';
       };
       proxyOthers = lib.mkEnableOption "whether to forward the entire traffic of peers";
-      sops.keyPath = lib.mkOption { type = path; default = ./../../secrets; };
-      sops.relSelfPrivateKey = lib.mkOption { 
-        type = path; 
-	default = "/wireguard/${name}/wg.private"; 
-      };
-      sops.relSelfPublicKey = lib.mkOption { 
-        type = path; 
-	default = "/wireguard/${name}/wg.public"; 
-      };
       port = lib.mkOption { type = port; default = config.l.network.getPort "wireguard"; };
-      #interface = {
-        #name = lib.mkOption { type = str; };
+      interface = {
+        name = lib.mkOption { type = str; };
         #restrictToInterface = lib.mkOption { type = bool; default = true; };
-        #generateInterface = lib.mkOption { type = bool; default = true; };
-      #};
+      };
       ip = {
 	v6 = {
 	  enable = lib.mkOption { type = bool; default = true; };
@@ -66,7 +75,7 @@ in {
 	    default = with (import ../../lib/ip-util.nix {}).ipv6; let
 	      alphabet = (lib.filter 
 	        (x: x != "" ) 
-		(lib.splitString "" "abcdefghijklmnopqrstuvwxy")
+		(lib.splitString "" "abcdefghijklmnopqrstuvwxyz")
 	      );
 	      dividend = lib.toIntBase10 (builtins.substring 0 19 (
 		alphabet
@@ -74,13 +83,13 @@ in {
 		(builtins.hashString "sha256" "wg-${name}")
 	      ));
 	    in encode (
-	      (decode "fc00::/7") #7-bit special ULA range prefix
-	      + (decode "0000:1312:b00b::/40") #40-bit Globally Unique ID
-	      + (lib.mod 
-		  dividend #pseudo-random entropy source
-		  (decode "0:0:0:0:ffff::/32") #16-bit Interface ID range
-	      )
-	      + (decode "::1/128") #48-bit address
+	      (decode "fc00::/7") # 7-bit special ULA range prefix
+	    + (decode "1::/8") # 1-bit L bit, since prefix is locally assigned
+	    + (lib.mod 
+		dividend # pseudo-random entropy source
+		(decode "0000:ffff:ffff::/40")) # 40-bit Globally ID range
+	    + (decode "0:0:0:acab::/64") # 16-bit subnet ID
+	    + (decode "::1/128") # 64-bit Interface ID
 	    ); 
 	  };
 	  fqdn = lib.mkOption {
@@ -100,18 +109,21 @@ in {
     services.rosenpass = lib.mkIf cfg.rosenpass.enable {
       enable = true;
       settings = {};
+      peers = [];
     };
     networking.wireguard = {};
     networking.wg-quick = {};
   };
 }
-#provide an interface for creating wg tunelns, meshs, routed meshs, 
+#provide an interface for creating wg tunnels, meshs, routed meshs, 
 #support port forwarding
 #expose modules that activate specific mesh configurations and conflict with others
 #from these do systemd-run and terraform
 #create collection of environmental facts, like hidpi or disk or ip addresses
 #create network interface for every tunnel and create mesh interfaces as bridges
 #also handle VMs
-#generate IPv6 private addresses ULA
 #get public primary address from environment facts
 #sops secret management
+#integrate mullvad
+#ability to use this in systemd services and restrict all traffic to the intercface
+#package every host's cryptographic public identity
