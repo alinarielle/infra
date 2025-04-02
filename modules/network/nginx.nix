@@ -65,6 +65,7 @@
     };
 
     users.users.nginx.extraGroups = [ "acme" ];
+    security.acme.acceptTerms = true;
     security.acme.certs = lib.mkMerge (lib.attrValues (lib.mapAttrs (key: val: let
       fqdn = if val.fqdn != null then val.fqdn else 
         with val; "${sub}.${domain}";
