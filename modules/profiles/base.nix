@@ -17,7 +17,7 @@
     "user"
     "nushell"
     "newsboat"
-    "emacs"
+    "kakoune"
     "ranger"
   ];
   l.users.root = enable [

@@ -1,4 +1,4 @@
-{opt, pkgs, cfg, lib, config, nodes, name, ...}: let
+{opt, pkgs, cfg, lib, config, nodes, name, inputs, ...}: let
   peersConfig = lib.filterAttrs (key: val: 
     val.config.l.network.wireguard.enable
   ) nodes;
@@ -18,11 +18,7 @@
     fi
   '';
 in {
-  assertions = [(lib.mkIf !cfg.tunnel.proxyOthers {
-    assertion = !(any (x: name == x.l.wireguard.tunnel.proxyTo) (attrValues peersConfig));
-    message = "(an)other host(s) selected you as proxy, but you denied being a proxy!"
-  })];
-  imports = [ sops.nixosModules.sops ];
+  imports = [ inputs.sops-nix.nixosModules.sops ];
   opt = with lib.types; {
     tunnel = {
       make = lib.mkOption { type = functionTo attrs; default = makeTunnel; };
@@ -48,15 +44,15 @@ in {
       keepAlive = lib.mkOption { type = nullOr int; default = 25; };
       privateKeyFile = lib.mkOption {
         type = path; 
-	default "/secrets/wireguard/${name}/wg.private"; 
+	default = "/secrets/wireguard/${name}/wg.private"; 
       };
       publicKeyFile = lib.mkOption { 
         type = path; 
-	default "/secrets/wireguard/${name}/wg.public"; 
+	default = "/secrets/wireguard/${name}/wg.public"; 
       };
       presharedKeyFile = lib.mkOption { type = path; };
       proxyTo = lib.mkOption { 
-        type = nullOr enum (attrNames nodes); 
+        type = either (enum [null]) (enum (attrNames nodes)); 
 	default = null;
 	description = ''change to the hostname to use that node as proxy, 
 			or leave as null to disable'';
@@ -101,18 +97,26 @@ in {
     };
   };
   config = {
+    assertions = [{
+      assertion = if !cfg.tunnel.proxyOthers 
+        then (!(lib.any 
+          (x: name == x.config.l.network.wireguard.tunnel.proxyTo) 
+	  (lib.attrValues peersConfig)
+        )) 
+      else true;
+      message = "(an)other host(s) selected you as proxy, but you denied being a proxy!";
+    }];
     l.network.wireguard.tunnel.peers = [{
       peer = "eris";
       relPeerPublicKey = "/wireguard/eris/wg.public";
     }];
-    systemd.network = cfg.tunnel.make {};
-    services.rosenpass = lib.mkIf cfg.rosenpass.enable {
-      enable = true;
-      settings = {};
-      peers = [];
-    };
-    networking.wireguard = {};
-    networking.wg-quick = {};
+    #systemd.network = cfg.tunnel.make {};
+    #services.rosenpass = lib.mkIf cfg.tunnel.rosenpass.enable {
+      #enable = true;
+      #settings = {};
+    #};
+    #networking.wireguard = {};
+    #networking.wg-quick = {};
   };
 }
 #provide an interface for creating wg tunnels, meshs, routed meshs, 
