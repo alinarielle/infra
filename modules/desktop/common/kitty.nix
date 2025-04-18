@@ -1,7 +1,9 @@
-{config, ...}: {
+{config, lib, pkgs, ...}: {
     home-manager.users.alina.programs.kitty = {
 	enable = true;
 	settings = with config.l.desktop.common.theme.colors; rec {
+      shell = "${lib.getExe pkgs.nushell}";
+
 	    font_family = "JetBrainsMono Nerd Font Propo";
 	    bold_font = font_family + " Bold";
 	    italic_font = font_family + " Italic";

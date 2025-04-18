@@ -13,7 +13,10 @@
 	opts = {
 	    number = true;
 	    relativenumber = true;
-	    shiftwidth = 4;
+	    shiftwidth = 2;
+	    expandtab = true;
+	    tabstop = 2;
+	    softtabstop = 2;
 	};
 	plugins = {
 	    lightline = {

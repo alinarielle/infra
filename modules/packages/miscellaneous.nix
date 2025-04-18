@@ -2,6 +2,7 @@
     users.users.alina.packages = with pkgs; [
 	usbutils
 	tldr
+  fastfetch
 	typst
 	texliveSmall
 	btop

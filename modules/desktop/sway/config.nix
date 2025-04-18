@@ -20,21 +20,21 @@
   ];
   l.packages = config.l.lib.enable ["desktop"];
   home-manager.users.alina = {
-    wayland.windowManager.sway = with config.l.desktop.common.theme.colors; {
+    wayland.windowManager.sway = with config.l.desktop.theme.colors; {
       enable = true;
       package = pkgs.swayfx;
       checkConfig = false;
       config = rec {
-	terminal = "kitty";
-	colors = { 
-	  focused = {
-	    background = "#${white}";
-	    border = "#${primary}";
-	    childBorder = "#${primary}";
-	    indicator = "#${primary}";
-	    text = "#${white}";
-	  };
-	};
+        terminal = "kitty";
+        colors = { 
+          focused = {
+            background = white;
+            border = primary;
+            childBorder = primary;
+            indicator = primary;
+            text = white;
+          };
+        };
         modifier = "Mod4"; # set mod to meta
 	bars = []; # set to empty list to disable bar entirely
 	menu = "${terminal} ${lib.getExe pkgs.sway-launcher-desktop}";
@@ -76,9 +76,11 @@
 	output * bg ${./actiniaria.png} fill
 	for_window [class=".*"] border pixel 2
 	for_window [title="sway-launcher-desktop"] floating enable, resize set 500 650
+	for_window [title="Extension: (Bitwarden Password Manager) - Bitwarden — LibreWolf"] floating enable, resize set 500 650
 	for_window [title="Please Confirm..." class="Godot"] floating enable
 	for_window [title="Create New Project" class="Godot"] floating enable
-
+  for_window [window_type="dialog"] floating enable
+  for_window [window_role="dialog"] floating enable
 	blur enable
 	blur_passes 2
 	blur_radius 1
@@ -94,7 +96,7 @@
 	layer_effects "waybar" corner_radius 0
 
 	default_dim_inactive 0.0
-      ''; #TODO translate more into nix and handle wallpapers correctly
+      '';
     };
   };
 }

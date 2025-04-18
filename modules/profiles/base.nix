@@ -16,6 +16,7 @@
     "nvim"
     "user"
     "nushell"
+    "zsh"
     "newsboat"
     "kakoune"
     "ranger"

@@ -35,19 +35,19 @@
 	    memory = {
 	      format = "  {percentage}%";
 	      states = {
-		warning = 15;
-		critical = 75;
+          warning = 15;
+          critical = 75;
 	      };
 	    };
 	    battery = {
 	      format = "{icon} {capacity}%";
 	      format-icons = [ " " " " " " " " " " ];
 	      states = {
-		critical = 10;
-		warning = 25;
+          critical = 10;
+          warning = 25;
 	      };
 	    };
-	    pulseaudio = lib.mkIf config.services.pulseaudio.enable {
+	    pulseaudio = config.services.pulseaudio.enable {
 	      format = "{icon} {volume}%";
 	      format-icons = [ " " " " ];
 	      format-muted = " muted";
@@ -72,7 +72,7 @@
 	    };
 	  };
 	};
-	style = with config.l.desktop.common.theme.colors;''
+	style = with config.l.desktop.theme.colors;''
 * {
 border: none;
 border-radius: 0;
@@ -81,8 +81,8 @@ font-size: 9pt;
 }
 
 window {
-    background: #${dark};
-    color: #${white};
+    background: ${black};
+    color: ${white};
 }
 #workspaces {
     padding-right: 15px;
@@ -92,7 +92,7 @@ window {
     transition: none;
     padding: 0 5px;
     background: rgba(255, 255, 255, .2);
-    color: #${white};
+    color: ${white};
 }
 
 #workspaces button.icon label {
@@ -100,16 +100,16 @@ window {
 }
 
 #workspaces button.focused {
-    color: #${dark};
-    background: #${white};
+    color: ${black};
+    background: ${white};
 }
 
 /* :sparkles: maybe needs to be changed to button, when waybar breaks */
 window>*>*>*>label {
     margin: 0 7px;
     padding: 5px;
-    background-color: #${dark};
-    color: #${white};
+    background-color: ${black};
+    color: ${white};
 }
 
 #tray {
@@ -117,22 +117,22 @@ window>*>*>*>label {
 }
 
 #pulseaudio.muted {
-    color: #${dark-red}
+    color: ${red}
 }
 #temperature.critical {
-    background: #${dark-red};
-    color: #${white};
+    background: ${red};
+    color: ${white};
 }
 #battery.critical {
-    background: #${dark-red};
-    color: #${white};
+    background: ${red};
+    color: ${white};
 }
 #battery.warning {
-    background: #${orange};
-    color: #${dark};
+    background: ${orange};
+    color: ${black};
 }
 #battery.charging {
-    background: #${dark-green};
+    background: ${green};
 }
 	'';
     };

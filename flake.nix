@@ -11,7 +11,7 @@
 	};
 	flake-parts.url = "github:hercules-ci/flake-parts";
 	rnat.url = "gitlab:yuka/rnat?host=cyberchaos.dev";
-	nix-dns.url = "github:kirelagin/dns.nix";
+	dns.url = "github:kirelagin/dns.nix";
 	nixos-hardware.url = "github:NixOS/nixos-hardware/master"; 
 	nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 	flake-utils.url = "github:numtide/flake-utils";
