@@ -9,8 +9,6 @@
   fin_color = lib.substring 1 6 colors.primary;
   prev_red = lib.fromHexString (lib.substring 0 1 prev_color);
   red = lib.fromHexString (lib.substring 0 1 colors.primary);
-  green =;
-  blue =;
   hue_angle = lib.fromHexString colors.primary;
   HUE = hue_angle * 100/180 + 100;
 in pkgs.runCommand "wallpaper" {} ''
