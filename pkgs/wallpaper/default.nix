@@ -12,7 +12,7 @@
     ref = "main";
     hash = "";
   };
-  image = "${repo}/pkgs/wallpaper/actiniaria.png"
+  image = "${repo}/pkgs/wallpaper/actiniaria.png";
   #RGBtoHSL = hex: let
     #r = (lib.fromHexString (lib.substring 1 2 hex)) / 255;
     #g = (lib.fromHexString (lib.substring 3 4 hex)) / 255;
