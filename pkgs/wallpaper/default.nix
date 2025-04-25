@@ -37,9 +37,9 @@
   #in { inherit h s l; };
   s = builtins.toString;
   RGBtoHUE = hex: let
-    r = (lib.fromHexString (lib.substring 1 2 hex)) / 255;
-    g = (lib.fromHexString (lib.substring 3 4 hex)) / 255;
-    b = (lib.fromHexString (lib.substring 5 6 hex)) / 255;
+    r = (lib.fromHexString (lib.substring 1 2 hex)) / 255.0;
+    g = (lib.fromHexString (lib.substring 3 4 hex)) / 255.0;
+    b = (lib.fromHexString (lib.substring 5 6 hex)) / 255.0;
     max = lib.max r (lib.max g b);
     min = lib.min r (lib.min g b);
     hue = if max == r
