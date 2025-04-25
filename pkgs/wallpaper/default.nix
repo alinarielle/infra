@@ -56,7 +56,7 @@
   hue_mul = hue_fin / hue_prev;
   cmd = lib.escapeShellArgs [
     "${pkgs.imagemagick}/bin/magick"
-    (s ./actiniaria.png)
+    image
     "-colorspace" "HSL"
     "-channel" "R" "-evaluate" "multiply" (s hue_mul)
     "-channel" "G" "-evaluate" "multiply" "1.15"
