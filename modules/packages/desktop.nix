@@ -26,7 +26,7 @@
 	noisetorch
 	prismlauncher
 	qbittorrent
-	signal-desktop
+	signal-desktop-bin
 	standardnotes
 	telegram-desktop
 	thunderbird

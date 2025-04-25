@@ -53,7 +53,7 @@ in pkgs.runCommand "wallpaper" {} ''
     -colorspace HSL \
     -channel R -evaluate multiply ${s hue_mul} \ 
     -channel G -evaluate multiply 1.15 \ 
-    -channel B -evaluate multiply 1.0} \ 
+    -channel B -evaluate multiply 1.0 \ 
     +channel -colorspace sRGB wallpaper.png
   mv wallpaper.png $out/
 ''
