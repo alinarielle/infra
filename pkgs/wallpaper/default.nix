@@ -47,13 +47,18 @@
   hue_prev = RGBtoHUE prev;
   hue_fin = RGBtoHUE fin;
   hue_mul = hue_fin / hue_prev;
+  cmd = lib.escapeShellArgs [
+    "${pkgs.imagemagick}/bin/magick"
+    ./actiniaria.png
+    "-colorspace" "HSL"
+    "-channel" "R" "-evaluate" "multiply" (s hue_mul)
+    "-channel" "G" "-evaluate" "multiply" "1.15"
+    "-channel" "B" "-evaluate" "multiply" "1.0"
+    "+channel" "-colorspace" "sRGB"
+    "wallpaper.png"
+  ];
 in pkgs.runCommand "wallpaper" {} ''
   mkdir $out
-  ${pkgs.imagemagick}/bin/magick ${./actiniaria.png} \
-    -colorspace HSL \
-    -channel R -evaluate multiply ${s hue_mul} \ 
-    -channel G -evaluate multiply 1.15 \ 
-    -channel B -evaluate multiply 1.0 \ 
-    +channel -colorspace sRGB wallpaper.png
+  ${cmd}
   mv wallpaper.png $out/
 ''
