@@ -10,7 +10,6 @@
     url = "git@git.gay:alina/flake.git";
     rev = "4892aa668f3f0f8c2390414bb78b12c47fad3e1c";
     ref = "main";
-    hash = "";
   };
   image = "${repo}/pkgs/wallpaper/actiniaria.png";
   #RGBtoHSL = hex: let
