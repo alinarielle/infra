@@ -6,6 +6,13 @@
 }: let
   prev = "#00d9e4";
   fin = colors.primary;
+  repo = builtins.fetchGit {
+    url = "git@git.gay:alina/flake.git";
+    rev = "4892aa668f3f0f8c2390414bb78b12c47fad3e1c";
+    ref = "main";
+    hash = "";
+  };
+  image = "${repo}/pkgs/wallpaper/actiniaria.png"
   #RGBtoHSL = hex: let
     #r = (lib.fromHexString (lib.substring 1 2 hex)) / 255;
     #g = (lib.fromHexString (lib.substring 3 4 hex)) / 255;
