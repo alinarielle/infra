@@ -1,6 +1,7 @@
 {pkgs, ...}: {
     users.users.alina.packages = with pkgs; [
 	usbutils
+  taskwarrior3
 	tldr
   fastfetch
 	typst

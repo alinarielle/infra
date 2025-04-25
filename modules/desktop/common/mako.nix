@@ -1,8 +1,8 @@
 {config, ...}: {
   home-manager.users.alina.services.mako = with config.l.desktop.common.theme.colors; {
     enable = true;
-    backgroundColor = "#${grey}";
-    borderColor = "#${blue}";
+    backgroundColor = "#${secondary}";
+    borderColor = "#${primary}";
     
     borderRadius = 5;
     borderSize = 2;

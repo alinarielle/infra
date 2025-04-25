@@ -1,6 +1,7 @@
 {inputs, ...}: let
   inherit (inputs) dns;
 in {
+  ignore = true;
   SOA = {
     nameServer = "ns1.alina.cx";
     adminEmail = "alina@duck.com";

@@ -14,7 +14,7 @@ in {
       zone = {
         domain = "alina.cx";
         storage = "/var/lib/knot/zones";
-        file = dns.utils.writeZone ./alina.cx.nix
+        file = dns.utils.writeZone ./alina.cx.nix;
       };
       log = {
         target = "syslog";

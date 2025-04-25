@@ -47,7 +47,7 @@
           warning = 25;
 	      };
 	    };
-	    pulseaudio = config.services.pulseaudio.enable {
+	    pulseaudio = {
 	      format = "{icon} {volume}%";
 	      format-icons = [ " " " " ];
 	      format-muted = " muted";
@@ -72,7 +72,7 @@
 	    };
 	  };
 	};
-	style = with config.l.desktop.theme.colors;''
+	style = with config.l.desktop.common.theme.colors;''
 * {
 border: none;
 border-radius: 0;

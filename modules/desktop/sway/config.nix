@@ -1,4 +1,9 @@
-{ lib, pkgs, config, ...}: {
+{ lib, pkgs, config, ...}: let
+  wallpaper = (import ../../../pkgs/wallpaper {
+    inherit (config.l.desktop.common.theme) colors;
+    inherit lib pkgs;
+  });
+in {
   hardware.graphics.enable = true;
   programs.sway.enable = true;
   programs.sway.package = pkgs.swayfx;
@@ -20,7 +25,7 @@
   ];
   l.packages = config.l.lib.enable ["desktop"];
   home-manager.users.alina = {
-    wayland.windowManager.sway = with config.l.desktop.theme.colors; {
+    wayland.windowManager.sway = with config.l.desktop.common.theme.colors; {
       enable = true;
       package = pkgs.swayfx;
       checkConfig = false;
@@ -73,7 +78,7 @@
 	}
 	output eDP-1 scale 1.5
 	output HDMI-A-1 pos 1920 0 res 1920x1080 transform 270
-	output * bg ${./actiniaria.png} fill
+	output * bg ${wallpaper}/wallpaper.png fill
 	for_window [class=".*"] border pixel 2
 	for_window [title="sway-launcher-desktop"] floating enable, resize set 500 650
 	for_window [title="Extension: (Bitwarden Password Manager) - Bitwarden — LibreWolf"] floating enable, resize set 500 650

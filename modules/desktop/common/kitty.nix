@@ -36,8 +36,8 @@
 	    background_opacity = "0.50";
 
 	    foreground = "#${white}";
-	    background = "#${dark}";
-	    color0 = "#${dark}";
+	    background = "#${black}";
+	    color0 = "#${black}";
 	    color1 = "#${magenta}";
 	    color2 = "#${green}";
 	    color3 = "#${yellow}";

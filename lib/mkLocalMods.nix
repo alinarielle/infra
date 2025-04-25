@@ -62,7 +62,12 @@
 
       pathStr = builtins.concatStringsSep "." path;
       modRaw = modFn paramNew;
-      modUni = unifyMod pathStr pathStr (builtins.removeAttrs modRaw ["opt" "mod" "srv"]);
+      modUni = unifyMod pathStr pathStr (builtins.removeAttrs modRaw [
+        "opt" 
+        "mod" 
+        "srv"
+        "ignore" #set to true to not import the module
+      ]);
 
       mod = modRaw.mod or {};
       fileCtx = str: "${modUni._file} (mkLocalMods ${str})";
@@ -70,17 +75,17 @@
       pathHead = builtins.head (lib.reverseList path);
       servicePath = ["l" "srv"] ++ [pathHead];
       optionAtLocalRoot = (modRaw.opt._type or "") == "option";
-
+      ignore = modRaw.ignore or false;
       imports = [
         {
           _file = fileCtx "`opt` processor";
           key = fileCtx "`opt` processor";
-          options = lib.setAttrByPath path (modRaw.opt or {});
+          options = if !ignore then lib.setAttrByPath path (modRaw.opt or {}) else {};
         }
         {
           _file = fileCtx "`enable` definition";
           key = fileCtx "`enable` definition";
-          options = if !optionAtLocalRoot then
+          options = if !optionAtLocalRoot && !ignore then
 	    (lib.setAttrByPath 
 	      enablePath 
 	      (lib.mkEnableOption (mod.desc or mod.description or mod.name or pathStr)))
@@ -89,7 +94,7 @@
         ({config, ...}: {
           _file = fileCtx "config wrapper";
           key = fileCtx "config wrapper";
-          config = if !optionAtLocalRoot then 
+          config = if !optionAtLocalRoot && !ignore then 
 	    lib.mkIf 
 	      (lib.getAttrFromPath enablePath config)
 	      modUni.config
@@ -98,7 +103,7 @@
 	{
 	  _file = fileCtx "`srv` processor";
           key = fileCtx "`srv` processor";
-	  config = lib.setAttrByPath servicePath (modRaw.srv or {});
+	  config = if !ignore then lib.setAttrByPath servicePath (modRaw.srv or {}) else {};
 	}
       ];
 
