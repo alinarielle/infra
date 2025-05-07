@@ -7,7 +7,7 @@
   prev = "#00d9e4";
   fin = colors.primary;
   repo = builtins.fetchGit {
-    url = "git@git.gay:alina/flake.git";
+    url = "https://git.gay/alina/flake.git";
     rev = "4892aa668f3f0f8c2390414bb78b12c47fad3e1c";
     ref = "main";
   };
