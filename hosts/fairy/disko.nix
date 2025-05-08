@@ -23,6 +23,7 @@
 				type = "EF00";
 				content = {
 					type = "filesystem";
+		      device = "/dev/disk/by-id/nvme-WD_BLACK_SN770_2TB_24443A803763-part1";
 					format = "vfat";
 					mountpoint = "/boot";
 					mountOptions = ["umask=0077"];
@@ -33,6 +34,7 @@
 				content = {
 					type = "luks";
 					name = "main";
+		      device = "/dev/disk/by-id/nvme-WD_BLACK_SN770_2TB_24443A803763-part2";
 					extraOpenArgs = [];
 					settings.allowDiscards = true;
 					additionalKeyFiles = [];
@@ -40,15 +42,15 @@
 						type = "btrfs";
 						extraArgs = ["-f"];
 						subvolumes = {
-							"/nix" = {
+							nix = {
 								mountpoint = "/nix";
-								mountOptions = ["ro" "noatime" "ssd"];
+								mountOptions = ["noatime" "ssd"];
 							};
-							"/persist" = {
+							persist = {
 								mountpoint = "/persist";
 								mountOptions = ["ssd"];
 							};
-							"/home" = {
+							home = {
 								mountpoint = "/home";
 								mountOptions = ["compress=zstd" "ssd"];
 							};

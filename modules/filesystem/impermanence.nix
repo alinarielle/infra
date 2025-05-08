@@ -28,8 +28,7 @@
     #})
     ];
     #sops.age.sshKeyPaths = [ "/persist/secrets/ssh/ssh_host_ed25519_key" ];
-    l.folders."/build" = {};
-    nix.settings.build-dir = "/build";
+    nix.settings.build-dir = "/persist/build";
     fileSystems."/persist".neededForBoot = true;
     environment.persistence."/persist" = {
       hideMounts = false;

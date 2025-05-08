@@ -9,7 +9,7 @@
 	    italic_font = font_family + " Italic";
 	    bold_italic_font = font_family + " Bold Italic";
 
-	    cursor = "#${cyan}";
+	    cursor = "${cyan}";
 	    cursor_shape = "beam";
 	    cursor_blink_interval = "1.0"; # in seconds
 
@@ -35,16 +35,16 @@
 	    
 	    background_opacity = "0.50";
 
-	    foreground = "#${white}";
-	    background = "#${black}";
-	    color0 = "#${black}";
-	    color1 = "#${magenta}";
-	    color2 = "#${green}";
-	    color3 = "#${yellow}";
-	    color4 = "#${blue}";
-	    color5 = "#${pink}";
-	    color6 = "#${cyan}";
-	    color7 = "#${white}";
+	    foreground = "${white}";
+	    background = "${black}";
+	    color0 = "${black}";
+	    color1 = "${magenta}";
+	    color2 = "${green}";
+	    color3 = "${yellow}";
+	    color4 = "${blue}";
+	    color5 = "${pink}";
+	    color6 = "${cyan}";
+	    color7 = "${white}";
 	    color8 = color0;
 	    color9 = color1;
 	    color10 = color2;

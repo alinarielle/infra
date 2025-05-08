@@ -76,7 +76,6 @@ in {
 	  tap disabled
 	  #events enabled
 	}
-	output eDP-1 scale 1.5
 	output HDMI-A-1 pos 1920 0 res 1920x1080 transform 270
 	output * bg ${wallpaper}/wallpaper.png fill
 	for_window [class=".*"] border pixel 2

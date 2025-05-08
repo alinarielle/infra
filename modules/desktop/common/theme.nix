@@ -2,6 +2,15 @@
   opt.colors = lib.mkOption { 
     type = lib.types.attrs;
   };
+  home-manager.users.alina.gtk = {
+    enable = true;
+    gtk3.extraConfig = {
+      gtk-application-prefer-dark-theme = true;
+    };
+    gtk4.extraConfig = {
+      gtk-application-prefer-dark-theme = true;
+    };
+  };
   l.desktop.common.theme.colors = rec {
     black = "#191919";
     white = "#FEFFFE";
