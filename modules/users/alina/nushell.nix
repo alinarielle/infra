@@ -25,6 +25,7 @@
         la = "lsd -a";
         laa = "lsd -all";
         ka = "kakoune";
+        em = "emacs -nw";
         #update = "cd ~/src/flake; nix flake update; zsh -c 'sudo nixos-rebuild switch --flake ~/src/flake#${name} --log-format internal-json -v |& nom --json'";
       };
     };

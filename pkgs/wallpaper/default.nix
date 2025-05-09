@@ -38,18 +38,20 @@
   s = builtins.toString;
   RGBtoHUE = hex: let
     r = (lib.fromHexString (lib.substring 1 2 hex)) / 255.0;
-    g = (lib.fromHexString (lib.substring 3 4 hex)) / 255.0;
-    b = (lib.fromHexString (lib.substring 5 6 hex)) / 255.0;
+    g = (lib.fromHexString (lib.substring 3 2 hex)) / 255.0;
+    b = (lib.fromHexString (lib.substring 5 2 hex)) / 255.0;
     max = lib.max r (lib.max g b);
     min = lib.min r (lib.min g b);
-    hue = if max == r
+    h = if max == r
       then (g - b) / (max - min)
     else if max == g
       then 2 + (b - r) /  (max - min)
     else if max == b
       then 4 + (r - g) / (max - min)
-    else builtins.throw "max: ${s max}, min: ${s min}, rgb: ${s r} ${s g} ${s b}";
-  in if hue < 0 then hue * 60 + 360 else hue * 60;
+    else builtins.throw "what";
+    hue = if h < 0 then h * 60 + 360 else h * 60;
+    trace = "max: ${s max}, min: ${s min}, rgb: ${s r} ${s g} ${s b}, h: ${s h}, hue: ${s hue}";
+  in hue; 
   hue_prev = RGBtoHUE prev;
   hue_fin = RGBtoHUE fin;
   hue_mul = hue_fin / hue_prev;
@@ -58,7 +60,7 @@
     image
     "-colorspace" "HSL"
     "-channel" "R" "-evaluate" "multiply" (s hue_mul)
-    "-channel" "G" "-evaluate" "multiply" "1.15"
+    "-channel" "G" "-evaluate" "multiply" "1.25"
     "-channel" "B" "-evaluate" "multiply" "1.0"
     "+channel" "-colorspace" "sRGB"
     "wallpaper.png"

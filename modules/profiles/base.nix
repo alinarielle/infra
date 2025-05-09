@@ -20,6 +20,7 @@
     "newsboat"
     "kakoune"
     "ranger"
+    "emacs"
   ];
   l.users.root = enable [
     "home-manager"
