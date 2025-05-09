@@ -7,10 +7,6 @@
   imports =
     [ (modulesPath + "/profiles/qemu-guest.nix")
     ];
-  l.filesystem.disko.hetznerImpermanence = {
-    enable = true;
-    disk = "/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_56549447";
-  };
   boot.initrd.availableKernelModules = [ "ahci" "xhci_pci" "virtio_pci" "virtio_scsi" "sd_mod" "sr_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ ];
