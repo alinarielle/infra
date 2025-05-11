@@ -2,7 +2,7 @@
   name = "cv";
   src = pkgs.fetchFromGitLab {
     rev = "465ef29bcc6bf77bcfe5606eb05bd8eca685175c";
-    hash = "sha256-G26FthzvldSirhQarjvT0vq2E7CsO6s360IKBwQWzwQ=";
+    hash = "sha256-vWgO8ajMQymk8xv4PUwMXi0UbjH1dmfD3+lM6K2R4m4=";
     owner = "alina";
     repo = "cv";
     domain = "cyberchaos.dev";
