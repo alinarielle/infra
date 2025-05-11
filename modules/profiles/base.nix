@@ -37,5 +37,6 @@
     "getPort"
     "sshd"
     "wireguard"
+    "nginx"
   ];
 }

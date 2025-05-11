@@ -1,12 +1,10 @@
 { config, lib, pkgs, ... }: {
   users.users.alina.packages = with pkgs; [ waybar ];
   home-manager.users.alina = {
-    wayland.windowManager.sway.config.startup = lib.mkIf 
-      config.l.desktop.sway.config.enable 
-      [{
-        command = "${lib.getExe pkgs.waybar}";
-        always = false;
-      }];
+    wayland.windowManager.sway.config.startup = [{
+      command = "${lib.getExe pkgs.waybar}";
+      always = false;
+    }];
       programs.waybar = {
         enable = true;
 	settings = {
@@ -57,7 +55,7 @@
 	      interval = 1;
 	    };
 	    network = {
-	      format-wifi = " {essid} ({signalStrength}%)";
+	      format-wifi = "  {essid} ({signalStrength}%)";
 	      format-ethernet = "󱘖 online";
 	      format-disconnected = "󰈂 offline";
 	      tooltip-format = "IPv4: {ipaddr}/{cidr}\nFrequency: {frequency}MHz\nStrength:{signaldBm}dBm";
@@ -133,6 +131,7 @@ window>*>*>*>label {
 }
 #battery.charging {
     background: ${green};
+    color: ${black}
 }
 	'';
     };
