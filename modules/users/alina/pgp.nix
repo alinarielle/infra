@@ -6,7 +6,7 @@
     defaultCacheTtl = 1800;
     enableExtraSocket = false;
     grabKeyboardAndMouse = true;
-    pinentryPackage = pkgs.pinentry-tty;
+    pinentry.package = pkgs.pinentry-tty;
     sshKeys = null; #TODO
     extraConfig = ''
       allow-loopback-pinentry
@@ -22,5 +22,6 @@
   services.pcscd.enable = true;
   users.users.alina.packages = with pkgs; [
     yubikey-manager gnupg tomb yubico-piv-tool piv-agent
+    yubikey-personalization-gui
   ];
 }

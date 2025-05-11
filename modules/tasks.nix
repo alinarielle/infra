@@ -1,5 +1,5 @@
 {lib, config, opt, cfg, utils, ...}: {
-  opt = with lib.types; lib.mkOption { default = {}; type = attrsOf (submodule {
+  opt.tasks = with lib.types; lib.mkOption { default = {}; type = attrsOf (submodule {
     options = {
       enable = lib.mkEnableOption "task";
       script = lib.mkOption { type = nullOr lines; default = null; };
@@ -26,18 +26,18 @@
   config = let
     mapVals = fn: attrs: lib.mkMerge (lib.attrValues (lib.mapAttrs fn attrs));
   in {
-    l.folders = lib.mapAttrs (key: val: let 
+    l.folders.create = lib.mapAttrs (key: val: let 
       mkDir = type: { "${key}-${type}" = {
         path = if val.dataDir != null then "${val.dataDir}${type}" else "/jail/${key}${type}";
 	user = val.user or key;
 	group = val.group or key;
       };};
-    in lib.mkIf val.persist ((mkDir "/lib") // (mkDir "/log") // (mkDir "/cache"))) cfg;
+    in lib.mkIf val.persist ((mkDir "/lib") // (mkDir "/log") // (mkDir "/cache"))) cfg.tasks;
     
     users.users = mapVals (key: val: { ${val.user or key} = {
       group = val.group or key;
       isSystemUser = true;
-    };}) cfg;
+    };}) cfg.tasks;
 
     systemd.services = lib.mapVals (key: val: let
       net = if val.netAdmin then true else val.net;
@@ -166,7 +166,7 @@
 	LogsDirectory = null;
         LogsDirectoryMode = null;
       }) // lib.optionalAttrs (val.serviceConfig != null) val.serviceConfig;
-    };}) cfg;
+    };}) cfg.tasks;
 
     systemd.timers = lib.mapAttrs (key: val: {
       startLimitBurst = 1;
@@ -175,7 +175,7 @@
 	OnUnitActiveSec = val.execInterval;
 	OnCalendar = val.execDate;
       };
-    }) cfg;
+    }) cfg.tasks;
   };
 }
 #TODO systemd credentials, resource control for IP allow ranges, restrict to interfaces,

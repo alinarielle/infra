@@ -1,5 +1,5 @@
 {lib, inputs, pkgs, cfg, opt, config, ...}: {
-  opt = with lib.types; lib.mkOption { default = {}; type = (subodule {
+  opt.create = with lib.types; lib.mkOption { default = {}; type = (subodule {
     options = {
       config = lib.mkOption { type = attrs; default = {}; };
       autostart = lib.mkOption { type = bool; default = true; };
@@ -29,7 +29,7 @@
 	  proto = "virtiofs";
         }];
       };
-    })) cfg;
+    })) cfg.create;
     # bridge
     l.network.networkmanager.enable = lib.mkForce false;
     l.network.networkd.enable = true;
@@ -48,7 +48,7 @@
 	  ARP = false;
         };
       })
-    ) cfg;
+    ) cfg.create;
     systemd.network.netdevs = lib.mapAttrs' (name: value: lib.nameValuePair 
       ("macvlan-vm-${name}") 
       ({
@@ -56,7 +56,7 @@
 	  Mode = "bridge";
         };
       })
-    ) cfg;
+    ) cfg.create;
   };
 }
 #TODO bridge interface, VNC, live migration

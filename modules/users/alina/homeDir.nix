@@ -1,5 +1,5 @@
 {lib, ...}: {
-  l.folders = lib.mergeAttrs 
+  l.folders.create = lib.mergeAttrs 
   (lib.genAttrs [
     "/home/alina/ebooks"
     "/home/alina/docs"

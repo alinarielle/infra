@@ -1,16 +1,18 @@
 {config, ...}: {
   home-manager.users.alina.services.mako = with config.l.desktop.common.theme.colors; {
     enable = true;
-    backgroundColor = "#${secondary}";
-    borderColor = "#${primary}";
-    
-    borderRadius = 5;
-    borderSize = 2;
+    settings = {
+      backgroundColor = "#${secondary}";
+      borderColor = "#${primary}";
+      
+      borderRadius = 5;
+      borderSize = 2;
 
-    height = 100;
-    
-    defaultTimeout = 5000;
+      height = 100;
+      
+      defaultTimeout = 5000;
 
-    font = "JetBrainsMono Nerd Font 10";
+      font = "JetBrainsMono Nerd Font 10";
+    };
   };
 }

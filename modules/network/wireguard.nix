@@ -80,10 +80,10 @@ in {
 	      ));
 	    in encode (
 	      (decode "fc00::/7") # 7-bit special ULA range prefix
-	    + (decode "1::/8") # 1-bit L bit, since prefix is locally assigned
+	    + (decode "100::/8") # 1-bit L bit, since prefix is locally assigned
 	    + (lib.mod 
-		dividend # pseudo-random entropy source
-		(decode "0000:ffff:ffff::/40")) # 40-bit Global ID range
+		      dividend # pseudo-random entropy source
+		      (decode "0000:ffff:ffff::/40")) # 40-bit Global ID range
 	    + (decode "0:0:0:acab::/64") # 16-bit subnet ID
 	    + (decode "::1/128") # 64-bit Interface ID
 	    ); 

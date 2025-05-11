@@ -9,7 +9,7 @@ in {
   programs.sway.package = pkgs.swayfx;
   programs.sway.extraPackages = with pkgs; let
     flameshot = pkgs.flameshot.override { 
-      enableWlrSupport = false;
+      enableWlrSupport = true;
       enableMonochromeIcon = false;
     };
   in [
