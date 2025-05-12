@@ -4,5 +4,6 @@
     ./hardware-configuration.nix
   ];
   l.profiles = enable ["desktop"];
+  l.kernel.hardened.enable = true;
   system.stateVersion = "25.05";
 }

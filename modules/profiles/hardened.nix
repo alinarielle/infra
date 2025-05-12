@@ -2,5 +2,4 @@
     l.packages = enable ["noDefaultPackages"];
     l.filesystem = enable ["blacklist" "sysctl"];
     l.network = enable ["sysctl"];
-    #l.kernel = enable ["hardenedLibre"];
 }

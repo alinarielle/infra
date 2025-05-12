@@ -2,14 +2,14 @@
   ifApparmor = config.l.kernel.lsm.apparmor.enable; 
 in {
   boot.kernelPackages = let
-    kernel = pkgs.linux_latest.overrideAttrs (final: prev: {
+    kernel = pkgs.linux_6_13.overrideAttrs (final: prev: {
 			# clang error: argument unused during compilation: '-fno-strict-overflow'
 			env.NIX_CFLAGS_COMPILE =	"-Wno-unused-command-line-argument";
 		});
     llvm = pkgs.llvmPackages_latest;
 
-    version = pkgs.kernelPatches.hardened.${kernel.meta.branch}.version;
-    major = lib.versions.major version;
+    version = pkgs.kernelPatches.hardened.${kernel.meta.branch}.version; # 6.13.7
+    major = lib.versions.major version; # 6
 
     sha256 = pkgs.kernelPatches.hardened.${kernel.meta.branch}.sha256;
     modDirVer = lib.replaceStrings 
@@ -19,7 +19,10 @@ in {
   in lib.mkForce (pkgs.linuxPackagesFor (kernel.override {
     stdenv = llvm.stdenv;
     extraMakeFlags = [ 
-		  "LLVM=${llvm.bintools-unwrapped}/bin/" 
+		  "LLVM=${pkgs.symlinkJoin {
+        name = "LLVM"; 
+        paths = [llvm.clang-unwrapped llvm.llvm];
+      }}/bin/" 
 		];
     kernelPatches = kernel.kernelPatches ++ [
 		  pkgs.kernelPatches.hardened.${kernel.meta.branch}
@@ -143,7 +146,7 @@ in {
       LIST_HARDENED = yes;
       
       # zero-initialise heap variables on allocation
-      INIT_ON_ALLOC_DEFAULT =yes;
+      INIT_ON_ALLOC_DEFAULT = yes;
   
       # zero-initialise stack variables on function entry
       INIT_STACK_ALL_ZERO = yes;
