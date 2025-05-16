@@ -7,7 +7,7 @@
     #signing.signByDefault = true;
     #signing.key = "2323A23A5326C368D2EA25E851D817D1174AFD62";
     extraConfig = {
-      init.defaultBranch = "main";
+      init.defaultBranch = "mistress";
       tag.gpgSign = true;
       tag.sort = "version:refname";
       feature.manyFiles = true;

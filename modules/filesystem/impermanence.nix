@@ -34,6 +34,7 @@
       hideMounts = false;
       directories = [
 	"/var/log"
+  "/var/lib/jellyfin"
 	"/var/lib/nixos"
 	"/var/lib/btrfs"
 	"/var/lib/bluetooth"

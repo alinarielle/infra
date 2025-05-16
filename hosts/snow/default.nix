@@ -4,6 +4,7 @@
     ./disko.nix
   ];
   l.profiles = enable ["shell"];
+  l.services.jellyfin.enable = true;
   system.stateVersion = "25.05";
   deployment.targetHost = "alina.dog";
 

@@ -1,5 +1,6 @@
-{srv, pkgs, lib, ...}: {
-  srv.exec = [
-    "${lib.getExe pkgs.radarr}"
-  ];
+{
+  services.jellyfin = {
+    enable = true;
+    openFirewall = true;
+  };
 }

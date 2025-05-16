@@ -1,6 +1,8 @@
 {pkgs, ...}: {
     users.users.alina.packages = with pkgs; [
 	gcc
+  dotnetCorePackages.dotnet_9.sdk
+  nuget-to-json
 	kind
 	go
 	docker
