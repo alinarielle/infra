@@ -24,6 +24,12 @@
 	      "battery"
 	      "clock"
 	    ];
+      "custom/dog" = {
+        format = "{icon}";
+        format-icons = {
+          dog = 
+        };
+      };
 	    "sway/window" = {
 	      format = "{title}";
 	    };
