@@ -21,7 +21,6 @@
         zellij
         which
         upower
-        ventoy
         viu
         doas
         sdparm

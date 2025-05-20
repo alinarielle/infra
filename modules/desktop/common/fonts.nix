@@ -24,11 +24,11 @@
     };
     buildPhase = ''
       mkdir -p $out
-      mv source/font-patcher $out/font-patcher.py
+      mv font-patcher $out/font-patcher.py
     '';
     dependencies = with python3Packages; [fontforge configargparse];
   };
-  fontPatcherBin = "${patchScript}/bin/font-patcher";
+  fontPatcherBin = "${fontPatcher}/bin/font-patcher";
 
   fontify = buildFlutterApplication {
     pname = "fontify";
@@ -41,15 +41,22 @@
     pubspecLock = lib.importJSON ./pubspec.lock.json;
   };
   fontifyBin = "${fontify}/bin/fontify";
-
-  patchNerdFont = font: glyphs@{...}: stdenvNoCC.mkDerivation {
+  toOutputPath = path: let
+    root = ../../..;
+  in lib.path.removePrefix root path;
+  patchNerdFont = font: svgDir: stdenvNoCC.mkDerivation {
     nativeBuildInputs = [fontPatcher fontify];
     buildInputs = [font];
     buildPhase = ''
-      fontify ./svg
-      nerdfont-patcher --careful --custom ${font} -c
+      fontify ${svgDir} glyphs.otf
+      nerdfont-patcher --careful --custom glyphs.otf -c ${font}
     '';
   };
 in {
-  fonts.packages = builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
+  fonts.packages = map 
+    (font: font)#patchNerdFont font ./svg) 
+    (builtins.filter 
+      lib.attrsets.isDerivation 
+      (builtins.attrValues pkgs.nerd-fonts)
+    );
 }

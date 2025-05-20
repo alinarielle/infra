@@ -10,7 +10,6 @@
 	    url = "https://github.com/kubernetes/kubernetes";
 	};
 	flake-parts.url = "github:hercules-ci/flake-parts";
-	rnat.url = "gitlab:yuka/rnat?host=cyberchaos.dev";
 	dns.url = "github:kirelagin/dns.nix";
 	nixos-hardware.url = "github:NixOS/nixos-hardware/master"; 
 	nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
