@@ -1,6 +1,7 @@
 {pkgs, ...}: {
     users.users.alina.packages = with pkgs; [
-	pinentry
-	tomb
+      pinentry
+      tomb
+      ssh-to-age
     ];
 }

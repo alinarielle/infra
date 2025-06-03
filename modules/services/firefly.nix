@@ -5,9 +5,9 @@
     sub = "firefly";
     root = "${config.services.firefly-iii.package}";
   };
-  services.postgres.enable = true;
-  services.postgres.ensureDatabases = ["firefly"];
-  services. = {
+  services.postgresql.enable = true;
+  services.postgresql.ensureDatabases = ["firefly"];
+  services.postgresql = {
     ensureUsers = [{
       name = "firefly";
     }];
