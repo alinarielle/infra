@@ -60,110 +60,110 @@
       else val.script;
 
       serviceConfig = {
-	ExecStart = lib.mkIf (val.exec != null) (utils.escapeSystemdExecArgs val.exec);
+        ExecStart = lib.mkIf (val.exec != null) (utils.escapeSystemdExecArgs val.exec);
         # filesystem setup
-	RootDirectory = val.dataDir or "/jail/${key}";
-	TemporaryFileSystem = ["/:ro"];
-	MountAPIVFS = true;
-	PrivateTmp = true;
-	PrivateDevices = !val.blockDevices;
-	PrivateMounts = true;
-	ProcSubset = "pid";
-	ProtectProc = "noaccess";
-	BindReadOnlyPaths = [
-	  "/dev/log"
-	  "/run/systemd/journal/socket"
-	  "/run/systemd/journal/stdout" # necessary for logging
-	  "/nix/store"
-	] ++ val.paths.ro;
-	BindPaths = [
-	  "/var/lib/${key}:/lib"
-	  "/var/log/${key}:/log"
-	  "/var/cache/${key}:/cache"
-	] ++ val.paths.rw ++ [val.dataDir];
-	
-	NoExecPaths = "/";
-	ExecPaths = val.paths.exec;
+        RootDirectory = val.dataDir or "/jail/${key}";
+        TemporaryFileSystem = ["/:ro"];
+        MountAPIVFS = true;
+        PrivateTmp = true;
+        PrivateDevices = !val.blockDevices;
+        PrivateMounts = true;
+        ProcSubset = "pid";
+        ProtectProc = "noaccess";
+        BindReadOnlyPaths = [
+          "/dev/log"
+          "/run/systemd/journal/socket"
+          "/run/systemd/journal/stdout" # necessary for logging
+          "/nix/store"
+        ] ++ val.paths.ro;
+        BindPaths = [
+          "/var/lib/${key}:/lib"
+          "/var/log/${key}:/log"
+          "/var/cache/${key}:/cache"
+        ] ++ val.paths.rw ++ [val.dataDir];
+        
+        NoExecPaths = "/";
+        ExecPaths = val.paths.exec;
 
-	WorkingDirectory = val.dataDir or "/lib";
+        WorkingDirectory = val.dataDir or "/lib";
 
-	StateDirectory = val.dataDir or "${key}:/lib";
-	StateDirectoryMode = "0750";
+        StateDirectory = val.dataDir or "${key}:/lib";
+        StateDirectoryMode = "0750";
 
         CacheDirectory = "${key}:/cache";
-	CacheDirectoryMode = "0750";
+        CacheDirectoryMode = "0750";
+              
+        LogsDirectory = "${key}:/log";
+              LogsDirectoryMode = "0750";
+
+        # new file permissions
+        UMask = "0027"; # 0640 / 0750
+        User = val.user or key;
+        Group = val.group or key;
         
-	LogsDirectory = "${key}:/log";
-        LogsDirectoryMode = "0750";
+        Restart = "on-failure";
+        RestartSec = "10s";
+        StartLimitBurst = 1;
 
-	# new file permissions
-	UMask = "0027"; # 0640 / 0750
-	User = val.user or key;
-	Group = val.group or key;
-	
-	Restart = "on-failure";
-	RestartSec = "10s";
-	StartLimitBurst = 1;
-
-	PrivateUsers = true;
-	ProtectSystem = "strict";
-	ProtectHome = true;
-	ProtectHostname = true;
+        PrivateUsers = true;
+        ProtectSystem = "strict";
+        ProtectHome = true;
+        ProtectHostname = true;
         ProtectClock = true;
-	ProtectKernelTuneables = true;
-	ProtectKernelModules = true;
-	ProtectKernelLogs = true;
-	ProtectControlGroups = true;
-	RestrictAddressFamilies = [ 
-	  (lib.mkIf val.persist "AF_UNIX")
-	  (lib.mkIf net "AF_INET") 
-	  (lib.mkIf net "AF_INET6")
-	];
-	SystemCallArchitectures = "native";
-	RestrictNamespaces = true;
-	LockPersonality = true; # lock linux process execution domain as in personality(2)
-
-	MemoryDenyWriteExecute = true; 
-	  # prevents processes from changing running code dynamically, BUT:
-	  # note that this option is incompatible with programs and libraries that generate 
-	  # program code dynamically at runtime, including JIT execution engines, executable- 
-	  # stacks, and code "trampoline" feature of various C compilers.
-	  # However, the protection can be circumvented, if the service can write to a 
-	  # filesystem, which is not mounted with noexec (such as /dev/shm), or it can use 
-	  # memfd_create(). This can be prevented by making such file systems inaccessible to
-	  # the service by setting
-	InaccessiblePaths= "/dev/shm";
-	  # and installing further system call filters such as:
-	SystemCallFilter = [ 
-	  ("~@cpu-emulation @memfd_create @debug @keyring @mount"
-	  + " @obsolete @privileged @setuid")
-	];
-
-	RestrictRealtime = true;
-	RestrictSUIDSGID = true;
-	RemoveIPC = true;
-	DevicePolicy = "closed";
-	PrivateNetwork = !net;
-	KeyringMode = "private";
-	
-	# capabilities(7)
-	NoNewPrivileges = true;
-	AmbientCapabilities = [
-	  (lib.mkIf val.netAdmin "CAP_NET_ADMIN")
-	  (lib.mkIf net "CAP_NET")
-	  (lib.mkIf net "CAP_NET_BIND_SERVICE")
+        ProtectKernelTuneables = true;
+        ProtectKernelModules = true;
+        ProtectKernelLogs = true;
+        ProtectControlGroups = true;
+        RestrictAddressFamilies = [ 
+          (lib.mkIf val.persist "AF_UNIX")
+          (lib.mkIf net "AF_INET") 
+          (lib.mkIf net "AF_INET6")
         ];
-      } // (if val.persist then {} else {
-        DynamicUser = true;
-	RuntimeDirectory = "woof:/woof";
-	User = null;
-	Group = null;
-	BindPaths = [];
-	WorkingDirectory = null;
+        SystemCallArchitectures = "native";
+        RestrictNamespaces = true;
+        LockPersonality = true; # lock linux process execution domain as in personality(2)
+
+        MemoryDenyWriteExecute = true; 
+        # prevents processes from changing running code dynamically, BUT:
+        # note that this option is incompatible with programs and libraries that generate 
+        # program code dynamically at runtime, including JIT execution engines, executable- 
+        # stacks, and code "trampoline" feature of various C compilers.
+        # However, the protection can be circumvented, if the service can write to a 
+        # filesystem, which is not mounted with noexec (such as /dev/shm), or it can use 
+        # memfd_create(). This can be prevented by making such file systems inaccessible to
+        # the service by setting
+        InaccessiblePaths= "/dev/shm";
+          # and installing further system call filters such as:
+        SystemCallFilter = [ 
+          ("~@cpu-emulation @memfd_create @debug @keyring @mount"
+          + " @obsolete @privileged @setuid")
+        ];
+
+        RestrictRealtime = true;
+        RestrictSUIDSGID = true;
+        RemoveIPC = true;
+        DevicePolicy = "closed";
+        PrivateNetwork = !net;
+        KeyringMode = "private";
+        
+        # capabilities(7)
+        NoNewPrivileges = true;
+        AmbientCapabilities = [
+          (lib.mkIf val.netAdmin "CAP_NET_ADMIN")
+          (lib.mkIf net "CAP_NET")
+          (lib.mkIf net "CAP_NET_BIND_SERVICE")
+              ];
+            } // (if val.persist then {} else {
+              DynamicUser = true;
+        RuntimeDirectory = "woof:/woof";
+        User = null;
+        Group = null;
+        BindPaths = [];
+        WorkingDirectory = null;
         RuntimeDirectoryMode = null;
         CacheDirectory = null;
-	CacheDirectoryMode = null;
-	LogsDirectory = null;
+        CacheDirectoryMode = null;
+        LogsDirectory = null;
         LogsDirectoryMode = null;
       }) // lib.optionalAttrs (val.serviceConfig != null) val.serviceConfig;
     };}) cfg.tasks;
@@ -171,9 +171,9 @@
     systemd.timers = lib.mapAttrs (key: val: {
       startLimitBurst = 1;
       timerConfig = {
-	Unit = key + ".service";
-	OnUnitActiveSec = val.execInterval;
-	OnCalendar = val.execDate;
+        Unit = key + ".service";
+        OnUnitActiveSec = val.execInterval;
+        OnCalendar = val.execDate;
       };
     }) cfg.tasks;
   };

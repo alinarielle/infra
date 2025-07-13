@@ -20,7 +20,7 @@ in {
     slurp
   ];
   l.desktop.common = config.l.lib.enable [
-    "audio" "bluetooth" "cursor" "fonts" "home-manager" "hyfetch" "kitty"
+    "audio" "bluetooth" "cursor" "fonts" "home-manager" "hyfetch" "kitty" "mime"
     "librewolf" "mako" "printing" "nix-daemon" "theme" "wayland" "zathura"
   ];
   l.packages = config.l.lib.enable ["desktop"];

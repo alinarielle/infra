@@ -10,6 +10,7 @@
   ];
   programs.nixvim = {
     enable = true;
+    defaultEditor = true;
     colorschemes.cyberdream = {
       enable = true;
       settings.transparent = true;

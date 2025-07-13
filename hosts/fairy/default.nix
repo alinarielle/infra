@@ -3,7 +3,7 @@
     ./disko.nix
     ./hardware-configuration.nix
   ];
-  l.profiles = enable ["desktop"];
+  l.profiles = enable ["desktop" "gaming"];
   #l.kernel.hardened.enable = true;
   system.stateVersion = "25.05";
 }

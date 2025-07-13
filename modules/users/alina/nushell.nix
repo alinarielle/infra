@@ -1,9 +1,9 @@
 {pkgs, lib, config, name, ...}: {
   environment.systemPackages = with pkgs.nushellPlugins; [
-    net
     skim
-    dbus
-    units
+    #net
+    #dbus
+    #units
     query
     gstat
     pkgs.nushell
@@ -12,7 +12,7 @@
     nushell = {
       enable = true;
       configFile.text = ''
-	      $env.config.buffer_editor = ["emacsclient", "-s", "light", "-t"]
+	      $env.EDITOR = "nvim"
       '';
       shellAliases = {
         nv = "nvim";

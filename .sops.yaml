@@ -1,0 +1,12 @@
+keys: &all
+  - &snow age1p0vw2swzp6r7wlckxkwzl8avghuudm54a2szegytmd4v97ujufus96slrq
+  - &alina age1ux0vc6ylcxjgs7s8at6sxrdzz2zj4fvs6l46udn765yr44hrnv2sfrsj7p
+creation_rules:
+- path_regex: 'secrets/[^/]+\.(yaml|json|env|ini)$'
+  key_groups:
+    - age: *all
+- path_regex: 'secrets/snow/[^/]+\.(yaml|json|env|ini)$'
+  key_groups:
+  - age: 
+    - *alina
+    - *snow

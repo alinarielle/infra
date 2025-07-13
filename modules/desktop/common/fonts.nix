@@ -53,7 +53,10 @@
     '';
   };
 in {
-  fonts.packages = map 
+  fonts.packages = with pkgs; [
+    roboto-slab
+    lato
+  ] ++ map 
     (font: font)#patchNerdFont font ./svg) 
     (builtins.filter 
       lib.attrsets.isDerivation 

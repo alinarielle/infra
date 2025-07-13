@@ -1,4 +1,5 @@
 {config, ...}: with config.l.lib; {
+  l.sops.enable = true;
   l.boot = enable ["systemd-boot"];
   l.packages = enable [
     "archive" 
@@ -14,11 +15,11 @@
     "ssh"
     "pgp"
     "nvim"
+    "helix"
     "user"
     "nushell"
     "zsh"
     "newsboat"
-    "kakoune"
     "ranger"
     "emacs"
   ];
@@ -38,5 +39,6 @@
     "sshd"
     "wireguard"
     "nginx"
+    "proxychains"
   ];
 }

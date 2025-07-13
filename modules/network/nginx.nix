@@ -1,13 +1,15 @@
 {opt, cfg, lib, pkgs, config, ...}: {
+  opt.upstreams = with lib.types; lib.mkOption { type = attrs; default = {}; };
   opt.vhosts = with lib.types; lib.mkOption { default = {}; type = attrsOf (submodule { options = {
-    root = lib.mkOption { type = str; };
+    root = lib.mkOption { type = nullOr str; default = null; };
     tls = lib.mkOption { type = bool; default = true; };
     quic = lib.mkOption { type = bool; default = true; };
     locations = lib.mkOption { type = attrs; default = {}; };
   };});};
-
+  
   services.nginx = {
     enable = true;
+    inherit (cfg) upstreams;
     #proxyResolveWhileRunning = true;
     #resolver = {
       #ipv4 = true;

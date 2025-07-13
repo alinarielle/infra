@@ -9,6 +9,7 @@
 
     users.mutableUsers = false;
     
+    sops.age.sshKeyPaths = ["/persist/etc/ssh/id_ed25519"];
     services.openssh.hostKeys = [{
       path = "/persist/etc/ssh/id_rsa";
       type = "rsa";

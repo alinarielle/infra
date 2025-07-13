@@ -1,7 +1,7 @@
 {inputs, lib, ...}: {
 	imports = [inputs.disko.nixosModules.disko];
 	l.filesystem.impermanence.enable = true;
-	disko.devices.nodev."/" = lib.mkForce {
+	disko.devices.nodev."/" = {
 		fsType = "tmpfs";
 		mountOptions = [
 			"size=25%"
@@ -10,10 +10,10 @@
 		];
 	};
 	fileSystems."/persist".neededForBoot = true;
-  boot.loader.grub.device = "/dev/vda";
+  boot.loader.grub.device = "/dev/sda";
   l.boot.systemd-boot.enable = lib.mkForce false;
 	disko.devices.disk.main = {
-		device = "/dev/disk/by-id/virtio-016422bba02848f69188";
+		device = "/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi0";
 		type = "disk";
 		content = {
 			type = "gpt";
@@ -21,11 +21,21 @@
 				type = "EF02";
         size = "1024M";
 			};
-			partitions.luks = {
+      partitions.ESP = {
+        priority = 1;
+        type = "EF00";
+        size = "1024M";
+        content = {
+          format = "vfat";
+          type = "filesystem";
+          mountpoint = "/boot";
+          mountOptions = ["umask=0077"];
+        };
+      };
+			partitions.persist = {
 				size = "100%";
         content = {
           type = "btrfs";
-          device = "/dev/disk/by-id/virtio-016422bba02848f69188-part2";
           extraArgs = ["-f"];
           subvolumes = {
             nix = {

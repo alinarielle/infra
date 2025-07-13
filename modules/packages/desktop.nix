@@ -9,7 +9,6 @@
 	blender
 	zed-editor
 	#openscad
-	waydroid
 	wireshark
 	#spotify
 	mpv

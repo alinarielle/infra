@@ -1,6 +1,7 @@
 {pkgs, ...}: let packages = with pkgs; [
   du-dust
   btrfs-progs
+  glow
   fd
   tree
   lsd

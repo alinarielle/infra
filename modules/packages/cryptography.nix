@@ -3,5 +3,6 @@
       pinentry
       tomb
       ssh-to-age
+      sops
     ];
 }

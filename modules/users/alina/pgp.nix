@@ -21,7 +21,6 @@
   services.yubikey-agent.enable = false;
   services.pcscd.enable = true;
   users.users.alina.packages = with pkgs; [
-    yubikey-manager gnupg tomb yubico-piv-tool piv-agent
-    yubikey-personalization-gui
+    yubikey-manager gnupg tomb yubico-piv-tool piv-agent yubioath-flutter
   ];
 }
