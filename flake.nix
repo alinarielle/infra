@@ -30,6 +30,7 @@
       disko.url = "github:nix-community/disko/latest";
       disko.inputs.nixpkgs.follows = "nixpkgs";
       cv = { url = "git+ssh://git@git.gay/alina/cv.git"; };
+      homepage = { url = "git+ssh://git@git.gay/alina/alina.cx.git"; flake = false; };
     };
 
     outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } {

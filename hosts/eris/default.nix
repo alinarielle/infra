@@ -5,6 +5,9 @@
   ];
   l.profiles = enable ["shell"];
   system.stateVersion = "25.05";
-  l.services.cv.enable = true;
+  l.services = {
+    cv.enable = true;
+    homepage.enable = true;
+  };
   deployment.targetHost = "168.119.108.235";
 }

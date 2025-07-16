@@ -391,6 +391,22 @@
         "type": "github"
       }
     },
+    "homepage": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1752670405,
+        "narHash": "sha256-GpPTMYmgc5qmbEt/kiJ60zygOuL5oZ5Aiubwu3TSxAE=",
+        "ref": "refs/heads/mistress",
+        "rev": "e39f85f3a33d7988c88c2330c22a0ea44a176df5",
+        "revCount": 1,
+        "type": "git",
+        "url": "ssh://git@git.gay/alina/alina.cx.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://git@git.gay/alina/alina.cx.git"
+      }
+    },
     "impermanence": {
       "locked": {
         "lastModified": 1737831083,
@@ -437,7 +453,7 @@
     "kubernetes": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-v5LO6zixwRV/iF5t4g/+PQ60UJIhJTOxQ7pZw9I0IM8=",
+        "narHash": "sha256-Fc8DBgsJg6lG83KF7JCq00Fxyge+LA5LEalmOqyS7cw=",
         "type": "file",
         "url": "https://github.com/kubernetes/kubernetes"
       },
@@ -476,7 +492,7 @@
     "linuxStable": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-kiGFHAjecAZ67dJEmqAZeUdtaGi8mejQPOZOaS5Sxl4=",
+        "narHash": "sha256-BEjDHBz6YUyZS2/ziOItbmuHtoni1AHlnsCi2GrSS5o=",
         "type": "file",
         "url": "https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git"
       },
@@ -549,11 +565,11 @@
     },
     "nixos-hardware": {
       "locked": {
-        "lastModified": 1752048960,
-        "narHash": "sha256-gATnkOe37eeVwKKYCsL+OnS2gU4MmLuZFzzWCtaKLI8=",
+        "lastModified": 1752666637,
+        "narHash": "sha256-P8J72psdc/rWliIvp8jUpoQ6qRDlVzgSDDlgkaXQ0Fw=",
         "owner": "NixOS",
         "repo": "nixos-hardware",
-        "rev": "7ced9122cff2163c6a0212b8d1ec8c33a1660806",
+        "rev": "d1bfa8f6ccfb5c383e1eba609c1eb67ca24ed153",
         "type": "github"
       },
       "original": {
@@ -803,6 +819,7 @@
         "flake-parts": "flake-parts",
         "flake-utils": "flake-utils_4",
         "home-manager": "home-manager",
+        "homepage": "homepage",
         "impermanence": "impermanence",
         "kubernetes": "kubernetes",
         "lanzaboote": "lanzaboote",
