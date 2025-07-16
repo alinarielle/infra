@@ -1,11 +1,9 @@
 {pkgs, ...}: pkgs.stdenv.mkDerivation {
   name = "cv";
-  src = pkgs.fetchFromGitLab {
-    rev = "465ef29bcc6bf77bcfe5606eb05bd8eca685175c";
-    hash = "sha256-vWgO8ajMQymk8xv4PUwMXi0UbjH1dmfD3+lM6K2R4m4=";
-    owner = "alina";
-    repo = "cv";
-    domain = "cyberchaos.dev";
+  src = pkgs.fetchgit {
+    url = "https://git.gay/alina/jobs";
+    hash = "sha256-8+tje+0HpKlW9LlIcoougWjqxrt2ChxExgshITxZzHA=";
+    rev = "5902b5d6d307c716ca17691885c297c7a70d4404";
   };
   nativeBuildInputs = with pkgs.texlivePackages; [
     scheme-basic dvisvgm dvipng
@@ -19,6 +17,7 @@
     pkgs.texliveFull
   ];
   buildPhase = ''
+    cd ./cv
     pdflatex main.tex
   '';
   installPhase = ''

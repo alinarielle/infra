@@ -31,9 +31,9 @@
 	gdb
 	libnotify
 	godot_4
-	jdk8
-	jdk21
-	jdk17
+	#jdk8
+	#jdk21
+	#jdk17
 	nginx
 	ansible
 	python3

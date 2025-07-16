@@ -1,6 +1,6 @@
-{pkgs,...}: {
+{inputs, ...}: {
   l.network.nginx.vhosts."cv.alina.cx" = {
-    root = "${import ../../pkgs/cv {inherit pkgs;}}";
+    root = "${inputs.cv.packages.x86_64-linux.default}";
     locations."/".index = "cv.pdf";
   };
 }
