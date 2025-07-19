@@ -1,6 +1,7 @@
 {pkgs, ...}: {
     users.users.alina.packages = with pkgs; [
-	monero-gui
+  monero-gui
+  calcure
 	libreoffice-fresh
 	bisq2
 	#electrum-ltc
@@ -23,7 +24,7 @@
 	bluez
 	keepassxc
 	noisetorch
-	prismlauncher
+	#prismlauncher
 	qbittorrent
 	signal-desktop-bin
 	standardnotes

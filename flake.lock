@@ -65,11 +65,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1752595415,
-        "narHash": "sha256-vW4MC6wZHyk0/9JJI2BMaie5J7kltWWP1EvsVWLEb2w=",
+        "lastModified": 1752797016,
+        "narHash": "sha256-3PsgSaRJKKlhhMzJ/mlonfEg+uJ1BVOov4pZipbo0Iw=",
         "ref": "refs/heads/mistress",
-        "rev": "066c3fb7655935e2ce1561cc2dc1564c619e1e9b",
-        "revCount": 3,
+        "rev": "5c2d70d88a2343b2a55a978725d5a9aeaa1974ff",
+        "revCount": 5,
         "type": "git",
         "url": "ssh://git@git.gay/alina/cv.git"
       },
@@ -124,11 +124,11 @@
         "nixpkgs-stable": "nixpkgs-stable"
       },
       "locked": {
-        "lastModified": 1752633365,
-        "narHash": "sha256-+RNuDLsXnNfob8hu3ap3VYOpV/nUT32MXUbJN2DmrMQ=",
+        "lastModified": 1752769629,
+        "narHash": "sha256-sA2mQ258a+AeiVCmpvgjeK+bWnwGyl99HGdXKVg6BoA=",
         "owner": "nix-community",
         "repo": "emacs-overlay",
-        "rev": "3573872da6a5aad4cfa25410eebcb619cfdea9c1",
+        "rev": "79c5920ec4af99639c653215ffcb3d8f1dff6982",
         "type": "github"
       },
       "original": {
@@ -378,11 +378,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1752603129,
-        "narHash": "sha256-S+wmHhwNQ5Ru689L2Gu8n1OD6s9eU9n9mD827JNR+kw=",
+        "lastModified": 1752783339,
+        "narHash": "sha256-RXxejsGIWtJ5rJKLAm8Kh159euZHPMi7CtbOoHLsm2c=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "e8c19a3cec2814c754f031ab3ae7316b64da085b",
+        "rev": "7c78e592a895f2f1921f0024848fe193e2f8518e",
         "type": "github"
       },
       "original": {
@@ -394,11 +394,11 @@
     "homepage": {
       "flake": false,
       "locked": {
-        "lastModified": 1752670405,
-        "narHash": "sha256-GpPTMYmgc5qmbEt/kiJ60zygOuL5oZ5Aiubwu3TSxAE=",
+        "lastModified": 1752692070,
+        "narHash": "sha256-lsxCzZK33bo32GDTJ8cJK4rMoqk9r3yjXaGya9SBLKo=",
         "ref": "refs/heads/mistress",
-        "rev": "e39f85f3a33d7988c88c2330c22a0ea44a176df5",
-        "revCount": 1,
+        "rev": "4b0ea40a7a3956a20d39e92925a49ca2efd17971",
+        "revCount": 2,
         "type": "git",
         "url": "ssh://git@git.gay/alina/alina.cx.git"
       },
@@ -453,7 +453,7 @@
     "kubernetes": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-Fc8DBgsJg6lG83KF7JCq00Fxyge+LA5LEalmOqyS7cw=",
+        "narHash": "sha256-kBq/CCDAnARQgz9WCIdmxy7xehm2+jvjGWsCu8kUaeM=",
         "type": "file",
         "url": "https://github.com/kubernetes/kubernetes"
       },
@@ -492,7 +492,7 @@
     "linuxStable": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-BEjDHBz6YUyZS2/ziOItbmuHtoni1AHlnsCi2GrSS5o=",
+        "narHash": "sha256-vI23XKugTSBItEfis+GwQmRbaxcTXJl98DkC8TO2Gf8=",
         "type": "file",
         "url": "https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git"
       },
@@ -510,11 +510,11 @@
         "spectrum": "spectrum"
       },
       "locked": {
-        "lastModified": 1752278584,
-        "narHash": "sha256-QaT8PpCR1IaUMa12ou2MlvNCzYVWgTQfVWJGXyFvY5c=",
+        "lastModified": 1752786490,
+        "narHash": "sha256-6Fo+gKE1yTiBnMMhHuU4WYLk6LZEd/ogeLymXzGpKe8=",
         "owner": "astro",
         "repo": "microvm.nix",
-        "rev": "f30ae9b9e740116d044935c9c0c68bd1c2ce8432",
+        "rev": "61fb45276ce0611def3d8de9d61d316ab5df7022",
         "type": "github"
       },
       "original": {
@@ -746,11 +746,11 @@
         "systems": "systems_6"
       },
       "locked": {
-        "lastModified": 1752546848,
-        "narHash": "sha256-WzHqmJ1wEZoUGAedomwcVLCuNsiB9bZzZXk7K9ZDBwk=",
+        "lastModified": 1752762787,
+        "narHash": "sha256-WZLSOR2Pei7C4nH/ntKUqOZOAa5rgvc2fVZl4RoEXmw=",
         "owner": "nix-community",
         "repo": "nixvim",
-        "rev": "1fb1bf8a73ccf207dbe967cdb7f2f4e0122c8bd5",
+        "rev": "bc0555c8694d43fb63ae2c7afec08b6987431a04",
         "type": "github"
       },
       "original": {

@@ -1,6 +1,8 @@
 {pkgs, ...}: {
     users.users.alina.packages = with pkgs; [
 	gcc
+  apktool
+  jadx
   mdbook
   jujutsu
   dotnetCorePackages.dotnet_9.sdk

@@ -1,4 +1,4 @@
-{ inputs, pkgs, lib, ... }: {
+{ inputs, pkgs, lib, config, ... }: {
   imports = [ inputs.nixvim.nixosModules.nixvim ];
   users.users.alina.packages = with pkgs; [
     ripgrep
@@ -13,7 +13,9 @@
     defaultEditor = true;
     colorschemes.cyberdream = {
       enable = true;
-      settings.transparent = true;
+      settings = {
+        transparent = true;
+      };
     };
     opts = {
       number = true;
@@ -24,12 +26,15 @@
       softtabstop = 2;
     };
     plugins = {
+      render-markdown.enable = true;
       lightline = {
         enable = true;
       };
       lsp.enable = true;
-      #actions-preview.enable = true;
-      #aerial.enable = true;
+      #neorg.enable = true;
+      typst-preview.enable = true;
+      actions-preview.enable = true;
+      aerial.enable = true;
     };
   };
 }

@@ -23,28 +23,18 @@ in {
     tunnel = {
       make = lib.mkOption { type = functionTo attrs; default = makeTunnel; };
       peers = lib.mkOption { 
-        type = nullOr 
-	  (listOf 
-	    (attrsOf 
-	      (either 
-		(enum 
-		  (attrNames nodes)
-		) 
-		path
-	      )
-	    )
-	  );
-	default = null;
-	example = [{
-	  peer = "eris";
-	  relPeerPublicKey = "/wireguard/eris/wg.public";
-	}];
+	      default = null;
+        type = nullOr (listOf submodule { options = {
+          host = lib.mkOption { type = enum (filter (x: x != name) (attrNames nodes)); };
+          publicKeyFile = lib.mkOption { type = path; };
+          fqdn = lib.mkOption { type = nullOr str; default = null; };
+          keepAlive = lib.mkOption { type = nullOr int; default = 25; };
+        }; });
       };
       rosenpass = lib.mkOption { type = bool; default = true; };
-      keepAlive = lib.mkOption { type = nullOr int; default = 25; };
       privateKeyFile = lib.mkOption {
         type = path; 
-	default = "/secrets/wireguard/${name}/wg.private"; 
+	      default = 1; 
       };
       publicKeyFile = lib.mkOption { 
         type = path; 
