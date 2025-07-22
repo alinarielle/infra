@@ -16,11 +16,12 @@ in {
 	  mkLocalMods = import ./lib/mkLocalMods.nix {inherit lib name;};
 	in {
 	    imports = [
-		inputs.home-manager.nixosModules.home-manager
-		(./. + "/hosts/${name}")
-		./lib
-		(mkLocalMods {prefix = ["l"]; dir = ./modules;})
-		inputs.sops-nix.nixosModules.sops
+        inputs.niri.nixosModules.niri
+        inputs.home-manager.nixosModules.home-manager
+        (./. + "/hosts/${name}")
+        ./lib
+        (mkLocalMods {prefix = ["l"]; dir = ./modules;})
+        inputs.sops-nix.nixosModules.sops
 	    ];
 	    deployment = lib.mkDefault {
 		targetUser = "root";

@@ -1,7 +1,7 @@
 {lib, nodes, pkgs, ...}: {    
   home-manager.users.alina.programs.ssh = {
     enable = true;
-    addKeysToAgent = "yes";
+    #addKeysToAgent = "yes";
     controlMaster = "no";
     hashKnownHosts = false;
     extraConfig = "";
@@ -30,7 +30,7 @@
       user = lib.mkDefault "alina";
     }) nodes;
   };
-  home-manager.users.alina.services.ssh-agent.enable = true;
+  #home-manager.users.alina.services.ssh-agent.enable = true;
   environment.systemPackages = [ pkgs.pam_rssh ];
   users.users.alina.openssh.authorizedKeys.keys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMIc3qKtsufY6gVK7UY7KleBaaEexspMtPpv+mGRDNGa alina@fairy"

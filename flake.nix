@@ -29,8 +29,10 @@
       lanzaboote.inputs.nixpkgs.follows = "nixpkgs";
       disko.url = "github:nix-community/disko/latest";
       disko.inputs.nixpkgs.follows = "nixpkgs";
-      cv = { url = "git+ssh://git@git.gay/alina/cv.git"; };
+      cv.url = "git+ssh://git@git.gay/alina/cv.git";
+      niri.url = "github:sodiboo/niri-flake";
       homepage = { url = "git+ssh://git@git.gay/alina/alina.cx.git"; flake = false; };
+      tasks.url = "/home/alina/src/tasks.nix/";
     };
 
     outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } {

@@ -22,5 +22,5 @@
     interface = "enp41s0";
   };
 
-  l.services.firefly.enable = true;
+  #l.services.firefly.enable = true;
 }

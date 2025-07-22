@@ -1,6 +1,8 @@
 {pkgs, ...}: {
     users.users.alina.packages = with pkgs; [
 	proxychains
+  croc
+  rclone
 	magic-wormhole-rs
 	inetutils
 	tcpdump

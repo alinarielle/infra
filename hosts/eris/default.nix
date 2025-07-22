@@ -1,7 +1,8 @@
-{config, inputs, lib, ...}: with config.l.lib; {
+{config, inputs, lib, pkgs, ...}: with config.l.lib; {
   imports = [
     ./hardware-configuration.nix
     ./disko.nix
+    inputs.tasks.nixosModules.default
   ];
   l.profiles = enable ["shell"];
   system.stateVersion = "25.05";
@@ -10,4 +11,5 @@
     homepage.enable = true;
   };
   deployment.targetHost = "168.119.108.235";
+  tasks.test.exec = [pkgs.hello];
 }

@@ -6,7 +6,7 @@
     defaultCacheTtl = 1800;
     enableExtraSocket = false;
     grabKeyboardAndMouse = true;
-    pinentry.package = pkgs.pinentry-tty;
+    pinentry.package = pkgs.pinentry-qt;
     sshKeys = null; #TODO
     extraConfig = ''
       allow-loopback-pinentry
