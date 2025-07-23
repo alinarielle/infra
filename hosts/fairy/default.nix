@@ -6,4 +6,5 @@
   l.profiles = enable ["desktop" "gaming"];
   #l.kernel.hardened.enable = true;
   system.stateVersion = "25.05";
+  deployment.targetHost = "localhost";
 }
