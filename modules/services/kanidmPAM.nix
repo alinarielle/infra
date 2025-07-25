@@ -1,6 +1,6 @@
 {name, pkgs, lib, ...}: {
   services.kanidm = {
-    enablePAM = true;
+    enablePam = true;
     unixSettings = {
       version = "2";
       default_shell = lib.getExe pkgs.zsh;

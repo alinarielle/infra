@@ -1,31 +1,43 @@
-{lib, ...}: {
-  l.folders.create = lib.mergeAttrs 
-  (lib.genAttrs [
-    "/home/alina/ebooks"
-    "/home/alina/docs"
-    "/home/alina/notes"
-    "/home/alina/zet"
-    "/home/alina/videos"
-    "/home/alina/pics"
-    "/home/alina/src"
-    "/home/alina/music"
-    "/home/alina/masks"
-  ] (name: {
-    group = "alina";
-    user = "alina";
-    mode = "770";
-  }))
-  {
-    "/home/alina" = {
-      group = "alina";
-      user = "alina";
-      mode = "550";
-    };
-    "/home/alina/dl" = {
-      group = "alina";
-      user = "alina";
-      mode = "770";
-      persist = false;
+{config, lib, ...}: {
+  sops.secrets = lib.genAttrs 
+    [
+      "tigris_access_key_id"
+      "tigris_secret_access_key"
+      "tigris_crypt_obscured_passphrase"
+      "tigris_crypt_obscured_salt"
+    ]
+    (secret: { 
+      owner = "alina"; 
+      sopsFile = ../../secrets/global.yaml; 
+    });
+  home-manager.users.alina.programs.rclone = {
+    enable = true;
+    remotes = {
+      tigris = {
+        config = {
+          type = "s3";
+          provider = "Other";
+          endpoint = "https://t3.storage.dev";
+        };
+        secrets = {
+          secret_access_key = config.sops.secrets.tigris_secret_access_key.path;
+          access_key_id = config.sops.secrets.tigris_access_key_id.path;
+        };
+      };
+      tigris_crypt = {
+        config = {
+          type = "crypt";
+          remote = "tigris:woof/";
+        };
+        mounts."woof/" = {
+          enable = true;
+          mountPoint = "/home/alina/mnt/tigris";
+        };
+        secrets = {
+          password = config.sops.secrets.tigris_crypt_obscured_passphrase.path;
+          password2 = config.sops.secrets.tigris_crypt_obscured_salt.path;
+        };
+      };
     };
   };
 }

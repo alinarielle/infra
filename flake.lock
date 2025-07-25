@@ -1108,16 +1108,14 @@
         "nixpkgs": "nixpkgs_8"
       },
       "locked": {
-        "dirtyRev": "cdccbafed7a75a694c854eabf9834a94dfcf5872-dirty",
-        "dirtyShortRev": "cdccbaf-dirty",
-        "lastModified": 1753193441,
-        "narHash": "sha256-U8vjzQ6R0kstIK2Ze2rx+iz2b0tDEGi82JveemcPVKg=",
-        "type": "git",
-        "url": "file:///home/alina/src/tasks.nix"
+        "lastModified": 1753205871,
+        "narHash": "sha256-zrFW0QzvXTI0dsPEL51jeWTO3NajYVv9Sw6QhteyW/s=",
+        "path": "/home/alina/src/tasks.nix/",
+        "type": "path"
       },
       "original": {
-        "type": "git",
-        "url": "file:///home/alina/src/tasks.nix"
+        "path": "/home/alina/src/tasks.nix/",
+        "type": "path"
       }
     },
     "xwayland-satellite-stable": {

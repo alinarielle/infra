@@ -1,4 +1,4 @@
-{opt, cfg, lib, ...}: {
+{config, opt, cfg, lib, ...}: {
   opt.oauth2 = lib.mkOption { default = {}; type = lib.types.attrs; };
   sops.secrets.kanidm_admin_password = {};
   services.kanidm = {

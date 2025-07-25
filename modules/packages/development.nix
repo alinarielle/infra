@@ -24,6 +24,7 @@
 	colmena
 	apktool
 	rustup
+  cargo-expand
 	#chntpw
 	fnm
         rustup

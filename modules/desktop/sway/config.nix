@@ -21,7 +21,7 @@ in {
   ];
   l.desktop.common = config.l.lib.enable [
     "audio" "bluetooth" "cursor" "fonts" "home-manager" "hyfetch" "kitty" "mime"
-    "librewolf" "mako" "printing" "nix-daemon" "theme" "wayland" "zathura"
+    "librewolf" "mako" "printing" "nix-daemon" "theme" "wayland" "zathura" "music"
   ];
   l.packages = config.l.lib.enable ["desktop"];
   home-manager.users.alina = {
