@@ -1,5 +1,5 @@
 {
-  l.filesystem.rclone.enable = true;
+  l.users.alina.rclone.enable = true;
   home-manager.users.alina = {
     xdg.userDirs.music = "/home/alina/mnt/tigris/music";
     services.mpd = {

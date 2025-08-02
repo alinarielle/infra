@@ -4,7 +4,7 @@
   services.openssh = {
     enable = true;
     openFirewall = true;
-    allowSFTP = false;
+    allowSFTP = true;
     extraConfig = ''
       AllowTcpForwarding yes
       AllowAgentForwarding no

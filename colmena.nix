@@ -20,6 +20,7 @@ in {
         inputs.home-manager.nixosModules.home-manager
         (./. + "/hosts/${name}")
         ./lib
+        ./rclone.nix
         (mkLocalMods {prefix = ["l"]; dir = ./modules;})
         inputs.sops-nix.nixosModules.sops
 	    ];

@@ -1,9 +1,6 @@
 {config, ...}: with config.l.lib; {
   l.sops.enable = true;
   l.boot = enable ["systemd-boot"];
-  l.filesystem = enable [
-    "rclone"
-  ];
   l.packages = enable [
     "archive" 
     "base" 
@@ -25,6 +22,7 @@
     "newsboat"
     "ranger"
     "emacs"
+    "rclone"
   ];
   l.users.root = enable [
     "home-manager"

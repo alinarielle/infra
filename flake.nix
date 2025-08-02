@@ -32,7 +32,8 @@
       cv.url = "git+ssh://git@git.gay/alina/cv.git";
       niri.url = "github:sodiboo/niri-flake";
       homepage = { url = "git+ssh://git@git.gay/alina/alina.cx.git"; flake = false; };
-      tasks.url = "/home/alina/src/tasks.nix/";
+      #tasks.url = "/home/alina/mnt/tigris/home/alina/src/tasks.nix/";
+      #multi-homed.url = "/home/alina/mnt/tigris/home/alina/src/multi-homed.nix/";
     };
 
     outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } {
