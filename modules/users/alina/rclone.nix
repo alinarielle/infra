@@ -11,17 +11,24 @@
       sopsFile = ../../secrets/global.yaml; 
     });
 
-  multi-homed.alina = {
-    s3 = {
-      enable = true;
-      accessKey = config.sops.secrets.tigris_access_key_id.path;
-      secretAccessKey = config.sops.secrets.tigris_secret_access_key.path;
-      encryptedRemotePassphrase = config.sops.secrets.tigris_crypt_obscured_passphrase.path;
-      encryptedRemoteSalt = config.sops.secrets.tigris_crypt_obscured_salt.path;
-      bucketName = "woof";
-      provider = "Other";
+  multi-homed.mounts."/home/alina/music" = {
+    user = "alina";
+    remotes = [{
+      type = "crypt";
+      flags = {
+        crypt-password = config.sops.secrets.tigris_crypt_obscured_passphrase.path;
+        crypt-password2 = config.sops.secrets.tigris_crypt_obscured_salt.path;
+        crypt-remote = "tigris:woof/";
+      };
+    }{
       type = "s3";
-      endpoint = "https://t3.storage.dev";
-    };
+      name = "tigris";
+      flags = {
+        s3-access-key = config.sops.secrets.tigris_access_key_id.path;
+        s3-secret-access-key = config.sops.secrets.tigris_secret_access_key.path;
+        s3-endpoint = "t3.storage.dev";
+        s3-provider = "Other";
+      };
+    }];
   };
 }

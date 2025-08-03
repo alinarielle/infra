@@ -87,10 +87,10 @@ in {
       age = "-";
     }; }) cfg;
 
-    xdg.{
+    home-manager.users.alina.xdg = {
       enable = true;
       desktopEntries = mapAttrs (key: val: let
-        script = writeShellApplication {
+        script = pkgs.writeShellApplication {
           name = key;
           runtimeInputs = [pkgs.systemdMinimal];
           text = ''
