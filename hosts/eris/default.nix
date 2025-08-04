@@ -2,7 +2,6 @@
   imports = [
     ./hardware-configuration.nix
     ./disko.nix
-    inputs.tasks.nixosModules.default
   ];
   l.profiles = enable ["shell"];
   system.stateVersion = "25.05";

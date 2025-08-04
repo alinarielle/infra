@@ -1,7 +1,9 @@
-{lib, pkgs, config, ...}: let
+{lib, pkgs, config, utils,...}: let
   inherit (lib)
     mkOption
     mapAttrs
+    mapAttrs'
+    nameValuePair
     filter
     splitString
     readFile
@@ -10,26 +12,32 @@
     tail
     reverseList
     hasInfix
-    imap
     foldAttrs
     hasPrefix
     filterAttrs
     length
     hasSuffix
     hasAttr
-    fold'
+    foldl'
     toUpper
     replaceStrings
-    toString
     attrNames
     removePrefix
     attrValues
     substring
+    mkEnableOption
+    mkPackageOption
+    getExe
+    foldr
+    mkForce;
+  inherit (builtins) 
+    toString
     hashString;
+  inherit (utils) escapeSystemdExecArgs;
   inherit (lib.cli) toGNUCommandLine;
-  rclone = lib.getExe pkgs.rclone;
-  rg = lib.getExe pkgs.ripgrep;
-  cfg = config.multi-homed;
+  rg = getExe pkgs.ripgrep;
+  cfg = config.rclone;
+  rclone = getExe pkgs.rclone;
   parseFlags = file:  mapAttrs 
     (key: val: with lib.types; mkOption { 
       description = val; 
@@ -77,7 +85,9 @@
       )
     );
 in {
-  options.multi-homed = with lib.types; {
+  options.rclone = with lib.types; {
+    enable = mkEnableOption "rclone";
+    package = mkPackageOption pkgs "rclone" {};
     updateRemoteFlags = mkOption { 
       type = package; 
       default = pkgs.writeShellScript 
@@ -90,19 +100,14 @@ in {
         "update rclone mount flags"
         "${rclone} mount | ${rg} -e "--" | head -n -1 | tail -n 77  > rclone-mount-flags.txt";
     };
-    cacheDir = lib.mkOption {
-      type = nullOr path;
-      default = "/persist/cache/rclone";
-      description = ''
-        the directory to use as VFS cache, will be created using systemd.tmpfiles.settings.
-        make sure to put this on a fast storage disk on which you want to cache your files.
-        set to null to not cache any files (not recommended)
-      '';
-    };
     mounts = mkOption {
       type = attrsOf (submodule {
         options = {
-          user = mkOption { type = nullOr str; default = null; };
+          user = mkOption { 
+            type = nullOr str; 
+            default = "root"; 
+            description = "user name that will be passed to fusemount3 as `-o UserName=user123`";
+          };
           flags = parseFlags ./rclone-mount-flags.txt;
           remotes = mkOption {
             type = listOf (submodule {
@@ -126,21 +131,20 @@ in {
     };
   };
   imports = [ ./tasks.nix ];
-  config = {
-    programs.fuse.userAllowOther = true;
-
-    systemd.tmpfiles.settings."vfsCache".${cfg.cacheDir}.d = {
-      user = "root"; group = "root"; type = "d"; age = "-"; mode = "0755";
+  config = lib.mkIf cfg.enable {
+    programs.fuse = {
+      userAllowOther = true;
+      mountMax = 32000;
     };
 
-    tasks = mapAttrs (path: val: with val; let
+    systemd.services = mapAttrs (path: val: with val; let
       pathID = substring 0 4 (hashString "sha256" path);
-      linkedRemotes = foldr 
+      linkedRemotes = foldl' 
         (acc: elem: acc ++ [{
           inherit (elem) type;
           name = if (elem).name != null
             then (elem).name
-            else "remote${length acc}" + pathID;
+            else "remote${toString (length acc)}" + pathID;
           flags = (filterAttrs
             (k: v: hasPrefix 
               elem.type 
@@ -148,9 +152,9 @@ in {
             ) 
             (mapAttrs 
               (k: v: if hasSuffix "remote" k
-                then if null == (head acc)
+                then if null != (head acc).name
                   then (head acc).name
-                  else "remote${(length acc) - 1}" + pathID
+                  else "remote${toString ((length acc) - 1)}" + pathID
                 else v
               ) 
               elem.flags
@@ -158,14 +162,16 @@ in {
           );
         }])
         [] 
-        (val.remotes);
-    in {
-      unix = { 
-        inherit user;
-        group = user;
-      };
+        (reverseList val.remotes);
 
-      environment = (fold'
+      topRemote = (head (reverseList linkedRemotes)).name;
+      unitName = "rclone-mount-${topRemote}-${pathID}.service";
+    in {
+      name = mkForce unitName;
+      preStart = ''
+        read 
+      ''; #TODO use concatMapStringSep to source env vars from /run/credentials
+      environment = (foldl'
         (acc: elem: acc // mapAttrs' 
           (name: value: nameValuePair
             ("RCLONE_" + toUpper (replaceStrings
@@ -176,7 +182,6 @@ in {
             (value)
           ) 
           ({
-            cache-dir = cfg.cacheDir; # use this directory as VFS cache
             vfs-cache-mode = "full"; # cache everything
             vfs-cache-max-age = "off"; # dont remove stale objects from cache
             vfs-cache-min-free-space = "25G";  # make sure there is still 25GB of storage available 
@@ -189,19 +194,18 @@ in {
             vfs-read-chunk-size-limit = "off";  # if greater than --vfs-read-chunk-size, 
                                                 # double the chunk size after each chunk read, 
                                                 # until the limit is reached ('off' is unlimited)
-            vfs-read-chunk-streams = 16; # number of concurrent read ahead chunk downloads
+            vfs-read-chunk-streams = "16"; # number of concurrent read ahead chunk downloads
             vfs-refresh = "true"; # refresh the directory cache recursively on mount
             links = "true"; # enable support for symlinks
             vfs-links = "true"; # enable support for symlinks in the VFS caching layer
-            transfers = 4; # the number of concurrent file uploads from cache
+            transfers = "4"; # the number of concurrent file uploads from cache
             #vfs-used-is-size = true; # may be very expensive 
                                       # due to excessive API calls for rclone size in S3 backends
             vfs-write-back = "1s"; # time to write back files from cache after they have been used
             write-back-cache = "true";  # makes kernel buffer writes before sending them to rclone. 
                                       # without this, writethrough caching is used
             allow-non-empty = "true"; # allow mounting over a non-empty directory
-            allow-root = "true"; # allow access to root user
-            allow-other = "false"; # dont allow other users to see this mount
+            #allow-other = "false"; # dont allow other users to see this mount
             async-read = "true"; # use asyncronous reads
             attr-timeout = "1s";  # cache file attributes for 1 second in the kernel 
                                   # to avoid excessive callbacks to rclone
@@ -209,6 +213,10 @@ in {
             dir-cache-time = "5m0s"; # time to cache directories for
             poll-interval = "5s"; # time to wait between polling for changes
                                   # must be smaller than dir-cache-time
+            s3-directory-markers = "true";
+            syslog = "true";
+            config = "/dev/null";
+            fuse-flag = "'-o UserName=${val.user}'";
           } // filterAttrs 
             (k: v: v != null) 
             val.flags
@@ -220,37 +228,53 @@ in {
               ["_"] 
               name
             ))
-            (if hasPrefix "/run/secrets/" value 
-              then "%d/" + removePrefix "/run/secrets/"
+            (if (substring 0 13 value) == "/run/secrets/"
+              then "/run/credentials/${unitName}/" + removePrefix "/run/secrets/" value
               else value
             )
           ) 
           ({
-            s3-directory-markers = "true";
-          } // filterAttrs 
+            type = elem.type;
+          } // mapAttrs' (name: value: 
+            nameValuePair
+              (removePrefix (elem.type + "-") name)
+              value
+          ) (filterAttrs 
             (k: v: v != null) 
             elem.flags
-          )
+          ))
         ) 
         {}
         linkedRemotes);
 
-      exec = [ 
-        rclone 
-        "mount" 
-        "${(head linkedRemotes).name}:"
-        key 
-      ];
+      wants = ["networking.target"];
+      wantedBy = ["multi-user.target"];
+      unitConfig.Type = "notify";
+      serviceConfig = {
+        ExecStart = escapeSystemdExecArgs [ 
+          (getExe cfg.package)
+          "mount" 
+          "${topRemote}:"
+          path 
+        ];
+        
+        path = [cfg.package];
 
-      extraConfig.serviceConfig.LoadCredential = fold'
-        (acc: elem: acc ++ map
-          (x: (removePrefix "/run/secrets/" x) + ":" + x)
-          (filter 
-            (x: hasPrefix "/run/secrets/" x) 
-            (attrValues elem.flags))
-        ) 
-        [] 
-        linkedRemotes;
+        Restart = "on-failure";
+        RestartSec = "10s";
+        #StartLimitBurst = 1;
+        #StartLimitIntervalSec = "10s";
+
+        LoadCredential = foldl'
+          (acc: elem: acc ++ map
+            (x: (removePrefix "/run/secrets/" (toString x)) + ":" + x)
+            (filter 
+              (x: (substring 0 13 (toString x)) == "/run/secrets/") 
+              (attrValues elem.flags))
+          ) 
+          [] 
+          linkedRemotes;
+        };
     }) cfg.mounts;
   };
 }
