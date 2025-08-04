@@ -29,7 +29,9 @@
     mkPackageOption
     getExe
     foldr
-    mkForce;
+    mkForce
+    concatMapAttrsStringSep
+    any;
   inherit (builtins) 
     toString
     hashString;
@@ -140,47 +142,108 @@ in {
     systemd.services = mapAttrs (path: val: with val; let
       pathID = substring 0 4 (hashString "sha256" path);
       linkedRemotes = foldl' 
-        (acc: elem: acc ++ [{
-          inherit (elem) type;
+        (acc: elem: let
+          flagsSubstSecrets = remote: mapAttrs 
+            (k: v: let
+              getSecret = pkgs.writeScript "getSecret" ''
+                ${pkgs.uutils-coreutils-noprefix}/bin/cat ${v}
+              '';
+            in
+              if (substring 0 13 v) == "/run/secrets/"
+                then "$(${getSecret})"
+                else v
+            ) 
+            (filterAttrs 
+              (k: v: v != null) 
+              remote.flags
+            );
+
+          flagsSubstSecretsPrev = flagsSubstSecrets (head acc);
+
+          flagsSubstSecretsCurrent = flagsSubstSecrets elem;
+
+          getConStr = name:
+            name
+            + ","
+            + (concatMapAttrsStringSep
+                ","
+                (flag: flagValue:
+                  ''${flag}="${flagValue}"''
+                )
+                flagsSubstSecretsPrev
+              )
+            + ":";
+
           name = if (elem).name != null
             then (elem).name
             else "remote${toString (length acc)}" + pathID;
+
+          prevRemoteName = if null != (head acc).name
+            then (head acc).name
+            else "remote${toString ((length acc) - 1)}" + pathID;
+
+        in acc ++ [{
+          inherit name;
+          inherit (elem) type;
+          conStr = getConStr name;
           flags = (filterAttrs
             (k: v: hasPrefix 
               elem.type 
               k
             ) 
-            (mapAttrs 
-              (k: v: if hasSuffix "remote" k
-                then if null != (head acc).name
-                  then (head acc).name
-                  else "remote${toString ((length acc) - 1)}" + pathID
+            (mapAttrs
+              (k: v: let
+              in if hasSuffix "remote" k
+                then getConStr prevRemoteName
                 else v
               ) 
-              elem.flags
+              flagsSubstSecretsCurrent
             )
           );
         }])
         [] 
         (reverseList val.remotes);
 
-      topRemote = (head (reverseList linkedRemotes)).name;
-      unitName = "rclone-mount-${topRemote}-${pathID}.service";
-    in {
-      name = mkForce unitName;
-      preStart = ''
-        read 
-      ''; #TODO use concatMapStringSep to source env vars from /run/credentials
-      environment = (foldl'
-        (acc: elem: acc // mapAttrs' 
-          (name: value: nameValuePair
-            ("RCLONE_" + toUpper (replaceStrings
-              ["-"]
-              ["_"]
-              name
-            ))
-            (value)
+      topRemoteName = (head (reverseList linkedRemotes)).name;
+      topRemoteConStr = (head (reverseList linkedRemotes)).conStr;
+      allRemoteFlags = foldl' 
+        (acc: remote: acc // mapAttrs'
+          (flagName: flagValue:
+            nameValuePair
+              ("RCLONE_CONFIG_"
+                + toUpper remote.name
+                + "_"
+                + toUpper 
+                  (replaceStrings
+                    ["-"]
+                    ["_"]
+                    (removePrefix "${remote.type}-" flagName)
+                  )
+              )
+              flagValue
           ) 
+          remote.flags
+        ) 
+        {} 
+        linkedRemotes;
+      unitName = "rclone-mount-${topRemoteName}-${pathID}.service";
+      mountScript = 
+        ((concatMapAttrsStringSep
+          "\n"
+          (k: v: "local ${k}=${v}")
+          allRemoteFlags
+        )
+        + concatMapAttrsStringSep 
+          "\n" 
+          (k: v: 
+            "local RCLONE_" 
+              + toUpper (replaceStrings
+                ["-"]
+                ["_"]
+                k
+              ) 
+              + "=${v}"
+          )
           ({
             vfs-cache-mode = "full"; # cache everything
             vfs-cache-max-age = "off"; # dont remove stale objects from cache
@@ -221,60 +284,22 @@ in {
             (k: v: v != null) 
             val.flags
           )
-        // mapAttrs' 
-          (name: value: nameValuePair 
-            ("RCLONE_CONFIG_${toUpper elem.name}_" + toUpper (replaceStrings 
-              ["-"] 
-              ["_"] 
-              name
-            ))
-            (if (substring 0 13 value) == "/run/secrets/"
-              then "/run/credentials/${unitName}/" + removePrefix "/run/secrets/" value
-              else value
-            )
-          ) 
-          ({
-            type = elem.type;
-          } // mapAttrs' (name: value: 
-            nameValuePair
-              (removePrefix (elem.type + "-") name)
-              value
-          ) (filterAttrs 
-            (k: v: v != null) 
-            elem.flags
-          ))
-        ) 
-        {}
-        linkedRemotes);
-
+        + ''
+          ${getExe cfg.package} mount ${topRemoteConStr} ${path} -vv
+        ''
+      );
+    in {
+      name = mkForce unitName;
+      script = mountScript;
       wants = ["networking.target"];
       wantedBy = ["multi-user.target"];
       unitConfig.Type = "notify";
-      serviceConfig = {
-        ExecStart = escapeSystemdExecArgs [ 
-          (getExe cfg.package)
-          "mount" 
-          "${topRemote}:"
-          path 
-        ];
-        
-        path = [cfg.package];
-
+      serviceConfig = { 
         Restart = "on-failure";
         RestartSec = "10s";
         #StartLimitBurst = 1;
         #StartLimitIntervalSec = "10s";
-
-        LoadCredential = foldl'
-          (acc: elem: acc ++ map
-            (x: (removePrefix "/run/secrets/" (toString x)) + ":" + x)
-            (filter 
-              (x: (substring 0 13 (toString x)) == "/run/secrets/") 
-              (attrValues elem.flags))
-          ) 
-          [] 
-          linkedRemotes;
-        };
+      };
     }) cfg.mounts;
   };
 }
