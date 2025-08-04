@@ -34,7 +34,8 @@
     any;
   inherit (builtins) 
     toString
-    hashString;
+    hashString
+    throw;
   inherit (utils) escapeSystemdExecArgs;
   inherit (lib.cli) toGNUCommandLine;
   rg = getExe pkgs.ripgrep;
@@ -158,34 +159,30 @@ in {
               remote.flags
             );
 
-          flagsSubstSecretsPrev = flagsSubstSecrets (head acc);
+          getName = remote: if remote.name != null
+            then remote.name
+            else "remote" + toString (length acc) + pathID;
 
-          flagsSubstSecretsCurrent = flagsSubstSecrets elem;
+          getType = remote: if remote.type != null
+            then remote.type
+            else throw "the type for remote ${getName remote} must be set!";
 
-          getConStr = name:
-            name
+          getConStr = remote:
+            (getName remote)
             + ","
             + (concatMapAttrsStringSep
                 ","
                 (flag: flagValue:
-                  ''${flag}="${flagValue}"''
+                  ''${removePrefix (remote.type + "-") flag}="${flagValue}"''
                 )
-                flagsSubstSecretsPrev
+                (flagsSubstSecrets remote)
               )
             + ":";
 
-          name = if (elem).name != null
-            then (elem).name
-            else "remote${toString (length acc)}" + pathID;
-
-          prevRemoteName = if null != (head acc).name
-            then (head acc).name
-            else "remote${toString ((length acc) - 1)}" + pathID;
-
         in acc ++ [{
-          inherit name;
-          inherit (elem) type;
-          conStr = getConStr name;
+          name = getName elem;
+          conStr = getConStr elem;
+          type = getType elem;
           flags = (filterAttrs
             (k: v: hasPrefix 
               elem.type 
@@ -194,10 +191,10 @@ in {
             (mapAttrs
               (k: v: let
               in if hasSuffix "remote" k
-                then getConStr prevRemoteName
+                then getConStr (head acc)
                 else v
               ) 
-              flagsSubstSecretsCurrent
+              (flagsSubstSecrets elem)
             )
           );
         }])
@@ -222,17 +219,23 @@ in {
               )
               flagValue
           ) 
-          remote.flags
-        ) 
+          (remote.flags // {inherit (remote) type;})
+        )
         {} 
         linkedRemotes;
       unitName = "rclone-mount-${topRemoteName}-${pathID}.service";
-      mountScript = 
-        ((concatMapAttrsStringSep
+      mountScript = pkgs.writeShellScriptBin
+        "mount-${topRemoteName}-${pathID}"
+        (''
+          connect() {
+
+        '' 
+        + (concatMapAttrsStringSep
           "\n"
           (k: v: "local ${k}=${v}")
           allRemoteFlags
         )
+        + "\n"
         + concatMapAttrsStringSep 
           "\n" 
           (k: v: 
@@ -285,16 +288,21 @@ in {
             val.flags
           )
         + ''
+
           ${getExe cfg.package} mount ${topRemoteConStr} ${path} -vv
+
+          }
+
+          $(connect)
         ''
       );
     in {
       name = mkForce unitName;
-      script = mountScript;
       wants = ["networking.target"];
       wantedBy = ["multi-user.target"];
       unitConfig.Type = "notify";
-      serviceConfig = { 
+      serviceConfig = {
+        ExecStart = getExe mountScript;
         Restart = "on-failure";
         RestartSec = "10s";
         #StartLimitBurst = 1;
