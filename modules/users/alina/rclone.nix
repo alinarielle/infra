@@ -3,8 +3,8 @@
     [
       "tigris_access_key_id"
       "tigris_secret_access_key"
-      "tigris_crypt_passphrase"
-      "tigris_crypt_salt"
+      "tigris_crypt_obscured_passphrase"
+      "tigris_crypt_obscured_salt"
     ]
     (secret: { 
       owner = "alina"; 
@@ -16,8 +16,8 @@
     remotes = [{
       type = "crypt";
       flags = {
-        crypt-password = config.sops.secrets.tigris_crypt_passphrase.path;
-        crypt-password2 = config.sops.secrets.tigris_crypt_salt.path;
+        crypt-password = config.sops.secrets.tigris_crypt_obscured_passphrase.path;
+        crypt-password2 = config.sops.secrets.tigris_crypt_obscured_salt.path;
         crypt-remote = "tigris:woof/";
       };
     }{
