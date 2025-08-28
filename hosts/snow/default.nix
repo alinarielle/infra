@@ -21,6 +21,6 @@
     address = "fe80::1";
     interface = "enp41s0";
   };
-
-  #l.services.firefly.enable = true;
+  l.services = enable ["kanidm" "forgejo"];
+  l.db.enable = true;
 }

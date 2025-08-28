@@ -1,6 +1,7 @@
 keys: &all
   - &snow age1p0vw2swzp6r7wlckxkwzl8avghuudm54a2szegytmd4v97ujufus96slrq
   - &fairy age16qrdxpn4z0k0aaseyllwu3pxpj6tcft6t8lrk3avh7k9ck84sc5spasx7r
+  - &eris age1jp3a7g0jgsptypnx6raw8e7vn4hvf0963vsdl5mh2cdac5demgrschrh5k
   - &alina age1ux0vc6ylcxjgs7s8at6sxrdzz2zj4fvs6l46udn765yr44hrnv2sfrsj7p
 creation_rules:
 - path_regex: 'secrets/[^/]+\.(yaml|json|env|ini)$'

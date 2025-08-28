@@ -1,5 +1,6 @@
 {config, ...}: with config.l.lib; {
   l.sops.enable = true;
+  l.autoUpgrade.enable = true;
   l.boot = enable ["systemd-boot"];
   l.packages = enable [
     "archive" 
@@ -8,7 +9,9 @@
     "filesystem"
     "miscellaneous"
     "networking"
+    "coreutils"
   ];
+  l.users.sudo.enable = true;
   l.users.alina = enable [
     "git"
     "home-manager"

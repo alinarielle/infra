@@ -1,32 +1,177 @@
-{lib, config, name, ...}: {
+{lib, config, name, pkgs,  ...}: {
   home-manager.users.alina = {
     programs.librewolf = {
       enable = true;
       settings = {
         "identity.fxaccounts.enable" = true;
-	"identity.fxaccounts.enabled" = true;
-	"identity.fxaccounts.device.name" = "alina's librewolf on " + name;
-	#"identity.fxaccounts.autoconfig.uri" = "https://ffsync.alina.cx/";
-	#"identity.fxaccounts.remote.root = "https://ffsync.alina.cx/";
-	#"identity.fxaccounts.auth.uri" = "https://api.ffsync.alina.cx/v1";
+        "identity.fxaccounts.enabled" = true;
+        "identity.fxaccounts.device.name" = "alina's librewolf on " + name;
+        #"identity.fxaccounts.autoconfig.uri" = "https://ffsync.alina.cx/";
+        #"identity.fxaccounts.remote.root = "https://ffsync.alina.cx/";
+        #"identity.fxaccounts.auth.uri" = "https://api.ffsync.alina.cx/v1";
 
-	"browser.tabs.insertAfterCurrent" = true;
-	"browser.bookmarks.editDialog.showForNewBookmarks" = false;
-	"browser.search.suggest.enabled" = true;
-	"pdfjs.viewerCssTheme" = 2;
-	"network.http.referer.XOriginPolicy" = 2;
-	"privacy.clearOnShutdown.history" = false;
-	"privacy.clearOnShutdown.downloads" = false;
-	"security.OCSP.require" = false;
-	"privacy.clearOnShutdown.cookies" = true;
-	"svg.context-properties.content.enabled" = true;
+        "browser.tabs.insertAfterCurrent" = true;
+        "browser.bookmarks.editDialog.showForNewBookmarks" = false;
+        "browser.search.suggest.enabled" = true;
+        "pdfjs.viewerCssTheme" = 2;
+        "network.http.referer.XOriginPolicy" = 2;
+        "privacy.clearOnShutdown.history" = false;
+        "privacy.clearOnShutdown.downloads" = false;
+        "security.OCSP.require" = false;
+        "privacy.clearOnShutdown.cookies" = true;
+        "svg.context-properties.content.enabled" = true;
+        "browser.display.background_color" = "#000000";
+        "browser.display.foreground_color" = "ffffff";
 
-	# force enable GPU acceleration
-	"gfx.webrender.all" = true;
+        # force enable GPU acceleration
+        "gfx.webrender.all" = true;
 
-	# Hide the "sharing indicator", it's especially annoying
-	# with tiling WMs on wayland
-	"privacy.webrtc.legacyGlobalIndicator" = false;
+        # Hide the "sharing indicator", it's especially annoying
+        # with tiling WMs on wayland
+        "privacy.webrtc.legacyGlobalIndicator" = false;
+      };
+      profiles.default = {
+        search = {
+          enable = true;
+          force = true;
+          default = "kagi";
+          engines = {
+            nixos-options = {
+              name = "NixOS Options";
+              urls = [{
+                template = "https://search.nixos.org/options";
+                params = [
+                  { name = "channel"; value = "unstable"; }
+                  { name = "query"; value = "{searchTerms}"; }
+                ];
+              }];
+              icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+              definedAliases = [ "nixon" ];
+            };
+            nix-packages = {
+              name = "Nix Packages";
+              urls = [{
+                template = "https://search.nixos.org/packages";
+                params = [
+                  { name = "type"; value = "packages"; }
+                  { name = "query"; value = "{searchTerms}"; }
+                ];
+              }];
+
+              icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+              definedAliases = [ "nixp" ];
+            };
+            nixos-wiki = {
+              name = "NixOS Wiki";
+              urls = [{ template = "https://wiki.nixos.org/w/index.php?search={searchTerms}"; }];
+              iconMapObj."16" = "https://wiki.nixos.org/favicon.ico";
+              definedAliases = [ "nw" ];
+            };
+
+            bing.metaData.hidden = true;
+            google.metaData.hidden = true;
+            metager.metaData.hidden = true;
+
+            kagi = {
+              name = "Kagi";
+              urls = [{
+                template = "https://kagi.com/search";
+                params = [{
+                  name = "q"; value = "{searchTerms}";
+                }];
+                definedAliases = [ "kagi" ];
+                iconMapObj."16" = "https://kagi.com/favicon.ico";
+              }];
+            };
+            nixvim = {
+              name = "Nixvim";
+              definedAliases = ["nv"];
+              urls = [{
+                template = "https://nix-community.github.io/nixvim/search/";
+                params = [
+                  { name = "query"; value = "{searchTerms}"; }
+                  { name = "option"; value = "{searchTerms}"; }
+                ];
+              }];
+              iconMapObj."16" = "https://nix-community.github.io/favicon.ico";
+            };
+            crates = {
+              name = "crates.io";
+              definedAliases = ["crate"];
+              urls = [{
+                template = "https://crates.io/search/?q={searchTerms}";
+              }];
+              iconMapObj."16" = "https://crates.io/favicon.ico";
+            };
+            hm = {
+              name = "Home Manager Options";
+              definedAliases = ["nixo"];
+              urls = [{
+                template = "https://home-manager-options.extranix.com/";
+                params = [
+                  { name = "query"; value = "{searchTerms}"; }
+                  { name = "release"; value = "master"; }
+                ];
+              }];
+              iconMapObj."16" = "https://home-manager-options.extranix.com/favicon.ico"; 
+            };
+            rfc = {
+              name = "IETF datatracker";
+              definedAliases = ["rfc"];
+              urls = [{
+                template = "https://datatracker.ietf.org/doc/html/rfc{searchTerms}";
+              }];
+              iconMapObj."16" = "https://ietf.org/favicon.ico";         
+            };
+            "1337x" = {
+              name = "1337x.to";
+              definedAliases = ["arr"];
+              urls = [{
+                template = "https://1337x.to/search/{searchTerms}/1/";
+              }];
+              iconMapObj."16" = "https://1337x.to/favicon.ico";
+            };
+          };
+        };
+        userChrome = ''
+          #sidebar-splitter, so #sidebar-splitter { display: none; }
+          /* Hide scrollbar in FF Quantum */
+          *{scrollbar-width:none !important}
+
+          /* Hide tab bar in FF Quantum */
+          @-moz-document url(chrome://browser/content/browser.xul), url(chrome://browser/content/browser.xhtml) {
+            #TabsToolbar {
+              visibility: collapse !important;
+              margin-bottom: 21px !important;
+            }
+          
+            #sidebar-box[sidebarcommand="treestyletab_piro_sakura_ne_jp-sidebar-action"] #sidebar-header {
+              visibility: collapse !important;
+            }
+          }
+          #main-window #TabsToolbar {
+              visibility: initial;
+          }
+
+          #main-window #TabsToolbar {
+              visibility: collapse !important;
+          }
+
+          #main-window #tabbrowser-tabs {
+              z-index: 0 !important;
+          }
+          :root {
+              --autohide-sidebar-width: 0px;
+              --uc-window-control-width: 0x; /* Space reserved for window controls */
+              --uc-window-drag-space-width: 0px; 
+              /* Extra space reserved on both sides of the nav-bar to be able to drag the window */
+              --uc-toolbar-height: 0px;
+              --autohide-sidebar-toolbar-height: var(--uc-toolbar-height, 0px); /* variable from hide_titlebar.css */
+          }
+          :root[sizemode="normal"] {
+              --autohide-sidebar-toolbar-height: var(--uc-toolbar-height, 0px); /* variable from hide_titlebar.css */
+          }
+        '';
       };
     };
   };

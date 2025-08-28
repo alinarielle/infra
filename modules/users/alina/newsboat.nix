@@ -4,6 +4,9 @@
     autoReload = true;
     browser = "${pkgs.xdg-utils}/bin/xdg-open";
     urls = [{
+      url = "http://127.0.0.1:1111/atom.xml";
+      title = "alina";
+    }{
       url = "https://soatok.blog/rss";
       title = "Soatok";
       tags = [ "cryptography" "security" "linux" "FOSS" ];

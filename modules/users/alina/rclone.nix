@@ -1,4 +1,5 @@
-{config, lib, ...}: {
+{config, lib, inputs, ...}: {
+  imports = [inputs.rclone.nixosModules.default];
   sops.secrets = lib.genAttrs 
     [
       "tigris_access_key_id"

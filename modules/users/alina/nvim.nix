@@ -30,8 +30,34 @@
       lightline = {
         enable = true;
       };
+      treesitter.enable = true;
       lsp.enable = true;
-      #neorg.enable = true;
+      gx = {
+        enable = true;
+
+      };
+      neorg = {
+        enable = true;
+        settings = {
+          load = {
+            "core.concealer" = {
+              config = {
+                icon_preset = "varied";
+              };
+            };
+            "core.defaults" = {
+              __empty = null;
+            };
+            "core.dirman" = {
+              config = {
+                workspaces = {
+                };
+              };
+            };
+          };
+        };
+
+      };
       typst-preview.enable = true;
       actions-preview.enable = true;
       aerial.enable = true;

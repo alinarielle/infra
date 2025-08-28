@@ -1,4 +1,4 @@
-{ lib, pkgs, config, ...}: let
+{ lib, pkgs, config, inputs, ...}: let
   wallpaper = (import ../../../pkgs/wallpaper {
     inherit (config.l.desktop.common.theme) colors;
     inherit lib pkgs;
@@ -20,7 +20,7 @@ in {
     slurp
   ];
   l.desktop.common = config.l.lib.enable [
-    "audio" "bluetooth" "cursor" "fonts" "home-manager" "hyfetch" "kitty" "mime"
+    "audio" "bluetooth" "cursor" "fonts" "home-manager" "hyfetch" "kitty" "mime" "kanshi"
     "librewolf" "mako" "printing" "nix-daemon" "theme" "wayland" "zathura" "music"
   ];
   l.packages = config.l.lib.enable ["desktop"];

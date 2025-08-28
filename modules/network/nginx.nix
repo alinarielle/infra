@@ -5,8 +5,9 @@
     tls = lib.mkOption { type = bool; default = true; };
     quic = lib.mkOption { type = bool; default = true; };
     locations = lib.mkOption { type = attrs; default = {}; };
+    iocaine = lib.mkEnableOption "pass everything through iocaine to block scrapers/bots";
   };});};
-  
+  #l.network.iocaine.enable = true;
   services.nginx = {
     enable = true;
     inherit (cfg) upstreams;
@@ -37,6 +38,25 @@
     virtualHosts = lib.mapAttrs (key: val: with val; {
       quic = quic;
       inherit root locations;
+      #locations = (lib.mapAttrs 
+        #(k: v: lib.mkIf val.iocaine 
+          #{
+            #proxyPass = "http://iocaine";
+            #proxyCache = "off";
+            #proxyInterceptErrors = "on";
+            #extraConfig = "error_page 421 = @fallback-${k}";
+          #}
+        #) 
+        #locations)
+      #// (lib.mapAttrs'
+        #(k: v: lib.mkIf val.iocaine 
+          #(lib.nameValuePair
+            #("@fallback-${name}")
+            #value
+          #)
+        #)
+        #locations)
+      #// (if val.iocaine then {} else locations);
       http3_hq = quic;
       enableACME = tls;
       kTLS = tls;

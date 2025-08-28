@@ -6,7 +6,6 @@
   tree
   lsd
   bat
-  mdcat
   hexyl
   lsof
   ranger

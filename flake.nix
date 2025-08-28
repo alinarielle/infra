@@ -9,6 +9,7 @@
           flake = false;
           url = "https://github.com/kubernetes/kubernetes";
       };
+      nix-topology.url ="github:oddlama/nix-topology";
       flake-parts.url = "github:hercules-ci/flake-parts";
       dns.url = "github:kirelagin/dns.nix";
       nixos-hardware.url = "github:NixOS/nixos-hardware/master"; 
@@ -30,15 +31,17 @@
       disko.url = "github:nix-community/disko/latest";
       disko.inputs.nixpkgs.follows = "nixpkgs";
       cv.url = "git+ssh://git@git.gay/alina/cv.git";
+      blog.url = "git+ssh://git@git.gay/alina/blog.alina.cx.git";
       niri.url = "github:sodiboo/niri-flake";
       homepage = { url = "git+ssh://git@git.gay/alina/alina.cx.git"; flake = false; };
       #tasks.url = "/home/alina/mnt/tigris/home/alina/src/tasks.nix/";
-      #multi-homed.url = "/home/alina/mnt/tigris/home/alina/src/multi-homed.nix/";
+      rclone.url = "/mnt/home/alina/src/rclone.nix/";
     };
 
     outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
           ./colmena.nix
+          inputs.nix-topology.flakeModule
       ];
       systems = ["x86_64-linux"];
     };

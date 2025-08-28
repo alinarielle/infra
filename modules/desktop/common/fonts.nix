@@ -56,6 +56,8 @@ in {
   fonts.packages = with pkgs; [
     roboto-slab
     lato
+    source-code-pro
+    (pkgs.callPackage ../../../pkgs/fa7.nix {})
   ] ++ map 
     (font: font)#patchNerdFont font ./svg) 
     (builtins.filter 

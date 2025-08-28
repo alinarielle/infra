@@ -23,14 +23,7 @@ in {
   };
   sops.secrets.FIREFLY_APP_KEY = { owner = "firefly"; };
   sops.secrets.FIREFLY_DB_PASSWORD = { owner = "firefly"; };
-  services.postgresql.enable = true;
-  services.postgresql.ensureDatabases = ["firefly"];
-  services.postgresql = {
-    ensureUsers = [{
-      name = "firefly";
-      ensureDBOwnership = true;
-    }];
-  };
+  l.db.ensure.firefly = {};
   users.users.firefly = {
     isSystemUser = true;
     group = "nginx";
@@ -49,7 +42,7 @@ in {
         ln -s ${dataDir}/storage $out/storage
         ln -s ${dataDir}/cache $out/bootstrap/cache
       '';
-    };
+   };
     enable = true;
     inherit dataDir;
     enableNginx = false;

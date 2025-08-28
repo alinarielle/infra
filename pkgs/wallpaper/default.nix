@@ -1,7 +1,7 @@
 {
   pkgs, 
   lib, 
-  colors, 
+  colors,
   ...
 }: let
   prev = "#00d9e4";

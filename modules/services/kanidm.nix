@@ -1,14 +1,28 @@
-{config, opt, cfg, lib, ...}: {
+{config, opt, cfg, lib, pkgs, ...}: {
   opt.oauth2 = lib.mkOption { default = {}; type = lib.types.attrs; };
+  opt.groups = lib.mkOption { default = {}; type = lib.types.attrs; };
   sops.secrets.kanidm_admin_password = {};
+  security.acme = {
+    acceptTerms = true;
+    certs."auth.alina.dog" = {
+      email = "alina@duck.com";
+      validMinDays = 10;
+      webroot = "/var/lib/acme/acme-challenge/";
+      group = "kanidm";
+    };
+  };
+
   services.kanidm = {
+    package = pkgs.kanidmWithSecretProvisioning;
     enableServer = true;
+    enableClient = true;
+    clientSettings.uri = "https://auth.alina.dog";
     serverSettings = {
-      bindaddress = "[::]:443";
+      bindaddress = "[::1]:8443";
       origin = "https://auth.alina.dog";
       domain = "auth.alina.dog";
-      tls_key = "";
-      tls_chain = "";
+      tls_key = "/var/lib/acme/auth.alina.dog/key.pem";
+      tls_chain = "/var/lib/acme/auth.alina.dog/fullchain.pem";
       log_level = "info";
     };
     provision = {
@@ -18,18 +32,21 @@
         present = true;
         mailAddresses = ["alina@duck.com"];
         legalName = "alina arielle amelie";
-        groups = ["admin" "idm_admins"];
         displayName = "alina";
       };
-      groups.admin = {
-        present = true;
-        overwriteMembers = true;
-        members = ["alina"];
-      };
+      groups = (lib.mapAttrs 
+        (key: val: {
+          present = true;
+          overwriteMembers = true;
+          members = ["alina"];
+        } // val) 
+        cfg.groups);
+
       systems.oauth2 = lib.mapAttrs (key: val: 
         {
           public = true;
           present = true;
+          enableLocalhostRedirects = true;
         } // val
       ) cfg.oauth2;
       idmAdminPasswordFile = config.sops.secrets.kanidm_admin_password.path;
@@ -37,4 +54,3 @@
     };
   };
 }
-# TODO: what the heck is a oauth2 resource server??
