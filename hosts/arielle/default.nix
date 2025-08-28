@@ -2,6 +2,7 @@
   imports = [
     ./disko.nix
     ./hardware-configuration.nix
+    inputs.nixos-hardware.nixosModules.framework-12-13th-gen-intel
   ];
   l.profiles = enable ["desktop" "gaming"];
   #l.kernel.hardened.enable = true;
