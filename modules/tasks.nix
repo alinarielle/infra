@@ -94,7 +94,7 @@
         CacheDirectoryMode = "0750";
               
         LogsDirectory = "${key}:/log";
-              LogsDirectoryMode = "0750";
+        LogsDirectoryMode = "0750";
 
         # new file permissions
         UMask = "0027"; # 0640 / 0750

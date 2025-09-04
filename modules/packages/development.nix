@@ -2,6 +2,8 @@
     users.users.alina.packages = with pkgs; [
       gcc
       imhex
+      eza
+      zoxide
       aha
       apktool
       zola

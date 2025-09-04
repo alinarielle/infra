@@ -28,6 +28,7 @@
     provision = {
       enable = true;
       autoRemove = true;
+      instanceUrl = "https://auth.alina.dog:8443";
       persons.alina = {
         present = true;
         mailAddresses = ["alina@duck.com"];

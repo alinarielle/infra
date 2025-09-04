@@ -35,7 +35,10 @@
       niri.url = "github:sodiboo/niri-flake";
       homepage = { url = "git+ssh://git@git.gay/alina/alina.cx.git"; flake = false; };
       #tasks.url = "/home/alina/mnt/tigris/home/alina/src/tasks.nix/";
-      rclone.url = "/mnt/home/alina/src/rclone.nix/";
+      rclone.url = "/home/alina/src/rclone.nix/";
+      rust-toolchain = { 
+        url = "https://git.gay/alina/rust-toolchain/archive/mistress.tar.gz"; 
+      };
     };
 
     outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } {

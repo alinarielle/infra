@@ -8,7 +8,7 @@ in {
   programs.sway.enable = true;
   programs.sway.package = pkgs.swayfx;
   programs.sway.extraPackages = with pkgs; let
-    flameshot = pkgs.flameshot.override { 
+    flameshot = pkgs.flameshot.override {
       enableWlrSupport = true;
       enableMonochromeIcon = false;
     };
