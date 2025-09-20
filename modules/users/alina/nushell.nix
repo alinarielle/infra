@@ -62,23 +62,56 @@
         em = "emacs -nw";
       };
       extraConfig = ''
+        source ~/.config/nix-your-shell.nu
         def deploy [host] {
           let pwd = (pwd); 
           j flake; 
-          nixos-rebuild switch --flake .#($host) --target-host $"root@($host)" --impure --log-format internal-json -v 
-            o+e>| nom --json 
-            | ignore; 
+          nixos-rebuild switch --flake .#($host) --target-host $"root@($host)" --impure --log-format internal-json -v o+e>| nom --json 
+          | ignore; 
           j $pwd
         }
-        def l [] { ls | get name | reduce {|it, acc| $acc + "\n" + $it } | ${lib.getExe pkgs.blahaj} | parse "{name}" | merge (ls | reject name)}
-        def nre [] { nix repl nixpkgs --show-trace --expr 'import ~/src/flake {}' }
-        source ~/.config/nix-your-shell.nu
         def update [host] {
           let pwd = (pwd); 
           j flake; 
           nix flake update;
           deploy $host;
           j $pwd;
+        }
+        def nre [] { 
+          nix repl nixpkgs --show-trace /home/alina/src/flake/
+        }
+        def l [] {
+          let dir = (
+          ls 
+          | get name 
+          | reduce { |it, acc| 
+              $acc + "\n" + $it 
+            } 
+          | ${lib.getExe pkgs.blahaj} 
+          | parse "{name}" 
+          | merge (ls | reject name));
+
+          $dir | select type | merge ($dir | reject type)
+        }
+        def mp [] {
+          fzf --ansi --no-sort --tac --layout=reverse-list -m --highlight-line --track --bind 'enter:become(
+            nu -e "job spawn { mpv {} --no-audio-display }; nu ~/src/dme.nu/mpv.nu"
+          )' --preview 'nu trackInfo.nu {}' --tmux --height=~50 --walker-root=/home/alina/music/
+        }
+        def net [] {
+          nmcli -c yes --mode tabular --fields SSID,FREQ,RATE,BARS,SECURITY,ACTIVE --terse d w l 
+          | parse '{ssid}:{frequency}:{rate}:{bars}:{security}:{active}' 
+          | table --collapse 
+          | fzf --header-lines 3 --ansi --track --no-sort --layout=reverse-list --height=100% -m --highlight-line --cycle --bind 'ctrl-r:reload-sync(nu nmcli.nu)' --delimiter │ --bind 'enter:become(nmcli d w c {2})' --header 'Press CTRL-R to reload' -n 2 --history ~/.cache/dme.nu/nmcli.txt;
+        }
+        def flacInfo [track] {
+          metaflac --show-all-tags --with-filename $track 
+          | lines
+          | split column -n 2 '=' key val
+          | each {|e| {($e.key | str downcase): $e.val} }
+          | into record 
+          | insert size (ls $track).size.0
+          | table --collapse
         }
       '';
     };

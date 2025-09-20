@@ -9,10 +9,7 @@
   l.network.hosts.enable = true;
   home-manager.users.alina.programs.ssh = {
     enable = true;
-    #addKeysToAgent = "yes";
-    controlMaster = "no";
-    hashKnownHosts = false;
-    extraConfig = "";
+    enableDefaultConfig = false;
     matchBlocks = {
       astolfo = {
         hostname = "astolfo.ip.fef.moe";
@@ -25,6 +22,9 @@
       };
     }
     // lib.mapAttrs (key: val: {
+      controlMaster = "yes";
+      addKeysToAgent = "yes";
+      hashKnownHosts = false;
       hostname = key + ".nodes.alina.cx";
       checkHostIP = true;
       addressFamily = "inet6";
