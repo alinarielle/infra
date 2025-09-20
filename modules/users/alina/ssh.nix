@@ -1,4 +1,12 @@
-{lib, nodes, pkgs, ...}: {    
+{
+  lib,
+  nodes,
+  pkgs,
+  name,
+  ...
+}:
+{
+  l.network.hosts.enable = true;
   home-manager.users.alina.programs.ssh = {
     enable = true;
     #addKeysToAgent = "yes";
@@ -15,7 +23,8 @@
         hostname = "girldick.gay";
         user = "root";
       };
-    } // lib.mapAttrs (key: val: {
+    }
+    // lib.mapAttrs (key: val: {
       hostname = key + ".nodes.alina.cx";
       checkHostIP = true;
       addressFamily = "inet6";
@@ -28,7 +37,7 @@
       #sendEnv = [];
       #setEnv = {};
       user = lib.mkDefault "alina";
-    }) nodes;
+    }) (lib.filterAttrs (key: val: key != name) nodes);
   };
   #home-manager.users.alina.services.ssh-agent.enable = true;
   environment.systemPackages = [ pkgs.pam_rssh ];

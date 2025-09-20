@@ -1,31 +1,34 @@
-{pkgs, ...}: {
-    users.users.alina.packages = with pkgs; [
-      proxychains
-      croc
-      rclone
-      magic-wormhole-rs
-      inetutils
-      tcpdump
-      termshark
-      tor
-      wireguard-tools
-      mtr
-      nmap
-      netcat
-      sshfs
-      subfinder
-      tshark
-      dnsutils
-      ldns
-      #dog
-      yt-dlp
-      yggdrasil
-      traceroute
-      lynx
-      elinks
-      w3m
-      wget
-      curl
-      slskd
-    ];
+{ pkgs, ... }:
+{
+  users.users.alina.packages = with pkgs; [
+    proxychains
+    croc
+    rclone
+    magic-wormhole-rs
+    inetutils
+    tcpdump
+    termshark
+    tidal-dl
+    tor
+    wireguard-tools
+    mtr
+    nmap
+    netcat
+    sshfs
+    subfinder
+    tshark
+    dnsutils
+    ldns
+    doggo
+    yt-dlp
+    yggdrasil
+    traceroute
+    lynx
+    elinks
+    w3m
+    wget
+    curl
+    slskd
+    spotdl
+  ];
 }

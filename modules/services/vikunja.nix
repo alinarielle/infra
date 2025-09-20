@@ -1,12 +1,18 @@
-{pkgs, lib, config, ...}: {
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
+{
   #sops.secrets.vikunjaDatabase = {};
-  sops.secrets.vikunjaJWT = {};
+  sops.secrets.vikunjaJWT = { };
   services.vikunja = {
     enable = true;
     database.database = "postgres";
     frontendHostname = "vikunja.alina.dog";
     frontendScheme = "https";
-    environmentFiles = [];
+    environmentFiles = [ ];
     settings = {
       service = {
         #JWTSecret.file = config.sops.secrets.vikunjaJWT.path;
@@ -21,7 +27,7 @@
         enableuserdeletion = true;
         #customlogourl = "";
         enablepublicteams = true;
-        #enableopenidteamusersearch = true;  
+        #enableopenidteamusersearch = true;
       };
       sentry.enabled = false;
       typesense.enabled = false;
@@ -39,7 +45,7 @@
       auth = {
         openid = {
           enabled = true;
-          providers = {};
+          providers = { };
         };
       };
       metrics = {
@@ -51,7 +57,9 @@
       };
     };
   };
-  l.metrics.endpoints = [{
-    url = "https://vikunja.alina.dog";
-  }];
+  l.metrics.endpoints = [
+    {
+      url = "https://vikunja.alina.dog";
+    }
+  ];
 }

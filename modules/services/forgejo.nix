@@ -1,8 +1,16 @@
-{lib, pkgs, config, ...}: {
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
+{
   l.db.ensure.forgejo.DBOwnership = true;
-  sops.secrets.forgejo_db = { owner = "forgejo"; };
+  sops.secrets.forgejo_db = {
+    owner = "forgejo";
+  };
 
-  l.network.nginx.upstreams.forgejo.servers."unix:/run/forgejo/forgejo.sock" = {};
+  l.network.nginx.upstreams.forgejo.servers."unix:/run/forgejo/forgejo.sock" = { };
   l.network.nginx.vhosts."git.alina.cx".locations."/" = {
     proxyPass = "http://forgejo";
     extraConfig = ''
@@ -18,12 +26,16 @@
   };
 
   l.services.kanidm.groups = {
-    forgejo_access = {};
-    forgejo_admins = {};
+    forgejo_access = { };
+    forgejo_admins = { };
   };
   l.services.kanidm.oauth2.forgejo = {
     removeOrphanedClaimMaps = false;
-    scopeMaps.forgejo_access = ["openid" "email" "profile"];
+    scopeMaps.forgejo_access = [
+      "openid"
+      "email"
+      "profile"
+    ];
     displayName = "Forgejo";
     preferShortUsername = true;
     claimMaps.groups = {

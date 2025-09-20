@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   home-manager.users.alina.services.gpg-agent = {
     enable = true;
     enableScDaemon = true;
@@ -7,7 +8,7 @@
     enableExtraSocket = false;
     grabKeyboardAndMouse = true;
     pinentry.package = pkgs.pinentry-qt;
-    sshKeys = null; #TODO
+    sshKeys = null; # TODO
     extraConfig = ''
       allow-loopback-pinentry
     '';
@@ -16,11 +17,16 @@
     enable = true;
     mutableKeys = true;
     mutableTrust = true;
-    publicKeys = []; #TODO sops-nix
+    publicKeys = [ ]; # TODO sops-nix
   };
   services.yubikey-agent.enable = false;
   services.pcscd.enable = true;
   users.users.alina.packages = with pkgs; [
-    yubikey-manager gnupg tomb yubico-piv-tool piv-agent yubioath-flutter
+    yubikey-manager
+    gnupg
+    tomb
+    yubico-piv-tool
+    piv-agent
+    yubioath-flutter
   ];
 }

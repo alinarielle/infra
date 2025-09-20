@@ -1,3 +1,4 @@
-{pkgs, ...}: {
-    boot.kernelPackages = pkgs.linuxPackages-libre;
+{ pkgs, ... }:
+{
+  boot.kernelPackages = pkgs.linuxPackages-libre;
 }

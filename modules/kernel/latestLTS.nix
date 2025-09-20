@@ -1,3 +1,4 @@
-{pkgs, ...}: {
-    boot.kernelPackages = pkgs.linuxPackages;
+{ pkgs, ... }:
+{
+  boot.kernelPackages = pkgs.linuxPackages;
 }

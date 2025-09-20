@@ -1,4 +1,6 @@
-{config, ...}: with config.l.lib; {
+{ config, ... }:
+with config.l.lib;
+{
   l.profiles.base.enable = true;
   l.services = enable [
     "syncthing"

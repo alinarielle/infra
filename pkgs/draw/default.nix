@@ -1,4 +1,9 @@
-{buildGoModule, fetchFromGitHub, lib}: buildGoModule {
+{
+  buildGoModule,
+  fetchFromGitHub,
+  lib,
+}:
+buildGoModule {
   pname = "draw";
   version = "0.1.1";
 

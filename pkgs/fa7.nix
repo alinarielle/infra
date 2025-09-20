@@ -43,7 +43,8 @@ let
         ];
       };
     };
-in font-awesome {
+in
+font-awesome {
   version = "7.0.0";
   hash = "sha256-S8i8KIcDbHwmnJ2JjYleD0cmh9YGuzF+hGzlruTRZIk=";
 }

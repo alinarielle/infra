@@ -1,4 +1,5 @@
-{lib, config, ...}: {
+{ lib, config, ... }:
+{
   system.autoUpgrade = {
     enable = true;
     operation = "boot";

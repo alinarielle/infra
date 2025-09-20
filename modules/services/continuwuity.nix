@@ -1,7 +1,15 @@
-{pkgs, lib, cfg, opt, ...}: let
+{
+  pkgs,
+  lib,
+  cfg,
+  opt,
+  ...
+}:
+let
   format = pkgs.formats.toml;
   configFile = format.generate "conduit.toml" cfg.settings;
-in {
+in
+{
   opt = with lib.types; {
     package = lib.mkPackageOption pkgs "continuwuity" {
       default = pkgs.matrix-continuwuity;
@@ -116,30 +124,30 @@ in {
             type = int;
             default = 32768;
             description = ''
-            Maximum entries stored in DNS memory-cache. The size of an entry may vary so 
-            please take care if raising this value excessively. Only decrease this when 
-            using an external DNS cache. Please note that systemd-resolved does *not* count
-            as an external cache, even when configured to do so.
+              Maximum entries stored in DNS memory-cache. The size of an entry may vary so 
+              please take care if raising this value excessively. Only decrease this when 
+              using an external DNS cache. Please note that systemd-resolved does *not* count
+              as an external cache, even when configured to do so.
             '';
           };
           global.dns_min_ttl = lib.mkOption {
             type = int;
             description = ''
-            Minimum time-to-live in seconds for entries in the DNS cache. The default may 
-            appear high to most administrators; this is by design as the majority of 
-            NXDOMAINs are correct for a long time (e.g. the server is no longer running 
-            Matrix). Only decrease this if you are using an external DNS cache.
+              Minimum time-to-live in seconds for entries in the DNS cache. The default may 
+              appear high to most administrators; this is by design as the majority of 
+              NXDOMAINs are correct for a long time (e.g. the server is no longer running 
+              Matrix). Only decrease this if you are using an external DNS cache.
             '';
           };
           global.dns_min_ttl_nxdomain = lib.mkOption {
             type = int;
             default = 259200;
             description = ''
-            Minimum time-to-live in seconds for NXDOMAIN entries in the DNS 
-            cache. This value is critical for the server to federate efficiently. NXDOMAIN's
-            are assumed to not be returning to the federation and aggressively cached rather 		
-            than constantly rechecked. Defaults to 3 days as these are *very rarely* false 
-            negatives.
+              Minimum time-to-live in seconds for NXDOMAIN entries in the DNS 
+              cache. This value is critical for the server to federate efficiently. NXDOMAIN's
+              are assumed to not be returning to the federation and aggressively cached rather 		
+              than constantly rechecked. Defaults to 3 days as these are *very rarely* false 
+              negatives.
             '';
           };
           global.dns_attempts = lib.mkOption {
@@ -151,60 +159,60 @@ in {
             type = int;
             default = 10;
             description = ''
-            The number of seconds to wait for a reply to a DNS query. Please note that 
-            recursive queries can take up to several seconds for some domains, so this value
-            should not be too low, especially on slower hardware or resolvers.
+              The number of seconds to wait for a reply to a DNS query. Please note that 
+              recursive queries can take up to several seconds for some domains, so this value
+              should not be too low, especially on slower hardware or resolvers.
             '';
           };
           global.dns_tcp_fallback = lib.mkOption {
             type = bool;
             default = true;
             description = ''
-            Fallback to TCP on DNS errors. Set this to false if unsupported by nameserver.
+              Fallback to TCP on DNS errors. Set this to false if unsupported by nameserver.
             '';
           };
           global.query_all_nameservers = lib.mkOption {
             type = bool;
             default = true;
             description = ''
-            Enable to query all nameservers until the domain is found. Referred to as 
-            "trust_negative_responses" in hickory_resolver. This can avoid useless DNS 
-            queries if the first nameserver responds with NXDOMAIN or an empty NOERROR 
-            response.
+              Enable to query all nameservers until the domain is found. Referred to as 
+              "trust_negative_responses" in hickory_resolver. This can avoid useless DNS 
+              queries if the first nameserver responds with NXDOMAIN or an empty NOERROR 
+              response.
             '';
           };
           global.query_over_tcp_only = lib.mkOption {
             type = bool;
             default = false;
             description = ''
-            Enable using *only* TCP for querying your specified nameservers instead of UDP.
-            If you are running conduwuit in a container environment, this config option may 
-            need to be enabled. For more details, see: 
-            https://conduwuit.puppyirl.gay/troubleshooting.html#potential-dns-issues-when-using-docker  '';
+              Enable using *only* TCP for querying your specified nameservers instead of UDP.
+              If you are running conduwuit in a container environment, this config option may 
+              need to be enabled. For more details, see: 
+              https://conduwuit.puppyirl.gay/troubleshooting.html#potential-dns-issues-when-using-docker  '';
           };
           global.ip_lookup_strategy = lib.mkOption {
             type = int;
             default = 4;
             description = ''
-            DNS A/AAAA record lookup strategy
-            Takes a number of one of the following options:
-            1 - Ipv4Only (Only query for A records, no AAAA/IPv6)
+              DNS A/AAAA record lookup strategy
+              Takes a number of one of the following options:
+              1 - Ipv4Only (Only query for A records, no AAAA/IPv6)
 
-            2 - Ipv6Only (Only query for AAAA records, no A/IPv4)
+              2 - Ipv6Only (Only query for AAAA records, no A/IPv4)
 
-            3 - Ipv4AndIpv6 (Query for A and AAAA records in parallel, uses whatever
-            returns a successful response first)
+              3 - Ipv4AndIpv6 (Query for A and AAAA records in parallel, uses whatever
+              returns a successful response first)
 
-            4 - Ipv6thenIpv4 (Query for AAAA record, if that fails then query the A
-            record)
+              4 - Ipv6thenIpv4 (Query for AAAA record, if that fails then query the A
+              record)
 
-            5 - Ipv4thenIpv6 (Query for A record, if that fails then query the AAAA
-            record)
+              5 - Ipv4thenIpv6 (Query for A record, if that fails then query the AAAA
+              record)
 
-            If you don't have IPv6 networking, then for better DNS performance it
-            may be suitable to set this to Ipv4Only (1) as you will never ever use
-            the AAAA record contents even if the AAAA record is successful instead
-            of the A record.
+              If you don't have IPv6 networking, then for better DNS performance it
+              may be suitable to set this to Ipv4Only (1) as you will never ever use
+              the AAAA record contents even if the AAAA record is successful instead
+              of the A record.
             '';
           };
           global.max_request_size = lib.mkOption {
@@ -400,7 +408,7 @@ in {
             '';
           };
           global.registration_token = lib.mkOption {
-            type = str; #TODO
+            type = str; # TODO
             default = "o&^uCtes4HPf0Vu@F20jQeeWE7";
             description = ''
               A static registration token that new users will have to provide when creating 
@@ -598,8 +606,17 @@ in {
           };
           global.trusted_servers = lib.mkOption {
             type = listOf str;
-            default = ["matrix.org" "kescher.at" "fef.moe"];
-            example = ["matrix.org" "envs.net" "constellatory.net" "tchncs.de"];
+            default = [
+              "matrix.org"
+              "kescher.at"
+              "fef.moe"
+            ];
+            example = [
+              "matrix.org"
+              "envs.net"
+              "constellatory.net"
+              "tchncs.de"
+            ];
             description = ''
               Servers listed here will be used to gather public keys of other servers 
               (notary trusted key servers).
@@ -742,7 +759,7 @@ in {
           };
           global.turn_uris = lib.mkOption {
             type = listOf str;
-            default = [];
+            default = [ ];
             example = [
               "turn:example.turn.uri?transport=udp"
               "turn:example.turn.uri?transport=tcp"
@@ -754,7 +771,7 @@ in {
               "turns:".
             '';
           };
-          global.turn_secret  = lib.mkOption {
+          global.turn_secret = lib.mkOption {
             type = bool;
             default = false;
             description = ''
@@ -781,8 +798,11 @@ in {
           };
           global.auto_join_rooms = lib.mkOption {
             type = listOf str;
-            default = [];
-            example = ["#conduwuit:puppygock.gay" "!eoIzvAvVwY23LPDay8:puppygock.gay"];
+            default = [ ];
+            example = [
+              "#conduwuit:puppygock.gay"
+              "!eoIzvAvVwY23LPDay8:puppygock.gay"
+            ];
             description = ''
               List/vector of room IDs or room aliases that conduwuit will make newly 
               registered users join. The rooms specified must be rooms that you have joined 
@@ -792,21 +812,22 @@ in {
           global.auto_deactivate_banned_room_attempts = lib.mkOption {
             type = bool;
             default = false;
-            description = ''	      
-              Config option to automatically deactivate the account of any user who attempts		  to join a:
-              - banned room
-              - forbidden room alias
-              - room alias or ID with a forbidden server name
+            description = ''
+              	      
+                            Config option to automatically deactivate the account of any user who attempts		  to join a:
+                            - banned room
+                            - forbidden room alias
+                            - room alias or ID with a forbidden server name
 
-              This may be useful if all your banned lists consist of toxic rooms or
-              servers that no good faith user would ever attempt to join, and
-              to automatically remediate the problem without any admin user intervention.
+                            This may be useful if all your banned lists consist of toxic rooms or
+                            servers that no good faith user would ever attempt to join, and
+                            to automatically remediate the problem without any admin user intervention.
 
-              This will also make the user leave all rooms. Federation (e.g. remote
-              room invites) are ignored here.
+                            This will also make the user leave all rooms. Federation (e.g. remote
+                            room invites) are ignored here.
 
-              Defaults to false as rooms can be banned for non-moderation-related
-              reasons and this performs a full user deactivation.
+                            Defaults to false as rooms can be banned for non-moderation-related
+                            reasons and this performs a full user deactivation.
             '';
           };
           global.rocksdb_log_level = lib.mkOption {
@@ -1109,7 +1130,7 @@ in {
               Allow local (your server only) presence updates/requests.
               Note that presence on conduwuit is very fast unlike Synapse's. If using
               outgoing presence, this MUST be enabled.
-              '';
+            '';
           };
           global.allow_incoming_presence = lib.mkOption {
             type = bool;
@@ -1121,7 +1142,7 @@ in {
               is very fast unlike Synapse's.
             '';
           };
-          global.allow_outgoing_presence  = lib.mkOption {
+          global.allow_outgoing_presence = lib.mkOption {
             type = bool;
             default = false;
             description = ''
@@ -1186,7 +1207,7 @@ in {
               Allow incoming typing updates from federation.
             '';
           };
-          global.typing_federation_timeout_s  = lib.mkOption {
+          global.typing_federation_timeout_s = lib.mkOption {
             type = int;
             default = 30;
             description = ''
@@ -1272,7 +1293,7 @@ in {
               specified in `auto_join_rooms`.
             '';
           };
-          global.allow_legacy_media  = lib.mkOption {
+          global.allow_legacy_media = lib.mkOption {
             type = bool;
             default = false;
             description = ''
@@ -1338,15 +1359,15 @@ in {
           };
           global.prevent_media_downloads_from = lib.mkOption {
             type = listOf str;
-            default = [];
+            default = [ ];
             description = ''
-               Vector list of servers that conduwuit will refuse to download remote media 
-               from.
+              Vector list of servers that conduwuit will refuse to download remote media 
+              from.
             '';
           };
           global.forbidden_remote_server_names = lib.mkOption {
             type = listOf str;
-            default = [];
+            default = [ ];
             description = ''
               List of forbidden server names that we will block incoming AND outgoing 
               federation with, and block client room joins / remote user invites.
@@ -1360,7 +1381,7 @@ in {
           };
           global.forbidden_remote_room_directory_server_names = lib.mkOption {
             type = listOf str;
-            default = [];
+            default = [ ];
             description = ''
               List of forbidden server names that we will block all outgoing federated room
               directory requests for. Useful for preventing our users from wandering into 
@@ -1370,10 +1391,25 @@ in {
           global.ip_range_denylist = lib.mkOption {
             type = listOf str;
             default = [
-              "127.0.0.0/8" "10.0.0.0/8" "172.16.0.0/12" "192.168.0.0/16" "100.64.0.0/10" 
-              "192.0.0.0/24" "169.254.0.0/16" "192.88.99.0/24" "198.18.0.0/15" 
-              "192.0.2.0/24" "198.51.100.0/24" "203.0.113.0/24" "224.0.0.0/4" "::1/128" 
-              "fe80::/10" "fc00::/7" "2001:db8::/32" "ff00::/8" "fec0::/10"
+              "127.0.0.0/8"
+              "10.0.0.0/8"
+              "172.16.0.0/12"
+              "192.168.0.0/16"
+              "100.64.0.0/10"
+              "192.0.0.0/24"
+              "169.254.0.0/16"
+              "192.88.99.0/24"
+              "198.18.0.0/15"
+              "192.0.2.0/24"
+              "198.51.100.0/24"
+              "203.0.113.0/24"
+              "224.0.0.0/4"
+              "::1/128"
+              "fe80::/10"
+              "fc00::/7"
+              "2001:db8::/32"
+              "ff00::/8"
+              "fec0::/10"
             ];
             description = ''
               Vector list of IPv4 and IPv6 CIDR ranges / subnets *in quotes* that you do 
@@ -1401,7 +1437,7 @@ in {
           };
           global.url_preview_domain_contains_allowlist = lib.mkOption {
             type = listOf str;
-            default = [];
+            default = [ ];
             description = ''
               Vector list of domains allowed to send requests to for URL previews. 
               This is a *contains* match, not an explicit match. Putting "google.com" 
@@ -1413,7 +1449,7 @@ in {
           };
           global.url_preview_domain_explicit_allowlist = lib.mkOption {
             type = listOf str;
-            default = [];
+            default = [ ];
             description = ''
               Vector list of explicit domains allowed to send requests to for URL previews.
               This is an *explicit* match, not a contains match. Putting "google.com" will 
@@ -1425,7 +1461,7 @@ in {
           };
           global.url_preview_domain_explicit_denylist = lib.mkOption {
             type = listOf str;
-            default = [];
+            default = [ ];
             description = ''
               Vector list of explicit domains not allowed to send requests to for URL 
               previews. This is an *explicit* match, not a contains match. Putting 
@@ -1436,7 +1472,7 @@ in {
           };
           global.url_preview_url_contains_allowlist = lib.mkOption {
             type = listOf str;
-            default = [];
+            default = [ ];
             description = ''
               Vector list of URLs allowed to send requests to for URL previews.
               Note that this is a *contains* match, not an explicit match. Putting 
@@ -1472,7 +1508,7 @@ in {
           };
           global.forbidden_alias_names = lib.mkOption {
             type = listOf str;
-            default = [];
+            default = [ ];
             description = ''
               List of forbidden room aliases and room IDs as strings of regex patterns.
 
@@ -1487,7 +1523,7 @@ in {
           };
           global.forbidden_usernames = lib.mkOption {
             type = listOf str;
-            default = [];
+            default = [ ];
             description = ''
               List of forbidden username patterns/strings.
               Regex can be used or explicit contains matches can be done by just specifying
@@ -1549,7 +1585,7 @@ in {
           };
           global.admin_execute = lib.mkOption {
             type = listOf str;
-            default = [];
+            default = [ ];
             description = ''
               List of admin commands to execute on startup. 
               This option can also be configured with the `--execute` conduwuit argument 
@@ -1571,7 +1607,7 @@ in {
           };
           global.admin_signal_execute = lib.mkOption {
             type = listOf str;
-            default = [];
+            default = [ ];
             description = ''
               List of admin commands to execute on SIGUSR2.
               Similar to admin_execute, but these commands are executed when the server 
@@ -1723,12 +1759,13 @@ in {
           global.db_pool_queue_mult = lib.mkOption {
             type = int;
             default = 4;
-            description = ''	      
-              Determines the size of the queues feeding the database's frontend-pool.
-              The size of the queue is determined by multiplying this value with the
-              number of pool workers. When this queue is full, tokio tasks conducting
-              requests will yield until space is available; this is good for
-              flow-control by avoiding buffer-bloat, but can inhibit throughput if too low.
+            description = ''
+              	      
+                            Determines the size of the queues feeding the database's frontend-pool.
+                            The size of the queue is determined by multiplying this value with the
+                            number of pool workers. When this queue is full, tokio tasks conducting
+                            requests will yield until space is available; this is good for
+                            flow-control by avoiding buffer-bloat, but can inhibit throughput if too low.
             '';
           };
           global.stream_width_default = lib.mkOption {
@@ -1988,7 +2025,7 @@ in {
       };
     };
     upstreams."continuwuity" = {
-      servers."unix:/run/continuwuity/continuwuity.sock" = {};
+      servers."unix:/run/continuwuity/continuwuity.sock" = { };
       extraConfig = ''
         keepalive 16;
       '';
@@ -1996,7 +2033,7 @@ in {
   };
   l.tasks.tasks.continuwuity = {
     enable = true;
-    exec = ["${lib.getExe cfg.package}"];
+    exec = [ "${lib.getExe cfg.package}" ];
     env = {
       CONTINUWUITY_CONFIG = configFile;
     };
@@ -2008,5 +2045,5 @@ in {
       ];
     };
   };
-  users.users.nginx.extraGroups = ["continuwuity"];
+  users.users.nginx.extraGroups = [ "continuwuity" ];
 }

@@ -1,7 +1,21 @@
-{config, opt, cfg, lib, pkgs, ...}: {
-  opt.oauth2 = lib.mkOption { default = {}; type = lib.types.attrs; };
-  opt.groups = lib.mkOption { default = {}; type = lib.types.attrs; };
-  sops.secrets.kanidm_admin_password = {};
+{
+  config,
+  opt,
+  cfg,
+  lib,
+  pkgs,
+  ...
+}:
+{
+  opt.oauth2 = lib.mkOption {
+    default = { };
+    type = lib.types.attrs;
+  };
+  opt.groups = lib.mkOption {
+    default = { };
+    type = lib.types.attrs;
+  };
+  sops.secrets.kanidm_admin_password = { };
   security.acme = {
     acceptTerms = true;
     certs."auth.alina.dog" = {
@@ -31,24 +45,30 @@
       instanceUrl = "https://auth.alina.dog:8443";
       persons.alina = {
         present = true;
-        mailAddresses = ["alina@duck.com"];
+        mailAddresses = [ "alina@duck.com" ];
         legalName = "alina arielle amelie";
         displayName = "alina";
       };
-      groups = (lib.mapAttrs 
-        (key: val: {
-          present = true;
-          overwriteMembers = true;
-          members = ["alina"];
-        } // val) 
-        cfg.groups);
+      groups = (
+        lib.mapAttrs (
+          key: val:
+          {
+            present = true;
+            overwriteMembers = true;
+            members = [ "alina" ];
+          }
+          // val
+        ) cfg.groups
+      );
 
-      systems.oauth2 = lib.mapAttrs (key: val: 
+      systems.oauth2 = lib.mapAttrs (
+        key: val:
         {
           public = true;
           present = true;
           enableLocalhostRedirects = true;
-        } // val
+        }
+        // val
       ) cfg.oauth2;
       idmAdminPasswordFile = config.sops.secrets.kanidm_admin_password.path;
       adminPasswordFile = config.sops.secrets.kanidm_admin_password.path;

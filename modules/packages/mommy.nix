@@ -1,5 +1,12 @@
-{pkgs, lib, cfg, opt, ...}: {
+{
+  pkgs,
+  lib,
+  cfg,
+  opt,
+  ...
+}:
+{
   opt = {
-    
+
   };
 }

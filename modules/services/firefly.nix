@@ -1,6 +1,13 @@
-{config, pkgs, lib,  ...}: let
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+let
   dataDir = "/var/lib/firefly";
-in {
+in
+{
   l.network.nginx.vhosts."firefly.alina.dog" = {
     root = "${pkgs.firefly-iii}/public";
     locations = {
@@ -21,9 +28,13 @@ in {
       };
     };
   };
-  sops.secrets.FIREFLY_APP_KEY = { owner = "firefly"; };
-  sops.secrets.FIREFLY_DB_PASSWORD = { owner = "firefly"; };
-  l.db.ensure.firefly = {};
+  sops.secrets.FIREFLY_APP_KEY = {
+    owner = "firefly";
+  };
+  sops.secrets.FIREFLY_DB_PASSWORD = {
+    owner = "firefly";
+  };
+  l.db.ensure.firefly = { };
   users.users.firefly = {
     isSystemUser = true;
     group = "nginx";
@@ -42,7 +53,7 @@ in {
         ln -s ${dataDir}/storage $out/storage
         ln -s ${dataDir}/cache $out/bootstrap/cache
       '';
-   };
+    };
     enable = true;
     inherit dataDir;
     enableNginx = false;
@@ -52,7 +63,7 @@ in {
     settings = {
       # You can leave this on "local". If you change it to production most console commands will ask
       # for extra confirmation. Never set it to "testing".
-      APP_ENV= "local";
+      APP_ENV = "local";
 
       # Set to true if you want to see debug information in error screens.
       APP_DEBUG = true;

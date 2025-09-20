@@ -1,32 +1,41 @@
-{config, lib, inputs, name, ...}: {
-  imports = [ 
+{
+  config,
+  lib,
+  inputs,
+  name,
+  ...
+}:
+{
+  imports = [
     inputs.impermanence.nixosModules.impermanence
     inputs.disko.nixosModules.disko
   ];
-  
+
   config = {
-    warnings  = ["WARNING: Impermanence enabled for ${name}."];
+    warnings = [ "WARNING: Impermanence enabled for ${name}." ];
 
     users.mutableUsers = false;
-    
-    sops.age.sshKeyPaths = ["/persist/etc/ssh/id_ed25519"];
-    services.openssh.hostKeys = [{
-      path = "/persist/etc/ssh/id_rsa";
-      type = "rsa";
-      bits = 4096;
-    }{
-      path = "/persist/etc/ssh/id_ed25519";
-      type = "ed25519";
-    }
-    #(lib.mkIf config.l.network.initrdUnlock.enable {
+
+    sops.age.sshKeyPaths = [ "/persist/etc/ssh/id_ed25519" ];
+    services.openssh.hostKeys = [
+      {
+        path = "/persist/etc/ssh/id_rsa";
+        type = "rsa";
+        bits = 4096;
+      }
+      {
+        path = "/persist/etc/ssh/id_ed25519";
+        type = "ed25519";
+      }
+      #(lib.mkIf config.l.network.initrdUnlock.enable {
       #path = "/persist/secrets/${name}/sshd/initrd_ssh_host_ed25519.key";
       #type = "ed25519";
-    #})
-    #(lib.mkIf config.l.network.initrdUnlock.enable {
+      #})
+      #(lib.mkIf config.l.network.initrdUnlock.enable {
       #path = "/persist/secrets/${name}/sshd/initrd_ssh_host_rsa.key";
       #type = "rsa";
       #bits = 4096;
-    #})
+      #})
     ];
     #sops.age.sshKeyPaths = [ "/persist/secrets/ssh/ssh_host_ed25519_key" ];
     nix.settings.build-dir = "/persist/build";
@@ -34,15 +43,15 @@
     environment.persistence."/persist" = {
       hideMounts = false;
       directories = [
-	"/var/log"
-  "/var/lib/jellyfin"
-	"/var/lib/nixos"
-	"/var/lib/btrfs"
-	"/var/lib/bluetooth"
-	"/etc/NetworkManager/system-connections"
+        "/var/log"
+        "/var/lib/jellyfin"
+        "/var/lib/nixos"
+        "/var/lib/btrfs"
+        "/var/lib/bluetooth"
+        "/etc/NetworkManager/system-connections"
       ];
       files = [
-	"/etc/machine-id"
+        "/etc/machine-id"
       ];
     };
   };

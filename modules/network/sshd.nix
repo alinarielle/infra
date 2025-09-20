@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   environment.systemPackages = [ pkgs.kitty.terminfo ];
   services.logind.killUserProcesses = true;
   services.openssh = {
@@ -16,7 +17,10 @@
       X11Forwarding = false;
       PrintMotd = true;
       PermitRootLogin = "prohibit-password";
-      AllowUsers = ["root" "alina"];
+      AllowUsers = [
+        "root"
+        "alina"
+      ];
       PasswordAuthentication = false;
       challengeResponseAuthentication = false;
     };

@@ -1,4 +1,10 @@
-{srv, pkgs, lib, ...}: {
+{
+  srv,
+  pkgs,
+  lib,
+  ...
+}:
+{
   srv.exec = [
     "${lib.getExe pkgs.radarr}"
   ];

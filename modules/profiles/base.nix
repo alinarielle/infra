@@ -1,10 +1,13 @@
-{config, ...}: with config.l.lib; {
+{ config, ... }:
+with config.l.lib;
+{
+  l.nix.enable = true;
   l.sops.enable = true;
   l.autoUpgrade.enable = true;
-  l.boot = enable ["systemd-boot"];
+  l.boot = enable [ "systemd-boot" ];
   l.packages = enable [
-    "archive" 
-    "base" 
+    "archive"
+    "base"
     "cryptography"
     "filesystem"
     "miscellaneous"
@@ -26,6 +29,7 @@
     "ranger"
     "emacs"
     "rclone"
+    "starship"
   ];
   l.users.root = enable [
     "home-manager"
@@ -44,5 +48,7 @@
     "wireguard"
     "nginx"
     "proxychains"
+    "hosts"
+    "mullvad"
   ];
 }

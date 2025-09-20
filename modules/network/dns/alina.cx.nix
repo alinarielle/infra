@@ -1,6 +1,8 @@
-{inputs, ...}: let
+{ inputs, ... }:
+let
   inherit (inputs) dns;
-in {
+in
+{
   ignore = true;
   SOA = {
     nameServer = "ns1.alina.cx";
@@ -12,7 +14,7 @@ in {
     "ns1.alina.cx."
     "ns2.alina.cx."
   ];
-  A = [];
-  AAAA = [];
-  subdomains = {};
+  A = [ ];
+  AAAA = [ ];
+  subdomains = { };
 }

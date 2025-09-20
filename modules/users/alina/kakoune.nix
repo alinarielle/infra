@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   home-manager.users.alina.programs.kakoune = {
     enable = true;
     package = pkgs.kakoune-unwrapped;
@@ -6,7 +7,7 @@
       kak-fzf
     ];
     config = {
-      
+
     };
   };
 }

@@ -1,4 +1,5 @@
-{pkgs, lib, ...}: {
+{ pkgs, lib, ... }:
+{
   services.displayManager.ly = {
     enable = true;
     settings = {

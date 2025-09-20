@@ -1,9 +1,17 @@
-{config, inputs, lib, pkgs, ...}: with config.l.lib; {
+{
+  config,
+  inputs,
+  lib,
+  pkgs,
+  ...
+}:
+with config.l.lib;
+{
   imports = [
     ./hardware-configuration.nix
     ./disko.nix
   ];
-  l.profiles = enable ["shell"];
+  l.profiles = enable [ "shell" ];
   system.stateVersion = "25.05";
   l.services = {
     blog.enable = true;

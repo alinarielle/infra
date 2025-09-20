@@ -1,4 +1,14 @@
-{pkgs, config, srv, opt, cfg, lib, name, ...}: let
+{
+  pkgs,
+  config,
+  srv,
+  opt,
+  cfg,
+  lib,
+  name,
+  ...
+}:
+let
   ndcfg = with config.l.network.lib; {
     LogLevel = "info";
     MusicFolder = "/var/lib/navidrome/music";
@@ -17,7 +27,7 @@
     EnableGravatar = false;
 
     EnableSharing = false;
-    ShareURL = ""; #empty => use server address
+    ShareURL = ""; # empty => use server address
 
     "Jukebox.Enabled" = cfg.jukebox;
     "Jukebox.AdminOnly" = !cfg.jukebox;
@@ -32,7 +42,7 @@
 
     "ListenBrainz.Enabled" = false;
 
-    "PasswordEncryptionKey" = ""; #TODO
+    "PasswordEncryptionKey" = ""; # TODO
 
     "Prometheus.Enabled" = cfg.prometheus;
 
@@ -43,7 +53,8 @@
     TLSKey = "";
   };
   json = pkgs.formats.json;
-in {
+in
+{
   opt = {
     jukebox = lib.mkEnableOption "enable audio playback on the server hardware";
     prometheus = lib.mkEnableOption "enable prometheus integration";

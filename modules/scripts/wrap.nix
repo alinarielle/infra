@@ -1,8 +1,17 @@
-{pkgs, lib, cfg, opt, ...}: {
-  options.l.scripts.pkgs = with lib.types; lib.mkOption { 
-    type = attrsOf package; 
-    default = null; 
-  };
+{
+  pkgs,
+  lib,
+  cfg,
+  opt,
+  ...
+}:
+{
+  options.l.scripts.pkgs =
+    with lib.types;
+    lib.mkOption {
+      type = attrsOf package;
+      default = null;
+    };
   config.environment.systemPackages = lib.attrValues cfg.pkgs;
   config.home-manager.users.alina.xdg = {
     enable = true;

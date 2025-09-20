@@ -1,4 +1,5 @@
-{ inputs, lib, ...}: {
+{ inputs, lib, ... }:
+{
   imports = [ inputs.disko.nixosModules.disko ];
   boot.loader.grub.device = "/dev/sda";
   l.boot.systemd-boot.enable = lib.mkForce false;
@@ -9,27 +10,27 @@
       type = "gpt";
       partitions = {
         boot = {
-	  type = "EF02";
-	  size = "1024M";
-	};
-	ESP = {
-	  type = "EF00";
-	  size = "1024M";
-	  content = {
-	    type = "filesystem";
-	    format = "vfat";
-	    mountpoint = "/boot";
-	    mountOptions = [ "umask=0077" ];
-	  };
-	};
-	root = {
-	  size = "100%";
-	  content = {
-	    format = "btrfs";
-	    mountpoint = "/";
-	    type = "filesystem";
-	  };
-	};
+          type = "EF02";
+          size = "1024M";
+        };
+        ESP = {
+          type = "EF00";
+          size = "1024M";
+          content = {
+            type = "filesystem";
+            format = "vfat";
+            mountpoint = "/boot";
+            mountOptions = [ "umask=0077" ];
+          };
+        };
+        root = {
+          size = "100%";
+          content = {
+            format = "btrfs";
+            mountpoint = "/";
+            type = "filesystem";
+          };
+        };
       };
     };
   };

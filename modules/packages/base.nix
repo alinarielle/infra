@@ -1,7 +1,8 @@
-{pkgs, ...}: {
-    environment.systemPackages = with pkgs; [
-	tlp
-	acpid
-	lm_sensors
-    ];
+{ pkgs, ... }:
+{
+  environment.systemPackages = with pkgs; [
+    tlp
+    acpid
+    lm_sensors
+  ];
 }

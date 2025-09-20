@@ -1,5 +1,7 @@
-{config, ...}: with config.l.lib; {
-  l.profiles = enable ["base"];
+{ config, ... }:
+with config.l.lib;
+{
+  l.profiles = enable [ "base" ];
   l.services = enable [
     "bazarr"
     "calibre"

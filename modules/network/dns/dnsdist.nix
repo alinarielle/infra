@@ -1,12 +1,14 @@
-{lib, pkgs, ...}: let
+{ lib, pkgs, ... }:
+let
   format = pkgs.formats.yaml;
-in {
+in
+{
   services.dnsdist = {
     enable = true;
     listenPort = 53;
     listenAddress = "::1";
     extraConfig = ''
-      
+
     '';
   };
 }

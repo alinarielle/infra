@@ -1,15 +1,25 @@
-{inputs, pkgs, lib, ...}: let
+{
+  inputs,
+  pkgs,
+  lib,
+  ...
+}:
+let
   inherit (inputs) dns;
-in {
+in
+{
   services.knot = {
     enable = true;
     package = pkgs.knot-dns;
     checkConfig = false;
     enableXDP = false;
-    keyFiles = [];
+    keyFiles = [ ];
     settings = {
       server = {
-        listen = [ "::@53" "0.0.0.0@53" ];
+        listen = [
+          "::@53"
+          "0.0.0.0@53"
+        ];
       };
       zone = {
         domain = "alina.cx";

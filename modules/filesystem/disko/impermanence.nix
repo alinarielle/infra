@@ -1,14 +1,24 @@
-{inputs, opt, cfg, lib, ...}: {
-  imports = [inputs.disko.nixosModules.disko];
+{
+  inputs,
+  opt,
+  cfg,
+  lib,
+  ...
+}:
+{
+  imports = [ inputs.disko.nixosModules.disko ];
   opt = with lib.types; {
     disk = lib.mkOption {
-      type = nullOr str; default = null;
+      type = nullOr str;
+      default = null;
     };
   };
-  assertions = [{
-    assertion = cfg.disk != null;
-    message  = "option ${cfg}.disk must be set!";
-  }];
+  assertions = [
+    {
+      assertion = cfg.disk != null;
+      message = "option ${cfg}.disk must be set!";
+    }
+  ];
   l.filesystem.impermanence.enable = true;
   disko.devices.nodev."/" = lib.mkForce {
     fsType = "tmpfs";
@@ -25,12 +35,12 @@
     content = {
       type = "gpt";
       partitions."/persist" = {
-	size = "100%";
-	content = {
-	  format = "btrfs";
-	  mountpoint = "/";
-	  type = "filesystem";
-	};
+        size = "100%";
+        content = {
+          format = "btrfs";
+          mountpoint = "/";
+          type = "filesystem";
+        };
       };
     };
   };

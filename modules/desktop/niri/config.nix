@@ -1,6 +1,4 @@
+{ inputs, ... }:
 {
-  home-manager.users.alina.programs.niri = {
-    enable = true;
-     
-  };
+  imports = [ inputs.niri.nixosModules.niri ];
 }

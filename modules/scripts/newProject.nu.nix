@@ -1,10 +1,17 @@
-{pkgs, lib, inputs, ...}: let
+{
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
+let
   git = lib.getExe pkgs.git;
-  nix  = lib.getExe pkgs.lix;
+  nix = lib.getExe pkgs.lix;
   fzf = lib.getExe pkgs.fzf;
   nv = lib.getExe pkgs.neovim;
   inherit (inputs) templates;
-in {
+in
+{
   l.scripts.pkgs.newProject = pkgs.writeShellScriptBin "newProject.nu" ''
     #!/usr/bin/env nu
     def main [dir: path] {

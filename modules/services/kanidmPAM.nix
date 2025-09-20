@@ -1,4 +1,10 @@
-{name, pkgs, lib, ...}: {
+{
+  name,
+  pkgs,
+  lib,
+  ...
+}:
+{
   services.kanidm = {
     enablePam = true;
     unixSettings = {

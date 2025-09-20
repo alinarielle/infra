@@ -1,19 +1,17 @@
 {
-  l.users.alina.rclone.enable = true;
   home-manager.users.alina = {
-    xdg.userDirs.music = "/home/alina/mnt/tigris/music";
     services.mpd = {
       enable = true;
-      dataDir = "/home/alina/mnt/tigris/mpd_data";
-      musicDirectory = "/home/alina/mnt/tigris/music";
+      dataDir = "/home/alina/.mpd";
+      musicDirectory = "/home/alina/music";
       network = {
         listenAddress = "[::]";
         port = 6600;
-        startWhenNeeded = true;
+        startWhenNeeded = false;
       };
       extraConfig = ''
         restore_paused = "yes"
-        
+
         # audio visualizer setup
         audio_output {
           type = "fifo"
@@ -31,7 +29,7 @@
           address: "[::]:6600",
           password: None,
           theme: None,
-          cache_dir: None
+          cache_dir: "/home/alina/.cache/rmpc"
           enable_mouse: true,
           enable_config_hot_reload: true,
           max_fps: 30,

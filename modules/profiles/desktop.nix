@@ -1,9 +1,24 @@
-{config, lib, ...}: with config.l.lib; {
-  l.profiles = enable ["base" "hardened"];
-  l.desktop.sway = enable ["config" "swaylock" "waybar"];
+{ config, lib, ... }:
+with config.l.lib;
+{
+  l.profiles = enable [
+    "base"
+    "hardened"
+  ];
+  l.podman.enable = true;
+  l.torrent.enable = true;
+  l.desktop.common.music.enable = true;
+  l.desktop.sway = enable [
+    "config"
+    "swaylock"
+    "waybar"
+  ];
+  l.desktop.niri = enable [ "config" ];
   l.kernel.hardenedLibre.enable = lib.mkForce false;
   l.packages = enable [
-    "development" "pentesting" "chat"
+    "development"
+    "pentesting"
+    "chat"
   ];
-  l.network = enable ["mullvad"];
+  l.network = enable [ "mullvad" ];
 }
