@@ -368,11 +368,7 @@ require('lazy').setup({
     },
   },
 
-  {
     -- plugins todo: zellij, ssh, terminal buffer, drawing
-    'atlj/Pixie.nvim',
-    opts = {},
-  },
 
   -- NOTE: Plugins can specify dependencies.
   --

@@ -113,6 +113,7 @@
           | insert size (ls $track).size.0
           | table --collapse
         }
+        alias ls = l
       '';
     };
     autojump.enable = true;

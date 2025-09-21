@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   environment.systemPackages = [ pkgs.kitty.terminfo ];
-  services.logind.settings.Login.KillUserProcesses = true;
+  services.logind.settings.Login.KillUserProcesses = false;
   services.openssh = {
     enable = true;
     openFirewall = true;
