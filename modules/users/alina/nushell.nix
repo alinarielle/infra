@@ -65,14 +65,14 @@
         source ~/.config/nix-your-shell.nu
         def deploy [host] {
           let pwd = (pwd); 
-          j flake; 
+          j infra; 
           nixos-rebuild switch --flake .#($host) --target-host $"root@($host)" --impure --log-format internal-json -v o+e>| nom --json 
           | ignore; 
           j $pwd
         }
         def update [host] {
           let pwd = (pwd); 
-          j flake; 
+          j infra; 
           nix flake update;
           deploy $host;
           j $pwd;

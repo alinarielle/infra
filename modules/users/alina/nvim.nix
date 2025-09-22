@@ -20,6 +20,6 @@ in
   ];
 
   home-manager.users.alina.xdg.configFile = {
-    "nvim".source = hmLib.file.mkOutOfStoreSymlink "/home/alina/src/flake/plain/nvim";
+    "nvim".source = hmLib.file.mkOutOfStoreSymlink "/home/alina/src/infra/plain/nvim";
   };
 }

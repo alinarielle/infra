@@ -598,7 +598,7 @@
     "kubernetes": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-F91WPXKThEpkfq4Xgb3u6ehqM7+o42On/BmwmpbUBzA=",
+        "narHash": "sha256-W5rjxqz7q/BO/OUaSd77KpLjFQEOYtXjWIJOKo+JD0Q=",
         "type": "file",
         "url": "https://github.com/kubernetes/kubernetes"
       },
@@ -637,7 +637,7 @@
     "linuxStable": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-xW0ascnEr7E8AtzjtxUd98EdH2OPaitaF210nUoK/PM=",
+        "narHash": "sha256-7edzUbkvEUl1wtp2xmtBXJ4/Q8+VNxMR0/m3N+hNNC8=",
         "type": "file",
         "url": "https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git"
       },

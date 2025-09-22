@@ -15,6 +15,7 @@ with config.l.lib;
   l.profiles = enable [
     "desktop"
     "gaming"
+    "laptop"
   ];
   #l.kernel.hardened.enable = true;
   system.stateVersion = "25.05";
