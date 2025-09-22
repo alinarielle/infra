@@ -19,7 +19,7 @@
       message = "option ${cfg}.disk must be set!";
     }
   ];
-  l.filesystem.impermanence.enable = true;
+  l.storage.filesystem.impermanence.enable = true;
   disko.devices.nodev."/" = lib.mkForce {
     fsType = "tmpfs";
     mountOptions = [

@@ -101,7 +101,7 @@
           message = "define at least one executable path for service ${key}";
         }
         (
-          lib.mkIf config.l.filesystem.noexecMount.enable {
+          lib.mkIf config.l.storage.filesystem.noexecMount.enable {
             assertion = (builtins.all (x: (builtins.substring 0 11 x) == "/nix/store/") val.paths.exec);
             message = ''
               all partitions except the nix store are mounted as noexec, executable paths

@@ -10,7 +10,7 @@
     settings = with config.l.desktop.common.theme.colors; rec {
       shell = "${lib.getExe pkgs.nushell}";
 
-      font_size = "13.0";
+      font_size = "11.0";
       font_family = "JetBrainsMono Nerd Font Propo";
       bold_font = font_family + " Bold";
       italic_font = font_family + " Italic";

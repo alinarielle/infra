@@ -66,7 +66,7 @@
     };
   };
   fileSystems."/persist".neededForBoot = true;
-  l.filesystem.impermanence.enable = true;
+  l.storage.filesystem.impermanence.enable = true;
   disko.devices.nodev."/" = {
     fsType = "tmpfs";
     mountOptions = [

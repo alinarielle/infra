@@ -6,7 +6,7 @@ with config.l.lib;
     "hardened"
   ];
   l.podman.enable = true;
-  l.torrent.enable = true;
+  l.media.torrent.enable = true;
   l.desktop.common.music.enable = true;
   l.desktop.sway = enable [
     "config"

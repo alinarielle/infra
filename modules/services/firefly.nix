@@ -34,7 +34,7 @@ in
   sops.secrets.FIREFLY_DB_PASSWORD = {
     owner = "firefly";
   };
-  l.db.ensure.firefly = { };
+  l.storage.db.ensure.firefly = { };
   users.users.firefly = {
     isSystemUser = true;
     group = "nginx";

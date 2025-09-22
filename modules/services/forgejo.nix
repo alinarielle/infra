@@ -5,7 +5,7 @@
   ...
 }:
 {
-  l.db.ensure.forgejo.DBOwnership = true;
+  l.storage.db.ensure.forgejo.DBOwnership = true;
   sops.secrets.forgejo_db = {
     owner = "forgejo";
   };

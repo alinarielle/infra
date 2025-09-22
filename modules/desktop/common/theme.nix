@@ -4,22 +4,6 @@
   pkgs,
   ...
 }:
-let
-  sweet = pkgs.stdenv.mkDerivation {
-    name = "sweet-theme";
-    version = "6.0.0";
-    installPhase = ''
-      mkdir -p $out/share/themes
-      cp -r $src $out/share/themes/Sweet
-    '';
-    src = pkgs.fetchFromGitHub {
-      owner = "EliverLara";
-      repo = "Sweet";
-      rev = "d70a34a3c6e4d507959524eeeaf91b28b275265b";
-      hash = "sha256-7yRtzmvKHUSBldlCthaJMAZDbM4EuMm4Mki6RX04vAA=";
-    };
-  };
-in
 {
   opt.colors = lib.mkOption {
     type = lib.types.attrs;
@@ -28,20 +12,20 @@ in
     enable = true;
     colorScheme = "dark";
     theme = {
-      package = sweet;
+      package = pkgs.sweet-nova;
       name = "Sweet";
     };
     gtk3 = {
       extraConfig.gtk-application-prefer-dark-theme = true;
       theme = {
-        package = sweet;
+        package = pkgs.sweet-nova;
         name = "Sweet";
       };
     };
     gtk4 = {
       extraConfig.gtk-application-prefer-dark-theme = true;
       theme = {
-        package = sweet;
+        package = pkgs.sweet-nova;
         name = "Sweet";
       };
     };

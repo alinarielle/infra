@@ -2,7 +2,7 @@
 with config.l.lib;
 {
   l.packages = enable [ "noDefaultPackages" ];
-  l.filesystem = enable [
+  l.storage.filesystem = enable [
     "blacklist"
     "sysctl"
   ];

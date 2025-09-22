@@ -112,7 +112,7 @@
         {
           "${key}-srv" = {
             unitConfig =
-              lib.mkIf config.l.filesystem.impermanence.enable {
+              lib.mkIf config.l.storage.filesystem.impermanence.enable {
                 RequiresMountsFor = "/persist";
               }
               // lib.optionalAttrs (val.unitConfig != null) val.unitConfig;
