@@ -7,7 +7,7 @@
 {
   home-manager.users.alina.programs.kitty = {
     enable = true;
-    settings = with config.l.desktop.common.theme.colors; rec {
+    settings = with config.l.users.alina.theme.colors; rec {
       shell = "${lib.getExe pkgs.nushell}";
 
       font_size = "11.0";

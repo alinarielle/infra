@@ -8,7 +8,7 @@
 let
   wallpaper = (
     import ../../../pkgs/wallpaper {
-      inherit (config.l.desktop.common.theme) colors;
+      inherit (config.l.users.alina.theme) colors;
       inherit lib pkgs;
     }
   );
@@ -32,30 +32,8 @@ in
       grim
       slurp
     ];
-  l.desktop.common = config.l.lib.enable [
-    "audio"
-    "bluetooth"
-    "cursor"
-    "fonts"
-    "home-manager"
-    "hyfetch"
-    "kitty"
-    "mime"
-    "librewolf"
-    "mako"
-    "printing"
-    "nix-daemon"
-    "theme"
-    "wayland"
-    "zathura"
-    "music"
-    "swww"
-    "kanshi"
-    "qt"
-  ];
-  l.packages = config.l.lib.enable [ "desktop" ];
   home-manager.users.alina = {
-    wayland.windowManager.sway = with config.l.desktop.common.theme.colors; {
+    wayland.windowManager.sway = with config.l.users.alina.theme.colors; {
       enable = true;
       package = pkgs.swayfx;
       checkConfig = false;
@@ -99,25 +77,20 @@ in
       };
       extraConfigEarly = ''
         	gaps inner 10
-        	smart_gaps on
+        	smart_gaps off
         	input * {
-        	  xkb_options compose:ralt 
-        	  xkb_options caps:swapescape
+        	  xkb_options compose:ralt,caps:swapescape
         	  xkb_layout us
         	  dwt disabled
         	  dwtp disabled
         	  tap disabled
         	  #events enabled
         	}
+          output eDP-1 scale 1.5
         	output HDMI-A-1 pos 1920 0 res 1920x1080 transform 270
-        	output * bg ${./celeste.jpg} fill
+        	output * bg ${../../../plain/pics/celeste.jpg} fill
         	for_window [class=".*"] border pixel 2
         	for_window [title="sway-launcher-desktop"] floating enable, resize set 500 650
-        	for_window [title="Extension: (Bitwarden Password Manager) - Bitwarden — LibreWolf"] floating enable, resize set 500 650
-        	for_window [title="Please Confirm..." class="Godot"] floating enable
-        	for_window [title="Create New Project" class="Godot"] floating enable
-          for_window [window_type="dialog"] floating enable
-          for_window [window_role="dialog"] floating enable
         	blur enable
         	blur_passes 3
         	blur_radius 2

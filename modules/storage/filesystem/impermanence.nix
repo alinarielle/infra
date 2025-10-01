@@ -12,7 +12,7 @@
   ];
 
   config = {
-    warnings = [ "WARNING: Impermanence enabled for ${name}." ];
+    # warnings = [ "WARNING: Impermanence enabled for ${name}." ];
 
     users.mutableUsers = false;
 

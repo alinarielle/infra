@@ -93,7 +93,7 @@
           };
         };
       };
-      style = with config.l.desktop.common.theme.colors; ''
+      style = with config.l.users.alina.theme.colors; ''
         * {
         border: none;
         border-radius: 0;

@@ -1,1 +1,0 @@
-fzf --ansi --no-sort --tac --layout=reverse-list -m --highlight-line --track --bind 'enter:become(nu -e "job spawn { mpv {} --no-audio-display }; nu ~/src/dme.nu/mpv.nu")' --preview 'nu trackInfo.nu {}' --tmux --height=~50 --walker-root=/home/alina/music/

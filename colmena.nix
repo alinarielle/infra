@@ -30,7 +30,9 @@ in
         ...
       }:
       let
-        mkLocalMods = import ./lib/mkLocalMods.nix { inherit lib name; };
+        mkLocalMods = import ./lib/mkLocalMods.nix {
+          inherit lib name;
+        };
       in
       {
         imports = [

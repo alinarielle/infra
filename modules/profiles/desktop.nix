@@ -5,20 +5,27 @@ with config.l.lib;
     "base"
     "hardened"
   ];
-  l.podman.enable = true;
-  l.media.torrent.enable = true;
-  l.desktop.common.music.enable = true;
-  l.desktop.sway = enable [
-    "config"
-    "swaylock"
+  l.users.alina = enable [
+    "niri"
+    "sway"
     "waybar"
+    "audio"
+    "bluetooth"
+    "cursor"
+    "fonts"
+    "home-manager"
+    "hyfetch"
+    "kitty"
+    "mime"
+    "librewolf"
+    "mako"
+    "printing"
+    "nix-daemon"
+    "theme"
+    "wayland"
+    "zathura"
+    "music"
+    "swww"
+    "kanshi"
   ];
-  l.desktop.niri = enable [ "config" ];
-  l.kernel.hardenedLibre.enable = lib.mkForce false;
-  l.packages = enable [
-    "development"
-    "pentesting"
-    "chat"
-  ];
-  l.network = enable [ "mullvad" ];
 }

@@ -6,7 +6,7 @@ def l [] {
   | reduce { |it, acc| 
       $acc + "\n" + $it 
     } 
-  | ${lib.getExe pkgs.blahaj} 
+  | blahaj
   | parse "{name}" 
   | merge (ls | reject name));
 

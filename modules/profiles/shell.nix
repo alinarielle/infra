@@ -5,10 +5,4 @@ with config.l.lib;
     "base"
     "hardened"
   ];
-  l.kernel.hardenedLibre.enable = lib.mkForce false;
-  l.packages = enable [
-    "development"
-    "pentesting"
-    "chat"
-  ];
 }

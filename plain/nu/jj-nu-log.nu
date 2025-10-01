@@ -4,7 +4,7 @@ def to-group-name [] {
 }
 
 # Get the jj log as a table
-export def main [
+export def jj-nu-log [
   --revset (-r): string
   ...columns: string
 ] {

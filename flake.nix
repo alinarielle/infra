@@ -5,10 +5,6 @@
       flake = false;
       url = "https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git";
     };
-    kubernetes = {
-      flake = false;
-      url = "https://github.com/kubernetes/kubernetes";
-    };
     nix-topology.url = "github:oddlama/nix-topology";
     flake-parts.url = "github:hercules-ci/flake-parts";
     dns.url = "github:kirelagin/dns.nix";
@@ -37,7 +33,6 @@
       url = "git+ssh://git@codeberg.org/alinarielle/alina.cx.git";
       flake = false;
     };
-    #tasks.url = "/home/alina/mnt/tigris/home/alina/src/tasks.nix/";
     rclone.url = "/home/alina/src/rclone.nix/";
     rust-toolchain = {
       url = "https://codeberg.org/alinarielle/rust-toolchain/archive/mistress.tar.gz";

@@ -8,8 +8,6 @@
 {
   environment.systemPackages = with pkgs.nushellPlugins; [
     skim
-    #dbus
-    #units
     query
     gstat
     pkgs.nushell
@@ -34,7 +32,7 @@
       '';
       settings = {
         color_config =
-          with config.l.desktop.common.theme.colors;
+          with config.l.users.alina.theme.colors;
           let
             bold = "b";
           in
@@ -58,15 +56,14 @@
         ll = "lsd -l";
         la = "lsd -a";
         laa = "lsd -all";
-        ka = "kakoune";
-        em = "emacs -nw";
       };
       extraConfig = ''
         source ~/.config/nix-your-shell.nu
-        source ~/src/infra/plain/nu/*
-      '';
+        source ~/src/infra/plain/nu/''
+      + lib.concatMapAttrsStringSep "; source ~/src/infra/plain/nu/" (key: val: key) (
+        builtins.readDir ../../../plain/nu
+      );
     };
-    autojump.enable = true;
     carapace.enable = true;
     direnv.enable = true;
     fzf.enable = true;

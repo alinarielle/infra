@@ -30,7 +30,7 @@
       };
     };
   };
-  l.desktop.common.theme.colors = rec {
+  l.users.alina.theme.colors = rec {
     black = "#191919";
     white = "#FEFFFE";
     red = "#E83F6F";
