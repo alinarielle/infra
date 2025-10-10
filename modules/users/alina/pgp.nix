@@ -23,6 +23,7 @@
   services.pcscd.enable = true;
   users.users.alina.packages = with pkgs; [
     yubikey-manager
+    yubikey-agent
     gnupg
     tomb
     yubico-piv-tool

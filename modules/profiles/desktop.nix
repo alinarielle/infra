@@ -1,13 +1,14 @@
 { config, lib, ... }:
 with config.l.lib;
 {
+  l.virtualization.waydroid.enable = true;
   l.profiles = enable [
     "base"
     "hardened"
   ];
   l.users.alina = enable [
-    "niri"
     "sway"
+    "swaylock"
     "waybar"
     "audio"
     "bluetooth"

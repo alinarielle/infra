@@ -4,7 +4,7 @@
     enable = true;
     platformTheme.name = "kde6";
     style = {
-      name = "Sweet Nova";
+      name = "Sweet";
       package = pkgs.sweet-nova;
     };
   };

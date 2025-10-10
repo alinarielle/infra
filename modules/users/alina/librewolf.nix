@@ -10,6 +10,7 @@
     programs.librewolf = {
       enable = true;
       settings = {
+        "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
         "identity.fxaccounts.enable" = true;
         "identity.fxaccounts.enabled" = true;
         "identity.fxaccounts.device.name" = "alina's librewolf on " + name;
@@ -240,6 +241,12 @@
           };
         };
         userChrome = ''
+          @-moz-document domain(bahn.expert) {
+              :root { 
+                --mui-palette-common-blue: ${config.l.users.alina.theme.colors.blue} !important;
+                --mui-palette-primary-main: ${config.l.users.alina.theme.colors.purple} !important;
+              }
+          }
           /* Hide scrollbar in FF Quantum */
           *{scrollbar-width: 2px !important}
 

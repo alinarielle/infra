@@ -1,14 +1,138 @@
 { pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
+    syncthingtray
+    kdePackages.dolphin
+    retroarch
+    feather
+    xmrig
+    #davinci-resolve
+    #davinci-resolve-studio
+    kdePackages.kdenlive
+    kdePackages.yakuake
+    kdePackages.spectacle
+    kdePackages.taglib
+    darktable
+    stc-cli
+    llvmPackages_21.bintools
+    syncthing
+    blender
+    peertube
+    git-annex
+    haskell.compiler.native-bignum.ghcHEAD
+    (postgresql_18_jit.withPackages (ext: with ext; [
+      ip4r # IPv4/v6 and IPv4/v6 range index type for PostgreSQL
+      pgtap # Unit testing framework for PostgreSQL
+      pgjwt # PostgreSQL implementation of JSON Web Tokens
+      pgddl # DDL eXtractor functions for PostgreSQL
+      repmgr # Replication manager for PostgreSQL cluster
+      #pg_net # Async networking for Postgres
+      pg_ivm # Materialized views with IVM (Incremental View Maintenance) for PostgreSQL
+      pg_csv # Flexible CSV processing for Postgres
+      hypopg # Hypothetical Indexes for PostgreSQL
+      postgis # Geographic Objects for PostgreSQL
+      pgrouting # geospatial routing for PostGIS
+      audit # Open Source PostgreSQL Audit Logging
+      pg_topn # Efficient querying of 'top values' for PostgreSQL
+      periods # PostgreSQL extension implementing SQL standard functionality for PERIODs and SYSTEM VERSIONING
+      wal2json # PostgreSQL JSON output plugin for changeset extraction
+      #pgx_ulid # Universally Unique Lexicographically Sortable Identifiers
+      pgsodium # Modern cryptography using libsodium
+      pg_uuidv7 # version 7 UUIDs
+      pg-semver # Semantic version data type for PostgreSQL
+      pg_repack # Reorganize tables in PostgreSQL databases with minimal locks
+      pg_squeeze # PostgreSQL extension for automatic bloat cleanup
+      #pg_ed25519 # PostgreSQL extension for signing and verifying ed25519 signatures
+      #vectorchord # Scalable, fast, and disk-friendly vector search in Postgres, the successor of pgvecto.rs
+      #timescaledb # Scales PostgreSQL for time-series data via automatic partitioning across time and space
+      pg_relusage # discover and log the relations used in your statements
+      temporal_tables # Temporal Tables PostgreSQL Extension
+      #pg_auto_failover # PostgreSQL extension and service for automated failover and high-availability
+    ]))
     p7zip
+    bettercap
+    monero-cli
+    hydroxide
+    vikunja
+    protonmail-bridge
+    ausweisapp
+    prosody
+    jitsi
+    jitsi-excalidraw
+    excalidraw_export
+    jitsi-videobridge
+    jitsi-meet-prosody
+    prometheus-jitsi-exporter
+    prometheus
+    grafterm
+    grafana
+    grafana-loki
+    grafana-alloy
+    mimir
+    python3
+    kubernetes
+    kubernetes-kcp
+    kubernetes-validate
+    kubernetes-polaris
+    opentofu
+    ansible
+    jenkins-job-builder
+    jcli
+    snicat
+    sniproxy
+    haproxy
+    kubernetes-helm-wrapped
+    jenkins
+    ejabberd
+    bat-extras.core
+    networkminer
+    networkd-notify
+    networkmanager-vpnc
+    networkmanager-sstp
+    networkmanager-l2tp
+    networkmanagerapplet
+    networkmanager_dmenu
+    networkmanager-openvpn
+    linux-router
+    bird2
+    bird3
+    pw-viz
+    wayfarer
+    pw-volume
+    pa-notify
+    coppwr
+    gnomecast
+    gnome-usage
+    bird-lg
+    containerlab
+    lxc
+    jool-cli
+    nftables
+    #frr
+    #servo
+    burpsuite
+    web-ext
+    firefox
+    knot-dns
+    knot-resolver
+    dnsdist
+    kea
+    wireshark
+    immich
+    keycloak
     wl-mirror
+    waypipe
+    pidgin
+    niri
+    typstyle
+    tinymist
     sequoia-wot
     sequoia-sq
     sequoia-sqv
     sequoia-sqop
     sequoia-chameleon-gnupg
     qpwgraph
+    pwvucontrol
     qjackctl
     easyeffects
     helvum
@@ -32,13 +156,12 @@
     swww
     linux-wallpaperengine
     nicotine-plus
-    calcure
+    #calcure
     electrum
     bytecode-viewer
     freecad
     blender
     zed-editor
-    wireshark
     mpv
     mpvpaper
     pinentry-qt
@@ -74,7 +197,7 @@
     k9s
     k3d
     k3s
-    imhex
+    #imhex
     kubectl
     eza
     zoxide
@@ -113,7 +236,6 @@
     godot_4
     nginx
     ansible
-    python3
     nurl
     nix-init
     du-dust
@@ -123,7 +245,7 @@
     fd
     tree
     lsd
-    pkgs.kdePackages.kdeconnect-kde
+    kdePackages.kdeconnect-kde
     bat
     hexyl
     lsof
@@ -213,6 +335,5 @@
     radare2
     sslsplit
     subfinder
-    seclists
   ];
 }
