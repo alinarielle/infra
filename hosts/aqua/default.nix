@@ -12,5 +12,5 @@ with config.l.lib;
   l.profiles = enable [ "shell" ];
   system.stateVersion = "25.05";
   deployment.targetUser = "root";
-  deployment.targetHost = "86.107.101.232";
+  deployment.targetHost = "v2202510299447389369.nicesrv.de";
 }

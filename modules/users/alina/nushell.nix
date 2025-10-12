@@ -37,12 +37,13 @@
             bold = "b";
           in
           {
-            header = "mb";
-            int = "p";
-            row_index = "mb";
-            list = blue;
-            record = blue;
-            separator = blue;
+            # header = "mb";
+            # int = "p";
+            # row_index = "gb";
+            # list = primary;
+            # record = primary;
+            # separator = primary;
+            # string = primary;
           };
         show_banner = false;
         buffer_editor = "nvim";

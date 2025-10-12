@@ -20,7 +20,7 @@ let
     let
       r = (lib.fromHexString (lib.substring 1 2 hex)) / 255.0;
       g = (lib.fromHexString (lib.substring 3 2 hex)) / 255.0;
-      b = (lib.fromHexString (lib.substring 5 2 hex)) / 255.0;
+      b = (lib.fromHexString (lib.substring 5 2 hex)) / 350.0;
       max = lib.max r (lib.max g b);
       min = lib.min r (lib.min g b);
       h =
@@ -48,7 +48,7 @@ let
     "R"
     "-evaluate"
     "multiply"
-    (s hue_mul)
+    (s (hue_mul))
     "-channel"
     "G"
     "-evaluate"

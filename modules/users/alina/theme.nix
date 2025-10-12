@@ -43,7 +43,7 @@
     magenta = "#EA3788";
     pink = "#FF96B0";
     primary = blue;
-    secondary = black;
-    tertiary = purple;
+    secondary = green;
+    tertiary = cyan;
   };
 }

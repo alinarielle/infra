@@ -14,7 +14,7 @@
   boot.loader.grub.device = "/dev/sda";
   l.boot.systemd-boot.enable = lib.mkForce false;
   disko.devices.disk.main = {
-    device = "/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi0";
+    device = "/dev/disk/by-path/platform-4010000000.pcie-pci-0000:08:00.0";
     type = "disk";
     content = {
       type = "gpt";

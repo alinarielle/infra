@@ -88,7 +88,7 @@ in
         	}
           output eDP-1 scale 1.5
         	output HDMI-A-1 pos 1920 0 res 1920x1080 transform 270
-        	output * bg ${../../../plain/pics/celeste.jpg} fill
+        	output * bg ~/wallpapers/active.png fill
         	for_window [class=".*"] border pixel 2
         	for_window [title="sway-launcher-desktop"] floating enable, resize set 500 650
         	blur enable
@@ -108,6 +108,10 @@ in
         	default_dim_inactive 0.0
 
           for_window [app_id="widget1x1"] border pixel 3, floating enable, resize set 500 500
+
+          exec nu -c 'job spawn {syncthing}'
+          exec nu -c 'job spawn {signal-desktop}'
+          exec nu -c 'job spawn {flameshot}'
       '';
     };
   };

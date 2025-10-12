@@ -1,4 +1,3 @@
-
 def l [] {
   let dir = (
   ls 
@@ -10,5 +9,7 @@ def l [] {
   | parse "{name}" 
   | merge (ls | reject name));
 
-  $dir | select type | merge ($dir | reject type)
+  $dir 
+  | select type 
+  | merge ($dir | reject type)
 }

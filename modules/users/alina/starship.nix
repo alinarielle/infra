@@ -35,6 +35,9 @@
         when = "jj --ignore-working-copy root";
         symbol = "";
       };
+      time = {
+        disabled = false;
+      };
     };
   };
 }

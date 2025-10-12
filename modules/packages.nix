@@ -1,13 +1,13 @@
 { pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
+    aria2
+    calendar-cli
     syncthingtray
     kdePackages.dolphin
     retroarch
     feather
     xmrig
-    #davinci-resolve
-    #davinci-resolve-studio
     kdePackages.kdenlive
     kdePackages.yakuake
     kdePackages.spectacle
@@ -17,8 +17,9 @@
     llvmPackages_21.bintools
     syncthing
     blender
+    lnav
+    toolong
     peertube
-    git-annex
     haskell.compiler.native-bignum.ghcHEAD
     (postgresql_18_jit.withPackages (ext: with ext; [
       ip4r # IPv4/v6 and IPv4/v6 range index type for PostgreSQL
