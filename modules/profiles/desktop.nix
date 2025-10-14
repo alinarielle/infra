@@ -1,6 +1,7 @@
 { config, lib, ... }:
 with config.l.lib;
 {
+  l.media.torrent.enable = true;
   l.virtualization.waydroid.enable = true;
   l.profiles = enable [
     "base"

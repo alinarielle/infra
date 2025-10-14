@@ -24,9 +24,9 @@ def sortHome [] {
 
     glob ~/sort/**/*.{torrent,nfo}
     | each {|it| 
-      sort $it ~/torrents/
+      sort $it ~/arr/
       j ~/torrents/
-      # job spawn {torrent $it} #TODO: ensure VPN/I2P, send magnet to qbittorrent web API
+      job spawn {arr $it} #TODO: ensure VPN/I2P, send magnet to qbittorrent web API
       j ~/sort/
     }
 
@@ -43,4 +43,4 @@ def sortHome [] {
         j ~/sort/
     }
   }
-} 
+}

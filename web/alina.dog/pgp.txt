@@ -1,0 +1,35 @@
+      Fingerprint: 2118FBD0636AD7DDF70058B72A97A03341382230
+  Public-key algo: EdDSA
+  Public-key size: 256 bits
+       Secret key: Unencrypted
+    Creation time: 2025-10-03 06:08:53 UTC
+  Expiration time: 2028-10-02 23:35:14 UTC (creation time + 2years 11months 30days 9h 16m 45s)
+        Key flags: certification
+
+           Subkey: BDB04AA57075890FF690C5421541FDFA07E785FD
+  Public-key algo: EdDSA
+  Public-key size: 256 bits
+       Secret key: Unencrypted
+    Creation time: 2025-10-03 06:08:53 UTC
+  Expiration time: 2028-10-02 23:35:14 UTC (creation time + 2years 11months 30days 9h 16m 45s)
+        Key flags: authentication
+
+           Subkey: D9C6251953D68748A21453C6572960D49FA00732
+  Public-key algo: EdDSA
+  Public-key size: 256 bits
+       Secret key: Unencrypted
+    Creation time: 2025-10-03 06:08:53 UTC
+  Expiration time: 2028-10-02 23:35:14 UTC (creation time + 2years 11months 30days 9h 16m 45s)
+        Key flags: signing
+
+           Subkey: 9305587EA5F8E75B83C79D8E6BB3CFA28100653A
+  Public-key algo: ECDH
+  Public-key size: 256 bits
+       Secret key: Unencrypted
+    Creation time: 2025-10-03 06:08:53 UTC
+  Expiration time: 2028-10-02 23:35:14 UTC (creation time + 2years 11months 30days 9h 16m 45s)
+        Key flags: transport encryption, data-at-rest encryption
+
+           UserID: <contact@alina.cx>
+
+           UserID: alina

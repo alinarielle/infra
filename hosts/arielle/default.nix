@@ -17,7 +17,6 @@ with config.l.lib;
     "gaming"
     "laptop"
   ];
-  #l.kernel.hardened.enable = true;
   system.stateVersion = "25.05";
   deployment.targetHost = "localhost";
 }

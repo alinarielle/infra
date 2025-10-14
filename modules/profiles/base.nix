@@ -2,11 +2,12 @@
 with config.l.lib;
 {
   l.nix.enable = true;
+  # l.iso.enable = true;
   l.sops.enable = true;
   l.autoUpgrade.enable = true;
   l.boot = enable [ "systemd-boot" ];
   l.packages.enable = true;
-  l.users.sudo.enable = true;
+  l.auth.sudo.enable = true;
   l.users.alina = enable [
     "git"
     "home-manager"

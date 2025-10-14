@@ -5,9 +5,15 @@
     calendar-cli
     syncthingtray
     kdePackages.dolphin
-    retroarch
     feather
     xmrig
+    qbittorrent-cli
+    qbittorrent-enhanced-nox
+    niri
+    stardust-xr-kiara
+    sq
+    basilk
+    taskwarrior3
     kdePackages.kdenlive
     kdePackages.yakuake
     kdePackages.spectacle
@@ -124,7 +130,6 @@
     wl-mirror
     waypipe
     pidgin
-    niri
     typstyle
     tinymist
     sequoia-wot
