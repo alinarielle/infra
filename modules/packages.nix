@@ -1,10 +1,25 @@
 { pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
+    spicetify-cli
+    spotify-player
+    sptlrx
+    mopidy-spotify
+    spot
+    psst
+    spotube
+    spotdl
+    mopidy-iris
+    mopidy
+    beatprints
+    gnomeExtensions.mpris-label
+    spotify
     aria2
+    nix-tree
     calendar-cli
     syncthingtray
     kdePackages.dolphin
+    signal-cli
     feather
     xmrig
     qbittorrent-cli
@@ -174,7 +189,6 @@
     tor-browser
     krita
     librewolf
-    element-desktop
     android-file-transfer
     kitty
     bluez
@@ -327,7 +341,6 @@
     wget
     curl
     slskd
-    spotdl
     checksec
     procyon
     cfr

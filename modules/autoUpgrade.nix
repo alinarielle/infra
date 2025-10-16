@@ -4,7 +4,7 @@
     enable = true;
     operation = "boot";
     upgrade = false;
-    flake = "git+ssh://git@git.gay/alina/flake.git";
+    flake = "git+ssh://git@codeberg.org/alinarielle/infra.git";
     persistent = true;
     allowReboot = !config.l.profiles.desktop.enable;
     rebootWindow = {

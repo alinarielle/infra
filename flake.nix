@@ -1,10 +1,12 @@
 {
-  description = "alina's NixOS flake";
   inputs = {
     linuxStable = {
       flake = false;
       url = "https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git";
     };
+    rclone.url = "/home/alina/rclone";
+    sops.url = "/home/alina/keys/sops";
+    sops.flake = false;
     nix-topology.url = "github:oddlama/nix-topology";
     flake-parts.url = "github:hercules-ci/flake-parts";
     dns.url = "github:kirelagin/dns.nix";
@@ -33,7 +35,6 @@
       url = "git+ssh://git@codeberg.org/alinarielle/alina.cx.git";
       flake = false;
     };
-    rclone.url = "/home/alina/src/rclone.nix/";
     rust-toolchain = {
       url = "https://codeberg.org/alinarielle/rust-toolchain/archive/mistress.tar.gz";
     };
@@ -43,10 +44,11 @@
     inputs:
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
-        ./colmena.nix
-        ./fmt.nix
+        ./lib/colmena.nix
+        ./lib/fmt.nix
+        ./lib/shell.nix
         inputs.nix-topology.flakeModule
       ];
-      systems = [ "x86_64-linux" ];
+      systems = [ "x86_64-linux" "aarch64-linux" ];
     };
 }

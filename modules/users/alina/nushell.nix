@@ -28,7 +28,7 @@
     nushell = {
       enable = true;
       configFile.text = ''
-        	      $env.EDITOR = "nvim"
+	$env.EDITOR = "nvim"
       '';
       settings = {
         color_config =
@@ -60,10 +60,9 @@
       };
       extraConfig = ''
         source ~/.config/nix-your-shell.nu
-        source ~/src/infra/plain/nu/''
-      + lib.concatMapAttrsStringSep "; source ~/src/infra/plain/nu/" (key: val: key) (
-        builtins.readDir ../../../plain/nu
-      );
+        source ~/nu/init.nu
+        # j /nix/bites/
+	'';
     };
     carapace.enable = true;
     direnv.enable = true;

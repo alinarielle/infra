@@ -1043,11 +1043,11 @@
     },
     "nixpkgs_9": {
       "locked": {
-        "lastModified": 1760284886,
-        "narHash": "sha256-TK9Kr0BYBQ/1P5kAsnNQhmWWKgmZXwUQr4ZMjCzWf2c=",
+        "lastModified": 1760524057,
+        "narHash": "sha256-EVAqOteLBFmd7pKkb0+FIUyzTF61VKi7YmvP1tw4nEw=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "cf3f5c4def3c7b5f1fc012b3d839575dbe552d43",
+        "rev": "544961dfcce86422ba200ed9a0b00dd4b1486ec5",
         "type": "github"
       },
       "original": {
@@ -1168,11 +1168,11 @@
         "rev": "9628be12a1b07953d3177918112cf560c0fa0212",
         "revCount": 4,
         "type": "git",
-        "url": "file:///home/alina/src/rclone.nix"
+        "url": "file:///home/alina/rclone"
       },
       "original": {
         "type": "git",
-        "url": "file:///home/alina/src/rclone.nix"
+        "url": "file:///home/alina/rclone"
       }
     },
     "root": {
@@ -1199,6 +1199,7 @@
         "nixvim": "nixvim",
         "rclone": "rclone",
         "rust-toolchain": "rust-toolchain",
+        "sops": "sops",
         "sops-nix": "sops-nix"
       }
     },
@@ -1266,6 +1267,19 @@
       "original": {
         "type": "tarball",
         "url": "https://codeberg.org/alinarielle/rust-toolchain/archive/mistress.tar.gz"
+      }
+    },
+    "sops": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1760483319,
+        "narHash": "sha256-YoOYkO37ZD8oAQqwBcprEDOW+TiFyrSevegeBjOd8Fk=",
+        "path": "/home/alina/keys/sops",
+        "type": "path"
+      },
+      "original": {
+        "path": "/home/alina/keys/sops",
+        "type": "path"
       }
     },
     "sops-nix": {

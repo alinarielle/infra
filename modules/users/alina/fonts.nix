@@ -72,7 +72,7 @@ in
       roboto-slab
       lato
       source-code-pro
-      (pkgs.callPackage ../../../pkgs/fa7.nix { })
+      font-awesome
     ]
     ++
       map (font: font) # patchNerdFont font ./svg)

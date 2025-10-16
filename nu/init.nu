@@ -1,0 +1,12 @@
+source ~/nu/deploy.nu
+source ~/nu/dme.nu
+source ~/nu/flacInfo.nu
+source ~/nu/jj-nu-log.nu
+source ~/nu/l.nu
+source ~/nu/mp.nu
+source ~/nu/net.nu
+source ~/nu/nre.nu
+source ~/nu/sortHome.nu
+source ~/nu/trains.nu
+source ~/nu/update.nu
+source ~/nu/dl.nu

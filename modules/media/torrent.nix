@@ -4,6 +4,7 @@
   lib,
   opt,
   cfg,
+inputs,
   ...
 }:
 {
@@ -12,7 +13,7 @@
   ];
 
   sops.secrets.floodSecret = {
-    sopsFile = ../../secrets/global.yaml;
+    sopsFile = "${inputs.sops}/global.yaml";
   };
   systemd.services.flood = {
     environment.FLOOD = "%d/floodSecret";
@@ -30,7 +31,7 @@
   };
 
   sops.secrets.autobrrSessionSecret = {
-    sopsFile = ../../secrets/global.yaml;
+    sopsFile = "${inputs.sops}/global.yaml";
   };
   services.autobrr = {
     enable = true;
@@ -43,7 +44,7 @@
   };
 
   sops.secrets.delugeAuthFile = {
-    sopsFile = ../../secrets/global.yaml;
+    sopsFile = "${inputs.sops}/global.yaml";
     owner = "deluge";
   };
   services.deluge = {

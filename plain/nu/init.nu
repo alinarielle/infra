@@ -1,1 +1,0 @@
-alias dl = yt-dlp
