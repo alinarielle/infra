@@ -1,0 +1,9 @@
+[submodule "nu"]
+	path = nu
+	url = https://codeberg.org/alinarielle/nu
+[submodule "modules"]
+	path = modules
+	url = https://codeberg.org/alinarielle/nixosModules
+[submodule "sops"]
+	path = sops
+	url = https://codeberg.org/alinarielle/sops
