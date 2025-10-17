@@ -625,7 +625,7 @@
     "linuxStable": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-KCj2kuCm12NDp9bgN3/cCeUFUNfoFhJI2EzCbCvt3/c=",
+        "narHash": "sha256-M0LjIW5/E08DdZkzxLM+m1cYZrFaGUJOKow21w4Qde4=",
         "type": "file",
         "url": "https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git"
       },
@@ -1162,17 +1162,14 @@
         "nixpkgs": "nixpkgs_9"
       },
       "locked": {
-        "lastModified": 1757449645,
-        "narHash": "sha256-Xb00PYx8no1+GIUSKcwixRvOrvWebzJePzFkP1EfzSQ=",
-        "ref": "refs/heads/mistress",
-        "rev": "9628be12a1b07953d3177918112cf560c0fa0212",
-        "revCount": 4,
-        "type": "git",
-        "url": "file:///home/alina/rclone"
+        "lastModified": 1760562197,
+        "narHash": "sha256-kKq5IdXHMGANgWQwC8RMbYmWawIxpTUk5K241LXfqag=",
+        "path": "/home/alina/rclone",
+        "type": "path"
       },
       "original": {
-        "type": "git",
-        "url": "file:///home/alina/rclone"
+        "path": "/home/alina/rclone",
+        "type": "path"
       }
     },
     "root": {

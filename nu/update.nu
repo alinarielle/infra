@@ -2,6 +2,6 @@ def update [host] {
   let pwd = (pwd); 
   j infra; 
   nix flake update;
-  deploy $host;
+  deploy;
   j $pwd;
 }
