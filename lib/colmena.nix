@@ -6,11 +6,10 @@
   ...
 }:
 let
-  modsDir = ../modules;
-  hostsDir = "${./../hosts}";
+  hostsDir = ./../hosts;
   hostNames =
     with lib;
-    attrNames (filterAttrs (name: type: (type == "directory") && (name != "lib")) (builtins.readDir hostsDir));
+    attrNames (filterAttrs (name: type: type == "directory") (builtins.readDir hostsDir));
   colmena = inputs.colmena;
 in
 {
@@ -38,12 +37,11 @@ in
       {
         imports = [
           inputs.home-manager.nixosModules.home-manager
-          (./../hosts + "/${name}")
-
+          (../hosts + "/${name}")
           ./.
           (mkLocalMods {
             prefix = [ "l" ];
-            dir = modsDir;
+            dir = ../modules;
           })
           inputs.sops-nix.nixosModules.sops
         ];

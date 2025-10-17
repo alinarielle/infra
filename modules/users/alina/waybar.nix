@@ -18,29 +18,33 @@
       settings = {
         mainBar = {
           layer = "top";
-          position = "bottom";
+          position = "top";
           modules-left = [
             "sway/workspaces"
             "sway/mode"
-            "tray"
+            "sway/window"
           ];
+          "sway/window" = {
+            "format" = "{title}";
+            "max-length" = 50;
+            "all-outputs" = true;
+            "offscreen-css" = true;
+            "offscreen-css-text" = "(inactive)";
+            "rewrite" = {
+              "(.*) - Librewolf" = "  $1";
+              "(.*) - neovim" = " [$1]";
+              "(.*) - Spotify" = " [$1]";
+              "(.*) - kitty" = " [$1]";
+            };
+          };
           modules-right = [
+            "tray"
             "network"
-            "temperature"
+            "wireplumber"
             "cpu"
             "memory"
             "battery"
-            "clock"
           ];
-          #"custom/dog" = {
-          #format = "{icon}";
-          #format-icons = {
-          #dog =
-          #};
-          #};
-          "sway/window" = {
-            format = "{title}";
-          };
           cpu = {
             format = "  {usage}%";
           };
@@ -65,23 +69,27 @@
               warning = 25;
             };
           };
-          pulseaudio = {
+          wireplumber = {
             format = "{icon} {volume}%";
             format-icons = [
+              ""
               " "
               " "
             ];
-            format-muted = " muted";
+            on-click = "helvum";
+            on-click-right = "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle";
+            max-volume = 150;
+            scroll-step = 0.2;
           };
           clock = {
             format = "{:%a %Y-%m-%d %H:%M:%S%z}";
             interval = 1;
           };
           network = {
-            format-wifi = "  {essid} ({signalStrength}%)";
-            format-ethernet = "󱘖 online";
-            format-disconnected = "󰈂 offline";
-            tooltip-format = "IPv4: {ipaddr}/{cidr}\nFrequency: {frequency}MHz\nStrength:{signaldBm}dBm";
+            format-wifi = "  {ipaddr}/{cidr}";
+            format-ethernet = "󱘖 {ipaddr}/{cidr}";
+            format-disconnected = "󰈂 {ipaddr}/{cidr}";
+            tooltip-format = "Frequency: {frequency}MHz\nStrength:{signaldBm}dBm";
             max-length = 50;
             interval = 5;
           };
@@ -89,7 +97,7 @@
             critical-treshold = 70;
             format = " {temperatureC}°C";
             interval = 1;
-            hwmon-path = "/sys/devices/platform/coretemp.0/hwmon/hwmon6/temp1_input";
+            #hwmon-path = "/sys/devices/platform/coretemp.0/hwmon/hwmon6/temp1_input";
           };
         };
       };

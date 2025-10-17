@@ -4,7 +4,7 @@
   lib,
   opt,
   cfg,
-inputs,
+  inputs,
   ...
 }:
 {

@@ -2,6 +2,7 @@
 with config.l.lib;
 {
   l.nix.enable = true;
+  l.home.enable = true;
   # l.iso.enable = true;
   l.sops.enable = true;
   l.autoUpgrade.enable = true;

@@ -7,6 +7,8 @@
     rclone.url = "/home/alina/rclone";
     sops.url = "/home/alina/keys/sops";
     sops.flake = false;
+    nu.url = "/home/alina/infra/nu";
+    nu.flake = false;
     nix-topology.url = "github:oddlama/nix-topology";
     flake-parts.url = "github:hercules-ci/flake-parts";
     dns.url = "github:kirelagin/dns.nix";
@@ -45,10 +47,16 @@
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
         ./lib/colmena.nix
-        ./lib/fmt.nix
         ./lib/shell.nix
+        ./lib/fmt.nix
+        ./lib/app.nix
+      ]
+      ++ [
         inputs.nix-topology.flakeModule
       ];
-      systems = [ "x86_64-linux" "aarch64-linux" ];
+      systems = [
+        "x86_64-linux"
+        "aarch64-linux"
+      ];
     };
 }

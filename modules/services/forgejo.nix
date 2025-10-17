@@ -25,36 +25,36 @@
     '';
   };
 
-  l.services.kanidm.groups = {
-    forgejo_access = { };
-    forgejo_admins = { };
-  };
-  l.services.kanidm.oauth2.forgejo = {
-    removeOrphanedClaimMaps = false;
-    scopeMaps.forgejo_access = [
-      "openid"
-      "email"
-      "profile"
-    ];
-    displayName = "Forgejo";
-    preferShortUsername = true;
-    claimMaps.groups = {
-      joinType = "array";
-      valuesByGroup = {
-        forgejo_admins = [ "admin" ];
-        forgejo_access = [ "access" ];
-      };
-    };
-    originLanding = "https://git.alina.cx/explore";
-    originUrl = "https://git.alina.cx/login/oauth/authorize";
-  };
+  # l.services.kanidm.groups = {
+  #   forgejo_access = { };
+  #   forgejo_admins = { };
+  # };
+  # l.services.kanidm.oauth2.forgejo = {
+  #   removeOrphanedClaimMaps = false;
+  #   scopeMaps.forgejo_access = [
+  #     "openid"
+  #     "email"
+  #     "profile"
+  #   ];
+  #   displayName = "Forgejo";
+  #   preferShortUsername = true;
+  #   claimMaps.groups = {
+  #     joinType = "array";
+  #     valuesByGroup = {
+  #       forgejo_admins = [ "admin" ];
+  #       forgejo_access = [ "access" ];
+  #     };
+  #   };
+  #   originLanding = "https://git.alina.cx/explore";
+  #   originUrl = "https://git.alina.cx/login/oauth/authorize";
+  # };
 
   services.forgejo = {
     enable = true;
     database = {
       type = "postgres";
       host = "::1";
-      createDatabase = false;
+      createDatabase = true;
       passwordFile = config.sops.secrets.forgejo_db.path;
     };
     settings = {
