@@ -19,8 +19,6 @@
     };
 
   config.home-manager.users.alina.xdg.configFile =
-    let
-    in
     lib.mapAttrs (
       key: val:
       let

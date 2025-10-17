@@ -1,6 +1,8 @@
-{ pkgs, ... }:
+{ pkgs, ... }: with pkgs;
 {
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = [
+    onefetch
+    git-quick-stats
     spicetify-cli
     spotify-player
     sptlrx
@@ -11,7 +13,6 @@
     mopidy-iris
     mopidy
     beatprints
-    gnomeExtensions.mpris-label
     spotify
     aria2
     nix-tree

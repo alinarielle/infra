@@ -6,11 +6,12 @@
   home-manager.users.alina.programs.git = {
     enable = true;
     delta.enable = true;
-    userName = "alina";
-    userEmail = "alina@duck.com";
-    #signing.signByDefault = true;
-    #signing.key = "2323A23A5326C368D2EA25E851D817D1174AFD62";
+    userName = "alina arielle";
+    userEmail = "hi@alina.cx";
+    signing.signByDefault = true;
+    signing.key = "~/.ssh/id_ed25519.pub";
     extraConfig = {
+      gpg.format = "ssh";
       init.defaultBranch = "mistress";
       tag.gpgSign = true;
       tag.sort = "version:refname";
@@ -29,7 +30,7 @@
         all = true;
         autoSetupRemote = true;
       };
-      #pull.rebase = true;
+      pull.rebase = true;
       #merge.conflictstyle = "zdiff3";
       help.autocorrect = "prompt";
       commit.verbose = true;
