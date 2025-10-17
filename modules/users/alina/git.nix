@@ -9,7 +9,7 @@
     userName = "alina arielle";
     userEmail = "hi@alina.cx";
     signing.signByDefault = true;
-    signing.key = "~/.ssh/id_ed25519.pub";
+    signing.key = "/home/alina/.ssh/id_ed25519.pub";
     extraConfig = {
       gpg.format = "ssh";
       init.defaultBranch = "mistress";

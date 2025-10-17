@@ -18,33 +18,70 @@
       settings = {
         mainBar = {
           layer = "top";
-          position = "top";
+          position = "bottom";
           modules-left = [
             "sway/workspaces"
             "sway/mode"
             "sway/window"
           ];
-          "sway/window" = {
-            "format" = "{title}";
-            "max-length" = 50;
-            "all-outputs" = true;
-            "offscreen-css" = true;
-            "offscreen-css-text" = "(inactive)";
-            "rewrite" = {
-              "(.*) - Librewolf" = "  $1";
-              "(.*) - neovim" = " [$1]";
-              "(.*) - Spotify" = " [$1]";
-              "(.*) - kitty" = " [$1]";
-            };
-          };
           modules-right = [
             "tray"
+            "cava"
             "network"
             "wireplumber"
             "cpu"
             "memory"
             "battery"
           ];
+          "cava" =  {
+            "cava_config" =  "/home/alina/.config/cava/config";
+            "framerate" = 30;
+            "autosens" = 1;
+            "sensitivity" = 100;
+            "bars" = 30;
+            "lower_cutoff_freq" = 50;
+            "higher_cutoff_freq" = 10000;
+            "hide_on_silence" = false;
+            #"format_silent" = "quiet";
+            "method" = "pipewire";
+            "source" = "auto";
+            "stereo" = true;
+            "reverse" = false;
+            "bar_delimiter" = 0;
+            "monstercat" = false;
+            "waves" = true;
+            "noise_reduction" = 0.77;
+            "input_delay" = 2;
+            "format-icons" = ["▁" "▂" "▃" "▄" "▅" "▆" "▇" "█" ];
+            "actions" = {
+              "on-click-right" = "mode";
+            };
+          };
+          "sway/window" = {
+            "format" = "[{title}]";
+            "max-length" = 80;
+            "all-outputs" = true;
+            "offscreen-css" = true;
+            "offscreen-css-text" = "(inactive)";
+            "rewrite" = {
+              "(.*) - LibreWolf" = " [$1]";
+              "(.*) nv" = " [$1]";
+              "(.*) - Spotify" = " [$1]";
+            };
+          };
+          mpris = {
+            format = "DEFAULT: {player_icon} {dynamic}";
+            format-paused = "DEFAULT: {status_icon} <i>{dynamic}</i>";
+            player-icons = {
+              default = "";
+              mpv = "";
+              librewolf = " ";
+              spotify = " ";
+            };
+            status-icons = {
+              paused = "⏸";
+            };
+          };
           cpu = {
             format = "  {usage}%";
           };
