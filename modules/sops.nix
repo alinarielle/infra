@@ -1,4 +1,4 @@
 { name, inputs, ... }:
 {
-  sops.defaultSopsFile = "${inputs.sops}/global.yaml";
+  sops.defaultSopsFile = ../sops/global.yaml;
 }

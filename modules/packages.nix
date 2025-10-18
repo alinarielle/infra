@@ -1,9 +1,13 @@
 { pkgs, ... }: with pkgs;
 {
   environment.systemPackages = [
+    htmlq
     onefetch
+    obs-studio
+    mlt
     git-quick-stats
     spicetify-cli
+    steam
     spotify-player
     sptlrx
     mopidy-spotify

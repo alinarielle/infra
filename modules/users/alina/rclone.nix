@@ -16,7 +16,6 @@
       ]
       (secret: {
         owner = "alina";
-        sopsFile = "${inputs.sops}/global.yaml";
       });
   rclone.enable = true;
   rclone.mounts."/home/alina/music" = {

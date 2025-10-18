@@ -12,7 +12,7 @@ with config.l.lib;
     ./hardware-configuration.nix
     inputs.nixos-hardware.nixosModules.framework-12-13th-gen-intel
   ];
-  #l.services.forgejo.enable = true;
+  l.services.peertube.enable = true;
   l.profiles = enable [
     "desktop"
     "gaming"

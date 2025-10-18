@@ -1,12 +1,11 @@
 {
   inputs = {
+    infra.url = "https://codeberg.org/alinarielle/infra/archive/main.tar.gz";
     linuxStable = {
       flake = false;
       url = "https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git";
     };
     rclone.url = "/home/alina/rclone";
-    sops.url = "/home/alina/keys/sops";
-    sops.flake = false;
     nix-topology.url = "github:oddlama/nix-topology";
     flake-parts.url = "github:hercules-ci/flake-parts";
     dns.url = "github:kirelagin/dns.nix";

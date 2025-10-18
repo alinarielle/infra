@@ -23,9 +23,9 @@
             "sway/workspaces"
             "sway/mode"
             "sway/window"
+            "tray"
           ];
           modules-right = [
-            "tray"
             "cava"
             "network"
             "wireplumber"
@@ -36,29 +36,29 @@
           "cava" =  {
             "cava_config" =  "/home/alina/.config/cava/config";
             "framerate" = 30;
-            "autosens" = 1;
-            "sensitivity" = 100;
+            "autosens" = 0;
+            "sensitivity" = 300;
             "bars" = 30;
             "lower_cutoff_freq" = 50;
             "higher_cutoff_freq" = 10000;
-            "hide_on_silence" = false;
+            "hide_on_silence" = true;
             #"format_silent" = "quiet";
             "method" = "pipewire";
             "source" = "auto";
             "stereo" = true;
             "reverse" = false;
             "bar_delimiter" = 0;
-            "monstercat" = false;
-            "waves" = true;
+            "monstercat" = true;
+            "waves" = false;
             "noise_reduction" = 0.77;
             "input_delay" = 2;
-            "format-icons" = ["▁" "▂" "▃" "▄" "▅" "▆" "▇" "█" ];
+            "format-icons" = ["⣀" "⣤" "⣶" "⣿" ];
             "actions" = {
               "on-click-right" = "mode";
             };
           };
           "sway/window" = {
-            "format" = "[{title}]";
+            "format" = "{title}";
             "max-length" = 80;
             "all-outputs" = true;
             "offscreen-css" = true;

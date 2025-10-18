@@ -38,7 +38,6 @@ in
       package = pkgs.swayfx;
       checkConfig = false;
       config = rec {
-        terminal = "kitty";
         colors = {
           focused = {
             background = white;
@@ -48,9 +47,10 @@ in
             text = white;
           };
         };
+        terminal = (lib.getExe pkgs.kitty) + " --class=terminal";
         modifier = "Mod4"; # set mod to meta
         bars = [ ]; # set to empty list to disable bar entirely
-        menu = "${terminal} ${lib.getExe pkgs.sway-launcher-desktop}";
+        menu = "${lib.getExe pkgs.kitty} ${lib.getExe pkgs.sway-launcher-desktop}";
         keybindings =
           let
             brightnessctl = lib.getExe pkgs.brightnessctl;
@@ -90,7 +90,6 @@ in
         	output HDMI-A-1 pos 1920 0 res 1920x1080 transform 270
         	output * bg ~/blob/wallpapers/active.png fill
         	for_window [class=".*"] border pixel 2
-        	for_window [title="sway-launcher-desktop"] floating enable, resize set 500 650
         	blur enable
         	blur_passes 3
         	blur_radius 2
@@ -108,10 +107,10 @@ in
         	default_dim_inactive 0.0
 
           for_window [app_id="widget1x1"] border pixel 3, floating enable, resize set 500 500
+          for_window [app_id="dmenu"] floating enable, resize set 500 650
 
-          exec nu -c 'job spawn {syncthing}'
-          exec nu -c 'job spawn {signal-desktop}'
-          exec nu -c 'job spawn {flameshot}'
+
+          exec nu -c "job spawn {signal-desktop}; job spawn {librewolf}; job spawn {syncthing}; job spawn {flameshot}; job spawn {kitty --class dmenu -d ~/infra/ --detach --session --hold --single-instance --instance-group=dmenu --listen-on=unix:@dmenu --override allow_remote_control=socket-only --grab-keyboard --start-as=fullscreen -T dmenu zellij}"
       '';
     };
   };
