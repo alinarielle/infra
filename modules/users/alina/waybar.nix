@@ -25,8 +25,8 @@
             "sway/window"
             "tray"
           ];
+          modules-center = ["cava"];
           modules-right = [
-            "cava"
             "network"
             "wireplumber"
             "cpu"
@@ -38,7 +38,7 @@
             "framerate" = 30;
             "autosens" = 0;
             "sensitivity" = 300;
-            "bars" = 30;
+            "bars" = 40;
             "lower_cutoff_freq" = 50;
             "higher_cutoff_freq" = 10000;
             "hide_on_silence" = true;
@@ -50,7 +50,7 @@
             "bar_delimiter" = 0;
             "monstercat" = true;
             "waves" = false;
-            "noise_reduction" = 0.77;
+            "noise_reduction" = 0.5;
             "input_delay" = 2;
             "format-icons" = ["⣀" "⣤" "⣶" "⣿" ];
             "actions" = {

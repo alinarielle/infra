@@ -6,6 +6,10 @@
     browser = "${pkgs.xdg-utils}/bin/xdg-open";
     urls = [
       {
+        url = "https://kill-the-newsletter.com/feeds/kh76dtu4wqq3es3a82cx.xml";
+        title = "drugs.com";
+      }
+      {
         url = "http://127.0.0.1:1111/atom.xml";
         title = "alina";
       }

@@ -1,3 +1,4 @@
+source ~/infra/nu/links.nu
 source ~/infra/nu/deploy.nu
 source ~/infra/nu/dme.nu
 source ~/infra/nu/flacInfo.nu
