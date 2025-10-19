@@ -6,12 +6,32 @@
     browser = "${pkgs.xdg-utils}/bin/xdg-open";
     urls = [
       {
+        url = "https://kill-the-newsletter.com/feeds/t5i8w1yp2tq9046vznlr.xml";
+        title = "bits about money";
+      }
+      {
+        url = "https://feeds.transistor.fm/complex-systems-with-patrick-mckenzie-patio11";
+        title = "complex systems";
+      }
+      {
+        url = "https://kill-the-newsletter.com/feeds/v8nzpwum9l2dtww0.xml";
+        title = "Matt Levine";
+      }
+      {
+        url = "https://kill-the-newsletter.com/feeds/mu9itue2m8l3mkmph80f.xml";
+        title = "crunchydata.com";
+      }
+      {
+        url = "https://taylor.town/feed.xml";
+        title = "taylor.town";
+      }
+      {
         url = "https://kill-the-newsletter.com/feeds/kh76dtu4wqq3es3a82cx.xml";
         title = "drugs.com";
       }
       {
-        url = "http://127.0.0.1:1111/atom.xml";
-        title = "alina";
+        url = "https://blog.alina.cx/atom.xml";
+        title = "blog.alina.cx";
       }
       {
         url = "https://soatok.blog/rss";

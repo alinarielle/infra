@@ -7,7 +7,6 @@
     mlt
     git-quick-stats
     spicetify-cli
-    steam
     spotify-player
     sptlrx
     mopidy-spotify
@@ -16,8 +15,6 @@
     spotube
     mopidy-iris
     mopidy
-    beatprints
-    spotify
     aria2
     nix-tree
     calendar-cli
@@ -138,7 +135,6 @@
     nftables
     #frr
     #servo
-    burpsuite
     web-ext
     firefox
     knot-dns
