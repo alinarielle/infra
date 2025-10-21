@@ -1,8 +1,8 @@
 { config, ... }:
 with config.l.lib;
 {
-  l.nix.enable = true;
   l.home.enable = true;
+  l.nix.enable = true;
   # l.iso.enable = true;
   l.sops.enable = true;
   l.autoUpgrade.enable = true;
@@ -11,6 +11,7 @@ with config.l.lib;
   l.authentication.sudo.enable = true;
   l.users.alina = enable [
     "git"
+    "spicetify"
     "home-manager"
     "ssh"
     "pass"

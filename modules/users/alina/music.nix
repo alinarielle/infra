@@ -1,3 +1,4 @@
+{ pkgs, ... }:
 {
   home-manager.users.alina = {
     services.mpd = {

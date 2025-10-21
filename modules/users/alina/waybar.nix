@@ -25,7 +25,7 @@
             "sway/window"
             "tray"
           ];
-          modules-center = ["cava"];
+          modules-center = [ "cava" ];
           modules-right = [
             "network"
             "wireplumber"
@@ -33,8 +33,8 @@
             "memory"
             "battery"
           ];
-          "cava" =  {
-            "cava_config" =  "/home/alina/.config/cava/config";
+          "cava" = {
+            "cava_config" = "/home/alina/.config/cava/config";
             "framerate" = 30;
             "autosens" = 0;
             "sensitivity" = 300;
@@ -52,7 +52,12 @@
             "waves" = false;
             "noise_reduction" = 0.5;
             "input_delay" = 2;
-            "format-icons" = ["⣀" "⣤" "⣶" "⣿" ];
+            "format-icons" = [
+              "⣀"
+              "⣤"
+              "⣶"
+              "⣿"
+            ];
             "actions" = {
               "on-click-right" = "mode";
             };

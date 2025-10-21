@@ -1,0 +1,1 @@
+cal --week-start mo --month-names --as-table | rename Month Monday Tuesday Wednesday Thursday Friday Saturday Sunday | update cells {$in | str capitalize} -c [Month] | update cells -c [Monday Tuesday Wednesday Thursday Friday Saturday Sunday] {[[day events tasks meds];[$"(date now)" ["awawa"] [] []]]}

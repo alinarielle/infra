@@ -47,10 +47,10 @@ in
             text = white;
           };
         };
-        terminal = (lib.getExe pkgs.kitty) + " --class=terminal";
+        terminal = menu;
         modifier = "Mod4"; # set mod to meta
         bars = [ ]; # set to empty list to disable bar entirely
-        menu = "${lib.getExe pkgs.kitty} ${lib.getExe pkgs.sway-launcher-desktop}";
+        menu = "noctalia-shell ipc call launcher toggle";
         keybindings =
           let
             brightnessctl = lib.getExe pkgs.brightnessctl;
@@ -88,7 +88,7 @@ in
         	}
           output eDP-1 scale 1.5
         	output HDMI-A-1 pos 1920 0 res 1920x1080 transform 270
-        	output * bg ~/blob/wallpapers/active.png fill
+        	output * bg ~/blob/wallpapers/38c3_nixos.png fill
         	for_window [class=".*"] border pixel 2
         	blur enable
         	blur_passes 3
@@ -107,10 +107,9 @@ in
         	default_dim_inactive 0.0
 
           for_window [app_id="widget1x1"] border pixel 3, floating enable, resize set 500 500
-          for_window [app_id="dmenu"] floating enable, resize set 500 650
+          for_window [app_id="dmenu"] floating enable, resize set 1200 800
 
-
-          exec nu -c "job spawn {signal-desktop}; job spawn {librewolf}; job spawn {syncthing}; job spawn {flameshot}; job spawn {kitty --class dmenu -d ~/infra/ --detach --session --hold --single-instance --instance-group=dmenu --listen-on=unix:@dmenu --override allow_remote_control=socket-only --grab-keyboard --start-as=fullscreen -T dmenu zellij}"
+          exec nu -c "job spawn {signal-desktop}; job spawn {librewolf}; job spawn {syncthing}; job spawn {flameshot}; job spawn {kitty --class dmenu -d ~/infra/ --detach --session --hold --listen-on=unix:@dmenu --override allow_remote_control=socket-only --grab-keyboard --start-as=fullscreen -T dmenu zellij}"
       '';
     };
   };

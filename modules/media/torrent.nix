@@ -12,7 +12,7 @@
     flood
   ];
 
-  sops.secrets.floodSecret = {};
+  sops.secrets.floodSecret = { };
   systemd.services.flood = {
     environment.FLOOD = "%d/floodSecret";
     serviceConfig = {
@@ -28,7 +28,7 @@
     };
   };
 
-  sops.secrets.autobrrSessionSecret = {};
+  sops.secrets.autobrrSessionSecret = { };
   services.autobrr = {
     enable = true;
     secretFile = config.sops.secrets.autobrrSessionSecret.path;

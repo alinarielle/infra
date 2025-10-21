@@ -26,9 +26,23 @@
       }
     '';
     settings = {
-      theme = "custom";
+      copy_on_select = true;
+      mirror_session = false;
+      scroll_buffer_size = 1000000000;
+      theme = "lucario";
+      copy_command = "wl-copy";
       themes.custom.fg = "#ffffff";
       keybinds._props.clear-defaults = true;
+      ui = {
+        pane_frames.rounded_corners = true;
+      };
+      auto_layout = true;
+      session_serialization = true;
+      pane_viewport_serialization = true;
+      scrollback_lines_to_serialize = 0;
+      disable_session_metadata = false;
+      advanced_mouse_actions = true;
+      serialization_interval = 30;
       keybinds.pane._children = [
         {
           bind = {

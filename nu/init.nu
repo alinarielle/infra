@@ -1,4 +1,9 @@
+source ./dirs.nu
+source ./wp.nu
+source ./meta.nu
+source ./direnv.nu
 source ~/infra/nu/links.nu
+source ~/infra/nu/doc.nu
 source ~/infra/nu/deploy.nu
 source ~/infra/nu/dme.nu
 source ~/infra/nu/flacInfo.nu
@@ -9,5 +14,4 @@ source ~/infra/nu/net.nu
 source ~/infra/nu/nre.nu
 source ~/infra/nu/sortHome.nu
 source ~/infra/nu/trains.nu
-source ~/infra/nu/update.nu
 source ~/infra/nu/dl.nu

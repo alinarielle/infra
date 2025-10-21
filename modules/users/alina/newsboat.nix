@@ -6,6 +6,10 @@
     browser = "${pkgs.xdg-utils}/bin/xdg-open";
     urls = [
       {
+        url = "https://kill-the-newsletter.com/feeds/5bqu3w5ufzh9yv9umzrm.xml";
+        title = "drugbank.com";
+      }
+      {
         url = "https://kill-the-newsletter.com/feeds/t5i8w1yp2tq9046vznlr.xml";
         title = "bits about money";
       }

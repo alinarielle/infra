@@ -1,13 +1,15 @@
-{ pkgs, ... }: with pkgs;
+{ pkgs, ... }:
+with pkgs;
 {
   environment.systemPackages = [
     htmlq
     onefetch
+    nheko
     obs-studio
     mlt
     git-quick-stats
     spicetify-cli
-    spotify-player
+    #spotify-player
     sptlrx
     mopidy-spotify
     spot

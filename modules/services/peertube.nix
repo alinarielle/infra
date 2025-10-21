@@ -1,16 +1,23 @@
-{config, pkgs, ...}: {
+{ config, pkgs, ... }:
+{
   networking.extraHosts = ''
-  127.0.0.1 watch.alina.dog
-'';
+    127.0.0.1 watch.alina.dog
+  '';
 
-  sops.secrets.peertube = {owner = "alina";};
-  sops.secrets.peertubeRedis = {owner = "alina";};
-  sops.secrets.peertubePostgres = {owner = "alina";};
+  sops.secrets.peertube = {
+    owner = "alina";
+  };
+  sops.secrets.peertubeRedis = {
+    owner = "alina";
+  };
+  sops.secrets.peertubePostgres = {
+    owner = "alina";
+  };
 
   services = {
     peertube = {
       enable = true;
-      user ="alina";
+      user = "alina";
       secrets.secretsFile = config.sops.secrets.peertube.path;
       localDomain = "watch.alina.dog";
       enableWebHttps = false;

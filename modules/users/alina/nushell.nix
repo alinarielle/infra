@@ -6,12 +6,6 @@
   ...
 }:
 {
-  environment.systemPackages = with pkgs.nushellPlugins; [
-    skim
-    query
-    gstat
-    pkgs.nushell
-  ];
   home-manager.users.alina.xdg.configFile = {
     "nix-your-shell.nu".source = pkgs.nix-your-shell.generate-config "nu";
   };
@@ -58,7 +52,11 @@
         la = "lsd -a";
         laa = "lsd -all";
       };
-      extraConfig = ''
+      extraConfig = with pkgs.nushellPlugins; ''
+                plugin add ${lib.getExe gstat}
+                plugin add ${lib.getExe polars}
+                plugin add ${lib.getExe query}
+                plugin add ${lib.getExe skim}
                 source ~/.config/nix-your-shell.nu
                 source ~/infra/nu/init.nu
                 # j /nix/bites/
