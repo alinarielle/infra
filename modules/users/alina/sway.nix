@@ -33,6 +33,10 @@ in
       slurp
     ];
   home-manager.users.alina = {
+    xdg.terminal-exec = {
+      enable = true;
+      settings.default = ["kitty.desktop"];
+    };
     wayland.windowManager.sway = with config.l.users.alina.theme.colors; {
       enable = true;
       package = pkgs.swayfx;
@@ -47,10 +51,10 @@ in
             text = white;
           };
         };
-        terminal = menu;
+        terminal = lib.getExe config.home-manager.users.alina.xdg.terminal-exec.package;
         modifier = "Mod4"; # set mod to meta
         bars = [ ]; # set to empty list to disable bar entirely
-        menu = "noctalia-shell ipc call launcher toggle";
+        menu = "kitty --grab-keyboard --start-as=hidden --class=launcher noctalia-shell ipc call launcher toggle";
         keybindings =
           let
             brightnessctl = lib.getExe pkgs.brightnessctl;
@@ -102,13 +106,15 @@ in
 
         	shadows disable
 
-        	layer_effects "waybar" corner_radius 0
+        	layer_effects "noctalia-shell" corner_radius 0
 
         	default_dim_inactive 0.0
 
           for_window [app_id="widget1x1"] border pixel 3, floating enable, resize set 500 500
           for_window [app_id="dmenu"] floating enable, resize set 1200 800
 
+          exec noctalia-shell
+          exec noctalia-shell ipc call launcher toggle
           exec nu -c "job spawn {signal-desktop}; job spawn {librewolf}; job spawn {syncthing}; job spawn {flameshot}; job spawn {kitty --class dmenu -d ~/infra/ --detach --session --hold --listen-on=unix:@dmenu --override allow_remote_control=socket-only --grab-keyboard --start-as=fullscreen -T dmenu zellij}"
       '';
     };

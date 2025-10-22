@@ -1,4 +1,5 @@
 source ./dirs.nu
+source ./weh.nu
 source ./wp.nu
 source ./meta.nu
 source ./direnv.nu

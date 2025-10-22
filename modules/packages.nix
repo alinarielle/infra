@@ -3,6 +3,10 @@ with pkgs;
 {
   environment.systemPackages = [
     htmlq
+    mullvad-closest
+    mullvad-vpn
+    mullvad-browser
+    mullvad
     onefetch
     nheko
     obs-studio
