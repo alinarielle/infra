@@ -1,15 +1,10 @@
 {
-  srv,
-  pkgs,
-  lib,
-  config,
   ...
 }:
 {
+  #sops.secrets.immichPostgres = { };
   services.immich = {
     enable = true;
-    secretsFile = config.sops.secrets.immich_db.path;
+    #secretsFile = config.sops.secrets.immichPostgres.path;
   };
-  l.storage.db.ensure.immich = { };
-  sops.secrets.immich_db = { };
 }

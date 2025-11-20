@@ -35,7 +35,7 @@ in
   home-manager.users.alina = {
     xdg.terminal-exec = {
       enable = true;
-      settings.default = ["kitty.desktop"];
+      settings.default = [ "kitty.desktop" ];
     };
     wayland.windowManager.sway = with config.l.users.alina.theme.colors; {
       enable = true;
@@ -92,7 +92,6 @@ in
         	}
           output eDP-1 scale 1.5
         	output HDMI-A-1 pos 1920 0 res 1920x1080 transform 270
-        	output * bg ~/blob/wallpapers/38c3_nixos.png fill
         	for_window [class=".*"] border pixel 2
         	blur enable
         	blur_passes 3

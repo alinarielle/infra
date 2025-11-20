@@ -4,11 +4,13 @@
   services.displayManager.defaultSession = "niri";
   home-manager.users.alina = {
     imports = [
-      inputs.niri.homeModules.config
+      inputs.niri.homeModules.defautlt
     ];
     programs.niri = {
       enable = true;
-      settings = { };
+      settings = { 
+
+      };
     };
   };
 }

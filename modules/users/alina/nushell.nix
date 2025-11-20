@@ -56,10 +56,11 @@
                 plugin add ${lib.getExe gstat}
                 plugin add ${lib.getExe polars}
                 plugin add ${lib.getExe query}
-                plugin add ${lib.getExe skim}
                 source ~/.config/nix-your-shell.nu
-                source ~/infra/nu/init.nu
-                # j /nix/bites/
+                cd ${../../../nu}
+                nu -c "${builtins.readFile ./init.nu}"
+
+                cd /bites
         	'';
     };
     carapace.enable = true;

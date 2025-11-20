@@ -1,8 +1,32 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 with pkgs;
 {
   environment.systemPackages = [
+    # inputs.grimoire.packages.default
     htmlq
+    sonixd
+    rmpc
+    ytdl-sub
+    cilium-cli
+    mitmproxy
+    mitmproxy2swagger
+    privoxy
+    wireguard-ui
+    netbird-ui
+    netmaker-full
+    yubikey-agent
+    cockpit
+    lxc
+    obsidian
+    task-keeper
+    ghost-cli
+    #(pkgs.callPackage "${inputs.emily}/pkgs/build-worker-oci" {})
+    distrobuilder
+    pipework
+    libvirt
+    lxcfs
+    firectl
+    firecracker
     mullvad-closest
     mullvad-vpn
     mullvad-browser
@@ -13,12 +37,9 @@ with pkgs;
     mlt
     git-quick-stats
     spicetify-cli
-    #spotify-player
     sptlrx
+    comma
     mopidy-spotify
-    spot
-    psst
-    spotube
     mopidy-iris
     mopidy
     aria2
@@ -29,11 +50,11 @@ with pkgs;
     signal-cli
     feather
     xmrig
+    arti
     qbittorrent-cli
     qbittorrent-enhanced-nox
     niri
     stardust-xr-kiara
-    sq
     basilk
     taskwarrior3
     kdePackages.kdenlive
@@ -49,38 +70,9 @@ with pkgs;
     toolong
     peertube
     haskell.compiler.native-bignum.ghcHEAD
-    (postgresql_18_jit.withPackages (
-      ext: with ext; [
-        ip4r # IPv4/v6 and IPv4/v6 range index type for PostgreSQL
-        pgtap # Unit testing framework for PostgreSQL
-        pgjwt # PostgreSQL implementation of JSON Web Tokens
-        pgddl # DDL eXtractor functions for PostgreSQL
-        repmgr # Replication manager for PostgreSQL cluster
-        #pg_net # Async networking for Postgres
-        pg_ivm # Materialized views with IVM (Incremental View Maintenance) for PostgreSQL
-        pg_csv # Flexible CSV processing for Postgres
-        hypopg # Hypothetical Indexes for PostgreSQL
-        postgis # Geographic Objects for PostgreSQL
-        pgrouting # geospatial routing for PostGIS
-        audit # Open Source PostgreSQL Audit Logging
-        pg_topn # Efficient querying of 'top values' for PostgreSQL
-        periods # PostgreSQL extension implementing SQL standard functionality for PERIODs and SYSTEM VERSIONING
-        wal2json # PostgreSQL JSON output plugin for changeset extraction
-        #pgx_ulid # Universally Unique Lexicographically Sortable Identifiers
-        pgsodium # Modern cryptography using libsodium
-        pg_uuidv7 # version 7 UUIDs
-        pg-semver # Semantic version data type for PostgreSQL
-        pg_repack # Reorganize tables in PostgreSQL databases with minimal locks
-        pg_squeeze # PostgreSQL extension for automatic bloat cleanup
-        #pg_ed25519 # PostgreSQL extension for signing and verifying ed25519 signatures
-        #vectorchord # Scalable, fast, and disk-friendly vector search in Postgres, the successor of pgvecto.rs
-        #timescaledb # Scales PostgreSQL for time-series data via automatic partitioning across time and space
-        pg_relusage # discover and log the relations used in your statements
-        temporal_tables # Temporal Tables PostgreSQL Extension
-        #pg_auto_failover # PostgreSQL extension and service for automated failover and high-availability
-      ]
-    ))
     p7zip
+    pgadmin4
+    pgmanage
     bettercap
     monero-cli
     hydroxide
@@ -174,7 +166,7 @@ with pkgs;
     irssi
     catgirl
     iamb
-    pinentry
+    pinentry-all
     yubikey-manager
     tomb
     ssh-to-age
@@ -185,8 +177,8 @@ with pkgs;
     swww
     linux-wallpaperengine
     nicotine-plus
-    #calcure
-    electrum
+    skim
+    calcure
     bytecode-viewer
     freecad
     blender
@@ -264,9 +256,11 @@ with pkgs;
     godot_4
     nginx
     ansible
+    ansible-cmdb
+    ansible-lint
     nurl
     nix-init
-    du-dust
+    dust
     btrfs-progs
     inotify-tools
     glow

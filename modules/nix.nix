@@ -6,6 +6,7 @@
     settings = {
       experimental-features = [
         "nix-command"
+	"pipe-operator"
         "flakes"
       ];
       trusted-users = [
@@ -31,6 +32,7 @@
       #allowUnfree = true;
       permittedInsecurePackages = [
         "olm-3.2.16"
+        "python3.13-ecdsa-0.19.1"
       ];
     };
     flake = {

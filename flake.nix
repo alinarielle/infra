@@ -10,12 +10,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.quickshell.follows = "quickshell";
     };
-    infra.url = "https://codeberg.org/alinarielle/infra/archive/main.tar.gz";
     linuxStable = {
       flake = false;
       url = "https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git";
     };
-    rclone.url = "/home/alina/rclone";
+    rclone.url = "/home/alina/src/rclone.nix";
     nix-topology.url = "github:oddlama/nix-topology";
     flake-parts.url = "github:hercules-ci/flake-parts";
     dns.url = "github:kirelagin/dns.nix";
@@ -40,13 +39,12 @@
     cv.url = "git+ssh://git@codeberg.org/alinarielle/cv.alina.cx.git";
     blog.url = "git+ssh://git@codeberg.org/alinarielle/blog.alina.cx.git";
     niri.url = "github:sodiboo/niri-flake";
-    homepage = {
-      url = "git+ssh://git@codeberg.org/alinarielle/alina.cx.git";
-      flake = false;
-    };
     rust-toolchain = {
-      url = "https://codeberg.org/alinarielle/rust-toolchain/archive/mistress.tar.gz";
+      url = "git+ssh://git@codeberg.org/alinarielle/rust-toolchain.git";
     };
+    emily = {
+	url = "/bites/angels/emily";
+    flake = false;};
   };
 
   outputs =

@@ -1,4 +1,5 @@
-{lib, ...}: {
+{ lib, ... }:
+{
   services.jellyfin = {
     enable = true;
     openFirewall = true;

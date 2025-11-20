@@ -18,7 +18,7 @@
         owner = "alina";
       });
   rclone.enable = true;
-  rclone.mounts."/home/alina/music" = {
+  rclone.mounts."/blob/music" = {
     user = "alina";
     remotes = [
       {

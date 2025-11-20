@@ -13,6 +13,7 @@
     extraConfig = {
       gpg.format = "ssh";
       init.defaultBranch = "mistress";
+      checkout.defaultRemote = "origin";
       tag.gpgSign = true;
       tag.sort = "version:refname";
       feature.manyFiles = true;

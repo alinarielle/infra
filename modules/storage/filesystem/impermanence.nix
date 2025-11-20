@@ -45,6 +45,10 @@
       directories = [
         "/var/log"
         "/var/lib/jellyfin"
+        "/var/lib/immich"
+        "/var/lib/redis-immich"
+        "/var/lib/redis-peertube"
+        "/var/lib/peertube"
         "/var/lib/nixos"
         "/var/lib/btrfs"
         "/var/lib/bluetooth"

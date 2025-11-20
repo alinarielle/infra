@@ -5,7 +5,7 @@ def doc [name] {
   j $repo
   git init
   touch doc.typ
-  job spawn { watch -r true . | get path | path expand | each {|it|let isSource = $it | str ends-with ".typ"; if $isSource { typst c $it } else  { let isDoc = $it | str ends-with ".pdf"; if $isDoc {cp $it $"/home/alina/blob/documents/(sha256sum $it | split words | first).pdf"; xdg-open $it } else {echo "processing..."} }}}
+  job spawn { watch -r true . | get path | each {|path|nix build}}
   nvim doc.typ
   git add -A
   git commit -m "doc: ($name) in typst"
