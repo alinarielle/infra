@@ -10,8 +10,8 @@ with config.l.lib;
     ./hardware-configuration.nix
     ./disko.nix
   ];
-  l.profiles = enable [ "shell" ];
+  l.profiles = enable [ "shell" "image" ];
   system.stateVersion = "25.05";
   deployment.targetUser = "root";
-  deployment.targetHost = "v2202509299447386038.hotsrv.de";
+  deployment.targetHost = "91.99.217.113";
 }

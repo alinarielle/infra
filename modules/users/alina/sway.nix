@@ -80,6 +80,10 @@ in
           };
       };
       extraConfigEarly = ''
+
+        input 8746:21817:ILIT2901:00_222A:5539 {
+          map_to_output "BOE NV122WUM-N42 Unknown"
+        }
         	gaps inner 10
         	smart_gaps off
         	input * {

@@ -2,22 +2,35 @@
 with pkgs;
 {
   environment.systemPackages = [
+    wvkbd
+    cloud-hypervisor
+    keybase
+    rot8
+    cddlc
     # inputs.grimoire.packages.default
     htmlq
+    # ({ nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+    #          "android-studio-stable"
+    #        ];
+    # })
+    calibre
+    age
+    cvs
+    agedu
+    bun
+    agenda
     sonixd
     rmpc
     ytdl-sub
     cilium-cli
     mitmproxy
     mitmproxy2swagger
-    privoxy
     wireguard-ui
     netbird-ui
     netmaker-full
     yubikey-agent
     cockpit
     lxc
-    obsidian
     task-keeper
     ghost-cli
     #(pkgs.callPackage "${inputs.emily}/pkgs/build-worker-oci" {})
@@ -56,7 +69,7 @@ with pkgs;
     niri
     stardust-xr-kiara
     basilk
-    taskwarrior3
+    # taskwarrior3
     kdePackages.kdenlive
     kdePackages.yakuake
     kdePackages.spectacle
@@ -82,7 +95,7 @@ with pkgs;
     prosody
     jitsi
     jitsi-excalidraw
-    excalidraw_export
+    # excalidraw_export
     jitsi-videobridge
     jitsi-meet-prosody
     prometheus-jitsi-exporter
@@ -178,7 +191,7 @@ with pkgs;
     linux-wallpaperengine
     nicotine-plus
     skim
-    calcure
+    # calcure
     bytecode-viewer
     freecad
     blender

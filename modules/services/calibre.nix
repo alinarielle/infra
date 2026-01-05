@@ -1,11 +1,8 @@
 {
-  srv,
   pkgs,
   lib,
   ...
 }:
 {
-  srv.exec = [
-    "${lib.getExe pkgs.radarr}"
-  ];
+  services.calibre-web.enable = true;
 }

@@ -32,7 +32,6 @@ let
     '';
 in
 {
-  imports = [ inputs.sops-nix.nixosModules.sops ];
   opt = with lib.types; {
     tunnel = {
       make = lib.mkOption {

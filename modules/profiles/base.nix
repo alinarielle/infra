@@ -3,15 +3,12 @@ with config.l.lib;
 {
   l.home.enable = true;
   l.nix.enable = true;
-  # l.iso.enable = true;
-  l.sops.enable = true;
   l.autoUpgrade.enable = true;
   l.boot = enable [ "systemd-boot" ];
   l.packages.enable = true;
   l.authentication.sudo.enable = true;
   l.users.alina = enable [
     "git"
-    "spicetify"
     "home-manager"
     "ssh"
     "pass"

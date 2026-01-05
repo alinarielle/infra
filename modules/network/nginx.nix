@@ -49,7 +49,7 @@
     #ipv6 = true;
     #addresses = [ "[::1]" "127.0.0.1:53" ];
     #};
-    package = pkgs.angieQuic;
+    package = pkgs.angie;
     recommendedGzipSettings = true;
     recommendedOptimisation = true;
     recommendedProxySettings = true;

@@ -1,20 +1,20 @@
 {
   inputs = {
+    sops.url = "git+ssh://git@codeberg.org/alinarielle/fops.git";
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
-    quickshell = {
-      url = "github:outfoxxed/quickshell";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # quickshell = {
+    #   url = "github:outfoxxed/quickshell";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
     noctalia = {
       url = "github:noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.quickshell.follows = "quickshell";
     };
     linuxStable = {
       flake = false;
       url = "https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git";
     };
-    rclone.url = "/home/alina/src/rclone.nix";
+    rclone.url = "git+ssh://git@codeberg.org/alinarielle/rclone.nix.git";
     nix-topology.url = "github:oddlama/nix-topology";
     flake-parts.url = "github:hercules-ci/flake-parts";
     dns.url = "github:kirelagin/dns.nix";
@@ -26,25 +26,17 @@
     colmena.url = "github:zhaofengli/colmena";
     nixvim.url = "github:nix-community/nixvim";
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
-    sops-nix.url = "github:Mic92/sops-nix";
     impermanence.url = "github:nix-community/impermanence";
     microvm.url = "github:astro/microvm.nix";
     microvm.inputs.nixpkgs.follows = "nixpkgs";
     nix-colors.url = "github:misterio77/nix-colors";
     emacs-overlay.url = "github:nix-community/emacs-overlay";
-    lanzaboote.url = "github:nix-community/lanzaboote/v0.4.1";
-    lanzaboote.inputs.nixpkgs.follows = "nixpkgs";
     disko.url = "github:nix-community/disko/latest";
     disko.inputs.nixpkgs.follows = "nixpkgs";
-    cv.url = "git+ssh://git@codeberg.org/alinarielle/cv.alina.cx.git";
-    blog.url = "git+ssh://git@codeberg.org/alinarielle/blog.alina.cx.git";
     niri.url = "github:sodiboo/niri-flake";
-    rust-toolchain = {
-      url = "git+ssh://git@codeberg.org/alinarielle/rust-toolchain.git";
-    };
-    emily = {
-	url = "/bites/angels/emily";
-    flake = false;};
+    # rust-toolchain = {
+    #   url = "git+ssh://git@codeberg.org/alinarielle/rust-toolchain.git";
+    # };
   };
 
   outputs =

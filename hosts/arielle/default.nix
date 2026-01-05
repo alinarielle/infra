@@ -12,10 +12,6 @@ with config.l.lib;
     ./hardware-configuration.nix
     inputs.nixos-hardware.nixosModules.framework-12-13th-gen-intel
   ];
-  l.services = enable [
-    "immich"
-    "jellyfin"
-  ];
   l.profiles = enable [
     "desktop"
     "gaming"

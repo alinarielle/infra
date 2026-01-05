@@ -6,15 +6,15 @@
   ...
 }:
 {
-  services.privoxy = {
-    enable = true;
-    enableTor = true;
-    settings = {
-      enable-edit-actions = lib.mkForce true;
-      forward-socks5 = lib.mkForce ".onion [::]:9150 .";
-      listen-address = "[::]:8118";
-    };
-  };
+  # services.privoxy = {
+  #   enable = true;
+  #   enableTor = true;
+  #   settings = {
+  #     enable-edit-actions = lib.mkForce true;
+  #     forward-socks5 = lib.mkForce ".onion [::]:9150 .";
+  #     listen-address = "[::]:8118";
+  #   };
+  # };
   home-manager.users.alina = {
     programs.librewolf = {
       enable = true;

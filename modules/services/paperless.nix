@@ -1,1 +1,5 @@
-{ }
+{
+  services.paperless = {
+    enable = true;
+  };
+}

@@ -37,13 +37,13 @@ in
       {
         imports = [
           inputs.home-manager.nixosModules.home-manager
+          inputs.sops.nixosModules.sops
           (../hosts + "/${name}")
           ./.
           (mkLocalMods {
             prefix = [ "l" ];
             dir = ../modules;
           })
-          inputs.sops-nix.nixosModules.sops
         ];
         deployment = lib.mkDefault {
           targetUser = "root";

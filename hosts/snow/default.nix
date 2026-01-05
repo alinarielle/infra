@@ -12,7 +12,8 @@ with config.l.lib;
   ];
   l.profiles = enable [ "shell" ];
   system.stateVersion = "25.05";
-  deployment.targetHost = "alina.dog";
+  deployment.targetHost = "de1.net.alina.dog";
+  hardware.enableAllHardware = true;
   networking.interfaces.enp41s0.ipv6 = {
     addresses = [
       {
