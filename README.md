@@ -1,2 +1,8 @@
-# Disclaimer
-This code is licensed under the EUPL for non-commercial use. Please use it to help your friends and community. Write an E-Mail to contact@alina.cx for commercial use.
+# About
+This is my main Infrastructure as Code repository, written for the NixOS part of my network.
+
+# Usage
+Deploy to localhost: `nix run`
+
+# License
+This code is written, maintained and licensed by Alina Kaun under the `SPDX-License-Identifier: AGPL-3.0-or-later` except where denoted otherwise. Please use it to help your friends and community.

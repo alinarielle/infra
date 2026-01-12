@@ -7,6 +7,8 @@
 }:
 with config.l.lib;
 {
+
+  l.virtualization.libvirtd.enable = true;
   imports = [
     ./disko.nix
     ./hardware-configuration.nix

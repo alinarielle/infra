@@ -37,7 +37,7 @@ in
       {
         imports = [
           inputs.home-manager.nixosModules.home-manager
-          inputs.sops.nixosModules.sops
+          inputs.fops.nixosModules.sops
           (../hosts + "/${name}")
           ./.
           (mkLocalMods {
