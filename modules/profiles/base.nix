@@ -20,7 +20,7 @@ with config.l.lib;
     "newsboat"
     "ranger"
     "emacs"
-    "rclone"
+    # "rclone"
     "starship"
   ];
   l.users.root = enable [

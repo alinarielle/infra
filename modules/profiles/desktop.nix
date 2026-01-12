@@ -18,6 +18,7 @@ with config.l.lib;
   ];
   l.users.alina = enable [
     "sway"
+    "packages"
     "icons"
     "zellij"
     "swayidle"

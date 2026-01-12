@@ -40,10 +40,6 @@ with pkgs;
     lxcfs
     firectl
     firecracker
-    mullvad-closest
-    mullvad-vpn
-    mullvad-browser
-    mullvad
     onefetch
     nheko
     obs-studio
@@ -193,7 +189,6 @@ with pkgs;
     skim
     # calcure
     bytecode-viewer
-    freecad
     blender
     zed-editor
     mpv

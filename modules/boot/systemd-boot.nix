@@ -3,6 +3,7 @@
     systemd-boot = {
       enable = true;
       memtest86.enable = true;
+      editor = true;
     };
     efi.canTouchEfiVariables = true;
     efi.efiSysMountPoint = "/efi";

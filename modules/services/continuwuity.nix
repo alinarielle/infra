@@ -74,51 +74,51 @@ in
           global.pdu_cache_capacity = lib.mkOption {
             type = int;
             default = 150000;
-            description = ''The maximum number of Persisted Data Units (PDUs) to cache.'';
+            description = "The maximum number of Persisted Data Units (PDUs) to cache.";
           };
           global.auth_chain_cache_capacity = lib.mkOption {
             type = int;
-            description = ''???'';
+            description = "???";
           };
           global.shorteventid_cache_capacity = lib.mkOption {
             type = int;
-            description = ''???'';
+            description = "???";
           };
           global.eventidshort_cache_capacity = lib.mkOption {
             type = int;
-            description = ''???'';
+            description = "???";
           };
           global.eventid_pdu_cache_capacity = lib.mkOption {
             type = int;
-            description = ''???'';
+            description = "???";
           };
           global.shortstatekey_cache_capacity = lib.mkOption {
             type = int;
-            description = ''???'';
+            description = "???";
           };
           global.statekeyshort_cache_capacity = lib.mkOption {
             type = int;
-            description = ''???'';
+            description = "???";
           };
           global.servernameevent_data_cache_capacity = lib.mkOption {
             type = int;
-            description = ''???'';
+            description = "???";
           };
           global.server_visibility_cache_capacity = lib.mkOption {
             type = int;
-            description = ''???'';
+            description = "???";
           };
           global.user_visibility_cache_capacity = lib.mkOption {
             type = int;
-            description = ''???'';
+            description = "???";
           };
           global.stateinfo_cache_capacity = lib.mkOption {
             type = int;
-            description = ''???'';
+            description = "???";
           };
           global.roomid_spacehierarchy_cache_capacity = lib.mkOption {
             type = int;
-            description = ''???'';
+            description = "???";
           };
           global.dns_cache_entries = lib.mkOption {
             type = int;
@@ -153,7 +153,7 @@ in
           global.dns_attempts = lib.mkOption {
             type = int;
             default = 10;
-            description = ''Number of DNS nameserver retries after a timeout or error.'';
+            description = "Number of DNS nameserver retries after a timeout or error.";
           };
           global.dns_timeout = lib.mkOption {
             type = int;
@@ -225,7 +225,7 @@ in
           global.max_fetch_prev_events = lib.mkOption {
             type = int;
             default = 192;
-            description = ''???'';
+            description = "???";
           };
           global.request_conn_timeout = lib.mkOption {
             type = int;
@@ -1916,7 +1916,7 @@ in
           global.cleanup_second_interval = lib.mkOption {
             type = int;
             default = 60;
-            description = ''How often conduit should clean up the database, in seconds'';
+            description = "How often conduit should clean up the database, in seconds";
           };
           global.unix_socket_path = lib.mkOption {
             type = str;
