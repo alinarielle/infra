@@ -57,10 +57,9 @@
                 plugin add ${lib.getExe polars}
                 plugin add ${lib.getExe query}
                 source ~/.config/nix-your-shell.nu
-                cd ${../../../nu}
-                nu -c "${builtins.readFile ./init.nu}"
+                source ${lib.concatMapAttrsStringSep " " (key: val: key) (builtins.readDir ${../../../nu})}
 
-                cd /bites
+                j /bites
         	'';
     };
     carapace.enable = true;
