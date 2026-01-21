@@ -57,7 +57,7 @@
                 plugin add ${lib.getExe polars}
                 plugin add ${lib.getExe query}
                 source ~/.config/nix-your-shell.nu
-                source ${lib.concatMapAttrsStringSep " " (key: val: key) (builtins.readDir ${../../../nu})}
+                source ${lib.concatMapAttrsStringSep " " (key: val: key) (builtins.readDir ../../../nu)}
 
                 j /bites
         	'';

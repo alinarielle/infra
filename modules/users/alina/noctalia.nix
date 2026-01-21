@@ -1,5 +1,11 @@
-{ pkgs, inputs, config, lib, ... }:
-let 
+{
+  pkgs,
+  inputs,
+  config,
+  lib,
+  ...
+}:
+let
   widgetFile = pkgs.writeText "widget.qml" ''
     import QtQuick
     import QtQuick.Layouts
@@ -52,7 +58,7 @@ let
       }
     }
   '';
-in 
+in
 {
   imports = [
     inputs.noctalia.nixosModules.default
@@ -118,14 +124,15 @@ in
               {
                 icon = "device-heart-monitor";
                 id = "CustomButton";
-                leftClickExec = lib.getExe pkgs.writeShellScriptBin "rotate" '' nu -c '
-                  let state = swaymsg -t get_tree | jq . | from json | get nodes | where name =~ "eDP" | first | get transform;
-                  let result = match $state {
-                    "normal" => { sway output eDP-1 transform 270 }
-                    _ => { sway output eDP-1 transform 0 }
-                  }
-                  $result | echo "[ { "success": true } ]" | from json | get success | first
-                ' '';
+                leftClickExec = lib.getExe pkgs.writeShellScriptBin "rotate" ''
+                  nu -c '
+                                   let state = swaymsg -t get_tree | jq . | from json | get nodes | where name =~ "eDP" | first | get transform;
+                                   let result = match $state {
+                                     "normal" => { sway output eDP-1 transform 270 }
+                                     _ => { sway output eDP-1 transform 0 }
+                                   }
+                                   $result | echo "[ { "success": true } ]" | from json | get success | first
+                                 ' '';
                 middleClickExec = "";
                 rightClickExec = "";
                 textCommand = "";
@@ -207,8 +214,12 @@ in
             ];
           };
         };
-        battery = { chargingMode = 0; };
-        brightness = { brightnessStep = 10; };
+        battery = {
+          chargingMode = 0;
+        };
+        brightness = {
+          brightnessStep = 10;
+        };
         colorSchemes = {
           darkMode = true;
           generateTemplatesForPredefined = true;
@@ -295,7 +306,9 @@ in
           useFahrenheit = false;
           weatherEnabled = true;
         };
-        network = { wifiEnabled = true; };
+        network = {
+          wifiEnabled = true;
+        };
         nightLight = {
           autoSchedule = false;
           dayTemp = "6500";

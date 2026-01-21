@@ -6,7 +6,7 @@
     settings = {
       experimental-features = [
         "nix-command"
-	"pipe-operator"
+        "pipe-operator"
         "flakes"
       ];
       trusted-users = [

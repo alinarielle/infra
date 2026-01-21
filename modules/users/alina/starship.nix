@@ -31,7 +31,7 @@
         style = "bold red";
       };
       custom.jj = {
-        command = '''';
+        command = "";
         when = "jj --ignore-working-copy root";
         symbol = "";
       };

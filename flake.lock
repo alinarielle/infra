@@ -203,11 +203,11 @@
         "sops-nix": "sops-nix"
       },
       "locked": {
-        "lastModified": 1767509978,
-        "narHash": "sha256-qzKknxWIhsaKcqUbJu8ozMrf26/+2JkNsPGCjmXrYXo=",
+        "lastModified": 1769012051,
+        "narHash": "sha256-cPm1pOQGPfHvVt6J86zlkjfPWRAqv8tHtk0zGydOunk=",
         "ref": "refs/heads/mistress",
-        "rev": "7e09ebe003c9ca1dd6aba3f6ea4baa8ba86c0601",
-        "revCount": 3,
+        "rev": "573f452b5c5f6c5dd7a3ee6ec925e87a1ddbf555",
+        "revCount": 4,
         "type": "git",
         "url": "ssh://git@codeberg.org/alinarielle/fops.git"
       },
@@ -279,7 +279,7 @@
     "linux": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-Cw+7tIHJts10JyYSBrg9cbnbc+Rnwnm7NdaOSzeZZSw=",
+        "narHash": "sha256-1DoICAEuQxvBPLIWWS9309nrL6++iwcwzvYS5AlXsaQ=",
         "type": "file",
         "url": "https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git"
       },
@@ -595,11 +595,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1769008776,
-        "narHash": "sha256-cQgKV7co/T0ViZQX56duSfrV2Y3Kcq9SzAaqgGYGZSY=",
+        "lastModified": 1769011069,
+        "narHash": "sha256-hsE6wjnkxYxUHKu0k0REvn4E+Nt2Pvxg6ZQjsE0Ay2A=",
         "owner": "noctalia-dev",
         "repo": "noctalia-shell",
-        "rev": "01606e7ba472ba02bb8ac043aa373cd3a5ac7c58",
+        "rev": "5fab11e04ed9cb53578954f4b6e2d1020f5774cf",
         "type": "github"
       },
       "original": {
@@ -611,7 +611,7 @@
     "openbsd": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-9OU4okY92+EoKUjFuBf8W+UkEFmLWIpMGDBC/Udp8QE=",
+        "narHash": "sha256-jHBBG9ePH2eYlDC4rtJLFySwlPtgMDSw0EDtQSVExNI=",
         "type": "file",
         "url": "https://github.com/openbsd/src"
       },
