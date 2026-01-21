@@ -7,13 +7,9 @@
 }:
 with config.l.lib;
 {
-
-  imports = [
-    ./disko.nix
-    # ./hardware-configuration.nix
-  ];
   l.profiles = enable [
     "shell"
+    "cloud.hetzner"
   ];
   system.stateVersion = "26.05";
   deployment.targetHost = "de1.net.alina.dog";

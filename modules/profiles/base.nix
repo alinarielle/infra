@@ -16,9 +16,9 @@ with config.l.lib;
     "user"
     "nushell"
     "zsh"
-    "newsboat"
+    # "newsboat"
     "ranger"
-    "emacs"
+    # "emacs"
     # "rclone"
     "starship"
   ];

@@ -45,16 +45,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1768920986,
-        "narHash": "sha256-CNzzBsRhq7gg4BMBuTDObiWDH/rFYHEuDRVOwCcwXw4=",
+        "lastModified": 1768923567,
+        "narHash": "sha256-GVJ0jKsyXLuBzRMXCDY6D5J8wVdwP1DuQmmvYL/Vw/Q=",
         "owner": "nix-community",
         "repo": "disko",
-        "rev": "de5708739256238fb912c62f03988815db89ec9a",
+        "rev": "00395d188e3594a1507f214a2f15d4ce5c07cb28",
         "type": "github"
       },
       "original": {
         "owner": "nix-community",
-        "ref": "latest",
         "repo": "disko",
         "type": "github"
       }
@@ -205,15 +204,13 @@
       "locked": {
         "lastModified": 1769012051,
         "narHash": "sha256-cPm1pOQGPfHvVt6J86zlkjfPWRAqv8tHtk0zGydOunk=",
-        "ref": "refs/heads/mistress",
         "rev": "573f452b5c5f6c5dd7a3ee6ec925e87a1ddbf555",
-        "revCount": 4,
-        "type": "git",
-        "url": "ssh://git@codeberg.org/alinarielle/fops.git"
+        "type": "tarball",
+        "url": "https://codeberg.org/api/v1/repos/alinarielle/fops/archive/573f452b5c5f6c5dd7a3ee6ec925e87a1ddbf555.tar.gz"
       },
       "original": {
-        "type": "git",
-        "url": "ssh://git@codeberg.org/alinarielle/fops.git"
+        "type": "tarball",
+        "url": "https://codeberg.org/alinarielle/fops/archive/mistress.tar.gz"
       }
     },
     "home-manager": {

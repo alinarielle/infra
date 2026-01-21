@@ -1,6 +1,6 @@
 {
   inputs = {
-    fops.url = "git+ssh://git@codeberg.org/alinarielle/fops.git";
+    fops.url = "https://codeberg.org/alinarielle/fops/archive/mistress.tar.gz";
     noctalia = {
       url = "github:noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -28,7 +28,7 @@
     microvm.inputs.nixpkgs.follows = "nixpkgs";
     nix-colors.url = "github:misterio77/nix-colors";
     emacs-overlay.url = "github:nix-community/emacs-overlay";
-    disko.url = "github:nix-community/disko/latest";
+    disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
   };
 
