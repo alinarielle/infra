@@ -5,7 +5,6 @@ with config.l.lib;
   l.nix.enable = true;
   l.autoUpgrade.enable = true;
   l.boot = enable [ "systemd-boot" ];
-  l.packages.enable = true;
   l.authentication.sudo.enable = true;
   l.users.alina = enable [
     "git"
