@@ -16,6 +16,7 @@ with config.l.lib;
   ];
   l.profiles = enable [
     "desktop"
+    "image"
     "gaming"
     "laptop"
   ];

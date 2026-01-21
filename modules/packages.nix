@@ -40,7 +40,7 @@ with pkgs;
     lxcfs
     firectl
     firecracker
-    mullvad-closest
+    mullvad-compass
     mullvad-vpn
     mullvad-browser
     mullvad
@@ -193,7 +193,6 @@ with pkgs;
     skim
     # calcure
     bytecode-viewer
-    freecad
     blender
     zed-editor
     mpv
