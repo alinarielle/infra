@@ -83,11 +83,11 @@
         "nixpkgs-stable": "nixpkgs-stable"
       },
       "locked": {
-        "lastModified": 1768987167,
-        "narHash": "sha256-WGyOL4mvNeMOcGU8gxa+l9vn4y89xbXjhz7ME9pCJ0Y=",
+        "lastModified": 1769046412,
+        "narHash": "sha256-KWScOlhK4fy+eQGsm5gPsF2FtHN8ICGp0lDXS+TRGwk=",
         "owner": "nix-community",
         "repo": "emacs-overlay",
-        "rev": "fd4392b2d206e67f18ec113b74e95f7091aa7d6b",
+        "rev": "414acd3f1ef3eea03fed02d8d48a5504f6221ad4",
         "type": "github"
       },
       "original": {
@@ -206,7 +206,7 @@
         "narHash": "sha256-cPm1pOQGPfHvVt6J86zlkjfPWRAqv8tHtk0zGydOunk=",
         "rev": "573f452b5c5f6c5dd7a3ee6ec925e87a1ddbf555",
         "type": "tarball",
-        "url": "https://codeberg.org/api/v1/repos/alinarielle/fops/archive/573f452b5c5f6c5dd7a3ee6ec925e87a1ddbf555.tar.gz"
+        "url": "https://codeberg.org/api/v1/repos/alinarielle/fops/archive/573f452b5c5f6c5dd7a3ee6ec925e87a1ddbf555.tar.gz?rev=573f452b5c5f6c5dd7a3ee6ec925e87a1ddbf555"
       },
       "original": {
         "type": "tarball",
@@ -220,11 +220,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1768997641,
-        "narHash": "sha256-7vT8oS6ra/dJaZ6ShvZiPtlZ40XI7CTSb2PmuNPMiXE=",
+        "lastModified": 1769015285,
+        "narHash": "sha256-MlqzCJbckJsgwfkRs64H2xaX2Uxl4o6Z9XYfkYS1N/E=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "27b60942b7285824937f8c2c05021370f6fc5904",
+        "rev": "ec0247a7a19f641595c24ac1ea4df6461d1cdb36",
         "type": "github"
       },
       "original": {
@@ -276,7 +276,7 @@
     "linux": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-1DoICAEuQxvBPLIWWS9309nrL6++iwcwzvYS5AlXsaQ=",
+        "narHash": "sha256-I3Zp+6AS1GonQfVh6VG9x2B0jGGfyKG2EyCndM+eux0=",
         "type": "file",
         "url": "https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git"
       },
@@ -352,11 +352,11 @@
         "nixpkgs": "nixpkgs_7"
       },
       "locked": {
-        "lastModified": 1768955766,
-        "narHash": "sha256-V9ns1OII7sWSbIDwPkiqmJ3Xu/bHgQzj+asgH9cTpOo=",
+        "lastModified": 1769018862,
+        "narHash": "sha256-x3eMpPQhZwEDunyaUos084Hx41XwYTi2uHY4Yc4YNlk=",
         "owner": "oddlama",
         "repo": "nix-topology",
-        "rev": "71f27de56a03f6d8a1a72cf4d0dfd780bcc075bc",
+        "rev": "a15cac71d3399a4c2d1a3482ae62040a3a0aa07f",
         "type": "github"
       },
       "original": {
@@ -592,11 +592,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1769011069,
-        "narHash": "sha256-hsE6wjnkxYxUHKu0k0REvn4E+Nt2Pvxg6ZQjsE0Ay2A=",
+        "lastModified": 1769045378,
+        "narHash": "sha256-kjNTp1nCXFm+uhlPw3/azT2NjJcsrimOV92qEK/xAhc=",
         "owner": "noctalia-dev",
         "repo": "noctalia-shell",
-        "rev": "5fab11e04ed9cb53578954f4b6e2d1020f5774cf",
+        "rev": "b524eefeda27e6d7a26216a8466557670bab7d45",
         "type": "github"
       },
       "original": {
@@ -608,7 +608,7 @@
     "openbsd": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-jHBBG9ePH2eYlDC4rtJLFySwlPtgMDSw0EDtQSVExNI=",
+        "narHash": "sha256-APfc+7thVdpSb3C3kFug948tb2Q+2BIFLhbFH5Y2nG8=",
         "type": "file",
         "url": "https://github.com/openbsd/src"
       },
