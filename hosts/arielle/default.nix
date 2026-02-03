@@ -3,20 +3,18 @@
   pkgs,
   inputs,
   lib,
+  modulesPath,
   ...
 }:
 with config.l.lib;
 {
-
-  l.virtualization.libvirtd.enable = true;
   imports = [
-    ./disko.nix
+    # ./disko.nix
     ./hardware-configuration.nix
     inputs.nixos-hardware.nixosModules.framework-12-13th-gen-intel
   ];
   l.profiles = enable [
     "desktop"
-    "image"
     "gaming"
     "laptop"
   ];

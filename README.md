@@ -5,4 +5,4 @@ This is my main Infrastructure as Code repository, written for the NixOS part of
 Deploy to localhost: `nix run`
 
 # License
-This code is written, maintained and licensed by Alina Kaun under the `SPDX-License-Identifier: AGPL-3.0-only` except where denoted otherwise. Please use it to help your friends and community.
+This code is written, maintained and licensed by Alina Kaun under the AGPL-3.0-only license except where denoted otherwise. Please use it to help your friends and community.

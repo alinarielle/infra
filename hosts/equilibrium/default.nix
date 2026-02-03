@@ -14,5 +14,5 @@ with config.l.lib;
     ./disko.nix
   ];
   system.stateVersion = "26.05";
-  deployment.targetHost = "de1.net.alina.dog";
+  deployment.targetHost = "equilibrium.net.alina.dog";
 }

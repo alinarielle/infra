@@ -3,8 +3,8 @@ with config.l.lib;
 {
   l.home.enable = true;
   l.nix.enable = true;
-  l.autoUpgrade.enable = true;
-  l.boot = enable [ "systemd-boot" ];
+  # l.autoUpgrade.enable = true;
+  l.boot = enable [ "grub" ];
   l.authentication.sudo.enable = true;
   l.users.alina = enable [
     "git"
@@ -28,7 +28,6 @@ with config.l.lib;
     "zsh"
   ];
   l.network = enable [
-    "networkmanager"
     "time"
     "hostName"
     "domain"
@@ -40,6 +39,6 @@ with config.l.lib;
     "nginx"
     "proxychains"
     "hosts"
-    "mullvad"
+    "networkmanager"
   ];
 }

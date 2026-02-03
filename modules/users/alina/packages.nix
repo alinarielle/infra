@@ -70,7 +70,6 @@ with pkgs;
     stardust-xr-kiara
     basilk
     # taskwarrior3
-    kdePackages.kdenlive
     kdePackages.yakuake
     kdePackages.spectacle
     kdePackages.taglib

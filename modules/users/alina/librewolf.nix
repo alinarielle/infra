@@ -9,12 +9,25 @@
   # services.privoxy = {
   #   enable = true;
   #   enableTor = true;
+  #   inspectHttps = true;
+  #   userActions = ''
+  #
+  #   '';
+  #   certsLifetime = "6d";
   #   settings = {
   #     enable-edit-actions = lib.mkForce true;
   #     forward-socks5 = lib.mkForce ".onion [::]:9150 .";
   #     listen-address = "[::]:8118";
   #   };
   # };
+  # security.pki.certificateFiles = [ 
+  #   "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"
+  #   "${pkgs.dn42-cacert}/etc/ssl/certs/dn42-ca.crt"
+  #   (pkgs.writeTextFile "alina-ca.crt" ''
+  #
+  #   '')
+  # ];
+
   home-manager.users.alina = {
     programs.librewolf = {
       enable = true;

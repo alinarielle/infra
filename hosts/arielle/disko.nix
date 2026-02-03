@@ -1,16 +1,19 @@
 { inputs, lib, ... }:
 {
   imports = [ inputs.disko.nixosModules.disko ];
-  l.storage.filesystem.impermanence.enable = true;
-  disko.devices.nodev."/" = lib.mkForce {
-    fsType = "tmpfs";
-    mountOptions = [
-      "size=2G"
-      "defaults"
-      "mode=755"
-    ];
-  };
-  fileSystems."/persist".neededForBoot = true;
+  # l.storage.filesystem.impermanence.enable = true;
+  boot.initrd.luks.devices."main".device = "/dev/disk/by-uuid/e9f801b8-d606-4391-b06a-140ac52eb128";
+  boot.initrd.availableKernelModules = ["sd_mod" "xhci_pci" "nvme"  "btrfs"];
+  # disko.devices.nodev."/" = {
+  #   fsType = "tmpfs";
+  #   device = "none";
+  #   mountOptions = [
+  #     "size=2G"
+  #     "defaults"
+  #     "mode=755"
+  #   ];
+  # };
+  # fileSystems."/persist".neededForBoot = true;
   disko.devices.disk.main = {
     device = "/dev/disk/by-id/nvme-WD_BLACK_SN770M_2TB_251147400077";
     type = "disk";
@@ -42,6 +45,7 @@
           content = {
             type = "btrfs";
             extraArgs = [ "-f" ];
+	    mountPoint = "/";
             subvolumes = {
               nix = {
                 mountpoint = "/nix";

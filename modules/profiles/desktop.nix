@@ -10,17 +10,15 @@ with config.l.lib;
   users.users.alina.packages = with pkgs; [
     inputs.noctalia.packages.x86_64-linux.default
   ];
-  l.media.torrent.enable = true;
-  l.virtualization.waydroid.enable = true;
   l.profiles = enable [
     "base"
-    "hardened"
   ];
+  l.kernel.latest.enable = true;
   l.users.alina = enable [
     "sway"
-    "packages"
     "icons"
     "zellij"
+    "packages"
     "swayidle"
     "audio"
     "bluetooth"
