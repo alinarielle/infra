@@ -40,10 +40,6 @@ with pkgs;
     lxcfs
     firectl
     firecracker
-    mullvad-compass
-    mullvad-vpn
-    mullvad-browser
-    mullvad
     onefetch
     nheko
     obs-studio

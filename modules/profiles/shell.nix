@@ -3,6 +3,6 @@ with config.l.lib;
 {
   l.profiles = enable [
     "base"
-    "hardened"
+    # "hardened"
   ];
 }

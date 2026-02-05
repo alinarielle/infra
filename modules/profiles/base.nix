@@ -3,9 +3,9 @@ with config.l.lib;
 {
   l.home.enable = true;
   l.nix.enable = true;
-  # l.autoUpgrade.enable = true;
-  l.boot = enable [ "grub" ];
+  l.boot = enable [ "systemd-boot" ];
   l.authentication.sudo.enable = true;
+  l.kernel.latest.enable = true;
   l.users.alina = enable [
     "git"
     "home-manager"
@@ -16,16 +16,14 @@ with config.l.lib;
     "user"
     "nushell"
     "zsh"
-    # "newsboat"
     "ranger"
-    # "emacs"
-    # "rclone"
     "starship"
   ];
   l.users.root = enable [
     "home-manager"
     "ssh"
     "zsh"
+    "user"
   ];
   l.network = enable [
     "time"

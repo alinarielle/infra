@@ -16,6 +16,7 @@ with config.l.lib;
   l.kernel.latest.enable = true;
   l.users.alina = enable [
     "sway"
+    "packages"
     "icons"
     "zellij"
     "packages"

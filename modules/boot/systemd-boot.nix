@@ -6,5 +6,6 @@
       editor = true;
     };
     efi.canTouchEfiVariables = true;
+    efi.efiSysMountPoint = "/efi";
   };
 }

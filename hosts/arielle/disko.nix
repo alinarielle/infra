@@ -1,19 +1,32 @@
-{ inputs, lib, ... }:
+{ config, inputs, lib, modulesPath, ... }:
 {
-  imports = [ inputs.disko.nixosModules.disko ];
-  # l.storage.filesystem.impermanence.enable = true;
+  imports = [
+    (modulesPath + "/installer/scan/not-detected.nix")
+    inputs.disko.nixosModules.disko
+  ];
+
+  boot.initrd.availableKernelModules = [
+    "xhci_pci"
+    "nvme"
+  ];
+
+  boot.initrd.kernelModules = [ ];
+  boot.kernelModules = [ "kvm-intel" ];
+  boot.extraModulePackages = [ ];
+
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  l.storage.filesystem.impermanence.enable = true;
+  disko.devices.nodev."/" = lib.mkForce {
+    fsType = "tmpfs";
+    mountOptions = [
+      "size=2G"
+      "defaults"
+      "mode=755"
+    ];
+  };
+  fileSystems."/persist".neededForBoot = true;
   boot.initrd.luks.devices."main".device = "/dev/disk/by-uuid/e9f801b8-d606-4391-b06a-140ac52eb128";
-  boot.initrd.availableKernelModules = ["sd_mod" "xhci_pci" "nvme"  "btrfs"];
-  # disko.devices.nodev."/" = {
-  #   fsType = "tmpfs";
-  #   device = "none";
-  #   mountOptions = [
-  #     "size=2G"
-  #     "defaults"
-  #     "mode=755"
-  #   ];
-  # };
-  # fileSystems."/persist".neededForBoot = true;
   disko.devices.disk.main = {
     device = "/dev/disk/by-id/nvme-WD_BLACK_SN770M_2TB_251147400077";
     type = "disk";
@@ -29,7 +42,7 @@
           type = "filesystem";
           device = "/dev/disk/by-id/nvme-WD_BLACK_SN770M_2TB_251147400077-part1";
           format = "vfat";
-          mountpoint = "/boot";
+          mountpoint = "/efi";
           mountOptions = [ "umask=0077" ];
         };
       };
