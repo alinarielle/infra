@@ -1,6 +1,6 @@
 {
   inputs = {
-    fops.url = "git+ssh://git@codeberg.org/alinarielle/fops.git";
+    fops.url = "/bites/src/fops";
     noctalia = {
       url = "github:noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -14,7 +14,7 @@
       url = "https://github.com/openbsd/src";
     };
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    rclone.url = "git+ssh://git@codeberg.org/alinarielle/rclone.nix.git";
+    rclone.url = "https://codeberg.org/alinarielle/rclone.nix/archive/mistress.tar.gz";
     nix-topology.url = "github:oddlama/nix-topology";
     flake-parts.url = "github:hercules-ci/flake-parts";
     dns.url = "github:kirelagin/dns.nix";

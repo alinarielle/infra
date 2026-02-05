@@ -1,4 +1,11 @@
-{lib, inputs, pkgs, config, ...}: {
+{
+  lib,
+  inputs,
+  pkgs,
+  config,
+  ...
+}:
+{
 
   # imports = [
   #   "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/iso-image.nix"

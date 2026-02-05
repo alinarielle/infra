@@ -7,16 +7,13 @@
 }:
 with config.l.lib;
 {
-
+  # sops.enable = lib.mkForce false;
   imports = [
     ./disko.nix
-    inputs.nixos-hardware.nixosModules.framework-12-13th-gen-intel
   ];
   l.profiles = enable [
-    "gaming"
-    "laptop"
-    "desktop"
+    "shell"
   ];
-  system.stateVersion = "25.05";
+  system.stateVersion = "26.05";
   deployment.targetHost = "localhost";
 }

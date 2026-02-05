@@ -5,8 +5,8 @@ with config.l.lib;
   l.nix.enable = true;
   l.autoUpgrade.enable = true;
   l.boot = enable [ "systemd-boot" ];
-  l.packages.enable = true;
   l.authentication.sudo.enable = true;
+  l.kernel.latest.enable = true;
   l.users.alina = enable [
     "git"
     "home-manager"
@@ -27,6 +27,7 @@ with config.l.lib;
     "home-manager"
     "ssh"
     "zsh"
+    "user"
   ];
   l.network = enable [
     "networkmanager"

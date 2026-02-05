@@ -5,5 +5,6 @@
       memtest86.enable = true;
     };
     efi.canTouchEfiVariables = true;
+    efi.efiSysMountPoint = "/efi";
   };
 }

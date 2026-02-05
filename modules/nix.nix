@@ -6,7 +6,7 @@
     settings = {
       experimental-features = [
         "nix-command"
-	"pipe-operator"
+        "pipe-operator"
         "flakes"
       ];
       trusted-users = [
@@ -24,7 +24,7 @@
     };
     gc = {
       automatic = true;
-      options = "--delete-older-than 7d";
+      options = "-d";
     };
   };
   nixpkgs = {
